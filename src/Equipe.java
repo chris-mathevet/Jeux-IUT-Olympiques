@@ -1,31 +1,25 @@
-/**
- * 
- */
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Equipe implements Participant {
 	private String nom;
-	private Pays lePays;
+	private List <Athlete> lesAthletes;
+
 
 	/**
 	 * @param nom
 	 */
 	public Equipe(String nom) {
-		// TODO implement here
+		this.nom = nom;
+		this.lesAthletes = new ArrayList<>();
 	}
 
 	/**
 	 * @return
 	 */
 	public String getNom() {
-		// TODO implement here
-		return "";
-	}
-
-	/**
-	 * @return
-	 */
-	public Pays getPays() {
-		// TODO implement here
-		return null;
+		return this.nom;
 	}
 
 	/**
@@ -33,7 +27,11 @@ public class Equipe implements Participant {
 	 * @return
 	 */
 	public int participer(Match match) {
-		// TODO implement here
-		return 0;
+		int sommeBareme = 0;
+		for (Athlete athlete : this.lesAthletes) {
+			sommeBareme += match.getEpreuve().getSport().bareme(athlete);
+		}
+
+		return sommeBareme;
 	}
 }
