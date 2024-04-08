@@ -3,7 +3,7 @@ import java.util.List;
 /**
  * 
  */
-public class Epreuve {
+public abstract class Epreuve {
 	private String description;
 	private Sport leSport;
 
@@ -23,22 +23,4 @@ public class Epreuve {
 		// TODO implement here
 		return null;
 	}
-
-	/**
-	 * @return
-	 */
-	public List<Equipe> classement() {
-		// TODO implement here
-		return null;
-	}
-
-	/**
-	 * @param Equipe  
-	 * @return
-	 */
-	public void inscrire(Equipe equipe ) {
-		// TODO implement here
-		return null;
-	}
-
 }

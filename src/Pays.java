@@ -1,25 +1,23 @@
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 
- */
+
 public class Pays {
 	private String nom;
-	private List<Equipe> lesEquipes;
 
 	/**
 	 * @param nom
 	 */
 	public Pays(String nom) {
-		// TODO implement here
+		this.nom = nom;
+		this.lesEquipes = new ArrayList<>();
 	}
 
 	/**
 	 * @return
 	 */
 	public String getNomPays() {
-		// TODO implement here
-		return "";
+		return this.nom;
 	}
 
 }
