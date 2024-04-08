@@ -3,7 +3,7 @@ import java.util.List;
 /**
  * 
  */
-public class Match {
+public abstract class Match {
 	private int numéroDeTour;
 	private String nomDeTour;
 	private Epreuve epreuve;
@@ -40,13 +40,4 @@ public class Match {
 		// TODO implement here
 		return "";
 	}
-
-	/**
-	 * @return
-	 */
-	public List<Equipe> resultat() {
-		// TODO implement here
-		return null;
-	}
-
 }

@@ -5,7 +5,6 @@ import java.util.List;
  */
 public class Pays {
 	private String nom;
-	private List<Equipe> lesEquipes;
 
 	/**
 	 * @param nom
