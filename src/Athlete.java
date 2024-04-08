@@ -19,7 +19,7 @@ public class Athlete implements Participant{
 	 * @param agilite
 	 */
 
-	public void Athletes(String nom, String prenom, char sexe, int force, int endurance, int agilite) {
+	public Athlete(String nom, String prenom, char sexe, int force, int endurance, int agilite) {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.sexe = sexe;
