@@ -17,55 +17,55 @@ public class Athlete{
 	 * @param endurance 
 	 * @param agilite
 	 */
+
 	public void Athletes(String nom, String prenom, char sexe, int force, int endurance, int agilite) {
-		// TODO implement here
+		this.nom = nom;
+		this.prenom = prenom;
+		this.sexe = sexe;
+		this.force = force;
+		this.endurance = endurance;
+		this.agilite = agilite;
 	}
 
 	/**
 	 * @return
 	 */
 	public String getNom() {
-		// TODO implement here
-		return "";
+		return this.nom;
 	}
 
 	/**
 	 * @return
 	 */
 	public String getPrenom() {
-		// TODO implement here
-		return "";
+		return this.prenom;
 	}
 
 	/**
 	 * @return
 	 */
-	public String getSexe() {
-		// TODO implement here
-		return "";
+	public char getSexe() {
+		return this.sexe;
 	}
 
 	/**
 	 * @return
 	 */
 	public int getForce() {
-		// TODO implement here
-		return 0;
+		return this.force;
 	}
 
 	/**
 	 * @return
 	 */
 	public int getEndurance() {
-		// TODO implement here
-		return 0;
+		return this.endurance;
 	}
 
 	/**
 	 * @return
 	 */
 	public int getAgilite() {
-		// TODO implement here
-		return 0;
+		return this.agilite;
 	}
 }
