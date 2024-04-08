@@ -2,25 +2,13 @@
  * 
  */
 public abstract class Sport{
-	private int nbParEquipe;
 
 	/**
 	 * @param nbParticipant
 	 */
-	public Sport(int nbParticipant) {
-		// TODO implement here
+	public Sport() {
 	}
-
-	/**
-	 * @return
-	 */
-	public abstract int getNbParEquipe();
-
-	/**
-	 * @return
-	 */
-	public abstract String getSport();
-
+	
 	/**
 	 * @param Athlete athlete 
 	 * @return
