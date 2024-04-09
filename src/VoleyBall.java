@@ -11,8 +11,12 @@ public class VoleyBall extends Sport {
 	 * Default constructor
 	 */
 	public VoleyBall() {
-		super();
+		super(6, "Voley");	
 	}
+	
+	public int getNbParEquipe(){ return super.getNbParEquipe();}
+	
+	public String getSport(){ return super.getSport();}
 
 
 	/**
