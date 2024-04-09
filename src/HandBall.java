@@ -11,8 +11,11 @@ public class HandBall extends Sport {
 	 * Default constructor
 	 */
 	public HandBall() {
-		super();
+		super(7, "Handball");
 	}
+	public int getNbParEquipe(){ return super.getNbParEquipe();}
+	
+	public String getSport(){ return super.getSport();}
 
 	/**
 	 * @param Athlete athlete 

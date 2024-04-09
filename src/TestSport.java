@@ -50,5 +50,17 @@ public class TestSport{
         Athletisme equipeAthletisme2 = new Athletisme();        
         assertTrue(equipeAthletisme2.bareme(jean)>=4);
         assertTrue(equipeAthletisme2.bareme(jean)<=20);
+
+        assertTrue(equipeVoley2.getNbParEquipe() == 6);
+        assertTrue(equipeHandBall2.getNbParEquipe() == 1);
+        assertTrue(equipeNatation2.getNbParEquipe() == 1);
+        assertTrue(equipeEscrime2.getNbParEquipe() == 1);
+        assertTrue(equipeAthletisme2.getNbParEquipe() == 1);
+
+        assertTrue(equipeVoley2.getSport() == "Voley");
+        assertTrue(equipeHandBall2.getSport() == "Handball");
+        assertTrue(equipeNatation2.getSport() == "Natation");
+        assertTrue(equipeEscrime2.getSport() == "Escrime");
+        assertTrue(equipeAthletisme2.getSport() == "Athletisme");
     }
 };

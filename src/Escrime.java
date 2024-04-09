@@ -11,8 +11,12 @@ public class Escrime extends Sport {
 	 * Default constructor
 	 */
 	public Escrime() {
-		super();
+		super(1, "Escrime");
 	}
+	public int getNbParEquipe(){ return super.getNbParEquipe();}
+	
+	public String getSport(){ return super.getSport();}
+
 	/**
 	 * @param Athlete athlete 
 	 * @return

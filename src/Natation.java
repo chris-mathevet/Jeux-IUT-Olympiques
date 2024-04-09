@@ -11,8 +11,11 @@ public class Natation extends Sport {
 	 * Default constructor
 	 */
 	public Natation() {
-		super();
+		super(1, "Natation");
 	}
+	public int getNbParEquipe(){ return super.getNbParEquipe();}
+	
+	public String getSport(){ return super.getSport();}
 
 	/**
 	 * @param Athlete athlete 
