@@ -34,7 +34,9 @@ public class HandBall extends Sport {
 	public int bareme(Athlete athlete){
 		// agilité*random(1 => 2) + (endurance * force) ==> 0*0+(0*0) à 20*2+(20*20)
 		Random e = new Random();
-		return (int)((athlete.getAgilite() + athlete.getForce() * 3 + (e.nextInt(20)+1) + athlete.getEndurance() * 2)/7);
+		return (int)(athlete.getAgilite() * 2 + athlete.getForce() * 4 + (e.nextInt(20)+1) + athlete.getEndurance() * 3);
+
+		// return (int)((athlete.getAgilite() + athlete.getForce() * 3 + (e.nextInt(20)+1) + athlete.getEndurance() * 2)/7);
 	} 
 
 }

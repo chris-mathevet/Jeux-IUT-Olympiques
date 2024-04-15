@@ -34,6 +34,7 @@ public class Athletisme extends Sport {
 	public int bareme(Athlete athlete){
 		// (agilité + endurance)*random(1 => 2) + force ==> (0*0)*0+0 a (20*20)*2+20
 		Random e = new Random();
-		return (int)((athlete.getAgilite() * 4 + athlete.getForce() + (e.nextInt(20)+1) * 8 + athlete.getEndurance() * 3)/16);
+		// return (int)((athlete.getAgilite() * 4 + athlete.getForce() + (e.nextInt(20)+1) * 8 + athlete.getEndurance() * 3)/16);
+		return (int)((athlete.getAgilite() * 5 + athlete.getForce() *2 + (e.nextInt(20)+1) * 9 + athlete.getEndurance() * 3)/10);
 	}
 }
