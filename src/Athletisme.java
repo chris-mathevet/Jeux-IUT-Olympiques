@@ -11,8 +11,11 @@ public class Athletisme extends Sport {
 	 * Default constructor
 	 */
 	public Athletisme() {
-		super();
+		super(1, "Athletisme");
 	}
+	public int getNbParEquipe(){ return super.getNbParEquipe();}
+	
+	public String getSport(){ return super.getSport();}
 
 	/**
 	 * @param Athlete athlete 
