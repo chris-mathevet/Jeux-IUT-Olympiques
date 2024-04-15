@@ -6,7 +6,7 @@ public abstract class Sport {
 	private String nomSport;
 
 	/**
-	 * constructor
+	 * constructor instancie les sports
 	 * 
 	 * @param nbParEquipe int
 	 * @param nomSport    String
@@ -16,15 +16,23 @@ public abstract class Sport {
 		this.nomSport = nomSport;
 	}
 
+	/**
+	 * return le nombre de personne dans l'equipe pour ce sportt 
+	 * @return String
+	 */
 	public int getNbParEquipe() {
 		return this.nbParEquipe;
 	}
-
+	/**
+	 * retourne le nom du sport 
+	 * @return String
+	 */
 	public String getSport() {
 		return this.nomSport;
 	}
 
 	/**
+	 * retourne le nombre de point que l'athlete a eu en fonction du bareme donné
 	 * @param Athlete athlete
 	 * @return int
 	 */
