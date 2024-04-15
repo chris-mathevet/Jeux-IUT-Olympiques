@@ -4,7 +4,7 @@ import java.util.List;
  * 
  */
 public abstract class Match {
-	private int numéroDeTour;
+	private int numeroDeTour;
 	private String nomDeTour;
 	private Epreuve epreuve;
 
@@ -14,30 +14,29 @@ public abstract class Match {
 	 * @param epreuve Epreuve
 	 */
 	public Match(int nbTour, String nomTour, Epreuve epreuve) {
-		// TODO implement here
+		this.numeroDeTour = nbTour;
+		this.nomDeTour = nomTour;
+		this.epreuve = epreuve;
 	}
 
 	/**
 	 * @return
 	 */
 	public Epreuve getEpreuve() {
-		// TODO implement here
-		return null;
+		return this.epreuve;
 	}
 
 	/**
 	 * @return
 	 */
 	public int getNumeroDeTour() {
-		// TODO implement here
-		return 0;
+		return this.numeroDeTour;
 	}
 
 	/**
 	 * @return
 	 */
 	public String getNomDeTour() {
-		// TODO implement here
-		return "";
+		return this.nomDeTour;
 	}
 }
