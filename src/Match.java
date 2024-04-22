@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -6,24 +7,16 @@ import java.util.List;
 public abstract class Match {
 	private int numéroDeTour;
 	private String nomDeTour;
-	private Epreuve epreuve;
+	private List<Integer> resultats;
 
 	/**
 	 * @param nbTour 
 	 * @param nomTour 
-	 * @param epreuve Epreuve
 	 */
-	public Match(int nbTour, String nomTour, Epreuve epreuve) {
+	public Match(int nbTour, String nomTour) {
 		this.numéroDeTour = nbTour;
 		this.nomDeTour = nomTour;
-		this.epreuve = epreuve;
-	}
-
-	/**
-	 * @return
-	 */
-	public Epreuve getEpreuve() {
-		return this.epreuve;
+		this.resultats = new ArrayList<>();
 	}
 
 	/**
@@ -38,5 +31,9 @@ public abstract class Match {
 	 */
 	public String getNomDeTour() {
 		return this.nomDeTour;
+	}
+
+	public List<Integer> getResultats() {
+		return this.resultats;
 	}
 }

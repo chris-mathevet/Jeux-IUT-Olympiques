@@ -13,6 +13,10 @@ public class Epreuve_Individuelle extends Epreuve {
 		this.lesParticipants = new ArrayList<>();
 	}
 
+	public List<Athlete> getLesParticipants() {
+		return this.lesParticipants;
+	}
+
 	/**
 	 * @return
 	 */
