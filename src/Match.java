@@ -14,30 +14,29 @@ public abstract class Match {
 	 * @param epreuve Epreuve
 	 */
 	public Match(int nbTour, String nomTour, Epreuve epreuve) {
-		// TODO implement here
+		this.numéroDeTour = nbTour;
+		this.nomDeTour = nomTour;
+		this.epreuve = epreuve;
 	}
 
 	/**
 	 * @return
 	 */
 	public Epreuve getEpreuve() {
-		// TODO implement here
-		return null;
+		return this.epreuve;
 	}
 
 	/**
 	 * @return
 	 */
 	public int getNumeroDeTour() {
-		// TODO implement here
-		return 0;
+		return this.numéroDeTour;
 	}
 
 	/**
 	 * @return
 	 */
 	public String getNomDeTour() {
-		// TODO implement here
-		return "";
+		return this.nomDeTour;
 	}
 }
