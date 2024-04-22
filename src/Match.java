@@ -19,6 +19,30 @@ public abstract class Match {
 		this.resultats = new ArrayList<>();
 	}
 
+	public static int indiemeMin(List<Integer> liste, int index){
+        Integer min = null;
+        int ind = index;
+        for(int i = index; i<liste.size();++i){
+            if(min == null || liste.get(i)<min){
+                min = liste.get(i);
+                ind = i;
+            }
+        }
+        return ind;
+    }
+
+	public static int indiemeMax(List<Integer> liste, int index){
+        Integer max = null;
+        int ind = index;
+        for(int i = index; i<liste.size();++i){
+            if(max == null || liste.get(i)>max){
+                max = liste.get(i);
+                ind = i;
+            }
+        }
+        return ind;
+    }
+
 	/**
 	 * @return
 	 */
