@@ -17,9 +17,13 @@ public class Match_individuel extends Match {
 	/**
 	 * @return
 	 */
-	public List<Athlete> resultat() {
+	public List<Integer> resultat() {
 		// TODO implement here
 		return null;
+	}
+
+	public int getResultatAthlete(Athlete athlete){
+		return 0;
 	}
 
 }

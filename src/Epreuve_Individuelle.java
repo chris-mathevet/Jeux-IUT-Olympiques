@@ -1,21 +1,34 @@
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 
  */
 public class Epreuve_Individuelle extends Epreuve {
+	private List<Athlete> lesParticipants;
+	private List<Match_individuel> lesMatchs;
 
-	/**
-	 * Default constructor
-	 */
 	public Epreuve_Individuelle(String description, Sport sport, char sexe) {
+		super(description, sport, sexe);
+		this.lesParticipants = new ArrayList<>();
 	}
 
 	/**
 	 * @return
 	 */
 	public List<Athlete> classement() {
-		// TODO implement here
+		// Prendre tous les matchs pour chaque matchs, on récupère le résultats, et on fait un trie par rapport aux index de chaque équipe pour chaque match
+		List<Athlete> classement = new ArrayList<>();
+		int indexList = 0;
+		int index_match = 0;
+		for (Athlete athlete : lesParticipants){
+			for(Match_individuel leMatch : lesMatchs){
+				index_match = leMatch.resultat().indexOf(athlete);
+				if(index_match == -1){ index_match = 0;}
+				indexList += index_match;
+			}
+			indexList/= lesMatchs.size();
+		}
 		return null;
 	}
 
@@ -23,8 +36,9 @@ public class Epreuve_Individuelle extends Epreuve {
 	 * @param Athlete 
 	 * @return
 	 */
-	public void inscrire(atlete Athlete) {
-		// TODO implement here
-		return null;
+	public void inscrire(Athlete athlete) {
+		if (! this.lesParticipants.contains(athlete)){
+			this.lesParticipants.add(athlete);
+		}
 	}
 }

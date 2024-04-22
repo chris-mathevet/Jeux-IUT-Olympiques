@@ -26,6 +26,4 @@ public class Natation extends Sport {
 		Random e = new Random();
 		return (int)((athlete.getAgilite() * 2 + athlete.getForce() + (e.nextInt(20)+1) * 2 + athlete.getEndurance() * 5)/10);
 	}
-
-
 }
