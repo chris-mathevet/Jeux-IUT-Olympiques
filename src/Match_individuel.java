@@ -7,6 +7,7 @@ public class Match_individuel extends Match {
 	public Match_individuel(int nbTour, String nomTour, Epreuve_Individuelle epreuve) {
 		super(nbTour, nomTour);
 		this.epreuve = epreuve;
+		this.epreuve.ajoutMatch(this);
 	}
 
 	public Epreuve_Individuelle getEpreuve(){
