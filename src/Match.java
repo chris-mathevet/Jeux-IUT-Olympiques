@@ -9,16 +9,30 @@ public abstract class Match {
 	private String nomDeTour;
 	private List<Integer> resultats;
 
-	/**
-	 * @param nbTour 
-	 * @param nomTour 
-	 */
 	public Match(int nbTour, String nomTour) {
 		this.numéroDeTour = nbTour;
 		this.nomDeTour = nomTour;
 		this.resultats = new ArrayList<>();
 	}
 
+	public int getNumeroDeTour() {
+		return this.numéroDeTour;
+	}
+
+	public String getNomDeTour() {
+		return this.nomDeTour;
+	}
+
+	public List<Integer> getResultats() {
+		return this.resultats;
+	}
+
+	/**
+	 * Renvoie l'indice du minimum de la liste à l'indice donné
+	 * @param liste La liste d'entier
+	 * @param index L'indice de début
+	 * @return int Lindice du minimum
+	 */
 	public static int indiemeMin(List<Integer> liste, int index){
         Integer min = null;
         int ind = index;
@@ -31,6 +45,12 @@ public abstract class Match {
         return ind;
     }
 
+	/**
+	 * Renvoie l'indice du maximum de la liste à l'indice donné
+	 * @param liste La liste d'entier
+	 * @param index L'indice de début
+	 * @return int Lindice du maximum
+	 */
 	public static int indiemeMax(List<Integer> liste, int index){
         Integer max = null;
         int ind = index;
@@ -42,22 +62,4 @@ public abstract class Match {
         }
         return ind;
     }
-
-	/**
-	 * @return
-	 */
-	public int getNumeroDeTour() {
-		return this.numéroDeTour;
-	}
-
-	/**
-	 * @return
-	 */
-	public String getNomDeTour() {
-		return this.nomDeTour;
-	}
-
-	public List<Integer> getResultats() {
-		return this.resultats;
-	}
 }
