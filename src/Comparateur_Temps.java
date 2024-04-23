@@ -8,9 +8,9 @@ public class Comparateur_Temps implements Comparator<Equipe> {
 	 * @param e2 
 	 * @return
 	 */
+	@Override
 	public int compare(Equipe e1, Equipe e2) {
-		// TODO implement here
+		int participation1 = e1.participer(null)
 		return 0;
 	}
-
 }
