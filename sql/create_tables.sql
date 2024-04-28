@@ -1,86 +1,78 @@
--- table
-create table SPORT(
-    idPays int primary key,
-    nomPays varchar(20)
+
+-- Tableaux
+
+
+CREATE TABLE PAYS (
+    idPays INT PRIMARY KEY,
+    nomPays VARCHAR(20)
 );
 
-create table ATHLETE(
-    idAthlete int primary key,
-    nomAthlete varchar(20),
-    prenomAthlete varchar(20),
-    sexeAthlete char,
-    forceAthlete int,
-    enduranceAthlete int,
-    agiliteAthlete int,
-);
-create table MATCH(
-    idMatch int primary key,
-    typeMatch varchar(20),
-    resultat int
-);
-create table EPREUVE(
-    idEpreuve int primary key,
-    description varchar(250),
-    typeEpreuve varchar(20)
-);
-create table EQUIPE(
-    idEquipe int primary key,
-    nomEquipe varchar(20),
-    nbParEquipe int
+CREATE TABLE SPORT (
+    idSport INT,
+    nomSport VARCHAR(20),
+    nbParEquipe INT
 );
 
--- asso
-create table ORIGINE(
-    idPays int,
-    idAthlete int,
-    primary key(idPays, idAthlete)
-    FOREIGN KEY (idPays) REFERENCES PAYS(idPays),
-    FOREIGN KEY (idAthlete) REFERENCES ATHLETE(idAthlete)
+CREATE TABLE ATHLETE (
+    idAthlete INT PRIMARY KEY,
+    nomAthlete VARCHAR(20),
+    prenomAthlete VARCHAR(20),
+    sexe CHAR,
+    capaciteForce INT,
+    endurance INT,
+    agilite INT,
+    idPays INT, 
+    FOREIGN KEY (idPays) REFERENCES PAYS (idPays)
 );
 
-create table AVOIR(
-    idSport int,
-    idEpreuve int,
-    primary key(idSport, idEpreuve)
-    FOREIGN KEY (idSport) REFERENCES SPORT(idSport),
-    FOREIGN KEY (idEpreuve) REFERENCES EPREUVE(idEpreuve)
+CREATE TABLE EPREUVE (
+    -- idEpreuve INT PRIMARY KEY,
+    idEpreuve INT,
+    descriptionEpreuve VARCHAR(250),
+    typeEpreuve VARCHAR(20),
+    idSport int, 
+    PRIMARY KEY (idEpreuve),
+    FOREIGN KEY (idSport) REFERENCES SPORT (idSport)
+
+    -- FOREIGN KEY (idSport) REFERENCES SPORT (idSport)
 );
 
-create table EQUIPEestConstitueAthlete(
-    idEquipe int,
-    idAthlete int,
-    primary key(idEquipe, idAthlete)
-    FOREIGN KEY (idPays) REFERENCES PAYS(idPays),
-    FOREIGN KEY (idAthlete) REFERENCES ATHLETE(idAthlete)
+CREATE TABLE MATCH_TABLE (
+    idMatch INT PRIMARY KEY,
+    typeMatch VARCHAR(20),
+    idEpreuve INT,
+    FOREIGN KEY (idEpreuve) REFERENCES EPREUVE (idEpreuve)
 );
 
-create table PARTICIPERATHLETE(
-    idMatch int,
-    idAthlete int,
-    primary key(idMatch, idAthlete)
-    FOREIGN KEY (idMatch) REFERENCES MATCH(idMatch),
-    FOREIGN KEY (idAthlete) REFERENCES ATHLETE(idAthlete)
+CREATE TABLE EQUIPE (
+    idEquipe INT PRIMARY KEY,
+    nomEquipe VARCHAR(20)
 );
 
-create table PARTICIPEREQUIPE(
-    idMatch int,
-    idEquipe int,
-    primary key(idMatch, idEquipe)
-    FOREIGN KEY (idMatch) REFERENCES MATCH(idMatch),
-    FOREIGN KEY (idEquipe) REFERENCES EQUIPE(idEquipe)
+-- Associations
+
+CREATE TABLE EST_CONSTITUER (
+    idEquipe INT,
+    idAthlete INT,
+    PRIMARY KEY (idEquipe, idAthlete),
+    FOREIGN KEY (idEquipe) REFERENCES EQUIPE (idEquipe),
+    FOREIGN KEY (idAthlete) REFERENCES ATHLETE (idAthlete)
 );
 
-create table MATCHestConstitueEPREUVE(
-    idMatch int,
-    idEpreuve int,
-    primary key(idMatch, idEquipe)
-    FOREIGN KEY (idMatch) REFERENCES MATCH(idMatch),
-    FOREIGN KEY (idEpreuve) REFERENCES EPREUVE(idEpreuve)
+CREATE TABLE PARTICIPER_ATHLETE (
+    idMatch INT,
+    idAthlete INT,
+    resultat INT,
+    PRIMARY KEY (idMatch, idAthlete),
+    FOREIGN KEY (idMatch) REFERENCES MATCH_TABLE (idMatch),
+    FOREIGN KEY (idAthlete) REFERENCES ATHLETE (idAthlete)
 );
-
-
-
-
-
-
-
+&   
+CREATE TABLE PARTICIPER_EQUIPE (
+    idMatch INT,
+    idEquipe INT,
+    resultat INT,
+    PRIMARY KEY (idMatch, idEquipe),
+    FOREIGN KEY (idMatch) REFERENCES MATCH_TABLE (idMatch),
+    FOREIGN KEY (idEquipe) REFERENCES EQUIPE (idEquipe)
+);
