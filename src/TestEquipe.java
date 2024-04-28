@@ -8,6 +8,7 @@ public class TestEquipe {
     @Test
     public void test() {
         Equipe testEquipe = new Equipe("farfadetsMalicieux");
-        testEquipe.getNom().equals(testEquipe.getNom());
+        testEquipe.ajouter(new Athlete("Marin", "farf", 'M', 5, 5, 5));
+        assertEquals(testEquipe, testEquipe);
     }
 }
