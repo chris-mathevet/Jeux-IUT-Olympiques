@@ -5,7 +5,7 @@ import random
 import pymysql
 
 # connexion database 
-conn = pymysql.connect(host='localhost', user='root', password='marques', database='saejava')
+conn = pymysql.connect(host='localhost', user='root', password=' ', database='saejava')
 cursor = conn.cursor()
 
 # Noms, prénoms, sexe, pays et sport aléatoires
