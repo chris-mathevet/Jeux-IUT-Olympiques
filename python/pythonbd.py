@@ -1,10 +1,13 @@
 # by Julian
-
+mdpbd = " "
 # Import
 import random
 import pymysql
 
 # connexion database 
+# conn = pymysql.connect(host='cigale1.lescigales.org',port=3310, user='s4a_julian', password=mdpbd, database='s4a_julian',charset='utf8')
+
+# local
 conn = pymysql.connect(host='localhost', user='root', password=' ', database='saejava')
 cursor = conn.cursor()
 
@@ -37,15 +40,15 @@ nbParEquipe_handball = 7
 nbParEquipe_escrime = 1
 nbParEquipe_volleyball = 6
 nbParEquipe_athletisme = 1 
-epreuves = [(natation100 ,0, "Natation 100 brasse", "solo", "description : blablabla", nbParEquipe_natation), 
+epreuves = [(natation100 ,0, "Natation 100 brasse", "individuel", "description : blablabla", nbParEquipe_natation), 
             
-            (handball,1, "Handball","equipe", "description : blablabla", nbParEquipe_handball),
-            (natationRelaisLibre,1, "Natation relais libre", "solo", "description : blablabla", nbParEquipe_natation),
-            (volleyball ,2,"Volley-Ball", "equipe", "description : blablabla", nbParEquipe_volleyball),
-            (escrimeFleuret,3,  "Escrime fleuret", "solo", "description : blablabla", nbParEquipe_escrime),
-            (escrimeepee,4,  "Escrime épée", "solo", "description : blablabla", nbParEquipe_escrime), 
-            (athletisme110 ,5,"Athétisme 110 haies", "solo", "description : blablabla", nbParEquipe_athletisme), 
-            (athletisme400,6, "Athlétisme relais 400m","solo", "description : blablabla", nbParEquipe_athletisme)]
+            (handball,1, "Handball","collectif", "description : blablabla", nbParEquipe_handball),
+            (natationRelaisLibre,1, "Natation relais libre", "individuel", "description : blablabla", nbParEquipe_natation),
+            (volleyball ,2,"Volley-Ball", "collectif", "description : blablabla", nbParEquipe_volleyball),
+            (escrimeFleuret,3,  "Escrime fleuret", "individuel", "description : blablabla", nbParEquipe_escrime),
+            (escrimeepee,4,  "Escrime épée", "individuel", "description : blablabla", nbParEquipe_escrime), 
+            (athletisme110 ,5,"Athétisme 110 haies", "individuel", "description : blablabla", nbParEquipe_athletisme), 
+            (athletisme400,6, "Athlétisme relais 400m","individuel", "description : blablabla", nbParEquipe_athletisme)]
 
 def cree_athlete(nbAthlete):
     """permet de cree un nombre definie d'athlete
@@ -66,9 +69,9 @@ def cree_athlete(nbAthlete):
     # print(results)
     records = []
 
-    if results[0][0] is None:
-        id = 0
-    id = results[0][0]    
+    # if results[0][0] == None:
+    id = 0
+    # id = results[0][0]    
     
     for _ in range(nbAthlete):
         id+=1
@@ -130,7 +133,7 @@ def add_athlete_bd(nbAthlete):
     for athlete in liste_athlete:
         cursor = conn.cursor()
 
-        sql = "INSERT INTO athlete (idAthlete, nomAthlete, prenomAthlete, sexe, capaciteForce, endurance, agilite, idpays) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+        sql = "INSERT INTO ATHLETE (idAthlete, nomAthlete, prenomAthlete, sexe, capaciteForce, endurance, agilite, idpays) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
         
         donnees_athlete = (athlete[0],athlete[1],athlete[2],athlete[3],athlete[6],athlete[7],athlete[8],athlete[4][0])
         print(donnees_athlete)
@@ -176,9 +179,9 @@ def add_epreuve_db(listeDesEpreuves):
 
 nbAthlete = 1
 # add_pays_db(payslist)
-add_athlete_bd(nbAthlete)
+# add_athlete_bd(nbAthlete)
 # add_epreuve_db(epreuves)
-# add_sport_db(epreuves)
+add_sport_db(epreuves)
 # cree_athlete(nbAthlete)
 
 conn.commit()
