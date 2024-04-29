@@ -17,11 +17,19 @@ public class Insert {
         this.utilisateur= user;
         this.motDePasse= mdp;
     }
-    public Insert(){        
-        this.url = "jdbc:mysql://localhost:3306/saejava";
-        this.utilisateur = "root";
+    // serveur
+    public Insert(){
+        this.url = "jdbc:mysql://cigale1.lescigales.org:3310/s4a_julian";
+        this.utilisateur = "s4a_julian";
         this.motDePasse = " ";
     }
+    
+    // local
+    // public Insert(){        
+    //     this.url = "jdbc:mysql://localhost:3306/saejava";
+    //     this.utilisateur = "root";
+    //     this.motDePasse = " ";
+    // }
 
     public String getUrl(){
         return this.url;
