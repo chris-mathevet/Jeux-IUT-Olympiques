@@ -19,7 +19,6 @@ public class TestMatch_Collectif {
         Athlete donald = new Athlete("Duck","donald",'M', 19,18, 19);
         Athlete flagada = new Athlete("Jones","Flagada",'M', 19,18, 19);
 
-
         Equipe equipe1 = new Equipe("1");
         equipe1.ajouter(baptiste);
         equipe1.ajouter(chris);
