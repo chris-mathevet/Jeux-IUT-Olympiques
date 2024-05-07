@@ -16,8 +16,15 @@ public class Match_Collectif extends Match {
 	public Epreuve_Collective getEpreuve() {
 		return epreuve;
 	}
+	
+	/**
+	 * Renvoie le résultat d'une équipe pour un match
+	 * @param equipe L'équipe dont on veut le résultat
+	 * @return int le résultat de l'équipe, -1 s'il n'a pas participé
+	 */	
+
 	public int getResultatEquipe(Equipe equipe){
-		int index = this.epreuve.getLesParticipants().indexOf(equipe);
+		int index = this.epreuve.getLesEquipes().indexOf(equipe);
 		if(index == -1){
 			return -1;
 		}
@@ -25,11 +32,15 @@ public class Match_Collectif extends Match {
 			return super.getResultats().get(index);
 		}	
 	}
+	/**
+	 * Rencoie les résultats des équipes du match (index partagé avec la liste d'équipe de l'épreuve)
+	 * @return List<Integer> les résultats des équipes pour un matchs
+	 */
 	public List<Integer> resultat() {
 		if(super.getResultats().isEmpty()){
 			List<Integer> res = super.getResultats();
-			List<Equipe> participants = this.epreuve.getLesParticipants();
-			for(Equipe equipe : participants){
+			List<Equipe> equipes = this.epreuve.getLesEquipes();
+			for(Equipe equipe : equipes){
 				res.add(equipe.participer(this));
 			}
 			return res;
