@@ -34,9 +34,7 @@ public class VoleyBall extends Sport {
 	 * @return int
 	 */
 	public int bareme(Athlete athlete){
-		// (agilité * force)*random(1 => 2) + endurance == >
 		Random e = new Random();
-		// return (int)((athlete.getAgilite() * 2 + athlete.getForce() * 3 + (e.nextInt(20)+1) + athlete.getEndurance())/7);
 		return (int)(athlete.getAgilite() * 3 + athlete.getForce() * 4 + (e.nextInt(20)+1) + athlete.getEndurance());
 	}	
 }
