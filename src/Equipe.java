@@ -1,57 +1,69 @@
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Equipe implements Participant {
-    private String nom;
-    private List <Athlete> lesAthletes;
+public class Equipe extends ArrayList<Athlete> implements Participant{
+
+	private String nom;
 
 
-    /**
-     * @param nom
-     */
-    public Equipe(String nom) {
-        this.nom = nom;
-        this.lesAthletes = new ArrayList<>();
-    }
+	/**
+	 * @param nom
+	 */
+	public Equipe(String nom) {
+		this.nom = nom;
+	}
 
-    /**
-     * @return String 
-     * Nom de l'équipe
-     * 
-     */
-    public String getNom() {
-        return this.nom;
-    }
+	/**
+	 * @return
+	 */
+	public String getNom() {
+		return this.nom;
+	}
 
-    /**
+	/**
+	 * 
+	 * @return
+	 */
+	public List<Athlete> getListeAthlete() {
+		return this;
+	}
+
+	/**
      * Permet d'ajouter un athlete dans l'équipe, si il n'est pas déjà dedans sinon on renvoie l'exception "AlreadyInException" créer à cet effet.
      * 
      * @param Athlete athlete 
      * @return void
      */
 
-    public void ajouter(Athlete athlete) throws AlreadyInException {
-        if (!(lesAthletes.contains(athlete))) {
-            lesAthletes.add(athlete);
+	 public void ajouter(Athlete athlete) throws AlreadyInException {
+
+		if (this.isEmpty()) {
+			this.add(athlete);
+		}
+
+
+        else if (!(this.contains(athlete)) && athlete.getPays().equals(this.get(0).getPays())) {
+            this.add(athlete);
         }
-        else {
+        else if (this.contains(athlete)) {
             throw new AlreadyInException();
         }
+
+		else {
+			System.err.println("Pas le même pays");
+		}
     }
 
-    /**
-     * 
-     * Permet d'obtenir la somme des barèmes des athletes présents dans l'équipe.
-     * 
-     * @param Match match 
-     * @return int 
-     */
-    public int participer(Match match) {
-        int sommeBareme = 0;
-        for (Athlete athlete : this.lesAthletes) {
-            sommeBareme += match.getEpreuve().getSport().bareme(athlete);
-        }
-
-        return sommeBareme;
-    }
+	/**
+	 * @param Match match 
+	 * @return int (somme des bareme des athlete de l'équipe)
+	 */
+	public int participer(Match match) {
+		int sommeBareme = 0;
+		for (Athlete athlete : this) {
+			sommeBareme += match.getEpreuve().getSport().bareme(athlete);
+		}
+		return sommeBareme;
+	}
 }
