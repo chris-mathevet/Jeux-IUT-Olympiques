@@ -76,7 +76,6 @@ public class Athlete implements Participant{
 
 	@Override
 	public int participer(Match match) {
-		// TODO Auto-generated method stub
-		return 0;
+		match.getEpreuve().getSport().bareme(this);
 	}
 }
