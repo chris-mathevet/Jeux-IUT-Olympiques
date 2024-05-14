@@ -59,7 +59,8 @@ public class Equipe extends ArrayList<Athlete> implements Participant{
 	 * @param Match match 
 	 * @return int (somme des bareme des athlete de l'équipe)
 	 */
-	public int participer(Match match) {
+	@Override
+	public int participer(Match<? extends Participant> match) {
 		int sommeBareme = 0;
 		for (Athlete athlete : this) {
 			sommeBareme += athlete.participer(match);

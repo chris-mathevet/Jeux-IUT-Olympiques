@@ -75,7 +75,7 @@ public class Athlete implements Participant{
 	}
 
 	@Override
-	public int participer(Match match) {
-		match.getEpreuve().getSport().bareme(this);
+	public int participer(Match<? extends Participant> match) {
+		return match.getEpreuve().getSport().bareme(this);
 	}
 }
