@@ -8,7 +8,7 @@ public class Epreuve<T> {
 	private String description;
 	private Sport leSport;
 	private char sexe;
-	private List<Match> lesMatchs;
+	private List<Match<T>> lesMatchs;
 	private List<T>  lesParticipants;
 
 	/**
@@ -32,7 +32,16 @@ public class Epreuve<T> {
 		return this.leSport;
 	}
 
-	public void ajoutMatch(Match match){
+	public String getDescription() {
+		return this.description;
+	}
+	
+	public char getSexe() {
+		return this.sexe;
+	}
+
+
+	public void ajoutMatch(Match<T> match){
 		this.lesMatchs.add(match);
 	}
 
@@ -55,7 +64,7 @@ public class Epreuve<T> {
 		List<Integer> resultatMatch = new ArrayList<>();
 
 		// Cumul les résultats des différents matchs
-		for (Match match : lesMatchs){
+		for (Match<T> match : lesMatchs){
 			if(resultats.isEmpty()){
 				resultats = new ArrayList<>(match.getResultats());
 			}
