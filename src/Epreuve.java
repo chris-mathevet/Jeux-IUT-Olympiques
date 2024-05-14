@@ -4,12 +4,12 @@ import java.util.List;
 /**
  * 
  */
-public class Epreuve<T> {
+public class Epreuve<T extends Participant> {
 	private String description;
 	private Sport leSport;
 	private char sexe;
 	private List<Match<T>> lesMatchs;
-	private List<T>  lesParticipants;
+	private List<T> lesParticipants;
 
 	/**
 	 * @param description String 
