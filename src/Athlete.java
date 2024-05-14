@@ -79,4 +79,13 @@ public class Athlete implements Participant{
 	public int participer(Match<? extends Participant> match) {
 		return match.getEpreuve().getSport().bareme(this);
 	}
+
+	@Override 
+	public boolean equals(Object o){
+		if(o == null){return false;}
+		if(o == this){return true;}
+		if(!(o instanceof Athlete)){return false;}
+		Athlete athlete = (Athlete) o;
+		return athlete.nom.equals(this.nom) && athlete.prenom.equals(this.prenom) && this.sexe == athlete.sexe && this.lePays == athlete.lePays;
+	}
 }
