@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Equipe extends ArrayList<Athlete> implements Participant{
-
 	private String nom;
 
 	/**
@@ -18,6 +17,13 @@ public class Equipe extends ArrayList<Athlete> implements Participant{
 	 */
 	public String getNom() {
 		return this.nom;
+	}
+
+	public Pays getPays(){
+		if (! this.isEmpty()){
+			return this.get(0).getPays();
+		}
+		return null;
 	}
 
 	/**
@@ -40,15 +46,12 @@ public class Equipe extends ArrayList<Athlete> implements Participant{
 		if (this.isEmpty()) {
 			this.add(athlete);
 		}
-
-
         else if (!(this.contains(athlete)) && athlete.getPays().equals(this.get(0).getPays())) {
             this.add(athlete);
         }
         else if (this.contains(athlete)) {
             throw new AlreadyInException();
         }
-
 		else {
 			System.err.println("Pas le même pays");
 		}
