@@ -62,7 +62,7 @@ public class Equipe extends ArrayList<Athlete> implements Participant{
 	public int participer(Match match) {
 		int sommeBareme = 0;
 		for (Athlete athlete : this) {
-			sommeBareme += match.getEpreuve().getSport().bareme(athlete);
+			sommeBareme += athlete.participer(match);
 		}
 		return sommeBareme;
 	}
