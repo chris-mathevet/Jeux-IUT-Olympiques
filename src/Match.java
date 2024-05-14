@@ -4,14 +4,17 @@ import java.util.List;
 /**
  * 
  */
-public abstract class Match {
+public class Match<T extends Participant> {
 	private int numéroDeTour;
 	private String nomDeTour;
 	private List<Integer> resultats;
+	private Epreuve<T> epreuve;
 
-	public Match(int nbTour, String nomTour) {
+	public Match(int nbTour, String nomTour, Epreuve<T> epreuve) {
 		this.numéroDeTour = nbTour;
 		this.nomDeTour = nomTour;
+		this.epreuve = epreuve;
+		this.epreuve.ajoutMatch(this);
 		this.resultats = new ArrayList<>();
 	}
 
@@ -25,6 +28,10 @@ public abstract class Match {
 
 	public List<Integer> getResultats() {
 		return this.resultats;
+	}
+	
+	public Epreuve<T> getEpreuve(){
+		return this.epreuve;
 	}
 
 	/**
@@ -62,4 +69,31 @@ public abstract class Match {
         }
         return ind;
     }
+
+	/**
+	 * Rencoie les résultats des participants du match (index partagé avec la liste de participants de l'épreuve)
+	 * @return List<Integer> les résultats des participant pour un matchs
+	 */
+	public void resultat() {
+		if(this.resultats.isEmpty()){
+			List<T> participants = this.epreuve.getLesParticipants();
+			for(T participant : participants){
+				resultats.add(participant.participer(this));
+			}
+		}
+	}
+	/**
+	 * Renvoie le résultat d'un participant pour un match
+	 * @param participant L'athlete dont on veut le résultat
+	 * @return int le résultat de l'athlete, -1 s'il n'a pas participé
+	 */	
+	public int getResultatParticipant(T participant){
+		int index = this.epreuve.getLesParticipants().indexOf(participant);
+		if(index == -1){
+			return -1;
+		}
+		else{
+			return this.resultats.get(index);
+		}	
+	}
 }
