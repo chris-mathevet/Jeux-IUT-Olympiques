@@ -1,6 +1,3 @@
-/**
- * 
- */
 public interface Participant {
 
 	/**
@@ -8,4 +5,6 @@ public interface Participant {
 	 * @return int Le nombre de point que le joueur a réalisé
 	 */
 	public int participer(Match<? extends Participant> match);
+
+	public Pays getPays();
 }

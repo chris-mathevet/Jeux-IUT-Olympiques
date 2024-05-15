@@ -1,6 +1,3 @@
-/**
- * 
- */
 public class Athlete implements Participant{
 	private String nom;
 	private String prenom;
@@ -57,6 +54,7 @@ public class Athlete implements Participant{
 		return this.agilite;
 	}
 	
+	@Override
 	public Pays getPays() {
 		return this.lePays;
 	}
