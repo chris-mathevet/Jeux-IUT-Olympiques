@@ -20,28 +20,28 @@ public class TestEquipe {
         Equipe testEquipe = new Equipe("farfadetsMalicieux");
         Sport sport1 = new HandBall();
         Epreuve epreuveTest = new Epreuve<>("Test", sport1, 'm');
-        Match matchTest = new Match<>(3, "Test", null);
+        Match matchTest = new Match<>(3, "Test", epreuveTest);
 
 
         try {
             testEquipe.ajouter(a1);
             testEquipe.ajouter(a2);
             testEquipe.ajouter(a3);
+            testEquipe.participer(matchTest);
         } 
         catch (AlreadyInException e) {
             System.out.println("Déja dans la liste");
+        }
+        catch (NotSameCountryException e) {
+            System.out.println("Pas le bon pays");
         }
         
 
         assertEquals(testEquipe, Arrays.asList(a1,a2,a3));
         assertNotEquals(testEquipe, Arrays.asList(a1,a2,a4));
+        assertEquals(testEquipe.participer(matchTest), 0);
 
-        try {
-            testEquipe.participer(matchTest);
-        } 
-        catch (NotSameCountryException e) {
-            System.out.println("Pas le bon pays");
-        }
+        
 
         
         
