@@ -1,15 +1,16 @@
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 
- */
 public class Epreuve<T extends Participant> {
 	private String description;
 	private Sport leSport;
 	private char sexe;
 	private List<Match<T>> lesMatchs;
 	private List<T> lesParticipants;
+	private T premier; 
+	private T second; 
+	private T troisieme; 
+	private List<T> leClassement;
 
 	/**
 	 * @param String Description de l'épreuve 
@@ -22,6 +23,10 @@ public class Epreuve<T extends Participant> {
 		this.sexe = sexe;
 		this.lesMatchs = new ArrayList<>();
 		this.lesParticipants = new ArrayList<>();
+		this.premier = null;
+		this.second = null;
+		this.troisieme = null;
+		this.leClassement = null;
 	}
 
 	public List<T> getLesParticipants() {
@@ -38,6 +43,38 @@ public class Epreuve<T extends Participant> {
 	
 	public char getSexe() {
 		return this.sexe;
+	}
+
+	public T getPremier() {
+		return this.premier;
+	}
+
+	public T getSecond() {
+		return this.second;
+	}
+
+	public T getTroisieme() {
+		return this.troisieme;
+	}
+
+	public List<Match<T>> getLesMatchs() {
+		return this.lesMatchs;
+	}
+
+	public List<T> getLeClassement() {
+		return this.leClassement;
+	}
+
+	private void setPremier(T premier) {
+		this.premier = premier;
+	}
+
+	private void setSecond(T second) {
+		this.second = second;
+	}
+
+	private void setTroisieme(T troisieme) {
+		this.troisieme = troisieme;
 	}
 
 	/** Ajoute un match a la liste de match
@@ -85,9 +122,9 @@ public class Epreuve<T extends Participant> {
 	 * @param boolean vrai si l'épreuve se fait selon un temps
 	 * @return List<T> Le classement pour une épreuve
 	 */
-	public List<T> classement(boolean is_timed) {
+	public void classement(boolean is_timed) {
 		List<Integer> resultats = this.cumulResultats();
-		List<T> classement = new ArrayList<>(this.lesParticipants);
+		this.leClassement = new ArrayList<>(this.lesParticipants);
 		int indMinMax = 0;
 		Integer tmp = null;
 
@@ -102,7 +139,7 @@ public class Epreuve<T extends Participant> {
                 resultats.set(i, resultats.get(indMinMax));
                 resultats.set(indMinMax,tmp);
 				// MAJ du classement
-				classement.set(i, this.lesParticipants.get(indMinMax));
+				this.leClassement.set(i, this.lesParticipants.get(indMinMax));
 			}
 		}
 		else{
@@ -113,10 +150,41 @@ public class Epreuve<T extends Participant> {
                 resultats.set(i, resultats.get(indMinMax));
                 resultats.set(indMinMax,tmp);
 				// MAJ du classement
-				classement.set(i, this.lesParticipants.get(indMinMax));
+				this.leClassement.set(i, this.lesParticipants.get(indMinMax));
 			}
 		}
-		return classement;
+	}
+
+	/** Met a jour le podium de l'épreuve (attributs)
+	 */
+	public void majPodium(){
+		if(this.leClassement != null){
+			this.setPremier(this.leClassement.get(0));
+			this.setSecond(this.leClassement.get(1));
+			this.setTroisieme(this.leClassement.get(2));
+		}
+	}
+
+	/** Met a jour le nombre de médaille des pays du podium
+	 */
+	public void majMedailles(){
+		if(this.leClassement != null){
+			if(this.premier == null){
+				this.majPodium();
+				this.premier.getPays().addMedailleOr(1);
+				this.second.getPays().addMedailleArgent(1);
+				this.troisieme.getPays().addMedailleBronze(1);
+			}
+			else{
+				this.premier.getPays().addMedailleOr(-1);
+				this.second.getPays().addMedailleArgent(-1);
+				this.troisieme.getPays().addMedailleBronze(-1);
+				this.majPodium();
+				this.premier.getPays().addMedailleOr(1);
+				this.second.getPays().addMedailleArgent(1);
+				this.troisieme.getPays().addMedailleBronze(1);
+			}
+		}
 	}
 
 }
