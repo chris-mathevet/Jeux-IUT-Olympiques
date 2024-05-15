@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Pays {
 	private String nom;
 	List<Object> lesEquipes;
@@ -36,15 +35,15 @@ public class Pays {
 		return this.medailleBronze;
 	}
 
-	public void setMedailleOr(int medailleOr) {
-		this.medailleOr = medailleOr;
+	public void addMedailleOr(int medailleOr) {
+		this.medailleOr += medailleOr;
 	}
 
-	public void setMedailleArgent(int medailleArgent) {
-		this.medailleArgent = medailleArgent;
+	public void addMedailleArgent(int medailleArgent) {
+		this.medailleArgent += medailleArgent;
 	}
 
-	public void setMedailleBronze(int medailleBronze) {
-		this.medailleBronze = medailleBronze;
+	public void addMedailleBronze(int medailleBronze) {
+		this.medailleBronze += medailleBronze;
 	}
 }
