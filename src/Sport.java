@@ -6,10 +6,10 @@ public abstract class Sport {
 	private String nomSport;
 
 	/**
-	 * constructor instancie les sports
+	 * Constructeur instancie les sports
 	 * 
-	 * @param nbParEquipe int
-	 * @param nomSport    String
+	 * @param int Le nombre d'athlete par équipe pour ce sport
+	 * @param String Le nom du Sport
 	 */
 	public Sport(int nbParEquipe, String nomSport) {
 		this.nbParEquipe = nbParEquipe;
@@ -17,14 +17,14 @@ public abstract class Sport {
 	}
 
 	/**
-	 * return le nombre de personne dans l'equipe pour ce sportt 
-	 * @return String
+	 * Retourne le nombre de personne dans l'equipe pour ce sport
+	 * @return int
 	 */
 	public int getNbParEquipe() {
 		return this.nbParEquipe;
 	}
 	/**
-	 * retourne le nom du sport 
+	 * Retourne le nom du sport 
 	 * @return String
 	 */
 	public String getSport() {
@@ -32,9 +32,9 @@ public abstract class Sport {
 	}
 
 	/**
-	 * retourne le nombre de point que l'athlete a eu en fonction du bareme donné
-	 * @param Athlete athlete
-	 * @return int
+	 * Retourne le nombre de point que l'athlete a eu en fonction du bareme donné (Avec les coefs)
+	 * @param Athlete L'athlete dont on veut les points
+	 * @return int Le nombre de point de l'athlete pour un sport
 	 */
 	public abstract int bareme(Athlete athlete);
 
