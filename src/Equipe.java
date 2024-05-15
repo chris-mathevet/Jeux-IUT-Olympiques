@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +18,7 @@ public class Equipe extends ArrayList<Athlete> implements Participant{
 	/**
 	 * @return Pays le Pays de l'équipe, ou null si l'équipe est vide
 	 */
+	@Override
 	public Pays getPays(){
 		if (! this.isEmpty()){
 			return this.get(0).getPays();
