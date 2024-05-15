@@ -4,8 +4,11 @@
 public class AlreadyInException extends Exception{
     
     public AlreadyInException(String message) {
-        System.out.println(message);
+        super(message);
     }    
-
-    public AlreadyInException() {}
+    
+    public AlreadyInException() {
+        super("a");
+    }
+    
 }

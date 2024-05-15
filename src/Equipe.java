@@ -35,23 +35,24 @@ public class Equipe extends ArrayList<Athlete> implements Participant{
      * @return void
      */
 
-	 public void ajouter(Athlete athlete) throws AlreadyInException {
+	 public void ajouter(Athlete athlete) throws AlreadyInException, NotSameCountryException{
 
 		if (this.isEmpty()) {
 			this.add(athlete);
 		}
 
 
-        else if (!(this.contains(athlete)) && athlete.getPays().equals(this.get(0).getPays())) {
+        else if ((!(this.contains(athlete))) && athlete.getPays().equals(this.get(0).getPays())){
             this.add(athlete);
         }
         else if (this.contains(athlete)) {
             throw new AlreadyInException();
         }
 
-		else {
-			System.err.println("Pas le même pays");
+		else if (!(athlete.getPays().equals(this.get(0).getPays()))) {
+			throw new NotSameCountryException();
 		}
+		
     }
 
 	/**
