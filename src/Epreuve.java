@@ -12,9 +12,9 @@ public class Epreuve<T extends Participant> {
 	private List<T> lesParticipants;
 
 	/**
-	 * @param description String 
-	 * @param sport Sport 
-	 * @param sexe
+	 * @param String Description de l'épreuve 
+	 * @param Sport Le sport correspondant à cette épreuve
+	 * @param char Le sexe des participants de l'épreuve
 	 */
 	public Epreuve(String description, Sport sport, char sexe) {
 		this.description = description;
@@ -40,14 +40,16 @@ public class Epreuve<T extends Participant> {
 		return this.sexe;
 	}
 
-
+	/** Ajoute un match a la liste de match
+	 * @param Match<T> le match a ajouté
+	 */
 	public void ajoutMatch(Match<T> match){
 		this.lesMatchs.add(match);
 	}
 
 	/**
 	 * Inscrit une équipe ou un athlete à une épreuve
-	 * @param Athlete l'athlete à inscrire
+	 * @param Athlete L'athlete à inscrire a l'épreuve 
 	 */
 	public void inscrire(T participant) {
 		if (! this.lesParticipants.contains(participant)){

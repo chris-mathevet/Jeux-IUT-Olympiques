@@ -3,34 +3,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Equipe extends ArrayList<Athlete> implements Participant{
-
 	private String nom;
 
 	/**
-	 * @param nom
+	 * @param String le nom de l'équipe
 	 */
 	public Equipe(String nom) {
 		this.nom = nom;
 	}
 
-	/**
-	 * @return
-	 */
 	public String getNom() {
 		return this.nom;
 	}
 
 	/**
-	 * 
-	 * @return
+	 * @return Pays le Pays de l'équipe, ou null si l'équipe est vide
 	 */
+	public Pays getPays(){
+		if (! this.isEmpty()){
+			return this.get(0).getPays();
+		}
+		return null;
+	}
+
 	public List<Athlete> getListeAthlete() {
 		return this;
 	}
 
 	/**
      * Permet d'ajouter un athlete dans l'équipe, si il n'est pas déjà dedans sinon on renvoie l'exception "AlreadyInException" créer à cet effet.
-     * 
      * @param Athlete athlete 
      * @return void
      */
@@ -40,8 +41,6 @@ public class Equipe extends ArrayList<Athlete> implements Participant{
 		if (this.isEmpty()) {
 			this.add(athlete);
 		}
-
-
         else if ((!(this.contains(athlete))) && athlete.getPays().equals(this.get(0).getPays())){
             this.add(athlete);
         }
