@@ -7,7 +7,7 @@ public class Pays {
 	List<Object> lesEquipes;
 
 	/**
-	 * @param nom
+	 * @param String le nom du pays
 	 */
 	public Pays(String nom) {
 		this.nom = nom;
@@ -15,7 +15,7 @@ public class Pays {
 	}
 
 	/**
-	 * @return
+	 * @return String le nom du pays
 	 */
 	public String getNomPays() {
 		return this.nom;

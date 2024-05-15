@@ -71,8 +71,7 @@ public class Match<T extends Participant> {
     }
 
 	/**
-	 * Rencoie les résultats des participants du match (index partagé avec la liste de participants de l'épreuve)
-	 * @return List<Integer> les résultats des participant pour un matchs
+	 * Calcul les résultats des participants du match (index partagé avec la liste de participants de l'épreuve)
 	 */
 	public void resultat() {
 		if(this.resultats.isEmpty()){
@@ -84,8 +83,8 @@ public class Match<T extends Participant> {
 	}
 	/**
 	 * Renvoie le résultat d'un participant pour un match
-	 * @param participant L'athlete dont on veut le résultat
-	 * @return int le résultat de l'athlete, -1 s'il n'a pas participé
+	 * @param T L'athlete / l'équipe dont on veut le résultat
+	 * @return int le résultat de l'athlete / l'équipe, -1 s'il n'a pas participé
 	 */	
 	public int getResultatParticipant(T participant){
 		int index = this.epreuve.getLesParticipants().indexOf(participant);

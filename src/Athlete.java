@@ -10,63 +10,49 @@ public class Athlete implements Participant{
 	private int agilite;
 	private Pays lePays;
 
-	/**
-	 * @param nom 
-	 * @param prenom 
-	 * @param sexe 
-	 * @param force 
-	 * @param endurance 
-	 * @param agilite
+	/** Créer un athlete pour les JO
+	 * 
+	 * @param String Le nom de l'athlete 
+	 * @param String Le prenom de l'athlete
+	 * @param char 'F' ou 'H'
+	 * @param int La force de l'athlete comprise entre 1 et 20
+	 * @param int L'endurance de l'athlete comprise entre 1 et 20
+	 * @param int L'agilité de l'athlete comprise entre 1 et 20
+	 * @param Pays Le pays de l'athlete
 	 */
-
 	public Athlete(String nom, String prenom, char sexe, int force, int endurance, int agilite, Pays pays) {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.sexe = sexe;
+		if (sexe != 'F' || sexe != 'H'){
+			this.sexe = 'H';
+		}
 		this.force = force;
 		this.endurance = endurance;
 		this.agilite = agilite;
 		this.lePays = pays;
 	}
 
-	/**
-	 * @return
-	 */
 	public String getNom() {
 		return this.nom;
 	}
 
-	/**
-	 * @return
-	 */
 	public String getPrenom() {
 		return this.prenom;
 	}
 
-	/**
-	 * @return
-	 */
 	public char getSexe() {
 		return this.sexe;
 	}
 
-	/**
-	 * @return
-	 */
 	public int getForce() {
 		return this.force;
 	}
 
-	/**
-	 * @return
-	 */
 	public int getEndurance() {
 		return this.endurance;
 	}
 
-	/**
-	 * @return
-	 */
 	public int getAgilite() {
 		return this.agilite;
 	}
