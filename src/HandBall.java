@@ -2,8 +2,8 @@ import java.util.Random;
 
 public class HandBall extends Sport {
 
-	public HandBall(int coefForce, int coefEndurance, int coefAgilite, int coefRandom) {
-		super(7, "Handball", coefForce, coefEndurance, coefAgilite, coefRandom);
+	public HandBall() {
+		super(7, "Handball", 4, 3, 2, 1);
 	}
 
 	@Override

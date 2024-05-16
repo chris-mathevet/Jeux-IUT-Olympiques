@@ -2,8 +2,8 @@ import java.util.Random;
 
 public class VoleyBall extends Sport {
 
-	public VoleyBall(int coefForce, int coefEndurance, int coefAgilite, int coefRandom) {
-		super(6, "Voley", coefForce, coefEndurance, coefAgilite, coefRandom);	
+	public VoleyBall() {
+		super(6, "Voley", 4, 1, 3, 1);	
 	}
 	
 	@Override

@@ -2,8 +2,8 @@ import java.util.Random;
 
 public class Escrime extends Sport {
 
-	public Escrime(int coefForce, int coefEndurance, int coefAgilite, int coefRandom) {
-		super(1, "Escrime", coefForce, coefEndurance, coefAgilite, coefRandom);
+	public Escrime() {
+		super(1, "Escrime", 1, 2, 4, 3);
 	}
 
 	@Override

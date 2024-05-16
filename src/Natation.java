@@ -2,8 +2,8 @@ import java.util.Random;
 
 public class Natation extends Sport {
 
-	public Natation(int coefForce, int coefEndurance, int coefAgilite, int coefRandom) {
-		super(1, "Natation", coefForce, coefEndurance, coefAgilite, coefRandom);
+	public Natation() {
+		super(1, "Natation", 1, 5, 2, 2);
 	}
 
 	@Override
