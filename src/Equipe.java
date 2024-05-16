@@ -66,4 +66,14 @@ public class Equipe extends ArrayList<Athlete> implements Participant{
 		}
 		return sommeBareme;
 	}
+
+	@Override
+	public String toString() {
+		String res = this.nom +" [\n";
+		for(Athlete athlete : this){
+			res.concat(athlete.toString() + "\n");
+		}
+		res.concat("]");
+		return res;
+	}
 }

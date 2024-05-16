@@ -38,4 +38,14 @@ public abstract class Sport {
 	 */
 	public abstract int bareme(Athlete athlete);
 
+	@Override
+	public String toString(){
+		if (this.nbParEquipe>1){
+			return this.nomSport + ",nb par equipe :" + this.nbParEquipe;
+		}
+		else{
+			return this.nomSport + ",sport individuel";
+		}
+		
+	}
 }
