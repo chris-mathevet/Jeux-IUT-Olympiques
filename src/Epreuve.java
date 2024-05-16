@@ -187,4 +187,8 @@ public class Epreuve<T extends Participant> {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return this.description + " sport: " + this.leSport.toString() + " sexe: " + this.sexe;
+	}
 }

@@ -95,4 +95,9 @@ public class Match<T extends Participant> {
 			return this.resultats.get(index);
 		}	
 	}
+
+	@Override
+	public String toString() {
+		return this.nomDeTour + this.numéroDeTour;
+	}
 }

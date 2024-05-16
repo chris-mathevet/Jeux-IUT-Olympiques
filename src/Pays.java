@@ -46,4 +46,9 @@ public class Pays {
 	public void addMedailleBronze(int medailleBronze) {
 		this.medailleBronze += medailleBronze;
 	}
+
+	@Override
+	public String toString() {
+		return this.nom + " or: " + this.medailleOr + " argent: " + this.medailleArgent + " bronze: " + this.medailleBronze;
+	}
 }

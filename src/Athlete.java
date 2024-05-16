@@ -72,4 +72,9 @@ public class Athlete implements Participant{
 		Athlete athlete = (Athlete) o;
 		return athlete.nom.equals(this.nom) && athlete.prenom.equals(this.prenom) && this.sexe == athlete.sexe && this.lePays == athlete.lePays;
 	}
+
+	@Override
+	public String toString(){
+		return "nom: " + this.nom + " prénom: " + this.prenom + " sexe: " + this.sexe + " pays: " + this.lePays +  " force: " + this.force + " agilité: " + this.agilite + " endurance: " + this.endurance;
+	}
 }
