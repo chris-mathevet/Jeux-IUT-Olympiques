@@ -63,20 +63,28 @@ public class TestEpreuveMatch {
         Athlete flagada = new Athlete("Jones","Flagada",'M', 19,18, 19,france);
 
         Equipe equipe1 = new Equipe("1");
-        equipe1.ajouter(baptiste);
-        equipe1.ajouter(chris);
-        equipe1.ajouter(julian);
-        equipe1.ajouter(axel);
-        equipe1.ajouter(shanka);
-        equipe1.ajouter(bastien);
         Equipe equipe2 = new Equipe("2");
-        equipe2.ajouter(riri);
-        equipe2.ajouter(fifi);
-        equipe2.ajouter(loulou);
-        equipe2.ajouter(pixou);   
-        equipe2.ajouter(donald);
-        equipe2.ajouter(flagada);
 
+        try {
+            equipe1.ajouter(baptiste);
+            equipe1.ajouter(chris);
+            equipe1.ajouter(julian);
+            equipe1.ajouter(axel);
+            equipe1.ajouter(shanka);
+            equipe1.ajouter(bastien);
+        } catch (Exception e) {
+            // throw AlreadyInException, NotSameCountryException
+        }
+        try {
+            equipe2.ajouter(riri);
+            equipe2.ajouter(fifi);
+            equipe2.ajouter(loulou);
+            equipe2.ajouter(pixou);   
+            equipe2.ajouter(donald);
+            equipe2.ajouter(flagada);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
         VoleyBall voley = new VoleyBall();
 
         Epreuve<Equipe> epreuve = new Epreuve<>("test", voley, 'M');

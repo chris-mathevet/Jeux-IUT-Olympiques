@@ -4,6 +4,12 @@
 public abstract class Sport {
 	private int nbParEquipe;
 	private String nomSport;
+	private int coefForce;
+	private int coefEndurance;
+	private int coefAgilite;
+	private int coefRandom;
+	
+
 
 	/**
 	 * Constructeur instancie les sports
@@ -11,10 +17,17 @@ public abstract class Sport {
 	 * @param int Le nombre d'athlete par équipe pour ce sport
 	 * @param String Le nom du Sport
 	 */
-	public Sport(int nbParEquipe, String nomSport) {
+	public Sport(int nbParEquipe, String nomSport, int coefForce, int coefEndurance, int coefAgilite, int coefRandom) {
 		this.nbParEquipe = nbParEquipe;
 		this.nomSport = nomSport;
+		
+		this.coefForce = coefForce;
+		this.coefEndurance = coefEndurance;
+		this.coefAgilite = coefAgilite;
+		this.coefRandom = coefRandom;
+
 	}
+
 
 	/**
 	 * Retourne le nombre de personne dans l'equipe pour ce sport
@@ -30,7 +43,34 @@ public abstract class Sport {
 	public String getSport() {
 		return this.nomSport;
 	}
-
+	/**
+	 * Retourne le coef du paramettre Force dans le bareme pour ce sport
+	 * @return int
+	 */
+	public int getCoefForce() {
+		return this.coefForce;
+	}
+	/**
+	 * Retourne le coef du paramettre Endurance dans le bareme pour ce sport
+	 * @return int
+	 */
+	public int getCoefEndurance() {
+		return this.coefEndurance;
+	}
+	/**
+	 * Retourne le coef du paramettre Agilite dans le bareme pour ce sport
+	 * @return int
+	 */
+	public int getCoefAgilite() {
+		return this.coefAgilite;
+	}
+	/**
+	 * Retourne le coef du paramettre Random dans le bareme pour ce sport
+	 * @return int
+	 */
+	public int getCoefRandom() {
+		return this.coefRandom;
+	}
 	/**
 	 * Retourne le nombre de point que l'athlete a eu en fonction du bareme donné (Avec les coefs)
 	 * @param Athlete L'athlete dont on veut les points
