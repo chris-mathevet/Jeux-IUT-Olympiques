@@ -71,6 +71,40 @@ public abstract class Sport {
 	public int getCoefRandom() {
 		return this.coefRandom;
 	}
+
+	
+	/**
+	 * change le coef du paramettre Force dans le bareme pour ce sport
+	 * @return void
+	 */
+	public void setCoefForce(int coefForce) {
+		this.coefForce = coefForce;
+	}
+
+	/**
+	 * change le coef du paramettre Endurance dans le bareme pour ce sport
+	 * @return void
+	 */
+	public void setCoefEndurance(int coefEndurance) {
+		this.coefEndurance = coefEndurance;
+	}
+
+	/**
+	 * change le coef du paramettre agilite dans le bareme pour ce sport
+	 * @return void
+	 */
+	public void setCoefAgilite(int coefAgilite) {
+		this.coefAgilite = coefAgilite;
+	}
+
+	/**
+	 * change le coef du paramettre Random dans le bareme pour ce sport
+	 * @return void
+	 */
+	public void setCoefRandom(int coefRandom) {
+		this.coefRandom = coefRandom;
+	}
+
 	/**
 	 * Retourne le nombre de point que l'athlete a eu en fonction du bareme donné (Avec les coefs)
 	 * @param Athlete L'athlete dont on veut les points
