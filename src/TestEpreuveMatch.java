@@ -44,6 +44,9 @@ public class TestEpreuveMatch {
             assertTrue(temps2<=200);
         }
     }
+
+
+    
     @Test
     public void testMatchEquipe() throws AlreadyInException{
         Pays france = new Pays("France");
