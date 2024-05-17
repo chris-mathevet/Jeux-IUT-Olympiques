@@ -97,22 +97,18 @@ public class Match<T extends Participant> {
 			tranfo =  new ArrayList<>();
 			if(leSport instanceof Athletisme){
 				if(this.epreuve.getDescription().contains("4")){ // 4*100m
-					System.out.println("Athle 4");
 					modifier1 = Athletisme.getModifiertemps4x100m();
 				}
 				else{
-					System.out.println("Athle");
 					modifier1 = Athletisme.getModifierTemp100();
 				}
 			}
 			else{ // Natattion
 				if(this.epreuve.getDescription().contains("4")){ // 4*100m
-					System.out.println("Nat 4");
 					modifier1 = Natation.getModifiertemps4x100m();
 					modifier2 = 2;
 				}
 				else{
-					System.out.println("Nat");
 					modifier1 = Natation.getModifierTemp100();
 				}
 			}
