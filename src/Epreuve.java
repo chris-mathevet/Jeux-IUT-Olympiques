@@ -122,7 +122,7 @@ public class Epreuve<T extends Participant> {
 	 * @param boolean vrai si l'épreuve se fait selon un temps
 	 * @return List<T> Le classement pour une épreuve
 	 */
-	public void classement(boolean is_timed) {
+	public void classement() {
 		List<Integer> resultats = this.cumulResultats();
 		this.leClassement = new ArrayList<>(this.lesParticipants);
 		int indMinMax = 0;
@@ -131,7 +131,7 @@ public class Epreuve<T extends Participant> {
 		// Fabrication du classement selon le cumul de résultat, 
 		// si il est en temps, le résultat est calculé selon la méthode du minimum (plus petit temps en premier)
 		// sinon le résultat est calculé selon la méthode du maximum (plus grand nombre de points en premier)
-		if(is_timed){
+		if(this.getSport().getEstTemsp()){
 			for (int i = 0; i<resultats.size();++i){
 				indMinMax = Match.indiemeMin(resultats, i); // Indice du min
 				// Permutation du min et de l'actuel
