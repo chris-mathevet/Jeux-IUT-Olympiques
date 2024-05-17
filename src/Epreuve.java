@@ -97,11 +97,11 @@ public class Epreuve<T extends Participant> {
 
 	/**
 	 * Renvoie la liste des résultats de chaque matchs cumulés
-	 * @return List<Integer> La liste cumulé
+	 * @return List<Double> La liste cumulé
 	 */
-	private List<Integer> cumulResultats(){
-		List<Integer> resultats = new ArrayList<>();
-		List<Integer> resultatMatch = new ArrayList<>();
+	private List<Double> cumulResultats(){
+		List<Double> resultats = new ArrayList<>();
+		List<Double> resultatMatch = new ArrayList<>();
 
 		// Cumul les résultats des différents matchs
 		for (Match<T> match : lesMatchs){
@@ -124,10 +124,10 @@ public class Epreuve<T extends Participant> {
 	 * @return List<T> Le classement pour une épreuve
 	 */
 	private void classement() {
-		List<Integer> resultats = this.cumulResultats();
+		List<Double> resultats = this.cumulResultats();
 		this.leClassement = new ArrayList<>(this.lesParticipants);
 		int indMinMax = 0;
-		Integer tmp = null;
+		Double tmp = null;
 
 		// Fabrication du classement selon le cumul de résultat, 
 		// si il est en temps, le résultat est calculé selon la méthode du minimum (plus petit temps en premier)

@@ -7,7 +7,7 @@ import java.util.List;
 public class Match<T extends Participant> {
 	private int numéroDeTour;
 	private String nomDeTour;
-	private List<Integer> resultats;
+	private List<Double> resultats;
 	private Epreuve<T> epreuve;
 
 	public Match(int nbTour, String nomTour, Epreuve<T> epreuve) {
@@ -26,7 +26,7 @@ public class Match<T extends Participant> {
 		return this.nomDeTour;
 	}
 
-	public List<Integer> getResultats() {
+	public List<Double> getResultats() {
 		if(this.resultats.isEmpty()){this.calculResultat();}
 		return this.resultats;
 	}
@@ -41,8 +41,8 @@ public class Match<T extends Participant> {
 	 * @param index L'indice de début
 	 * @return int Lindice du minimum
 	 */
-	public static int indiemeMin(List<Integer> liste, int index){
-        Integer min = null;
+	public static int indiemeMin(List<Double> liste, int index){
+        Double min = null;
         int ind = index;
         for(int i = index; i<liste.size();++i){
             if(min == null || liste.get(i)<min){
@@ -59,8 +59,8 @@ public class Match<T extends Participant> {
 	 * @param index L'indice de début
 	 * @return int Lindice du maximum
 	 */
-	public static int indiemeMax(List<Integer> liste, int index){
-        Integer max = null;
+	public static int indiemeMax(List<Double> liste, int index){
+        Double max = null;
         int ind = index;
         for(int i = index; i<liste.size();++i){
             if(max == null || liste.get(i)>max){
@@ -78,7 +78,7 @@ public class Match<T extends Participant> {
 		if(this.resultats.isEmpty()){
 			List<T> participants = this.epreuve.getLesParticipants();
 			for(T participant : participants){
-				resultats.add(participant.participer(this));
+				resultats.add((double) participant.participer(this));
 			}
 		}
 	}
@@ -87,7 +87,7 @@ public class Match<T extends Participant> {
 	 * @param T L'athlete / l'équipe dont on veut le résultat
 	 * @return int le résultat de l'athlete / l'équipe, -1 s'il n'a pas participé
 	 */	
-	public int getResultatParticipant(T participant){
+	public double getResultatParticipant(T participant){
 		if(this.resultats.isEmpty()){this.calculResultat();}
 		int index = this.epreuve.getLesParticipants().indexOf(participant);
 		if(index == -1){
