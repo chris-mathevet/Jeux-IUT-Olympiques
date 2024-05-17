@@ -8,6 +8,14 @@ public class Natation extends Sport {
 		super(1, "Natation", 1, 5, 2, 2,true);
 	}
 
+	public static int getModifierTemp100(){
+		return Natation.modifierTemps100m;
+	}
+
+	public static int getModifiertemps4x100m() {
+		return Natation.modifierTemps4x100m;
+	}
+
 	@Override
 	public int bareme(Athlete athlete){
 		Random e = new Random();

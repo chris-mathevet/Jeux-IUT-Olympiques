@@ -8,6 +8,14 @@ public class Athletisme extends Sport {
 		super(1, "Athletisme", 1,3,5,1,true);
 	}
 
+	public static int getModifierTemp100(){
+		return Athletisme.modifierTemps100m;
+	}
+
+	public static int getModifiertemps4x100m() {
+		return Athletisme.modifierTemps4x100m;
+	}
+
 	
 	@Override
 	public int bareme(Athlete athlete){
