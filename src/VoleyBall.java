@@ -3,7 +3,7 @@ import java.util.Random;
 public class VoleyBall extends Sport {
 
 	public VoleyBall() {
-		super(6, "Voley", 4, 1, 3, 1);	
+		super(6, "Voley", 4, 2, 3, 1);	
 	}
 	
 	@Override
