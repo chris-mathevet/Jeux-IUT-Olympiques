@@ -8,16 +8,20 @@ public abstract class Sport {
 	private int coefEndurance;
 	private int coefAgilite;
 	private int coefRandom;
+	private boolean estTemps;
 	
-
-
 	/**
 	 * Constructeur instancie les sports
 	 * 
 	 * @param int Le nombre d'athlete par équipe pour ce sport
 	 * @param String Le nom du Sport
+	 * @param int Le coef force utilisé dans le bareme
+	 * @param int Le coef endurance utilisé dans le bareme
+	 * @param int Le coef agilité utilisé dans le bareme
+	 * @param int Le coef random utilisé dans le bareme
+	 * @param boolean si le résultat d'un sport est en temps
 	 */
-	public Sport(int nbParEquipe, String nomSport, int coefForce, int coefEndurance, int coefAgilite, int coefRandom) {
+	public Sport(int nbParEquipe, String nomSport, int coefForce, int coefEndurance, int coefAgilite, int coefRandom, boolean estTemps) {
 		this.nbParEquipe = nbParEquipe;
 		this.nomSport = nomSport;
 		
@@ -25,7 +29,7 @@ public abstract class Sport {
 		this.coefEndurance = coefEndurance;
 		this.coefAgilite = coefAgilite;
 		this.coefRandom = coefRandom;
-
+		this.estTemps = estTemps;
 	}
 
 
@@ -70,6 +74,14 @@ public abstract class Sport {
 	 */
 	public int getCoefRandom() {
 		return this.coefRandom;
+	}
+
+	/**
+	 * Retourne si le résultat du sport doit être un temps
+	 * @return boolean
+	 */
+	public boolean getEstTemsp(){
+		return this.estTemps;
 	}
 
 	
