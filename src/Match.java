@@ -124,8 +124,6 @@ public class Match<T extends Participant> {
 		else{
 			tranfo =  new ArrayList<>(resultats);
 		}
-		System.out.println(this.epreuve.getDescription());
-		System.out.println(tranfo);
 		return tranfo;
 	}
 
