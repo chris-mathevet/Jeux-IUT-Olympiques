@@ -89,9 +89,41 @@ public class Epreuve<T extends Participant> {
 	 * Inscrit une équipe ou un athlete à une épreuve
 	 * @param Athlete L'athlete à inscrire a l'épreuve 
 	 */
-	public void inscrire(T participant) {
-		if (! this.lesParticipants.contains(participant)){
-			this.lesParticipants.add(participant);
+	public void inscrire(T participant) 
+	 throws AlreadyInException, NePeuxPasInscrireException{
+		int taille = leSport.getNbParEquipe();
+		boolean peutInscrire = false;
+		// Voit si le participant peut s'inscrire ou non
+		if(participant instanceof Athlete){
+			peutInscrire = (taille == 1);
+		}
+		else{
+			peutInscrire = (taille == ((Equipe) participant).size());
+		}
+		// S'il ne peut pas s'inscrire, léve l'exeption ne peut pas s'inscrire
+		if( ! peutInscrire){
+			if(participant instanceof Athlete){
+				throw new NePeuxPasInscrireException("Un athelete ne peux s'inscrire à une épreuve collective");
+			}
+			else{
+				throw new NePeuxPasInscrireException("Cet équipe ne peut pas s'incrire, taille équipe: " + ((Equipe) participant).size() + " taille requise: " + taille);
+			}
+		}
+		// Sinon
+		else{
+			// Si la liste des participants ne contient pas le participant, l'ajoute
+			if (! this.lesParticipants.contains(participant)){
+				this.lesParticipants.add(participant);
+			}
+			// Sinon léve l'exception déjà dedans
+			else{
+				if(participant instanceof Athlete){
+					throw new AlreadyInException("Cet athlete est déjà inscrit à cette épreuve");
+				}
+				else{
+					throw new AlreadyInException("Cette équipe est déjà inscrite à cette épreuve");
+				}
+			}
 		}
 	}
 

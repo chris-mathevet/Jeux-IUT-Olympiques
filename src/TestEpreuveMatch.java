@@ -20,13 +20,20 @@ public class TestEpreuveMatch {
         Epreuve<Athlete> mettre110H = new Epreuve<>("110 m haies hommes", escrime, 'M');
         Epreuve<Athlete> mettre110F = new Epreuve<>("110 m haies femmes", escrime, 'F');
 
-        mettre110F.inscrire(chris);
-        mettre110F.inscrire(michelle);
+        try {
+            mettre110F.inscrire(chris);
+            mettre110F.inscrire(michelle);
 
-        mettre110H.inscrire(baptiste);
-        mettre110H.inscrire(julian);
-        mettre110H.inscrire(axel);
-
+            mettre110H.inscrire(baptiste);
+            mettre110H.inscrire(julian);
+            mettre110H.inscrire(axel);
+            
+        } catch (AlreadyInException e) {
+            System.err.println(e.getMessage());
+        } catch(NePeuxPasInscrireException e){
+            System.err.println(e.getMessage());
+        }
+        
         Match<Athlete> matchsTestH = new Match<>(0, "Tour test", mettre110H);
         Match<Athlete> matchsTestF = new Match<>(0, "Tour test", mettre110F);
         
@@ -71,24 +78,32 @@ public class TestEpreuveMatch {
             equipe1.ajouter(axel);
             equipe1.ajouter(shanka);
             equipe1.ajouter(bastien);
-        } catch (Exception e) {
-            // throw AlreadyInException, NotSameCountryException
-        }
-        try {
+
             equipe2.ajouter(riri);
             equipe2.ajouter(fifi);
             equipe2.ajouter(loulou);
             equipe2.ajouter(pixou);   
             equipe2.ajouter(donald);
             equipe2.ajouter(flagada);
-        } catch (Exception e) {
-            // TODO: handle exception
+        } catch (AlreadyInException e) {
+            System.err.println(e.getMessage());
+        } catch(NotSameCountryException e){
+            System.err.println(e.getMessage());
         }
+
         VoleyBall voley = new VoleyBall();
 
         Epreuve<Equipe> epreuve = new Epreuve<>("test", voley, 'M');
-        epreuve.inscrire(equipe1);
-        epreuve.inscrire(equipe2);
+
+        try {
+            epreuve.inscrire(equipe1);
+            epreuve.inscrire(equipe2);
+            
+        } catch (AlreadyInException e) {
+            System.err.println(e.getMessage());
+        } catch(NePeuxPasInscrireException e){
+            System.err.println(e.getMessage());
+        }
 
         Match<Equipe> match = new Match<>(1, "test", epreuve);
 
@@ -110,21 +125,28 @@ public class TestEpreuveMatch {
         Epreuve<Athlete> natatione110 = new Epreuve<>("110 m nage libre hommes", natation, 'M');
         Epreuve<Athlete> natation4x110 = new Epreuve<>("4*110 m nage libre hommes", natation, 'M');
 
-        athletisme110.inscrire(baptiste);
-        athletisme110.inscrire(julian);
-        athletisme110.inscrire(axel);
+        try {
+            athletisme110.inscrire(baptiste);
+            athletisme110.inscrire(julian);
+            athletisme110.inscrire(axel);
 
-        athletisme4x110.inscrire(baptiste);
-        athletisme4x110.inscrire(julian);
-        athletisme4x110.inscrire(axel);
+            athletisme4x110.inscrire(baptiste);
+            athletisme4x110.inscrire(julian);
+            athletisme4x110.inscrire(axel);
 
-        natatione110.inscrire(baptiste);
-        natatione110.inscrire(julian);
-        natatione110.inscrire(axel);
+            natatione110.inscrire(baptiste);
+            natatione110.inscrire(julian);
+            natatione110.inscrire(axel);
 
-        natation4x110.inscrire(baptiste);
-        natation4x110.inscrire(julian);
-        natation4x110.inscrire(axel);
+            natation4x110.inscrire(baptiste);
+            natation4x110.inscrire(julian);
+            natation4x110.inscrire(axel);
+            
+        } catch (AlreadyInException e) {
+            System.err.println(e.getMessage());
+        } catch(NePeuxPasInscrireException e){
+            System.err.println(e.getMessage());
+        }
 
         Match<Athlete> matchsAthle100 = new Match<>(0, "Tour athle 110", athletisme110);
         Match<Athlete> matchsAthle4x100 = new Match<>(0, "Tour athle 4*110", athletisme4x110);
@@ -153,5 +175,63 @@ public class TestEpreuveMatch {
             assertTrue(temps1>=182.0);
             assertTrue(temps1<=280.0);
         }
+    }
+
+    @Test
+    public void testInscrireAthlete(){
+        Athletisme athletisme = new Athletisme();
+        VoleyBall voleyBall = new VoleyBall();
+        Pays france = new Pays("France");
+
+        Athlete baptiste = new Athlete("RICHARD","Baptiste",'M', 11, 18, 16,france);
+        Athlete julian = new Athlete("MARQUES","Julian",'M', 15,10, 19,france);
+        Athlete axel = new Athlete("MEUNIER","Axel",'M', 19,18, 9,france);
+
+        Epreuve<Athlete> athletisme110 = new Epreuve<>("110 m haies hommes", athletisme, 'M');
+        Epreuve<Athlete> epreuveVoleyTest = new Epreuve<>("VoleyBall athlete (impossible)", voleyBall, 'M');
+
+        boolean testNormal = false;
+        boolean testAlreadyIn = false;
+        boolean testPeuxPasInscrire = false;
+
+        try {
+            athletisme110.inscrire(baptiste);
+            athletisme110.inscrire(julian);
+            athletisme110.inscrire(axel);
+            testNormal = true;
+            
+        } catch (AlreadyInException e) {
+            System.err.println(e.getMessage());
+        } catch(NePeuxPasInscrireException e){
+            System.err.println(e.getMessage());
+        }
+
+        try {
+            athletisme110.inscrire(baptiste);
+            athletisme110.inscrire(julian);
+            athletisme110.inscrire(axel);
+            
+        } catch (AlreadyInException e) {
+            System.err.println(e.getMessage());
+            testAlreadyIn = true;
+        } catch(NePeuxPasInscrireException e){
+            System.err.println(e.getMessage());
+        }
+
+        try {
+            epreuveVoleyTest.inscrire(baptiste);
+            epreuveVoleyTest.inscrire(julian);
+            epreuveVoleyTest.inscrire(axel);
+            
+        } catch (AlreadyInException e) {
+            System.err.println(e.getMessage());
+        } catch(NePeuxPasInscrireException e){
+            testPeuxPasInscrire = true;
+            System.err.println(e.getMessage());
+        }
+
+        assertTrue(testPeuxPasInscrire);
+        assertTrue(testAlreadyIn);
+        assertTrue(testNormal);
     }
 }
