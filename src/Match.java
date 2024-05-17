@@ -27,6 +27,7 @@ public class Match<T extends Participant> {
 	}
 
 	public List<Integer> getResultats() {
+		if(this.resultats.isEmpty()){this.calculResultat();}
 		return this.resultats;
 	}
 	
@@ -73,7 +74,7 @@ public class Match<T extends Participant> {
 	/**
 	 * Calcul les résultats des participants du match (index partagé avec la liste de participants de l'épreuve)
 	 */
-	public void resultat() {
+	private void calculResultat() {
 		if(this.resultats.isEmpty()){
 			List<T> participants = this.epreuve.getLesParticipants();
 			for(T participant : participants){
@@ -87,6 +88,7 @@ public class Match<T extends Participant> {
 	 * @return int le résultat de l'athlete / l'équipe, -1 s'il n'a pas participé
 	 */	
 	public int getResultatParticipant(T participant){
+		if(this.resultats.isEmpty()){this.calculResultat();}
 		int index = this.epreuve.getLesParticipants().indexOf(participant);
 		if(index == -1){
 			return -1;
