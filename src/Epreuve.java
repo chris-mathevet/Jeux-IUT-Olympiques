@@ -113,7 +113,21 @@ public class Epreuve<T extends Participant> {
 				for(int i = 0; i<resultats.size();++i){
 					resultats.set(i, resultats.get(i) + resultatMatch.get(i));
 				}
+				
 			}
+		}
+		return resultats;
+	}
+
+	/**
+	 * Renvoie la liste des moyennes des points de chaque participants
+	 * @return List<Double> La liste de moyenne
+	 */
+	private List<Double> moyResultats(){
+		List<Double> resultats = this.cumulResultats();
+		int taille = this.lesMatchs.size();
+		for(Double res : resultats){
+			res /= taille;
 		}
 		return resultats;
 	}
@@ -124,12 +138,12 @@ public class Epreuve<T extends Participant> {
 	 * @return List<T> Le classement pour une épreuve
 	 */
 	private void classement() {
-		List<Double> resultats = this.cumulResultats();
+		List<Double> resultats = this.moyResultats();
 		this.leClassement = new ArrayList<>(this.lesParticipants);
 		int indMinMax = 0;
 		Double tmp = null;
 
-		// Fabrication du classement selon le cumul de résultat, 
+		// Fabrication du classement selon les moyennes de résultat, 
 		// si il est en temps, le résultat est calculé selon la méthode du minimum (plus petit temps en premier)
 		// sinon le résultat est calculé selon la méthode du maximum (plus grand nombre de points en premier)
 		if(this.getSport().getEstTemsp()){
