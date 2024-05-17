@@ -20,13 +20,20 @@ public class TestEpreuveMatch {
         Epreuve<Athlete> mettre110H = new Epreuve<>("110 m haies hommes", escrime, 'M');
         Epreuve<Athlete> mettre110F = new Epreuve<>("110 m haies femmes", escrime, 'F');
 
-        mettre110F.inscrire(chris);
-        mettre110F.inscrire(michelle);
+        try {
+            mettre110F.inscrire(chris);
+            mettre110F.inscrire(michelle);
 
-        mettre110H.inscrire(baptiste);
-        mettre110H.inscrire(julian);
-        mettre110H.inscrire(axel);
-
+            mettre110H.inscrire(baptiste);
+            mettre110H.inscrire(julian);
+            mettre110H.inscrire(axel);
+            
+        } catch (AlreadyInException e) {
+            System.err.println(e.getMessage());
+        } catch(NePeuxPasInscrireException e){
+            System.err.println(e.getMessage());
+        }
+        
         Match<Athlete> matchsTestH = new Match<>(0, "Tour test", mettre110H);
         Match<Athlete> matchsTestF = new Match<>(0, "Tour test", mettre110F);
         
@@ -71,24 +78,32 @@ public class TestEpreuveMatch {
             equipe1.ajouter(axel);
             equipe1.ajouter(shanka);
             equipe1.ajouter(bastien);
-        } catch (Exception e) {
-            // throw AlreadyInException, NotSameCountryException
-        }
-        try {
+
             equipe2.ajouter(riri);
             equipe2.ajouter(fifi);
             equipe2.ajouter(loulou);
             equipe2.ajouter(pixou);   
             equipe2.ajouter(donald);
             equipe2.ajouter(flagada);
-        } catch (Exception e) {
-            // TODO: handle exception
+        } catch (AlreadyInException e) {
+            System.err.println(e.getMessage());
+        } catch(NotSameCountryException e){
+            System.err.println(e.getMessage());
         }
+
         VoleyBall voley = new VoleyBall();
 
         Epreuve<Equipe> epreuve = new Epreuve<>("test", voley, 'M');
-        epreuve.inscrire(equipe1);
-        epreuve.inscrire(equipe2);
+
+        try {
+            epreuve.inscrire(equipe1);
+            epreuve.inscrire(equipe2);
+            
+        } catch (AlreadyInException e) {
+            System.err.println(e.getMessage());
+        } catch(NePeuxPasInscrireException e){
+            System.err.println(e.getMessage());
+        }
 
         Match<Equipe> match = new Match<>(1, "test", epreuve);
 
@@ -110,21 +125,28 @@ public class TestEpreuveMatch {
         Epreuve<Athlete> natatione110 = new Epreuve<>("110 m nage libre hommes", natation, 'M');
         Epreuve<Athlete> natation4x110 = new Epreuve<>("4*110 m nage libre hommes", natation, 'M');
 
-        athletisme110.inscrire(baptiste);
-        athletisme110.inscrire(julian);
-        athletisme110.inscrire(axel);
+        try {
+            athletisme110.inscrire(baptiste);
+            athletisme110.inscrire(julian);
+            athletisme110.inscrire(axel);
 
-        athletisme4x110.inscrire(baptiste);
-        athletisme4x110.inscrire(julian);
-        athletisme4x110.inscrire(axel);
+            athletisme4x110.inscrire(baptiste);
+            athletisme4x110.inscrire(julian);
+            athletisme4x110.inscrire(axel);
 
-        natatione110.inscrire(baptiste);
-        natatione110.inscrire(julian);
-        natatione110.inscrire(axel);
+            natatione110.inscrire(baptiste);
+            natatione110.inscrire(julian);
+            natatione110.inscrire(axel);
 
-        natation4x110.inscrire(baptiste);
-        natation4x110.inscrire(julian);
-        natation4x110.inscrire(axel);
+            natation4x110.inscrire(baptiste);
+            natation4x110.inscrire(julian);
+            natation4x110.inscrire(axel);
+            
+        } catch (AlreadyInException e) {
+            System.err.println(e.getMessage());
+        } catch(NePeuxPasInscrireException e){
+            System.err.println(e.getMessage());
+        }
 
         Match<Athlete> matchsAthle100 = new Match<>(0, "Tour athle 110", athletisme110);
         Match<Athlete> matchsAthle4x100 = new Match<>(0, "Tour athle 4*110", athletisme4x110);
