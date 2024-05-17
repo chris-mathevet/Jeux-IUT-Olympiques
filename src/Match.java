@@ -28,6 +28,7 @@ public class Match<T extends Participant> {
 
 	public List<Double> getResultats() {
 		if(this.resultats.isEmpty()){this.calculResultat();}
+		this.resultats = this.transfoPointTemps(resultats);
 		return this.resultats;
 	}
 	
@@ -82,6 +83,52 @@ public class Match<T extends Participant> {
 			}
 		}
 	}
+
+	/**
+	 * Transforme (ou non) la liste de points en temps (en s)
+	 * @return List<Double> La liste transformé ou non
+	 */
+	private List<Double> transfoPointTemps(List<Double> resultats){
+		Sport leSport = this.epreuve.getSport();
+		List<Double> tranfo;
+		int modifier1 = 0;
+		int modifier2 = 20;
+		if(leSport.getEstTemsp()){ // Athletisme ou Natation
+			tranfo =  new ArrayList<>();
+			if(leSport instanceof Athletisme){
+				if(this.epreuve.getDescription().contains("4")){ // 4*100m
+					System.out.println("Athle 4");
+					modifier1 = Athletisme.getModifiertemps4x100m();
+				}
+				else{
+					System.out.println("Athle");
+					modifier1 = Athletisme.getModifierTemp100();
+				}
+			}
+			else{ // Natattion
+				if(this.epreuve.getDescription().contains("4")){ // 4*100m
+					System.out.println("Nat 4");
+					modifier1 = Natation.getModifiertemps4x100m();
+					modifier2 = 2;
+				}
+				else{
+					System.out.println("Nat");
+					modifier1 = Natation.getModifierTemp100();
+				}
+			}
+			for(Double res : resultats){
+				res = (modifier1 + ((0-res)+204)/modifier2);
+				tranfo.add(res);
+			}
+		}
+		else{
+			tranfo =  new ArrayList<>(resultats);
+		}
+		System.out.println(this.epreuve.getDescription());
+		System.out.println(tranfo);
+		return tranfo;
+	}
+
 	/**
 	 * Renvoie le résultat d'un participant pour un match
 	 * @param T L'athlete / l'équipe dont on veut le résultat

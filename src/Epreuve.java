@@ -131,40 +131,6 @@ public class Epreuve<T extends Participant> {
 		}
 		return resultats;
 	}
-	
-	/**
-	 * Transforme (ou non) la liste de points en temps
-	 * @return List<Double> La liste transformé ou non
-	 */
-	private List<Double> transfoPointTemps(){
-		List<Double> resultats = this.moyResultats();
-		Sport leSport = this.getSport();
-		int modifier1 = 0;
-		int modifier2 = 20;
-		if(leSport.getEstTemsp()){ // Athletisme ou Natation
-			if(leSport instanceof Athletisme){
-				if(this.description.contains("4")){ // 4*100m
-					modifier1 = Athletisme.getModifiertemps4x100m();
-				}
-				else{
-					modifier1 = Athletisme.getModifierTemp100();
-				}
-			}
-			else{ // Natattion
-				if(this.description.contains("4")){ // 4*100m
-					modifier1 = Natation.getModifiertemps4x100m();
-					modifier2 = 2;
-				}
-				else{
-					modifier1 = Natation.getModifierTemp100();
-				}
-			}
-			for(Double res : resultats){
-				res = (modifier1 + (0-res+204)/modifier2)/60;
-			}
-		}
-		return resultats;
-	}
 
 	/**
 	 * Renvoie le classement pour l'épreuve
@@ -172,7 +138,7 @@ public class Epreuve<T extends Participant> {
 	 * @return List<T> Le classement pour une épreuve
 	 */
 	private void classement() {
-		List<Double> resultats = this.transfoPointTemps();
+		List<Double> resultats = this.moyResultats();
 		this.leClassement = new ArrayList<>(this.lesParticipants);
 		int indMinMax = 0;
 		Double tmp = null;
