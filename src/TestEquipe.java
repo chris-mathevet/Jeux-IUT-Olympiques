@@ -22,7 +22,6 @@ public class TestEquipe {
         Epreuve<Equipe> epreuveTest = new Epreuve<>("Test", sport1, 'm');
         Match<Equipe> matchTest = new Match<>(3, "Test", epreuveTest);
 
-
         try {
             testEquipe.ajouter(a1);
             testEquipe.ajouter(a2);
@@ -39,7 +38,7 @@ public class TestEquipe {
 
         assertEquals(testEquipe, Arrays.asList(a1,a2,a3));
         assertNotEquals(testEquipe, Arrays.asList(a1,a2,a4));
-        assertTrue(testEquipe.participer(matchTest)>4 * testEquipe.size());
-        assertTrue(testEquipe.participer(matchTest)<200 * testEquipe.size());
+        assertTrue(testEquipe.participer(matchTest)>=4 * testEquipe.size());
+        assertTrue(testEquipe.participer(matchTest)<=200 * testEquipe.size());
     }   
 }

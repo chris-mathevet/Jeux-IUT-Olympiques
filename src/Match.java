@@ -7,7 +7,7 @@ import java.util.List;
 public class Match<T extends Participant> {
 	private int numéroDeTour;
 	private String nomDeTour;
-	private List<Integer> resultats;
+	private List<Double> resultats;
 	private Epreuve<T> epreuve;
 
 	public Match(int nbTour, String nomTour, Epreuve<T> epreuve) {
@@ -26,7 +26,9 @@ public class Match<T extends Participant> {
 		return this.nomDeTour;
 	}
 
-	public List<Integer> getResultats() {
+	public List<Double> getResultats() {
+		if(this.resultats.isEmpty()){this.calculResultat();}
+		this.resultats = this.transfoPointTemps(resultats);
 		return this.resultats;
 	}
 	
@@ -40,8 +42,8 @@ public class Match<T extends Participant> {
 	 * @param index L'indice de début
 	 * @return int Lindice du minimum
 	 */
-	public static int indiemeMin(List<Integer> liste, int index){
-        Integer min = null;
+	public static int indiemeMin(List<Double> liste, int index){
+        Double min = null;
         int ind = index;
         for(int i = index; i<liste.size();++i){
             if(min == null || liste.get(i)<min){
@@ -58,8 +60,8 @@ public class Match<T extends Participant> {
 	 * @param index L'indice de début
 	 * @return int Lindice du maximum
 	 */
-	public static int indiemeMax(List<Integer> liste, int index){
-        Integer max = null;
+	public static int indiemeMax(List<Double> liste, int index){
+        Double max = null;
         int ind = index;
         for(int i = index; i<liste.size();++i){
             if(max == null || liste.get(i)>max){
@@ -73,20 +75,65 @@ public class Match<T extends Participant> {
 	/**
 	 * Calcul les résultats des participants du match (index partagé avec la liste de participants de l'épreuve)
 	 */
-	public void resultat() {
+	private void calculResultat() {
 		if(this.resultats.isEmpty()){
 			List<T> participants = this.epreuve.getLesParticipants();
 			for(T participant : participants){
-				resultats.add(participant.participer(this));
+				resultats.add((double) participant.participer(this));
 			}
 		}
 	}
+
+	/**
+	 * Transforme (ou non) la liste de points en temps (en s)
+	 * @return List<Double> La liste transformé ou non
+	 */
+	private List<Double> transfoPointTemps(List<Double> resultats){
+		Sport leSport = this.epreuve.getSport();
+		List<Double> tranfo;
+		int modifier1 = 0;
+		int modifier2 = 20;
+		if(leSport.getEstTemsp()){ // Athletisme ou Natation
+			tranfo =  new ArrayList<>();
+			if(leSport instanceof Athletisme){
+				if(this.epreuve.getDescription().contains("4")){ // 4*100m
+					System.out.println("Athle 4");
+					modifier1 = Athletisme.getModifiertemps4x100m();
+				}
+				else{
+					System.out.println("Athle");
+					modifier1 = Athletisme.getModifierTemp100();
+				}
+			}
+			else{ // Natattion
+				if(this.epreuve.getDescription().contains("4")){ // 4*100m
+					System.out.println("Nat 4");
+					modifier1 = Natation.getModifiertemps4x100m();
+					modifier2 = 2;
+				}
+				else{
+					System.out.println("Nat");
+					modifier1 = Natation.getModifierTemp100();
+				}
+			}
+			for(Double res : resultats){
+				res = (modifier1 + ((0-res)+204)/modifier2);
+				tranfo.add(res);
+			}
+		}
+		else{
+			tranfo =  new ArrayList<>(resultats);
+		}
+		return tranfo;
+	}
+
 	/**
 	 * Renvoie le résultat d'un participant pour un match
 	 * @param T L'athlete / l'équipe dont on veut le résultat
 	 * @return int le résultat de l'athlete / l'équipe, -1 s'il n'a pas participé
 	 */	
-	public int getResultatParticipant(T participant){
+	public double getResultatParticipant(T participant){
+		if(this.resultats.isEmpty()){this.calculResultat();}
 		int index = this.epreuve.getLesParticipants().indexOf(participant);
 		if(index == -1){
 			return -1;

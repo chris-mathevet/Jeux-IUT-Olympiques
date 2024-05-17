@@ -62,6 +62,7 @@ public class Epreuve<T extends Participant> {
 	}
 
 	public List<T> getLeClassement() {
+		if(this.leClassement.isEmpty()){this.classement();}
 		return this.leClassement;
 	}
 
@@ -96,11 +97,11 @@ public class Epreuve<T extends Participant> {
 
 	/**
 	 * Renvoie la liste des résultats de chaque matchs cumulés
-	 * @return List<Integer> La liste cumulé
+	 * @return List<Double> La liste cumulé
 	 */
-	private List<Integer> cumulResultats(){
-		List<Integer> resultats = new ArrayList<>();
-		List<Integer> resultatMatch = new ArrayList<>();
+	private List<Double> cumulResultats(){
+		List<Double> resultats = new ArrayList<>();
+		List<Double> resultatMatch = new ArrayList<>();
 
 		// Cumul les résultats des différents matchs
 		for (Match<T> match : lesMatchs){
@@ -112,7 +113,21 @@ public class Epreuve<T extends Participant> {
 				for(int i = 0; i<resultats.size();++i){
 					resultats.set(i, resultats.get(i) + resultatMatch.get(i));
 				}
+				
 			}
+		}
+		return resultats;
+	}
+
+	/**
+	 * Renvoie la liste des moyennes des points de chaque participants
+	 * @return List<Double> La liste de moyenne
+	 */
+	private List<Double> moyResultats(){
+		List<Double> resultats = this.cumulResultats();
+		int taille = this.lesMatchs.size();
+		for(Double res : resultats){
+			res /= taille;
 		}
 		return resultats;
 	}
@@ -122,16 +137,16 @@ public class Epreuve<T extends Participant> {
 	 * @param boolean vrai si l'épreuve se fait selon un temps
 	 * @return List<T> Le classement pour une épreuve
 	 */
-	public void classement(boolean is_timed) {
-		List<Integer> resultats = this.cumulResultats();
+	private void classement() {
+		List<Double> resultats = this.moyResultats();
 		this.leClassement = new ArrayList<>(this.lesParticipants);
 		int indMinMax = 0;
-		Integer tmp = null;
+		Double tmp = null;
 
-		// Fabrication du classement selon le cumul de résultat, 
+		// Fabrication du classement selon les moyennes de résultat, 
 		// si il est en temps, le résultat est calculé selon la méthode du minimum (plus petit temps en premier)
 		// sinon le résultat est calculé selon la méthode du maximum (plus grand nombre de points en premier)
-		if(is_timed){
+		if(this.getSport().getEstTemsp()){
 			for (int i = 0; i<resultats.size();++i){
 				indMinMax = Match.indiemeMin(resultats, i); // Indice du min
 				// Permutation du min et de l'actuel
