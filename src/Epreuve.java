@@ -62,6 +62,7 @@ public class Epreuve<T extends Participant> {
 	}
 
 	public List<T> getLeClassement() {
+		if(this.leClassement.isEmpty()){this.classement();}
 		return this.leClassement;
 	}
 
@@ -122,7 +123,7 @@ public class Epreuve<T extends Participant> {
 	 * @param boolean vrai si l'épreuve se fait selon un temps
 	 * @return List<T> Le classement pour une épreuve
 	 */
-	public void classement() {
+	private void classement() {
 		List<Integer> resultats = this.cumulResultats();
 		this.leClassement = new ArrayList<>(this.lesParticipants);
 		int indMinMax = 0;
