@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Pays {
 	private String nom;
-	List<Equipe> lesEquipes;
-	List<Athlete> lesAthletes;
+	private List<Equipe> lesEquipes;
+	private List<Athlete> lesAthletes;
 	private int medailleOr;
 	private int medailleArgent;
 	private int medailleBronze;

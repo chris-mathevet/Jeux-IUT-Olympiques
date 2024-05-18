@@ -32,6 +32,7 @@ public class Athlete implements Participant{
 		this.endurance = endurance;
 		this.agilite = agilite;
 		this.lePays = pays;
+		this.lePays.getLesAthletes().add(this);
 	}
 
 	public String getNom() {
