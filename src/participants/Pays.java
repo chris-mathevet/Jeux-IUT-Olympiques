@@ -5,7 +5,8 @@ import java.util.List;
 
 public class Pays {
 	private String nom;
-	List<Object> lesEquipes;
+	private List<Equipe> lesEquipes;
+	private List<Athlete> lesAthletes;
 	private int medailleOr;
 	private int medailleArgent;
 	private int medailleBronze;
@@ -16,9 +17,18 @@ public class Pays {
 	public Pays(String nom) {
 		this.nom = nom;
 		this.lesEquipes = new ArrayList<>();
+		this.lesAthletes = new ArrayList<>();
 		this.medailleOr = 0;
 		this.medailleArgent = 0;
 		this.medailleBronze = 0;
+	}
+
+	public List<Equipe> getLesEquipes() {
+		return this.lesEquipes;
+	}
+
+	public List<Athlete> getLesAthletes() {
+		return this.lesAthletes;
 	}
 
 	public String getNomPays() {

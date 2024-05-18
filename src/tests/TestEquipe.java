@@ -6,10 +6,10 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import epreuves.*;
-import participants.*;
-import sports.HandBall;
 import exceptions.AlreadyInException;
 import exceptions.NotSameCountryException;
+import participants.*;
+import sports.HandBall;
 
 
 public class TestEquipe {

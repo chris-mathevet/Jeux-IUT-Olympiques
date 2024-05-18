@@ -1,7 +1,6 @@
 package participants;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import epreuves.Match;
 import exceptions.AlreadyInException;
@@ -42,6 +41,7 @@ public class Equipe extends ArrayList<Athlete> implements Participant{
 
 		if (this.isEmpty()) {
 			this.add(athlete);
+			this.getPays().getLesEquipes().add(this);
 		}
         else if ((!(this.contains(athlete))) && athlete.getPays().equals(this.get(0).getPays())){
             this.add(athlete);
@@ -71,11 +71,6 @@ public class Equipe extends ArrayList<Athlete> implements Participant{
 
 	@Override
 	public String toString() {
-		String res = this.nom +" [\n";
-		for(Athlete athlete : this){
-			res.concat(athlete.toString() + "\n");
-		}
-		res.concat("]");
-		return res;
+		return this.nom +", membre: " +super.toString();
 	}
 }
