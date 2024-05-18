@@ -1,7 +1,16 @@
+package tests;
+
+import java.util.Arrays;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
-import java.util.Arrays;
+
+import epreuves.*;
+import participants.*;
+import sports.HandBall;
+import exceptions.AlreadyInException;
+import exceptions.NotSameCountryException;
+
 
 public class TestEquipe {
     
@@ -14,7 +23,7 @@ public class TestEquipe {
         Athlete a3 = new Athlete("sophie", "duke", 'f', 9, 8, 5, fr);
         Athlete a4 = new Athlete("Thomas", "King", 'f', 9, 8, 5, ge);
         Equipe testEquipe = new Equipe("farfadetsMalicieux");
-        Sport sport1 = new HandBall();
+        HandBall sport1 = new HandBall();
         Epreuve<Equipe> epreuveTest = new Epreuve<>("Test", sport1, 'm');
         Match<Equipe> matchTest = new Match<>(3, "Test", epreuveTest);
 

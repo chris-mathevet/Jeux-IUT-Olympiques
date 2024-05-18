@@ -1,22 +1,25 @@
+package sports;
+
 import java.util.Random;
 
-public class Athletisme extends Sport {
-	private static final int modifierTemps100m = 10; 
-	private static final int modifierTemps4x100m = 30; 
+import participants.Athlete;
 
-	public Athletisme() {
-		super(1, "Athletisme", 1,3,5,1,true);
+public class Natation extends Sport {
+	private static final int modifierTemps100m = 42; 
+	private static final int modifierTemps4x100m = 180; 
+
+	public Natation() {
+		super(1, "Natation", 1, 5, 2, 2,true);
 	}
 
 	public static int getModifierTemp100(){
-		return Athletisme.modifierTemps100m;
+		return Natation.modifierTemps100m;
 	}
 
 	public static int getModifiertemps4x100m() {
-		return Athletisme.modifierTemps4x100m;
+		return Natation.modifierTemps4x100m;
 	}
 
-	
 	@Override
 	public int bareme(Athlete athlete){
 		Random e = new Random();

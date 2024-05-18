@@ -1,8 +1,17 @@
-import static org.junit.Assert.assertTrue;
+package tests;
 
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
+
+import epreuves.*;
+import exceptions.*;
+import participants.*;
+import sports.Athletisme;
+import sports.Escrime;
+import sports.Natation;
+import sports.VoleyBall;
 
 public class TestEpreuveMatch {
     @Test

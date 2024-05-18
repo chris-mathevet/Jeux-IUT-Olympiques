@@ -1,5 +1,12 @@
+package epreuves;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import exceptions.AlreadyInException;
+import exceptions.CanNotRegisterException;
+import participants.*;
+import sports.Sport;
 
 public class Epreuve<T extends Participant> {
 	private String description;

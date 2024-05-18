@@ -1,5 +1,11 @@
+package participants;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import epreuves.Match;
+import exceptions.AlreadyInException;
+import exceptions.NotSameCountryException;
 
 public class Equipe extends ArrayList<Athlete> implements Participant{
 	private String nom;

@@ -1,3 +1,5 @@
+package exceptions;
+
 public class NotSameCountryException extends Exception{
     
     public NotSameCountryException(String message) {
@@ -7,5 +9,4 @@ public class NotSameCountryException extends Exception{
     public NotSameCountryException() {
         super("Le pays est différent");
     }
-    
 }

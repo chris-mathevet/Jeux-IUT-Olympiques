@@ -1,3 +1,7 @@
+package participants;
+
+import epreuves.Match;
+
 public class Athlete implements Participant{
 	private String nom;
 	private String prenom;
