@@ -32,10 +32,6 @@ public class Equipe extends ArrayList<Athlete> implements Participant{
 		return null;
 	}
 
-	public List<Athlete> getListeAthlete() {
-		return this;
-	}
-
 	/**
      * Permet d'ajouter un athlete dans l'équipe, si il n'est pas déjà dedans sinon on renvoie l'exception "AlreadyInException" créer à cet effet.
      * @param Athlete athlete 
