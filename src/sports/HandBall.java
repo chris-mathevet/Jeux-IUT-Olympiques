@@ -1,4 +1,8 @@
+package sports;
+
 import java.util.Random;
+
+import participants.Athlete;
 
 public class HandBall extends Sport {
 

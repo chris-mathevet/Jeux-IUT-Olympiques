@@ -1,7 +1,10 @@
-// By julian
+package tests;
 
-import org.junit.Test;
 import static org.junit.Assert.assertTrue;
+import org.junit.Test;
+
+import participants.Athlete;
+import sports.*;
 
 public class TestSport{
     @Test

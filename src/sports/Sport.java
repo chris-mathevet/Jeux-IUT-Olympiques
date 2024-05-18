@@ -1,6 +1,7 @@
-/**
- * abstract class Sport
- */
+package sports;
+
+import participants.Athlete;
+
 public abstract class Sport {
 	private int nbParEquipe;
 	private String nomSport;

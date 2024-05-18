@@ -1,3 +1,7 @@
+package participants;
+
+import epreuves.Match;
+
 public interface Participant {
 
 	/**

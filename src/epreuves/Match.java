@@ -1,5 +1,12 @@
+package epreuves;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import participants.Participant;
+import sports.Athletisme;
+import sports.Natation;
+import sports.Sport;
 
 /**
  * 
