@@ -1,10 +1,7 @@
 
 import static org.junit.Assert.*;
 import org.junit.Test;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-
 
 public class TestEquipe {
     
@@ -12,7 +9,6 @@ public class TestEquipe {
     public void testAjouter() {
         Pays fr = new Pays("France");
         Pays ge = new Pays("Germany");
-        Pays uk = new Pays("United Kingdom");
         Athlete a1 = new Athlete("george", "martin", 'm', 9, 8, 5, fr);
         Athlete a2 = new Athlete("raphael", "nadal", 'm', 9, 8, 5, fr);
         Athlete a3 = new Athlete("sophie", "duke", 'f', 9, 8, 5, fr);

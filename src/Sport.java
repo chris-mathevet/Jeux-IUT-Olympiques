@@ -1,6 +1,3 @@
-/**
- * abstract class Sport
- */
 public abstract class Sport {
 	private int nbParEquipe;
 	private String nomSport;
