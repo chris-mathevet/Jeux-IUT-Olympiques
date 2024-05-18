@@ -24,8 +24,8 @@ public class Athlete implements Participant{
 	public Athlete(String nom, String prenom, char sexe, int force, int endurance, int agilite, Pays pays) {
 		this.nom = nom;
 		this.prenom = prenom;
-		this.sexe = sexe;
-		if (sexe != 'F' || sexe != 'H'){
+		this.sexe = Character.toUpperCase(sexe);
+		if (this.sexe != 'F'){
 			this.sexe = 'H';
 		}
 		this.force = force;
