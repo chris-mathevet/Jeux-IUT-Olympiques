@@ -30,7 +30,7 @@ public class TestEpreuveMatch {
             
         } catch (AlreadyInException e) {
             System.err.println(e.getMessage());
-        } catch(NePeuxPasInscrireException e){
+        } catch(CanNotRegisterException e){
             System.err.println(e.getMessage());
         }
         
@@ -101,7 +101,7 @@ public class TestEpreuveMatch {
             
         } catch (AlreadyInException e) {
             System.err.println(e.getMessage());
-        } catch(NePeuxPasInscrireException e){
+        } catch(CanNotRegisterException e){
             System.err.println(e.getMessage());
         }
 
@@ -144,7 +144,7 @@ public class TestEpreuveMatch {
             
         } catch (AlreadyInException e) {
             System.err.println(e.getMessage());
-        } catch(NePeuxPasInscrireException e){
+        } catch(CanNotRegisterException e){
             System.err.println(e.getMessage());
         }
 
@@ -202,7 +202,7 @@ public class TestEpreuveMatch {
             
         } catch (AlreadyInException e) {
             System.err.println(e.getMessage());
-        } catch(NePeuxPasInscrireException e){
+        } catch(CanNotRegisterException e){
             System.err.println(e.getMessage());
         }
 
@@ -214,7 +214,7 @@ public class TestEpreuveMatch {
         } catch (AlreadyInException e) {
             System.err.println(e.getMessage());
             testAlreadyIn = true;
-        } catch(NePeuxPasInscrireException e){
+        } catch(CanNotRegisterException e){
             System.err.println(e.getMessage());
         }
 
@@ -225,7 +225,7 @@ public class TestEpreuveMatch {
             
         } catch (AlreadyInException e) {
             System.err.println(e.getMessage());
-        } catch(NePeuxPasInscrireException e){
+        } catch(CanNotRegisterException e){
             testPeuxPasInscrire = true;
             System.err.println(e.getMessage());
         }

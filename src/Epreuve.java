@@ -90,7 +90,7 @@ public class Epreuve<T extends Participant> {
 	 * @param Athlete L'athlete à inscrire a l'épreuve 
 	 */
 	public void inscrire(T participant) 
-	 throws AlreadyInException, NePeuxPasInscrireException{
+	 throws AlreadyInException, CanNotRegisterException{
 		int taille = leSport.getNbParEquipe();
 		boolean peutInscrire = false;
 		// Voit si le participant peut s'inscrire ou non
@@ -103,10 +103,10 @@ public class Epreuve<T extends Participant> {
 		// S'il ne peut pas s'inscrire, léve l'exeption ne peut pas s'inscrire
 		if( ! peutInscrire){
 			if(participant instanceof Athlete){
-				throw new NePeuxPasInscrireException("Un athelete ne peux s'inscrire à une épreuve collective");
+				throw new CanNotRegisterException("Un athelete ne peux s'inscrire à une épreuve collective");
 			}
 			else{
-				throw new NePeuxPasInscrireException("Cet équipe ne peut pas s'incrire, taille équipe: " + ((Equipe) participant).size() + " taille requise: " + taille);
+				throw new CanNotRegisterException("Cet équipe ne peut pas s'incrire, taille équipe: " + ((Equipe) participant).size() + " taille requise: " + taille);
 			}
 		}
 		// Sinon
