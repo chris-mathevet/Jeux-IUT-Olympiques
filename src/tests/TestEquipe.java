@@ -45,9 +45,5 @@ public class TestEquipe {
         assertNotEquals(testEquipe, Arrays.asList(a1,a2,a4));
         assertTrue(testEquipe.participer(matchTest)>=4 * testEquipe.size());
         assertTrue(testEquipe.participer(matchTest)<=200 * testEquipe.size());
-        System.out.println(fr.getLesAthletes());
-        System.out.println(ge.getLesAthletes());
-        System.out.println(fr.getLesEquipes());
-        System.out.println(fr.getLesEquipes());
     }   
 }
