@@ -80,6 +80,6 @@ public class Athlete implements Participant{
 
 	@Override
 	public String toString(){
-		return "nom: " + this.nom + " prénom: " + this.prenom + " sexe: " + this.sexe + " pays: " + this.lePays +  " force: " + this.force + " agilité: " + this.agilite + " endurance: " + this.endurance;
+		return "("+ "nom: " + this.nom + ", prénom: " + this.prenom + ", sexe: " + this.sexe + ", pays: " + this.lePays.getNomPays() +  ", force: " + this.force + ", agilité: " + this.agilite + ", endurance: " + this.endurance + ")";
 	}
 }
