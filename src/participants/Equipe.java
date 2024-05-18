@@ -32,6 +32,16 @@ public class Equipe extends ArrayList<Athlete> implements Participant{
 	}
 
 	/**
+	 * @return char le sexe de l'équipe (F, H); ou ' ' so l'équipe est vide
+	 */
+	public char getSexe(){
+		if (! this.isEmpty()){
+			return this.get(0).getSexe();
+		}
+		return ' ';
+	}
+
+	/**
      * Permet d'ajouter un athlete dans l'équipe, si il n'est pas déjà dedans sinon on renvoie l'exception "AlreadyInException" créer à cet effet.
      * @param Athlete athlete 
      * @return void
