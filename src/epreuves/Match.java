@@ -8,9 +8,6 @@ import sports.Athletisme;
 import sports.Natation;
 import sports.Sport;
 
-/**
- * 
- */
 public class Match<T extends Participant> {
 	private int numéroDeTour;
 	private String nomDeTour;
