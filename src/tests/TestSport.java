@@ -4,12 +4,13 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import participants.Athlete;
+import participants.Pays;
 import sports.*;
 
 public class TestSport{
     @Test
     public void testSport() {
-        Athlete michel = new Athlete( "balade","Michel",'M', 10, 18, 9, null);
+        Athlete michel = new Athlete( "balade","Michel",'M', 10, 18, 9, new Pays("France"));
 
         VoleyBall equipeVoley1 = new VoleyBall();        
         // System.out.println("equipe a un score de :"+equipeVoley1.bareme(michel));
@@ -38,7 +39,7 @@ public class TestSport{
 
 
 
-        Athlete jean = new Athlete( "balade","jean",'M', 20, 6, 19, null);
+        Athlete jean = new Athlete( "balade","jean",'M', 20, 6, 19, new Pays("France"));
         VoleyBall equipeVoley2 = new VoleyBall();    
         // System.out.println("equipe a un score de :"+equipeVoley2.bareme(michel));
         assertTrue(equipeVoley2.bareme(jean)>=4);
