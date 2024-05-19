@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="SAE JAVA" company="" webLink="http://" view-date="2024-02-01" view-index="0" gantt-divider-location="569" resource-divider-location="300" version="3.3.3305" locale="fr_FR">
+<?xml version="1.0" encoding="UTF-8"?><project name="SAE JAVA" company="" webLink="http://" view-date="2024-03-18" view-index="0" gantt-divider-location="569" resource-divider-location="300" version="3.3.3305" locale="fr_FR">
     <description><![CDATA[le gantt de notre sae en java (JO)
 ]]></description>
-    <view zooming-state="default:8" id="gantt-chart">
+    <view zooming-state="default:4" id="gantt-chart">
         <field id="tpd3" name="Nom" width="315" order="0"/>
         <field id="tpd4" name="Date de début" width="119" order="1"/>
         <field id="tpd5" name="Date de fin" width="119" order="2"/>
@@ -52,7 +52,6 @@
         </task>
         <task id="12" uid="7b14746b713a41008ed006ef05716fe7" name="Implementation" meeting="false" start="2024-04-01" duration="35" complete="0" expand="true">
             <task id="22" uid="84ab519815ee47c082434f0e074520fd" name="base de données" meeting="false" start="2024-04-01" duration="35" complete="0" expand="true"/>
-            <task id="23" uid="a1a4912a48464330aa2ca9924b7cb662" name="tâche_23" meeting="false" start="2024-04-01" duration="1" complete="0" expand="true"/>
             <task id="20" uid="5995aefef54440b797eaa7c5e1f2f8eb" name="python gestion des données" meeting="false" start="2024-04-08" duration="5" complete="0" expand="true"/>
             <task id="13" uid="0eb174a56f9245ef974f27d4623a2392" name="Sport" meeting="false" start="2024-04-08" duration="10" complete="0" expand="true">
                 <depend id="14" type="1" difference="0" hardness="Strong"/>
