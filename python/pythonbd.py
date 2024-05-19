@@ -3,12 +3,12 @@ mdpbd = " "
 # Import
 import random
 import pymysql
-
+import csv
 # connexion database 
 # conn = pymysql.connect(host='cigale1.lescigales.org',port=3310, user='s4a_julian', password=mdpbd, database='s4a_julian',charset='utf8')
 
 # local
-conn = pymysql.connect(host='localhost', user='root', password=' ', database='saejava')
+conn = pymysql.connect(host='localhost', user='root', password='mdpbd', database='saejava')
 cursor = conn.cursor()
 
 # Noms, prénoms, sexe, pays et sport aléatoires
@@ -70,8 +70,8 @@ def cree_athlete(nbAthlete):
     records = []
 
     # if results[0][0] == None:
-    id = 0
-    # id = results[0][0]    
+    # id = 0
+    id = results[0][0]    
     
     for _ in range(nbAthlete):
         id+=1
@@ -175,18 +175,86 @@ def add_epreuve_db(listeDesEpreuves):
         donnees_athlete = (epreuve[1],epreuve[3],epreuve[2],epreuve[0])
         print(donnees_athlete)
         cursor.execute(sql, donnees_athlete)
-                              
+
+def csv_to_bd(chemin):
+    """_summary_
+
+    Args:
+        chemin (str): chemin du fichier csv
+
+    Returns:
+        records: liste des athletes repris du fichier csv
+    """    
+
+    sql_query = """
+        select max(idAthlete) from ATHLETE;
+    """    
+    cursor.execute(sql_query)
+    results = cursor.fetchall()
+
+    id = results[0][0]
+    records = []
+
+    with open(chemin, newline='', encoding='utf-8') as f:
+        lecteur_csv = csv.DictReader(f)
+        
+        # Convertir les données en une liste de dictionnaires
+        donnees = [ligne for ligne in lecteur_csv]
+
+    # chaque ligne
+    # for ligne in donnees:
+    #     print(ligne)
+        # revoie: 
+        # {'Nom': 'Thomas', 'Prénom': 'Inès', 'Sexe': 'F', 'Pays': 'Allemagne', 'Sport': 'Handball', 'Épreuve': 'Handball', 'Force': '1', 'Endurance': '1', 'Agilite': '18'}
+    for ligne in donnees:
+        id +=1
+        nom = ligne['Nom']
+        prenom = ligne['Prénom']
+        sexe = ligne['Sexe']
+        pays = ligne['Pays']
+        sport = ligne['Sport']
+        epreuve = ligne['Épreuve']
+        force = ligne['Force']
+        agilite = ligne['Agilite']
+        endurance = ligne['Endurance']
+        records.append([id, nom, prenom, sexe, pays, epreuve, force,endurance, agilite])
+
+        # print(f"{nom} {prenom} ({sexe}), {pays}, {sport}, {epreuve}: Force={force}, Agilité={agilite}, Endurance={endurance}")          
+    return records
+
+
+def add_athlete_csv_to_bd(liste_athlete):
+    """permet d'ajouter des pays à la base de donnée
+
+        Parameters: 
+            liste_athlete (list): liste des athletes qu'on veut ajouté a la base de donnée
+        
+        Returns:
+            None
+    
+    """ 
+    global payslist
+    for athlete in liste_athlete:
+        cursor = conn.cursor()
+
+        sql = "INSERT INTO ATHLETE (idAthlete, nomAthlete, prenomAthlete, sexe, capaciteForce, endurance, agilite, idpays) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
+        pays_dict = {nom: valeur for valeur, nom in payslist}
+
+        donnees_athlete = (athlete[0],athlete[1],athlete[2],athlete[3],athlete[6],athlete[7],athlete[8],pays_dict.get(athlete[4],"null"))
+        print(donnees_athlete)
+        cursor.execute(sql, donnees_athlete)
 
 nbAthlete = 1
+
 # add_pays_db(payslist)
 # add_athlete_bd(nbAthlete)
+# add_athlete_csv_to_bd(csv_to_bd("C:/Users/marqu/OneDrive/Bureau/SAEjava/SAE-JAVA/donnees.csv"))
 # add_epreuve_db(epreuves)
-add_sport_db(epreuves)
+# add_sport_db(epreuves)
 # cree_athlete(nbAthlete)
 
 conn.commit()
 cursor.close()
 conn.close()    
-
 
 
