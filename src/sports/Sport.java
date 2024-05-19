@@ -1,5 +1,7 @@
 package sports;
 
+import java.util.Random;
+
 import participants.Athlete;
 
 public abstract class Sport {
@@ -123,7 +125,13 @@ public abstract class Sport {
 	 * @param Athlete L'athlete dont on veut les points
 	 * @return int Le nombre de point de l'athlete pour un sport
 	 */
-	public abstract int bareme(Athlete athlete);
+	public int bareme(Athlete athlete){
+		Random e = new Random();
+		return (int)(athlete.getAgilite() * this.getCoefAgilite() + 
+					athlete.getForce() * this.getCoefForce() + 
+					(e.nextInt(20)+1)* this.getCoefRandom() + 
+					athlete.getEndurance()* this.getCoefEndurance());
+	}
 
 	@Override
 	public String toString(){

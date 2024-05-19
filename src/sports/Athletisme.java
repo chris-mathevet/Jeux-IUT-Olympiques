@@ -1,9 +1,5 @@
 package sports;
 
-import java.util.Random;
-
-import participants.Athlete;
-
 public class Athletisme extends Sport {
 	private static final int modifierTemps100m = 10; 
 	private static final int modifierTemps4x100m = 30; 
@@ -18,15 +14,5 @@ public class Athletisme extends Sport {
 
 	public static int getModifiertemps4x100m() {
 		return Athletisme.modifierTemps4x100m;
-	}
-
-	
-	@Override
-	public int bareme(Athlete athlete){
-		Random e = new Random();
-		return (int)(athlete.getAgilite() * super.getCoefAgilite() + 
-					athlete.getForce() * super.getCoefForce() + 
-					(e.nextInt(20)+1)* super.getCoefRandom() + 
-					athlete.getEndurance()* super.getCoefEndurance());
 	}
 }
