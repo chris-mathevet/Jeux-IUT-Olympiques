@@ -10,5 +10,13 @@ public interface Participant {
 	 */
 	public int participer(Match<? extends Participant> match);
 
+	/**
+	 * @return le Pays du participant
+	 */
 	public Pays getPays();
+	
+	/**
+	 * @return le sexe du participant
+	 */
+	public char getSexe();
 }

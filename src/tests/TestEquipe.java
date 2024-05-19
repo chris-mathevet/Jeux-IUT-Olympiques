@@ -8,6 +8,7 @@ import org.junit.Test;
 import epreuves.*;
 import exceptions.AlreadyInException;
 import exceptions.NotSameCountryException;
+import exceptions.NotSameGenderException;
 import participants.*;
 import sports.HandBall;
 
@@ -31,17 +32,18 @@ public class TestEquipe {
             testEquipe.ajouter(a1);
             testEquipe.ajouter(a2);
             testEquipe.ajouter(a3);
-            testEquipe.participer(matchTest);
         } 
         catch (AlreadyInException e) {
-            System.out.println("Déja dans la liste");
+            System.err.println("Déja dans la liste");
         }
         catch (NotSameCountryException e) {
-            System.out.println("Pas le bon pays");
+            System.err.println("Pas le bon pays");
         }
-        
+        catch (NotSameGenderException e){
+            System.err.println("Pas le même sexe");
+        }
 
-        assertEquals(testEquipe, Arrays.asList(a1,a2,a3));
+        assertEquals(testEquipe, Arrays.asList(a1,a2));
         assertNotEquals(testEquipe, Arrays.asList(a1,a2,a4));
         assertTrue(testEquipe.participer(matchTest)>=4 * testEquipe.size());
         assertTrue(testEquipe.participer(matchTest)<=200 * testEquipe.size());
