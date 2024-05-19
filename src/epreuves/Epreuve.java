@@ -5,6 +5,7 @@ import java.util.List;
 
 import exceptions.AlreadyInException;
 import exceptions.CanNotRegisterException;
+import exceptions.NotSameGenderException;
 import participants.*;
 import sports.Sport;
 
@@ -97,11 +98,12 @@ public class Epreuve<T extends Participant> {
 	 * @param Athlete L'athlete à inscrire a l'épreuve 
 	 */
 	public void inscrire(T participant) 
-	 throws AlreadyInException, CanNotRegisterException{
+	 throws AlreadyInException, CanNotRegisterException, NotSameGenderException{
 		int taille = leSport.getNbParEquipe();
 		boolean peutInscrire = false;
+		boolean estAthlete = participant instanceof Athlete;
 		// Voit si le participant peut s'inscrire ou non
-		if(participant instanceof Athlete){
+		if(estAthlete){
 			peutInscrire = (taille == 1);
 		}
 		else{
@@ -109,8 +111,8 @@ public class Epreuve<T extends Participant> {
 		}
 		// S'il ne peut pas s'inscrire, léve l'exeption ne peut pas s'inscrire
 		if( ! peutInscrire){
-			if(participant instanceof Athlete){
-				throw new CanNotRegisterException("Un athelete ne peux s'inscrire à une épreuve collective");
+			if(estAthlete){
+				throw new CanNotRegisterException("Un athelete ne peux s'inscrire à une épreuve collective.");
 			}
 			else{
 				throw new CanNotRegisterException("Cet équipe ne peut pas s'incrire, taille équipe: " + ((Equipe) participant).size() + " taille requise: " + taille);
@@ -118,18 +120,24 @@ public class Epreuve<T extends Participant> {
 		}
 		// Sinon
 		else{
-			// Si la liste des participants ne contient pas le participant, l'ajoute
-			if (! this.lesParticipants.contains(participant)){
-				this.lesParticipants.add(participant);
-			}
-			// Sinon léve l'exception déjà dedans
-			else{
-				if(participant instanceof Athlete){
+			if(this.lesParticipants.contains(participant)){
+				if(estAthlete){
 					throw new AlreadyInException("Cet athlete est déjà inscrit à cette épreuve");
 				}
 				else{
 					throw new AlreadyInException("Cette équipe est déjà inscrite à cette épreuve");
 				}
+			}
+			else if(participant.getSexe() == this.getSexe()) {
+				if(estAthlete){
+					throw new NotSameGenderException("Cet athlete n'est pas du même sexe que l'épreuve");
+				}
+				else{
+					throw new NotSameGenderException("Cette équipe n'est pas du même sexe que l'épreuve");
+				}
+			}
+			else{
+				this.lesParticipants.add(participant);
 			}
 		}
 	}
