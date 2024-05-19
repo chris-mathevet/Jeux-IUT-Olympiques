@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="SAE JAVA" company="" webLink="http://" view-date="2024-03-18" view-index="0" gantt-divider-location="351" resource-divider-location="300" version="3.3.3305" locale="fr_FR">
+<?xml version="1.0" encoding="UTF-8"?><project name="SAE JAVA" company="" webLink="http://" view-date="2024-02-01" view-index="0" gantt-divider-location="569" resource-divider-location="300" version="3.3.3305" locale="fr_FR">
     <description><![CDATA[le gantt de notre sae en java (JO)
 ]]></description>
-    <view zooming-state="default:5" id="gantt-chart">
-        <field id="tpd3" name="Nom" width="200" order="0"/>
-        <field id="tpd4" name="Date de début" width="75" order="1"/>
-        <field id="tpd5" name="Date de fin" width="75" order="2"/>
+    <view zooming-state="default:8" id="gantt-chart">
+        <field id="tpd3" name="Nom" width="315" order="0"/>
+        <field id="tpd4" name="Date de début" width="119" order="1"/>
+        <field id="tpd5" name="Date de fin" width="119" order="2"/>
         <field id="tpd15" name="Notes" width="20" order="3"/>
         <option id="filter.completedTasks" value="false"/>
         <option id="filter.dueTodayTasks" value="false"/>
@@ -50,7 +50,10 @@
             <task id="8" uid="ad93db1df85540a9a80410b254eb4cfd" name="Séquence" color="#8cb6ce" meeting="false" start="2024-04-08" duration="26" complete="0" expand="true"/>
             <task id="9" uid="bf97891100bc431ea03c6918a73a4175" name="Classes" color="#8cb6ce" meeting="false" start="2024-04-08" duration="30" complete="0" expand="true"/>
         </task>
-        <task id="12" uid="7b14746b713a41008ed006ef05716fe7" name="Implementation" meeting="false" start="2024-04-08" duration="27" complete="0" expand="true">
+        <task id="12" uid="7b14746b713a41008ed006ef05716fe7" name="Implementation" meeting="false" start="2024-04-01" duration="35" complete="0" expand="true">
+            <task id="22" uid="84ab519815ee47c082434f0e074520fd" name="base de données" meeting="false" start="2024-04-01" duration="35" complete="0" expand="true"/>
+            <task id="23" uid="a1a4912a48464330aa2ca9924b7cb662" name="tâche_23" meeting="false" start="2024-04-01" duration="1" complete="0" expand="true"/>
+            <task id="20" uid="5995aefef54440b797eaa7c5e1f2f8eb" name="python gestion des données" meeting="false" start="2024-04-08" duration="5" complete="0" expand="true"/>
             <task id="13" uid="0eb174a56f9245ef974f27d4623a2392" name="Sport" meeting="false" start="2024-04-08" duration="10" complete="0" expand="true">
                 <depend id="14" type="1" difference="0" hardness="Strong"/>
                 <depend id="15" type="1" difference="0" hardness="Strong"/>
@@ -60,10 +63,14 @@
             <task id="14" uid="af9a4f55f4004a858a9eacb28784938b" name="Pays" meeting="false" start="2024-04-08" duration="10" complete="0" expand="true"/>
             <task id="15" uid="18a996ad259e48749001512d3d962330" name="Athlete" meeting="false" start="2024-04-08" duration="10" complete="0" expand="true"/>
             <task id="16" uid="e0d66c97b91c4a6685dc5ab6dac35fa3" name="Equipe" meeting="false" start="2024-04-08" duration="10" complete="0" expand="true"/>
-            <task id="17" uid="a17fb2a1efde4e9a8c6575e9c6a944a3" name="match &amp; Epreuve" meeting="false" start="2024-04-08" duration="27" complete="0" expand="true">
-                <task id="18" uid="320f49e26e0f454ab0d2940b99ae53f5" name="Individuel" meeting="false" start="2024-04-08" duration="13" complete="0" expand="true"/>
-                <task id="19" uid="8a345e8f94e34acb9712d46524a9e29a" name="Collective" meeting="false" start="2024-05-07" duration="6" complete="0" expand="true"/>
-            </task>
+            <task id="17" uid="a17fb2a1efde4e9a8c6575e9c6a944a3" name="match &amp; Epreuve" meeting="false" start="2024-04-08" duration="30" complete="0" expand="true"/>
+        </task>
+        <task id="21" uid="97c4372467574a99961e89c71c259bd5" name="Verification et Test" meeting="false" start="2024-05-06" duration="35" complete="0" expand="true"/>
+        <task id="24" uid="b2e05b51f5254dc69396e0c5dfe0a4f9" name="Ihm" meeting="false" start="2024-05-06" duration="35" complete="0" expand="true">
+            <task id="29" uid="07dc6a20e38f4710959a124707ec5eba" name="maquette" meeting="false" start="2024-05-06" duration="31" complete="0" expand="true"/>
+            <task id="25" uid="b1f998a793f340e3a53fba6c2e35001e" name="Vue" meeting="false" start="2024-06-17" duration="5" complete="0" expand="true"/>
+            <task id="26" uid="bfb3302400064e29af3c5ed0ab98fb63" name="model" meeting="false" start="2024-06-17" duration="5" complete="0" expand="true"/>
+            <task id="27" uid="4645d765fd9e4b7fa7f7f3446131469d" name="controleur" meeting="false" start="2024-06-17" duration="5" complete="0" expand="true"/>
         </task>
     </tasks>
     <resources/>
