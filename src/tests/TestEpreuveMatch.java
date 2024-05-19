@@ -40,6 +40,8 @@ public class TestEpreuveMatch {
             System.err.println(e.getMessage());
         } catch(CanNotRegisterException e){
             System.err.println(e.getMessage());
+        } catch(NotSameGenderException e){
+            System.err.println(e.getMessage());
         }
         
         Match<Athlete> matchsTestH = new Match<>(0, "Tour test", mettre110H);
@@ -97,6 +99,8 @@ public class TestEpreuveMatch {
             System.err.println(e.getMessage());
         } catch(NotSameCountryException e){
             System.err.println(e.getMessage());
+        } catch(NotSameGenderException e){
+            System.err.println(e.getMessage());
         }
 
         VoleyBall voley = new VoleyBall();
@@ -110,6 +114,8 @@ public class TestEpreuveMatch {
         } catch (AlreadyInException e) {
             System.err.println(e.getMessage());
         } catch(CanNotRegisterException e){
+            System.err.println(e.getMessage());
+        } catch(NotSameGenderException e){
             System.err.println(e.getMessage());
         }
 
@@ -154,6 +160,8 @@ public class TestEpreuveMatch {
             System.err.println(e.getMessage());
         } catch(CanNotRegisterException e){
             System.err.println(e.getMessage());
+        }catch(NotSameGenderException e){
+            System.err.println(e.getMessage());
         }
 
         Match<Athlete> matchsAthle100 = new Match<>(0, "Tour athle 110", athletisme110);
@@ -194,6 +202,7 @@ public class TestEpreuveMatch {
         Athlete baptiste = new Athlete("RICHARD","Baptiste",'M', 11, 18, 16,france);
         Athlete julian = new Athlete("MARQUES","Julian",'M', 15,10, 19,france);
         Athlete axel = new Athlete("MEUNIER","Axel",'M', 19,18, 9,france);
+        Athlete mich = new Athlete("Michel","mich",'F', 19,18, 9,france);
 
         Epreuve<Athlete> athletisme110 = new Epreuve<>("110 m haies hommes", athletisme, 'M');
         Epreuve<Athlete> epreuveVoleyTest = new Epreuve<>("VoleyBall athlete (impossible)", voleyBall, 'M');
@@ -201,6 +210,7 @@ public class TestEpreuveMatch {
         boolean testNormal = false;
         boolean testAlreadyIn = false;
         boolean testPeuxPasInscrire = false;
+        boolean testSexe = false;
 
         try {
             athletisme110.inscrire(baptiste);
@@ -212,6 +222,20 @@ public class TestEpreuveMatch {
             System.err.println(e.getMessage());
         } catch(CanNotRegisterException e){
             System.err.println(e.getMessage());
+        } catch(NotSameGenderException e){
+            System.err.println(e.getMessage());
+        }
+
+        try {
+            athletisme110.inscrire(mich); 
+            
+        } catch (AlreadyInException e) {
+            System.err.println(e.getMessage());
+        } catch(CanNotRegisterException e){
+            System.err.println(e.getMessage());
+        } catch(NotSameGenderException e){
+            System.err.println(e.getMessage());
+            testSexe = true;
         }
 
         try {
@@ -223,6 +247,8 @@ public class TestEpreuveMatch {
             System.err.println(e.getMessage());
             testAlreadyIn = true;
         } catch(CanNotRegisterException e){
+            System.err.println(e.getMessage());
+        } catch(NotSameGenderException e){
             System.err.println(e.getMessage());
         }
 
@@ -236,10 +262,13 @@ public class TestEpreuveMatch {
         } catch(CanNotRegisterException e){
             testPeuxPasInscrire = true;
             System.err.println(e.getMessage());
+        } catch(NotSameGenderException e){
+            System.err.println(e.getMessage());
         }
 
         assertTrue(testPeuxPasInscrire);
         assertTrue(testAlreadyIn);
         assertTrue(testNormal);
+        assertTrue(testSexe);
     }
 }
