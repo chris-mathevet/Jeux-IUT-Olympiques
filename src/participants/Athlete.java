@@ -43,6 +43,7 @@ public class Athlete implements Participant{
 		return this.prenom;
 	}
 
+	@Override
 	public char getSexe() {
 		return this.sexe;
 	}

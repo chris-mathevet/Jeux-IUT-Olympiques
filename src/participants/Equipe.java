@@ -35,6 +35,7 @@ public class Equipe extends ArrayList<Athlete> implements Participant{
 	/**
 	 * @return char le sexe de l'équipe (F, H); ou ' ' so l'équipe est vide
 	 */
+	@Override
 	public char getSexe(){
 		if (! this.isEmpty()){
 			return this.get(0).getSexe();
