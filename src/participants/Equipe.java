@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import epreuves.Match;
 import exceptions.AlreadyInException;
 import exceptions.NotSameCountryException;
+import exceptions.NotSameGenderException;
 
 public class Equipe extends ArrayList<Athlete> implements Participant{
 	private String nom;
@@ -47,21 +48,27 @@ public class Equipe extends ArrayList<Athlete> implements Participant{
      * @return void
      */
 
-	 public void ajouter(Athlete athlete) throws AlreadyInException, NotSameCountryException{
+	 public void ajouter(Athlete athlete) throws AlreadyInException, NotSameCountryException, NotSameGenderException{
 
 		if (this.isEmpty()) {
 			this.add(athlete);
 			this.getPays().getLesEquipes().add(this);
 		}
-        else if ((!(this.contains(athlete))) && athlete.getPays().equals(this.get(0).getPays())){
-            this.add(athlete);
-        }
-        else if (this.contains(athlete)) {
-            throw new AlreadyInException();
-        }
-
-		else if (!(athlete.getPays().equals(this.get(0).getPays()))) {
-			throw new NotSameCountryException();
+		else{
+			if (this.contains(athlete)) {
+				throw new AlreadyInException("Cet athlete est déjà dans cette équipe.");
+			}
+			else{
+				if (!(athlete.getPays().equals(this.get(0).getPays()))) {
+					throw new NotSameCountryException("Vous ne pouvez pas ajouté un athlete d'un pays différent aux autres.");
+				}
+				else if(athlete.getSexe() != this.getSexe()){
+					throw new NotSameGenderException("Vous ne pouvez pas ajouté un athlete d'un sexe différent aux autres.");
+				}
+				else{
+					this.add(athlete);
+				}
+			}
 		}
 		
     }
