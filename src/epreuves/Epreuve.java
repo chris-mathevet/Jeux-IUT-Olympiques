@@ -29,6 +29,9 @@ public class Epreuve<T extends Participant> {
 		this.description = description;
 		this.leSport = sport;
 		this.sexe = sexe;
+		if (this.sexe != 'F'){
+			this.sexe = 'H';
+		}
 		this.lesMatchs = new ArrayList<>();
 		this.lesParticipants = new ArrayList<>();
 		this.premier = null;
@@ -128,7 +131,7 @@ public class Epreuve<T extends Participant> {
 					throw new AlreadyInException("Cette équipe est déjà inscrite à cette épreuve");
 				}
 			}
-			else if(participant.getSexe() == this.getSexe()) {
+			else if(participant.getSexe() != this.getSexe()) {
 				if(estAthlete){
 					throw new NotSameGenderException("Cet athlete n'est pas du même sexe que l'épreuve");
 				}
