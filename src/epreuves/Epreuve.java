@@ -74,6 +74,7 @@ public class Epreuve<T extends Participant> {
 
 	public List<T> getLeClassement() {
 		if(this.leClassement.isEmpty()){this.classement();}
+		this.majMedailles();
 		return this.leClassement;
 	}
 
