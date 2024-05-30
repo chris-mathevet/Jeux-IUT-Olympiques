@@ -1,4 +1,4 @@
-// by Julian
+package database;
 
 import java.sql.*;
 
