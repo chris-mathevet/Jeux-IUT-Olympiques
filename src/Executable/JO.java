@@ -52,11 +52,18 @@ public class JO {
         String commandeVerif = System.console().readLine();
         commandeVerif = commandeVerif.strip().toUpperCase();
         if(commandeVerif.equals("Y")){
-            this.lesPays.add(new Pays(commandePays));
-            System.out.println("Le pays " + commandePays + " a bien été rajouté");
+            Pays pays = new Pays(commandePays);
+            if( ! (lesPays.contains(pays))){
+                this.lesPays.add(pays);
+                System.out.println("Le pays " + commandePays + " a bien été rajouté.");
+            }
+            else{
+                System.err.println("Ce pays existe déjà.");
+            }
+            
         }
         else{
-            System.out.println("Le pays n'a pas été rajouté");
+            System.out.println("Le pays n'a pas été rajouté.");
         }
     }
     
