@@ -3,7 +3,7 @@ package participants;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Pays {
+public class Pays implements Comparable<Pays>{
 	private String nom;
 	private List<Equipe> lesEquipes;
 	private List<Athlete> lesAthletes;
@@ -57,6 +57,25 @@ public class Pays {
 
 	public void addMedailleBronze(int medailleBronze) {
 		this.medailleBronze += medailleBronze;
+	}
+
+	@Override
+	public int compareTo(Pays o) {
+		return this.nom.compareTo(o.getNomPays());
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null){return false;}
+		if(this == obj){return true;}
+		if(! (obj instanceof Pays)){return false;}
+		Pays p = (Pays) obj;
+		return this.nom.equals(p.getNomPays());
+	}
+
+	@Override
+	public int hashCode() {
+		return this.nom.hashCode();
 	}
 
 	@Override
