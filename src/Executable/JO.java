@@ -5,8 +5,10 @@ import database.*;
 import exceptions.*;
 import participants.*;
 import sports.*;
+import comparateurs.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class JO {
     private ArrayList<Sport> lesSports;
@@ -14,6 +16,24 @@ public class JO {
     private ArrayList<Equipe> lesEquipes;
     private ArrayList<Epreuve<? extends Participant>> lesEpreuves;
     private ArrayList<Pays> lesPays;
+
+    private enum tris{NATUREL, MEDAILLES, TOTAL}
+
+    private void triPays(tris leTri){
+        switch (leTri) {
+            case MEDAILLES:
+                Collections.sort(lesPays, new ComparateurMedailles());
+                break;
+            
+            case TOTAL:
+                Collections.sort(lesPays, new ComparateurTotal());
+                break;
+        
+            default:
+                Collections.sort(lesPays);
+                break;
+        }
+    }    
 
     public void init(){
         this.lesSports = new ArrayList<>();
