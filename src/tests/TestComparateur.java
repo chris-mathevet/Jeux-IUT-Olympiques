@@ -132,6 +132,8 @@ public class TestComparateur {
         Comparator<Pays> comp = new ComparateurMedailles();
 
         Collections.sort(lesPays,comp);
+
+        System.out.println(lesPays);
         
         assertEquals(lesPays, trie);
     }

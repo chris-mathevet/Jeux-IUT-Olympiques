@@ -16,6 +16,6 @@ public class ComparateurTotal implements Comparator<Pays>{
 
     @Override
     public int compare(Pays p1, Pays p2) {
-        return this.sommeMedaille(p1)-this.sommeMedaille(p2);
+        return this.sommeMedaille(p2)-this.sommeMedaille(p1);
     }    
 }
