@@ -35,7 +35,16 @@ public class JO {
                 Collections.sort(lesPays);
                 break;
         }
-    }    
+    }
+
+    private Pays getPays(String nom){
+        for (Pays pays : this.lesPays){
+            if(pays.getNomPays().equals(nom)){
+                return pays;
+            }
+        }
+        return null;
+    }
 
     public void init(){
         this.lesSports = Arrays.asList(new VoleyBall(), new HandBall(), new Escrime(), new Natation(), new Athletisme());
@@ -66,6 +75,57 @@ public class JO {
         }
         else{
             System.out.println("Le pays n'a pas été rajouté.");
+        }
+    }
+
+    public void creerAthelete(){
+        String nom;
+        String prenom;
+        char sexe;
+        int force;
+        int agilite;
+        int endurance;
+        Pays pays;
+
+        System.out.println("Vous allez créer un Athlete\nEntrez un nom d'Athlete.");
+        nom = System.console().readLine().strip();
+
+        System.out.println("Entrez un prénom d'Athlete.");
+        prenom = System.console().readLine().strip();
+
+        System.out.println("Entrez son sexe.");
+        sexe = System.console().readLine().toUpperCase().charAt(0);
+
+        try {
+            System.out.println("Entrez sa force.");
+            force = Integer.valueOf(System.console().readLine().strip());
+
+            System.out.println("Entrez son endurance.");
+            endurance = Integer.valueOf(System.console().readLine().strip());
+
+            System.out.println("Entrez son agilité.");
+            agilite = Integer.valueOf(System.console().readLine().strip());
+
+            System.out.println("Entrez son Pays.");
+            pays = this.getPays(System.console().readLine().strip());
+
+            if (pays == null){
+                System.err.println("Ce pays n'existe pas, annulation.");
+            }
+            else{
+                Athlete athlete = new Athlete(nom, prenom, sexe, force, endurance, agilite, pays);
+                System.out.println("Voulez vous vraiment créer l'Athlete :\n" + athlete +"\n(Y/N)");
+                String commandeVerif = System.console().readLine().strip().toUpperCase();
+    
+                if(commandeVerif.equals("Y")){
+                    this.lesAthletes.add(athlete);
+                }
+                else{
+                    System.out.println("L'Athlete n'a pas été rajouté.");
+                }
+            }            
+        } catch (NumberFormatException e) {
+            System.err.println("Vous n'avez pas entrer un nombre, annulation");
         }
     }
 }
