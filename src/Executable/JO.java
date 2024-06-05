@@ -8,14 +8,16 @@ import sports.*;
 import comparateurs.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 public class JO {
-    private ArrayList<Sport> lesSports;
-    private ArrayList<Athlete> lesAthletes;
-    private ArrayList<Equipe> lesEquipes;
-    private ArrayList<Epreuve<? extends Participant>> lesEpreuves;
-    private ArrayList<Pays> lesPays;
+    private List<Sport> lesSports;
+    private List<Athlete> lesAthletes;
+    private List<Equipe> lesEquipes;
+    private List<Epreuve<? extends Participant>> lesEpreuves;
+    private List<Pays> lesPays;
 
     private enum tris{NATUREL, MEDAILLES, TOTAL}
 
@@ -36,7 +38,7 @@ public class JO {
     }    
 
     public void init(){
-        this.lesSports = new ArrayList<>();
+        this.lesSports = Arrays.asList(new VoleyBall(), new HandBall(), new Escrime(), new Natation(), new Athletisme());
         this.lesAthletes = new ArrayList<>();
         this.lesEquipes = new ArrayList<>();
         this.lesEpreuves = new ArrayList<>();
@@ -66,5 +68,4 @@ public class JO {
             System.out.println("Le pays n'a pas été rajouté.");
         }
     }
-    
 }
