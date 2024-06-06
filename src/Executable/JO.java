@@ -56,10 +56,33 @@ public class JO {
     }
 
     public void init(){
-        this.lesSports = Arrays.asList(new VoleyBall(), new HandBall(), new Escrime(), new Natation(), new Athletisme());
+        VoleyBall voley = new VoleyBall();
+        HandBall hand = new HandBall();
+        Escrime escr = new Escrime();
+        Natation nat = new Natation();
+        Athletisme athle = new Athletisme();
+
+        this.lesSports = Arrays.asList(voley,hand,escr,nat,athle);
         this.lesAthletes = new ArrayList<>();
         this.lesEquipes = new ArrayList<>();
-        this.lesEpreuves = new ArrayList<>();
+        this.lesEpreuves = Arrays.asList(
+            new Epreuve<>("100m brasse",nat,'H'),
+            new Epreuve<>("100m brasse",nat,'F'),
+            new Epreuve<>("4x100m nage libre",nat,'H'),
+            new Epreuve<>("4x100m nage libre",nat,'F'),
+            new Epreuve<>("Handball",hand,'H'),
+            new Epreuve<>("Handball",hand,'F'),
+            new Epreuve<>("Voley-Ball",voley,'H'),
+            new Epreuve<>("Voley-Ball",voley,'F'),
+            new Epreuve<>("Fleuret",escr,'H'),
+            new Epreuve<>("Fleuret",escr,'F'),
+            new Epreuve<>("Epée",escr,'H'),
+            new Epreuve<>("Epée",escr,'F'),
+            new Epreuve<>("110m haies",athle,'H'),
+            new Epreuve<>("110m haies",athle,'F'),
+            new Epreuve<>("4x110m haies",athle,'H'),
+            new Epreuve<>("4x110m haies",athle,'F')
+        );
         this.lesPays = new ArrayList<>();
         // Import de la BD
     }   
@@ -158,5 +181,5 @@ public class JO {
         }
     }
 
-    
+
 }
