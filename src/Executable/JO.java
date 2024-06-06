@@ -46,6 +46,15 @@ public class JO {
         return null;
     }
 
+    private Equipe getEquipe(String nom){
+        for (Equipe equipe : this.lesEquipes){
+            if(equipe.getNom().equals(nom)){
+                return equipe;
+            }
+        }
+        return null;
+    }
+
     public void init(){
         this.lesSports = Arrays.asList(new VoleyBall(), new HandBall(), new Escrime(), new Natation(), new Athletisme());
         this.lesAthletes = new ArrayList<>();
@@ -64,14 +73,13 @@ public class JO {
         commandeVerif = commandeVerif.strip().toUpperCase();
         if(commandeVerif.equals("Y")){
             Pays pays = new Pays(commandePays);
-            if( ! (lesPays.contains(pays))){
+            if( ! (this.lesPays.contains(pays))){
                 this.lesPays.add(pays);
                 System.out.println("Le pays " + commandePays + " a bien été rajouté.");
             }
             else{
                 System.err.println("Ce pays existe déjà.");
             }
-            
         }
         else{
             System.out.println("Le pays n'a pas été rajouté.");
@@ -128,4 +136,27 @@ public class JO {
             System.err.println("Vous n'avez pas entrer un nombre, annulation");
         }
     }
+
+    public void creerEquipe(){
+        System.out.println("Vous allez créer une Equipe\nEntrez un nom d'Equipe.");
+        String nom = System.console().readLine().strip();
+        System.out.println("Voulez vous créer l'équipe : " + nom + " (Y/N)");
+        String commandeVerif = System.console().readLine();
+        commandeVerif = commandeVerif.strip().toUpperCase();
+        if(commandeVerif.equals("Y")){
+            Equipe equipe = new Equipe(nom);
+            if( ! (this.lesEquipes.contains(equipe))){
+                this.lesEquipes.add(equipe);
+                System.out.println("L'équipe " + nom + " a bien été rajouté.");
+            }
+            else{
+                System.err.println("Cette équipe existe déjà.");
+            }
+        }
+        else{
+            System.out.println("L'équipe n'a pas été rajouté.");
+        }
+    }
+
+    
 }
