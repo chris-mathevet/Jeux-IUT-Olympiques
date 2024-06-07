@@ -248,7 +248,7 @@ public class JO {
                     } catch (Exception e) {
                         System.out.println("erreur format ligne : "+ligne);
                     }
-                    
+                     
                     }
                     
                 }
