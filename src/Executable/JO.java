@@ -7,6 +7,8 @@ import participants.*;
 import sports.*;
 import comparateurs.*;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -20,6 +22,12 @@ public class JO {
     private List<Pays> lesPays;
 
     private enum tris{NATUREL, MEDAILLES, TOTAL}
+
+    private VoleyBall voley;
+    private HandBall hand;
+    private Escrime escr;
+    private Natation nat;
+    private Athletisme athle;
 
     private void triPays(tris leTri){
         switch (leTri) {
@@ -56,32 +64,34 @@ public class JO {
     }
 
     public void init(){
-        VoleyBall voley = new VoleyBall();
-        HandBall hand = new HandBall();
-        Escrime escr = new Escrime();
-        Natation nat = new Natation();
-        Athletisme athle = new Athletisme();
+        this.voley = new VoleyBall();
+        this.hand = new HandBall();
+        this.escr = new Escrime();
+        this.nat = new Natation();
+        this.athle = new Athletisme();
 
         this.lesSports = Arrays.asList(voley,hand,escr,nat,athle);
         this.lesAthletes = new ArrayList<>();
         this.lesEquipes = new ArrayList<>();
         this.lesEpreuves = Arrays.asList(
-            new Epreuve<>("100m brasse",nat,'H'),
-            new Epreuve<>("100m brasse",nat,'F'),
-            new Epreuve<>("4x100m nage libre",nat,'H'),
-            new Epreuve<>("4x100m nage libre",nat,'F'),
+            // epreuves = ["Natation 100 brasse", "Natation relais libre", "Handball", "Volley-Ball", "Escrime fleuret", "Escrime épée", "Athétisme 110 haies", "Athlétisme relais 400m"]
+
+            new Epreuve<>("Natation 100 brasse",nat,'H'),
+            new Epreuve<>("Natation 100 brasse",nat,'F'),
+            new Epreuve<>("Natation relais libre",nat,'H'),
+            new Epreuve<>("Natation relais libre",nat,'F'),
             new Epreuve<>("Handball",hand,'H'),
             new Epreuve<>("Handball",hand,'F'),
             new Epreuve<>("Voley-Ball",voley,'H'),
             new Epreuve<>("Voley-Ball",voley,'F'),
-            new Epreuve<>("Fleuret",escr,'H'),
-            new Epreuve<>("Fleuret",escr,'F'),
-            new Epreuve<>("Epée",escr,'H'),
-            new Epreuve<>("Epée",escr,'F'),
-            new Epreuve<>("110m haies",athle,'H'),
-            new Epreuve<>("110m haies",athle,'F'),
-            new Epreuve<>("4x110m haies",athle,'H'),
-            new Epreuve<>("4x110m haies",athle,'F')
+            new Epreuve<>("Escrime fleuret",escr,'H'),
+            new Epreuve<>("Escrime fleuret",escr,'F'),
+            new Epreuve<>("Escrime épée",escr,'H'),
+            new Epreuve<>("Escrime épée",escr,'F'),
+            new Epreuve<>("Athétisme 110 haies",athle,'H'),
+            new Epreuve<>("Athétisme 110 haies",athle,'F'),
+            new Epreuve<>("Athlétisme relais 400m",athle,'H'),
+            new Epreuve<>("Athlétisme relais 400m",athle,'F')
         );
         this.lesPays = new ArrayList<>();
         // Import de la BD
@@ -182,4 +192,128 @@ public class JO {
     }
 
 
+    public void csvToListe(String chemin){
+            // List<Athlete> listeAthletes = new ArrayList<>();
+
+            String ligne;
+            String split =",";
+            Epreuve<Athlete> vraiEpreuve;
+            
+            try (BufferedReader line = new BufferedReader(new FileReader(chemin))){
+                line.readLine();
+                while ((ligne = line.readLine())!= null) {
+                    
+                    // tableau de String => String []
+                    String[] ligneElems = ligne.split(split);
+                    if(ligneElems.length >=9){
+                        try {
+                            
+                        String nom= ligneElems[0];
+                        String prenom= ligneElems[1];
+                        char sexe= ligneElems[2].charAt(0);
+                        String nomPays = ligneElems[3];
+                        Pays pays =  new Pays(nomPays);
+                        String sport= ligneElems[4];
+                        String epreuve = ligneElems[5];
+                        int force=  Integer.parseInt(ligneElems[6]);
+                        int endurance = Integer.parseInt(ligneElems[7]);
+                        int agilite=  Integer.parseInt(ligneElems[8]);
+                        
+                        Athlete mich = new Athlete(nom,prenom,sexe,force,endurance,agilite,pays);
+                        
+                        // si athlete pas creee le cree, sinon l'add a une epreuve
+                        // incrire()
+                        if(!(this.lesAthletes.contains(mich))){
+                            this.lesAthletes.add(mich);
+                            addPays(pays);
+                            addSport(sport);
+                            try {
+                                vraiEpreuve = (Epreuve<Athlete>) this.getEpreuve(epreuve);
+                                vraiEpreuve.inscrire(mich);    
+                            } catch (Exception e) {
+                                System.err.println("erreur inscription");
+                            }
+                            
+                        }
+                        else{
+                            addPays(pays);
+                            addSport(sport);
+                            try {
+                                vraiEpreuve = (Epreuve<Athlete>) this.getEpreuve(epreuve);
+                                vraiEpreuve.inscrire(mich);    
+                            } catch (Exception e) {
+                                System.err.println("erreur inscription");
+                            }
+                        }
+                    } catch (Exception e) {
+                        System.out.println("erreur format ligne : "+ligne);
+                    }
+                     
+                    }
+                    
+                }
+            }catch (Exception e) {
+                e.printStackTrace();  
+            }
+    }
+    public boolean addPays(Pays p){
+        if(!(this.lesPays.contains(p))){
+            this.lesPays.add(p);   
+            return true; // ajout du pays a la liste ? oui => true
+        }
+        return false; // ajout du pays a la liste ? non => false
+    }
+    
+    public boolean addSport(String s){
+
+        if (s.equals(this.athle.getSport()) 
+            || s.equals(this.athle.getSport())
+            || s.equals(this.escr.getSport()) 
+            || s.equals(this.hand.getSport())
+            || s.equals(this.voley.getSport())
+            || s.equals(this.nat.getSport())
+            ){
+
+                System.out.println("Sport existe deja");
+            
+            
+        }
+        switch (s) {
+            case "Athletisme":
+                this.athle = new Athletisme();
+                break;
+
+            case "Escrime":
+                this.escr = new Escrime();
+                break;
+
+            case "Handball":
+                this.hand = new HandBall();
+                break;
+
+            case "Voley-Ball":
+            case "Voley":
+                this.voley = new VoleyBall();
+                break;
+
+            case "Natation":
+                this.nat = new Natation();  
+                break;
+        
+            default:
+            System.err.println("Erreur lors de la creation du sport");
+                break;
+        }
+        return true;
+    }
+
+    private Epreuve<? extends Participant> getEpreuve(String epreuve){
+        
+        for (Epreuve<? extends Participant> epreuve2: this.lesEpreuves){
+            if(epreuve2.getDescription().equals(epreuve)){
+                return epreuve2;
+            }
+        }
+        return null;
+    }
 }
