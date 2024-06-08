@@ -55,6 +55,16 @@ public class JO {
         return null;
     }
 
+    private Athlete getAthlete(String nom, String prenom, char sexe, String pays){
+        Athlete entree = new Athlete(nom, prenom, sexe, 0, 0, 0, getPays(pays));
+        for (Athlete athlete : this.lesAthletes){
+            if(athlete.equals(entree)){
+                return athlete;
+            }
+        }
+        return null;
+    }
+
     public void init(){
         VoleyBall voley = new VoleyBall();
         HandBall hand = new HandBall();
@@ -180,6 +190,4 @@ public class JO {
             System.out.println("L'équipe n'a pas été rajouté.");
         }
     }
-
-
 }
