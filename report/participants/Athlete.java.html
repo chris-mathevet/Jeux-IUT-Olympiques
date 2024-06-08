@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Athlete.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">participants</a> &gt; <span class="el_source">Athlete.java</span></div><h1>Athlete.java</h1><pre class="source lang-java linenums">package participants;
+
+import epreuves.Match;
+
+public class Athlete implements Participant{
+	private String nom;
+	private String prenom;
+	private char sexe;
+	private int force;
+	private int endurance;
+	private int agilite;
+	private Pays lePays;
+
+	/** Créer un athlete pour les JO
+	 * 
+	 * @param String Le nom de l'athlete 
+	 * @param String Le prenom de l'athlete
+	 * @param char 'F' ou 'H'
+	 * @param int La force de l'athlete comprise entre 1 et 20
+	 * @param int L'endurance de l'athlete comprise entre 1 et 20
+	 * @param int L'agilité de l'athlete comprise entre 1 et 20
+	 * @param Pays Le pays de l'athlete
+	 */
+<span class="nc" id="L24">	public Athlete(String nom, String prenom, char sexe, int force, int endurance, int agilite, Pays pays) {</span>
+<span class="nc" id="L25">		this.nom = nom;</span>
+<span class="nc" id="L26">		this.prenom = prenom;</span>
+<span class="nc" id="L27">		this.sexe = Character.toUpperCase(sexe);</span>
+<span class="nc bnc" id="L28" title="All 2 branches missed.">		if (this.sexe != 'F'){</span>
+<span class="nc" id="L29">			this.sexe = 'H';</span>
+		}
+<span class="nc" id="L31">		this.force = force;</span>
+<span class="nc" id="L32">		this.endurance = endurance;</span>
+<span class="nc" id="L33">		this.agilite = agilite;</span>
+<span class="nc" id="L34">		this.lePays = pays;</span>
+<span class="nc" id="L35">		this.lePays.getLesAthletes().add(this);</span>
+<span class="nc" id="L36">	}</span>
+
+	public String getNom() {
+<span class="nc" id="L39">		return this.nom;</span>
+	}
+
+	public String getPrenom() {
+<span class="nc" id="L43">		return this.prenom;</span>
+	}
+
+	@Override
+	public char getSexe() {
+<span class="nc" id="L48">		return this.sexe;</span>
+	}
+
+	public int getForce() {
+<span class="nc" id="L52">		return this.force;</span>
+	}
+
+	public int getEndurance() {
+<span class="nc" id="L56">		return this.endurance;</span>
+	}
+
+	public int getAgilite() {
+<span class="nc" id="L60">		return this.agilite;</span>
+	}
+	
+	@Override
+	public Pays getPays() {
+<span class="nc" id="L65">		return this.lePays;</span>
+	}
+
+	@Override
+	public int participer(Match&lt;? extends Participant&gt; match) {
+<span class="nc" id="L70">		return match.getEpreuve().getSport().bareme(this);</span>
+	}
+
+	@Override 
+	public boolean equals(Object o){
+<span class="nc bnc" id="L75" title="All 2 branches missed.">		if(o == null){return false;}</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">		if(o == this){return true;}</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">		if(!(o instanceof Athlete)){return false;}</span>
+<span class="nc" id="L78">		Athlete athlete = (Athlete) o;</span>
+<span class="nc bnc" id="L79" title="All 8 branches missed.">		return athlete.nom.equals(this.nom) &amp;&amp; athlete.prenom.equals(this.prenom) &amp;&amp; this.sexe == athlete.sexe &amp;&amp; this.lePays == athlete.lePays;</span>
+	}
+
+	@Override
+	public String toString(){
+<span class="nc" id="L84">		return &quot;(&quot;+ &quot;nom: &quot; + this.nom + &quot;, prénom: &quot; + this.prenom + &quot;, sexe: &quot; + this.sexe + &quot;, pays: &quot; + this.lePays.getNomPays() +  &quot;, force: &quot; + this.force + &quot;, agilité: &quot; + this.agilite + &quot;, endurance: &quot; + this.endurance + &quot;)&quot;;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

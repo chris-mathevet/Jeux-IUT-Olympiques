@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Sport.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">sports</a> &gt; <span class="el_source">Sport.java</span></div><h1>Sport.java</h1><pre class="source lang-java linenums">package sports;
+
+import java.util.Random;
+
+import participants.Athlete;
+
+public abstract class Sport {
+	private int nbParEquipe;
+	private String nomSport;
+	private int coefForce;
+	private int coefEndurance;
+	private int coefAgilite;
+	private int coefRandom;
+	private boolean estTemps;
+	
+	/**
+	 * Constructeur instancie les sports
+	 * 
+	 * @param int Le nombre d'athlete par équipe pour ce sport
+	 * @param String Le nom du Sport
+	 * @param int Le coef force utilisé dans le bareme
+	 * @param int Le coef endurance utilisé dans le bareme
+	 * @param int Le coef agilité utilisé dans le bareme
+	 * @param int Le coef random utilisé dans le bareme
+	 * @param boolean si le résultat d'un sport est en temps
+	 */
+<span class="nc" id="L27">	public Sport(int nbParEquipe, String nomSport, int coefForce, int coefEndurance, int coefAgilite, int coefRandom, boolean estTemps) {</span>
+<span class="nc" id="L28">		this.nbParEquipe = nbParEquipe;</span>
+<span class="nc" id="L29">		this.nomSport = nomSport;</span>
+		
+<span class="nc" id="L31">		this.coefForce = coefForce;</span>
+<span class="nc" id="L32">		this.coefEndurance = coefEndurance;</span>
+<span class="nc" id="L33">		this.coefAgilite = coefAgilite;</span>
+<span class="nc" id="L34">		this.coefRandom = coefRandom;</span>
+<span class="nc" id="L35">		this.estTemps = estTemps;</span>
+<span class="nc" id="L36">	}</span>
+
+
+	/**
+	 * Retourne le nombre de personne dans l'equipe pour ce sport
+	 * @return int
+	 */
+	public int getNbParEquipe() {
+<span class="nc" id="L44">		return this.nbParEquipe;</span>
+	}
+	/**
+	 * Retourne le nom du sport 
+	 * @return String
+	 */
+	public String getSport() {
+<span class="nc" id="L51">		return this.nomSport;</span>
+	}
+	/**
+	 * Retourne le coef du paramettre Force dans le bareme pour ce sport
+	 * @return int
+	 */
+	public int getCoefForce() {
+<span class="nc" id="L58">		return this.coefForce;</span>
+	}
+	/**
+	 * Retourne le coef du paramettre Endurance dans le bareme pour ce sport
+	 * @return int
+	 */
+	public int getCoefEndurance() {
+<span class="nc" id="L65">		return this.coefEndurance;</span>
+	}
+	/**
+	 * Retourne le coef du paramettre Agilite dans le bareme pour ce sport
+	 * @return int
+	 */
+	public int getCoefAgilite() {
+<span class="nc" id="L72">		return this.coefAgilite;</span>
+	}
+	/**
+	 * Retourne le coef du paramettre Random dans le bareme pour ce sport
+	 * @return int
+	 */
+	public int getCoefRandom() {
+<span class="nc" id="L79">		return this.coefRandom;</span>
+	}
+
+	/**
+	 * Retourne si le résultat du sport doit être un temps
+	 * @return boolean
+	 */
+	public boolean getEstTemsp(){
+<span class="nc" id="L87">		return this.estTemps;</span>
+	}
+
+	
+	/**
+	 * change le coef du paramettre Force dans le bareme pour ce sport
+	 * @return void
+	 */
+	public void setCoefForce(int coefForce) {
+<span class="nc" id="L96">		this.coefForce = coefForce;</span>
+<span class="nc" id="L97">	}</span>
+
+	/**
+	 * change le coef du paramettre Endurance dans le bareme pour ce sport
+	 * @return void
+	 */
+	public void setCoefEndurance(int coefEndurance) {
+<span class="nc" id="L104">		this.coefEndurance = coefEndurance;</span>
+<span class="nc" id="L105">	}</span>
+
+	/**
+	 * change le coef du paramettre agilite dans le bareme pour ce sport
+	 * @return void
+	 */
+	public void setCoefAgilite(int coefAgilite) {
+<span class="nc" id="L112">		this.coefAgilite = coefAgilite;</span>
+<span class="nc" id="L113">	}</span>
+
+	/**
+	 * change le coef du paramettre Random dans le bareme pour ce sport
+	 * @return void
+	 */
+	public void setCoefRandom(int coefRandom) {
+<span class="nc" id="L120">		this.coefRandom = coefRandom;</span>
+<span class="nc" id="L121">	}</span>
+
+	/**
+	 * Retourne le nombre de point que l'athlete a eu en fonction du bareme donné (Avec les coefs)
+	 * @param Athlete L'athlete dont on veut les points
+	 * @return int Le nombre de point de l'athlete pour un sport
+	 */
+	public int bareme(Athlete athlete){
+<span class="nc" id="L129">		Random e = new Random();</span>
+<span class="nc" id="L130">		return (int)(athlete.getAgilite() * this.getCoefAgilite() + </span>
+<span class="nc" id="L131">					athlete.getForce() * this.getCoefForce() + </span>
+<span class="nc" id="L132">					(e.nextInt(20)+1)* this.getCoefRandom() + </span>
+<span class="nc" id="L133">					athlete.getEndurance()* this.getCoefEndurance());</span>
+	}
+
+	@Override
+	public String toString(){
+<span class="nc bnc" id="L138" title="All 2 branches missed.">		if (this.nbParEquipe&gt;1){</span>
+<span class="nc" id="L139">			return this.nomSport + &quot;,nb par equipe :&quot; + this.nbParEquipe;</span>
+		}
+		else{
+<span class="nc" id="L142">			return this.nomSport + &quot;,sport individuel&quot;;</span>
+		}
+		
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

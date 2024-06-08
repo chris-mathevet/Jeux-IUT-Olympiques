@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Pays.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">participants</a> &gt; <span class="el_source">Pays.java</span></div><h1>Pays.java</h1><pre class="source lang-java linenums">package participants;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Pays implements Comparable&lt;Pays&gt;{
+	private String nom;
+	private List&lt;Equipe&gt; lesEquipes;
+	private List&lt;Athlete&gt; lesAthletes;
+	private int medailleOr;
+	private int medailleArgent;
+	private int medailleBronze;
+
+	/**
+	 * @param String le nom du pays
+	 */
+<span class="nc" id="L17">	public Pays(String nom) {</span>
+<span class="nc" id="L18">		this.nom = nom;</span>
+<span class="nc" id="L19">		this.lesEquipes = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L20">		this.lesAthletes = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L21">		this.medailleOr = 0;</span>
+<span class="nc" id="L22">		this.medailleArgent = 0;</span>
+<span class="nc" id="L23">		this.medailleBronze = 0;</span>
+<span class="nc" id="L24">	}</span>
+
+	public List&lt;Equipe&gt; getLesEquipes() {
+<span class="nc" id="L27">		return this.lesEquipes;</span>
+	}
+
+	public List&lt;Athlete&gt; getLesAthletes() {
+<span class="nc" id="L31">		return this.lesAthletes;</span>
+	}
+
+	public String getNomPays() {
+<span class="nc" id="L35">		return this.nom;</span>
+	}
+
+	public int getMedailleOr() {
+<span class="nc" id="L39">		return this.medailleOr;</span>
+	}
+
+	public int getMedailleArgent() {
+<span class="nc" id="L43">		return this.medailleArgent;</span>
+	}
+
+	public int getMedailleBronze() {
+<span class="nc" id="L47">		return this.medailleBronze;</span>
+	}
+
+	public void addMedailleOr(int medailleOr) {
+<span class="nc" id="L51">		this.medailleOr += medailleOr;</span>
+<span class="nc" id="L52">	}</span>
+
+	public void addMedailleArgent(int medailleArgent) {
+<span class="nc" id="L55">		this.medailleArgent += medailleArgent;</span>
+<span class="nc" id="L56">	}</span>
+
+	public void addMedailleBronze(int medailleBronze) {
+<span class="nc" id="L59">		this.medailleBronze += medailleBronze;</span>
+<span class="nc" id="L60">	}</span>
+
+	@Override
+	public int compareTo(Pays o) {
+<span class="nc" id="L64">		return this.nom.compareTo(o.getNomPays());</span>
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+<span class="nc bnc" id="L69" title="All 2 branches missed.">		if(obj == null){return false;}</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">		if(this == obj){return true;}</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">		if(! (obj instanceof Pays)){return false;}</span>
+<span class="nc" id="L72">		Pays p = (Pays) obj;</span>
+<span class="nc" id="L73">		return this.nom.equals(p.getNomPays());</span>
+	}
+
+	@Override
+	public int hashCode() {
+<span class="nc" id="L78">		return this.nom.hashCode();</span>
+	}
+
+	@Override
+	public String toString() {
+<span class="nc" id="L83">		return this.nom + &quot; or: &quot; + this.medailleOr + &quot; argent: &quot; + this.medailleArgent + &quot; bronze: &quot; + this.medailleBronze;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
