@@ -100,7 +100,7 @@ public class Match<T extends Participant> {
 		if(leSport.getEstTemsp()){ // Athletisme ou Natation
 			tranfo =  new ArrayList<>();
 			if(leSport instanceof Athletisme){
-				if(this.epreuve.getDescription().contains("4")){ // 4*100m
+				if(this.epreuve.getDescription().contains("relais")){ // 4*100m
 					modifier1 = Athletisme.getModifiertemps4x100m();
 				}
 				else{
@@ -108,7 +108,7 @@ public class Match<T extends Participant> {
 				}
 			}
 			else{ // Natattion
-				if(this.epreuve.getDescription().contains("4")){ // 4*100m
+				if(this.epreuve.getDescription().contains("relais")){ // 4*100m
 					modifier1 = Natation.getModifiertemps4x100m();
 					modifier2 = 2;
 				}
