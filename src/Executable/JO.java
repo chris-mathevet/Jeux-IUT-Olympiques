@@ -233,14 +233,22 @@ public class JO {
     }   
 
     public void creerPays(){
-        System.out.println("Vous allez créer un pays\nEntrez un nom de Pays\n(Ecrivez 0000 pour revenir en arrière)");
-        String commandePays = System.console().readLine().strip();
-        try {
-            LibCreation.creerPays(lesPays, commandePays);
-            System.out.println("Le pays " + commandePays + " a bien été rajouté.");
-        } catch (AlreadyExistException e) {
-            System.err.println(e.getMessage());
-        }
+        boolean condition = true;
+        String commandePays;
+        while (condition) {
+            System.out.println("Vous allez créer un pays\nEntrez un nom de Pays\n(Ecrivez 0000 pour revenir en arrière)");
+            commandePays = System.console().readLine().strip();
+            condition = ! (commandePays.equals("0000"));
+            if(condition){
+                try {
+                    LibCreation.creerPays(lesPays, commandePays);
+                    System.out.println("Pays ajouté avec succès");
+                    condition = false;
+                } catch (AlreadyExistException e) {
+                    System.err.println(e.getMessage());
+                }
+            }
+        }   
     }
 
     public void creerAthelete(){
