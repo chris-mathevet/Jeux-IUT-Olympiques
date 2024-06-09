@@ -170,32 +170,32 @@ public class JO {
         }
     }
 
-    private Pays getPays(String nom){
+    private Pays getPays(String nom) throws DoesntExistException{
         for (Pays pays : this.lesPays){
             if(pays.getNomPays().equals(nom)){
                 return pays;
             }
         }
-        return null;
+        throw new DoesntExistException("Ce pays n'existe pas");
     }
 
-    private Equipe getEquipe(String nom){
+    private Equipe getEquipe(String nom) throws DoesntExistException{
         for (Equipe equipe : this.lesEquipes){
             if(equipe.getNom().equals(nom)){
                 return equipe;
             }
         }
-        return null;
+        throw new DoesntExistException("Cette equipe n'existe pas");
     }
 
-    private Athlete getAthlete(String nom, String prenom, char sexe, String pays){
+    private Athlete getAthlete(String nom, String prenom, char sexe, String pays) throws DoesntExistException{
         Athlete entree = new Athlete(nom, prenom, sexe, 0, 0, 0, getPays(pays));
         for (Athlete athlete : this.lesAthletes){
             if(athlete.equals(entree)){
                 return athlete;
             }
         }
-        return null;
+        throw new DoesntExistException("Cet athlete n'existe pas");
     }
 
     public void init(){
@@ -234,79 +234,55 @@ public class JO {
 
     public void creerPays(){
         System.out.println("Vous allez créer un pays\nEntrez un nom de Pays.");
-        String commandePays = System.console().readLine();
-        commandePays = commandePays.strip();
-        System.out.println("Voulez vous vraiment créer le pays : " + commandePays + " (Y/N)");
-        String commandeVerif = System.console().readLine();
-        commandeVerif = commandeVerif.strip().toUpperCase();
-        if(commandeVerif.equals("Y")){
-            Pays pays = new Pays(commandePays);
-            if( ! (this.lesPays.contains(pays))){
-                this.lesPays.add(pays);
-                System.out.println("Le pays " + commandePays + " a bien été rajouté.");
-            }
-            else{
-                System.err.println("Ce pays existe déjà.");
-            }
-        }
-        else{
-            System.out.println("Le pays n'a pas été rajouté.");
+        String commandePays = System.console().readLine().strip();
+        try {
+            LibCreation.creerPays(lesPays, commandePays);
+            System.out.println("Le pays " + commandePays + " a bien été rajouté.");
+        } catch (AlreadyExistException e) {
+            System.err.println(e.getMessage());
         }
     }
 
     public void creerAthelete(){
-        String nom;
-        String prenom;
-        char sexe;
-        int force;
-        int agilite;
-        int endurance;
-        Pays pays;
-
-        System.out.println("Vous allez créer un Athlete\nEntrez un nom d'Athlete.");
-        nom = System.console().readLine().strip();
-
-        System.out.println("Entrez un prénom d'Athlete.");
-        prenom = System.console().readLine().strip();
-
-        System.out.println("Entrez son sexe.");
-        sexe = System.console().readLine().toUpperCase().charAt(0);
+        System.out.println("Vous allez créer un Athlete\nEntrez les différents chants dans l'ordre en les espaçant par des \",\" \nNom,prenom,sexe(H/F),force(1-20),agilité(1-20),endurance(1-20),pays");
+        String[] entree = System.console().readLine().strip().split(",");
 
         try {
-            System.out.println("Entrez sa force.");
-            force = Integer.valueOf(System.console().readLine().strip());
-
-            System.out.println("Entrez son endurance.");
-            endurance = Integer.valueOf(System.console().readLine().strip());
-
-            System.out.println("Entrez son agilité.");
-            agilite = Integer.valueOf(System.console().readLine().strip());
-
-            System.out.println("Entrez son Pays.");
-            pays = this.getPays(System.console().readLine().strip());
-
-            if (pays == null){
-                System.err.println("Ce pays n'existe pas, annulation.");
-            }
-            else{
-                Athlete athlete = new Athlete(nom, prenom, sexe, force, endurance, agilite, pays);
-                System.out.println("Voulez vous vraiment créer l'Athlete :\n" + athlete +"\n(Y/N)");
-                String commandeVerif = System.console().readLine().strip().toUpperCase();
-    
-                if(commandeVerif.equals("Y")){
-                    this.lesAthletes.add(athlete);
-                }
-                else{
-                    System.out.println("L'Athlete n'a pas été rajouté.");
-                }
-            }            
+            LibCreation.creerAthlete(lesAthletes,entree[0], entree[1], entree[2].charAt(0), Integer.valueOf(entree[3]), Integer.valueOf(entree[4]), Integer.valueOf(entree[5]),this.getPays(entree[6]));
+        } catch(ArrayIndexOutOfBoundsException e) {
+            System.err.println("Vous n'avez pas rentré assès de valeur");
         } catch (NumberFormatException e) {
-            System.err.println("Vous n'avez pas entrer un nombre, annulation");
+            System.err.println("Valeur incorecte pour les capacités.");
+        } catch (AlreadyExistException e){
+            System.err.println("Cet athlete existe déjà");
+        } catch (DoesntExistException e){
+            System.err.println("Ce pays n'existe pas ");
         }
     }
 
     public void creerEquipe(){
         System.out.println("Vous allez créer une Equipe\nEntrez un nom d'Equipe.");
+        String nom = System.console().readLine().strip();
+        System.out.println("Voulez vous créer l'équipe : " + nom + " (Y/N)");
+        String commandeVerif = System.console().readLine();
+        commandeVerif = commandeVerif.strip().toUpperCase();
+        if(commandeVerif.equals("Y")){
+            Equipe equipe = new Equipe(nom);
+            if( ! (this.lesEquipes.contains(equipe))){
+                this.lesEquipes.add(equipe);
+                System.out.println("L'équipe " + nom + " a bien été rajouté.");
+            }
+            else{
+                System.err.println("Cette équipe existe déjà.");
+            }
+        }
+        else{
+            System.out.println("L'équipe n'a pas été rajouté.");
+        }
+    }
+
+    public void ajoutAthleteEquipe(){
+        System.out.println("Vous allez ajouter un athlete à une équipe (existante ou non)\nEntrez un nom d'Equipe.");
         String nom = System.console().readLine().strip();
         System.out.println("Voulez vous créer l'équipe : " + nom + " (Y/N)");
         String commandeVerif = System.console().readLine();
