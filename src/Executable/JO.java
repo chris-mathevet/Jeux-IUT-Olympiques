@@ -233,7 +233,7 @@ public class JO {
     }   
 
     public void creerPays(){
-        System.out.println("Vous allez créer un pays\nEntrez un nom de Pays.");
+        System.out.println("Vous allez créer un pays\nEntrez un nom de Pays\n(Ecrivez 0000 pour revenir en arrière)");
         String commandePays = System.console().readLine().strip();
         try {
             LibCreation.creerPays(lesPays, commandePays);
@@ -244,19 +244,37 @@ public class JO {
     }
 
     public void creerAthelete(){
-        System.out.println("Vous allez créer un Athlete\nEntrez les différents chants dans l'ordre en les espaçant par des \",\" \nNom,prenom,sexe(H/F),force(1-20),agilité(1-20),endurance(1-20),pays");
-        String[] entree = System.console().readLine().strip().split(",");
-
-        try {
-            LibCreation.creerAthlete(lesAthletes,entree[0], entree[1], entree[2].charAt(0), Integer.valueOf(entree[3]), Integer.valueOf(entree[4]), Integer.valueOf(entree[5]),this.getPays(entree[6]));
-        } catch(ArrayIndexOutOfBoundsException e) {
-            System.err.println("Vous n'avez pas rentré assès de valeur");
-        } catch (NumberFormatException e) {
-            System.err.println("Valeur incorecte pour les capacités.");
-        } catch (AlreadyExistException e){
-            System.err.println("Cet athlete existe déjà");
-        } catch (DoesntExistException e){
-            System.err.println("Ce pays n'existe pas ");
+        boolean condition = true;
+        String[] entree;
+        
+        while (condition) {
+            System.out.println("Vous allez créer un Athlete\nEntrez les différents chants dans l'ordre en les espaçant par des \",\" \nNom,prenom,sexe(H/F),force(1-20),agilité(1-20),endurance(1-20),pays\n(Ecrivez 0000 pour revenir en arrière)");
+            entree = System.console().readLine().strip().split(",");
+            condition = ! (entree[0].equals("0000"));
+            if(condition){
+                try {
+                    LibCreation.creerAthlete(this.lesAthletes,entree[0], entree[1], entree[2].charAt(0), Integer.valueOf(entree[3]), Integer.valueOf(entree[4]), Integer.valueOf(entree[5]),this.getPays(entree[6]));
+                    System.out.println("Athlete créé avec succès");
+                    condition = false;
+                } catch(ArrayIndexOutOfBoundsException e) {
+                    System.err.println("Vous n'avez pas rentré assès de valeur, veillez recommencer.");
+                } catch (NumberFormatException e) {
+                    System.err.println("Valeur incorecte pour les capacités, veillez recommencer.");
+                } catch (AlreadyExistException e){
+                    System.err.println(e.getMessage());
+                    condition = false;
+                } catch (DoesntExistException e){
+                    System.out.println("Ce pays n'existe pas, voulez vous le créer ? (O/N)");
+                    if ((System.console().readLine().strip().toUpperCase()).equals("O")){
+                        try {
+                            LibCreation.creerPays(this.lesPays, entree[6]);
+                            System.out.println("Pays créé avec succès, réessayer de créer l'athlete.");
+                        } catch (AlreadyExistException e2) {
+                            System.err.println("Ce message n'est pas censé apparaître");
+                        }
+                    }
+                }
+            }      
         }
     }
 
