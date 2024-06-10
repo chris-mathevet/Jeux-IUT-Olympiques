@@ -88,6 +88,15 @@ public class Equipe extends ArrayList<Athlete> implements Participant{
 	}
 
 	@Override
+	public boolean equals(Object o) {
+		if(o == null){return false;}
+		if(o == this){return true;}
+		if(! (o instanceof Equipe)){return false;}
+		Equipe equipe = (Equipe) o;
+		return this.nom.equals(equipe.getNom());
+	}
+
+	@Override
 	public String toString() {
 		return this.nom +", membre: " +super.toString();
 	}

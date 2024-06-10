@@ -8,5 +8,5 @@ public class AlreadyInException extends Exception{
     
     public AlreadyInException() {
         super("Déjà dedans");
-    }   
+    }
 }

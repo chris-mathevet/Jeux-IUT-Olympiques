@@ -28,9 +28,9 @@ public class Athlete implements Participant{
 		if (this.sexe != 'F'){
 			this.sexe = 'H';
 		}
-		this.force = force;
-		this.endurance = endurance;
-		this.agilite = agilite;
+		this.force = (force%20)+1;
+		this.endurance = (endurance%20)+1;
+		this.agilite = (agilite%20)+1;
 		this.lePays = pays;
 		this.lePays.getLesAthletes().add(this);
 	}
