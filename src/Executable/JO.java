@@ -289,7 +289,7 @@ public class JO {
             if(condition){
                 try {
                     Athlete athlete = new Athlete(entree[0], entree[1], entree[2].charAt(0), Integer.valueOf(entree[3]), Integer.valueOf(entree[4]), Integer.valueOf(entree[5]),this.getPays(entree[6]));
-                    System.out.println("\nEtes vous sur de vouloir créer cet athlete ? (O/N)" + athlete);
+                    System.out.println("\nEtes vous sur de vouloir créer cet athlete ? (O/N)\n" + athlete);
                     if(System.console().readLine().strip().toUpperCase().equals("O")){
                         LibCreation.creerAthlete(this.lesAthletes,athlete);
                         System.out.println("\nAthlete créé avec succès\n");
