@@ -1,6 +1,10 @@
-package Executable;
+package executable;
+
+import participants.Athlete;
 
 public class Executable {
+    private static JO jo = new JO();
+
     public enum Modes{
         QUITTER,ACCUEIL,ATHLETE,EQUIPE,PAYS
     }
@@ -8,7 +12,8 @@ public class Executable {
     private static Modes modeAccueil(){
         boolean menuStatement = true;
         Modes returnedMode = Modes.QUITTER;
-        System.out.println(""+ 
+        while (menuStatement) {
+            System.out.println(""+ 
             " ┌──────────────────────────────────┐\n" + 
             " │              ACCUEIL             │\n" +
             " ├──────────────────────────────────┤\n" +
@@ -17,7 +22,6 @@ public class Executable {
             " │  P - Menu Pays                   │\n" + 
             " │  Q - Quitter                     │\n" + 
             " └──────────────────────────────────┘");
-        while (menuStatement) {
             switch (System.console().readLine().strip().toUpperCase()) {
                 case "A":
                     returnedMode = Modes.ATHLETE;
@@ -40,30 +44,102 @@ public class Executable {
                     break;
             
                 default:
+                    System.out.println("\033[H\033[2J");
                     break;
             }
         }
+        System.out.println("\033[H\033[2J");
         return returnedMode;
     }
 
     private static Modes modeAthlete(){
-        System.out.println(""+ 
+        boolean menuStatement = true;
+        Modes returnedMode = Modes.QUITTER;
+        while (menuStatement) {
+            System.out.println(""+ 
             " ┌──────────────────────────────────┐\n" + 
             " │              ATHLETE             │\n" +
             " ├──────────────────────────────────┤\n" +
-            " │  A - Ajouter un athlete          │\n" + 
+            " │  A - Ajouter une athlete         │\n" + 
+            " │  V - Voir les athletes           │\n" + 
+            " │  H - Retour accueil              │\n" + 
+            " │  Q - Quitter                     │\n" + 
             " └──────────────────────────────────┘");
-        return Modes.QUITTER;
+            switch (System.console().readLine().strip().toUpperCase()) {
+                case "A":
+                    System.out.println("\033[H\033[2J");
+                    Executable.jo.creerAthelete();
+                    break;
+
+                case "V":
+                    System.out.println("\033[H\033[2J");
+                    System.out.println("\nLes athlètes");
+                    for (Athlete athlete : Executable.jo.getLesAthletes()){
+                        System.out.println(athlete);
+                    }
+                    break;
+
+                case "H":
+                    returnedMode = Modes.ACCUEIL;
+                    menuStatement = false;
+                    break;
+
+                case "Q":
+                    returnedMode = Modes.QUITTER;
+                    menuStatement = false;
+                    break;
+            
+                default:
+                    System.out.println("\033[H\033[2J");
+                    break;
+            }
+        }
+        System.out.println("\033[H\033[2J");
+        return returnedMode;
     }
 
     private static Modes modeEquipe(){
-        System.out.println(""+ 
+        boolean menuStatement = true;
+        Modes returnedMode = Modes.QUITTER;
+        while (menuStatement) {
+            System.out.println(""+ 
             " ┌──────────────────────────────────┐\n" + 
             " │              EQUIPE              │\n" +
             " ├──────────────────────────────────┤\n" +
-            " │  A - Ajouter un athlete          │\n" + 
+            " │  E - Ajouter une équipe          │\n" + 
+            " │  A - Ajouter un athlete          │\n" +
+            " │      a une équipe                │\n" + 
+            " │  V - Voir les equipes            │\n" + 
+            " │  Q - Retour accueil              │\n" + 
             " └──────────────────────────────────┘");
-        return Modes.QUITTER;
+            switch (System.console().readLine().strip().toUpperCase()) {
+                case "A":
+                    returnedMode = Modes.ATHLETE;
+                    menuStatement = false;
+                    break;
+
+                case "E":
+                    returnedMode = Modes.EQUIPE;
+                    menuStatement = false;
+                    break;
+
+                case "P":
+                    returnedMode = Modes.PAYS;
+                    menuStatement = false;
+                    break;
+
+                case "Q":
+                    returnedMode = Modes.QUITTER;
+                    menuStatement = false;
+                    break;
+            
+                default:
+                    System.out.println("\033[H\033[2J");
+                    break;
+            }
+        }
+        System.out.println("\033[H\033[2J");
+        return returnedMode;
     }
 
     private static Modes modePays(){
@@ -77,7 +153,6 @@ public class Executable {
     }
 
     public static void main(String[] args) {
-        JO jo = new JO();
         Modes appStatement = Modes.ACCUEIL;
         while (appStatement != Modes.QUITTER){
             switch (appStatement) {
