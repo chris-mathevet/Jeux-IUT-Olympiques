@@ -33,18 +33,18 @@ public class Athlete implements Participant{
 		this.agilite = agilite;
 
 		if(this.force<1 || this.force>20){
-			if(this.force<0){this.force*=-1;}
-			this.force = (this.force % 21)+1;
+			if(this.force<0){this.force = (this.force*-1)-1;}
+			this.force = (this.force % 20) +1;
 		}
 
 		if(this.endurance<1 || this.endurance>20){
-			if(this.endurance<0){this.endurance*=-1;}
-			this.endurance = (this.endurance % 21)+1;
+			if(this.endurance<0){this.endurance = (this.endurance*-1)-1;}
+			this.endurance = (this.endurance % 20) +1;
 		}
 
 		if(this.agilite<1 || this.agilite>20){
-			if(this.agilite<0){this.agilite*=-1;}
-			this.agilite = (this.agilite % 21)+1;
+			if(this.agilite<0){this.agilite = (this.agilite*-1)-1;}
+			this.agilite = (this.agilite % 20) +1;
 		}
 
 		this.lePays = pays;
