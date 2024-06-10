@@ -1,7 +1,6 @@
-package Executable;
+package executable;
 
 import epreuves.*;
-import database.*;
 import exceptions.*;
 import participants.*;
 import sports.*;
@@ -53,70 +52,70 @@ public class JO {
         return lesPays;
     }
 
-    public void csvToListe(String chemin){
-        // List<Athlete> listeAthletes = new ArrayList<>();
+    // public void csvToListe(String chemin){
+    //     // List<Athlete> listeAthletes = new ArrayList<>();
 
-        String ligne;
-        String split =",";
-        Epreuve<Athlete> vraiEpreuve;
+    //     String ligne;
+    //     String split =",";
+    //     Epreuve<Athlete> vraiEpreuve;
         
-        try (BufferedReader line = new BufferedReader(new FileReader(chemin))){
-            line.readLine();
-            while ((ligne = line.readLine())!= null) {
+    //     try (BufferedReader line = new BufferedReader(new FileReader(chemin))){
+    //         line.readLine();
+    //         while ((ligne = line.readLine())!= null) {
                 
-                // tableau de String => String []
-                String[] ligneElems = ligne.split(split);
-                if(ligneElems.length >=9){
-                    try {
+    //             // tableau de String => String []
+    //             String[] ligneElems = ligne.split(split);
+    //             if(ligneElems.length >=9){
+    //                 try {
                         
-                    String nom= ligneElems[0];
-                    String prenom= ligneElems[1];
-                    char sexe= ligneElems[2].charAt(0);
-                    String nomPays = ligneElems[3];
-                    Pays pays =  new Pays(nomPays);
-                    String sport= ligneElems[4];
-                    String epreuve = ligneElems[5];
-                    int force=  Integer.parseInt(ligneElems[6]);
-                    int endurance = Integer.parseInt(ligneElems[7]);
-                    int agilite=  Integer.parseInt(ligneElems[8]);
+    //                 String nom= ligneElems[0];
+    //                 String prenom= ligneElems[1];
+    //                 char sexe= ligneElems[2].charAt(0);
+    //                 String nomPays = ligneElems[3];
+    //                 Pays pays =  new Pays(nomPays);
+    //                 String sport= ligneElems[4];
+    //                 String epreuve = ligneElems[5];
+    //                 int force=  Integer.parseInt(ligneElems[6]);
+    //                 int endurance = Integer.parseInt(ligneElems[7]);
+    //                 int agilite=  Integer.parseInt(ligneElems[8]);
                     
-                    Athlete mich = new Athlete(nom,prenom,sexe,force,endurance,agilite,pays);
+    //                 Athlete mich = new Athlete(nom,prenom,sexe,force,endurance,agilite,pays);
                     
-                    // si athlete pas creee le cree, sinon l'add a une epreuve
-                    // incrire()
-                    if(!(this.lesAthletes.contains(mich))){
-                        this.lesAthletes.add(mich);
-                        addPays(pays);
-                        addSport(sport);
-                        try {
-                            vraiEpreuve = (Epreuve<Athlete>) this.getEpreuve(epreuve);
-                            vraiEpreuve.inscrire(mich);    
-                        } catch (Exception e) {
-                            System.err.println("erreur inscription");
-                        }
+    //                 // si athlete pas creee le cree, sinon l'add a une epreuve
+    //                 // incrire()
+    //                 if(!(this.lesAthletes.contains(mich))){
+    //                     this.lesAthletes.add(mich);
+    //                     addPays(pays);
+    //                     addSport(sport);
+    //                     try {
+    //                         vraiEpreuve = (Epreuve<Athlete>) this.getEpreuve(epreuve);
+    //                         vraiEpreuve.inscrire(mich);    
+    //                     } catch (Exception e) {
+    //                         System.err.println("erreur inscription");
+    //                     }
                         
-                    }
-                    else{
-                        addPays(pays);
-                        addSport(sport);
-                        try {
-                            vraiEpreuve = (Epreuve<Athlete>) this.getEpreuve(epreuve);
-                            vraiEpreuve.inscrire(mich);    
-                        } catch (Exception e) {
-                            System.err.println("erreur inscription");
-                        }
-                    }
-                } catch (Exception e) {
-                    System.out.println("erreur format ligne : "+ligne);
-                }
+    //                 }
+    //                 else{
+    //                     addPays(pays);
+    //                     addSport(sport);
+    //                     try {
+    //                         vraiEpreuve = (Epreuve<Athlete>) this.getEpreuve(epreuve);
+    //                         vraiEpreuve.inscrire(mich);    
+    //                     } catch (Exception e) {
+    //                         System.err.println("erreur inscription");
+    //                     }
+    //                 }
+    //             } catch (Exception e) {
+    //                 System.out.println("erreur format ligne : "+ligne);
+    //             }
                  
-                }
+    //             }
                 
-            }
-        }catch (Exception e) {
-            e.printStackTrace();  
-        }
-    }
+    //         }
+    //     }catch (Exception e) {
+    //         e.printStackTrace();  
+    //     }
+    // }
     public boolean addPays(Pays p){
         if(!(this.lesPays.contains(p))){
             this.lesPays.add(p);   
