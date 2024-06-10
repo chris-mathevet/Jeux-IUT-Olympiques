@@ -241,14 +241,18 @@ public class JO {
             condition = ! (commandePays.equals("0000"));
             if(condition){
                 try {
-                    LibCreation.creerPays(lesPays, commandePays);
-                    System.out.println("Pays ajouté avec succès");
+                    System.out.println("Etes vous sur de vouloir créer le pays: " + commandePays + " ? (O/N)");
+                    if(System.console().readLine().strip().toUpperCase().equals("O")){
+                        LibCreation.creerPays(lesPays, commandePays);
+                        System.out.println("Pays ajouté avec succès.");
+                    }
+                    else{System.out.println("Annulation de la création.");}
                     condition = false;
                 } catch (AlreadyExistException e) {
                     System.err.println(e.getMessage());
                 }
             }
-        }   
+        }
     }
 
     public void creerAthelete(){
