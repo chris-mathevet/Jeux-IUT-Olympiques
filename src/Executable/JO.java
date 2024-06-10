@@ -189,7 +189,7 @@ public class JO {
     }
 
     private Athlete getAthlete(String nom, String prenom, char sexe, String pays) throws DoesntExistException{
-        Athlete entree = new Athlete(nom, prenom, sexe, 0, 0, 0, getPays(pays));
+        Athlete entree = new Athlete(nom, prenom, sexe, 0, 0, 0, this.getPays(pays));
         for (Athlete athlete : this.lesAthletes){
             if(athlete.equals(entree)){
                 return athlete;
@@ -296,44 +296,83 @@ public class JO {
     }
 
     public void creerEquipe(){
-        System.out.println("Vous allez créer une Equipe\nEntrez un nom d'Equipe.");
-        String nom = System.console().readLine().strip();
-        System.out.println("Voulez vous créer l'équipe : " + nom + " (Y/N)");
-        String commandeVerif = System.console().readLine();
-        commandeVerif = commandeVerif.strip().toUpperCase();
-        if(commandeVerif.equals("Y")){
-            Equipe equipe = new Equipe(nom);
-            if( ! (this.lesEquipes.contains(equipe))){
-                this.lesEquipes.add(equipe);
-                System.out.println("L'équipe " + nom + " a bien été rajouté.");
-            }
-            else{
-                System.err.println("Cette équipe existe déjà.");
-            }
-        }
-        else{
-            System.out.println("L'équipe n'a pas été rajouté.");
+        boolean condition = true;
+        String nom;
+        while (condition) {
+            System.out.println("Vous allez créer une Equipe\nEntrez un nom d'Equipe.\n(Ecrivez 0000 pour revenir en arrière)");
+            nom = System.console().readLine().strip();
+            condition = ! (nom.equals("0000"));
+            if(condition){
+                try {
+                    System.out.println("Etes vous sur de vouloir créer l'équipe : " + nom + " (O/N)");
+                    if(System.console().readLine().strip().toUpperCase().equals("O")){
+                        LibCreation.creerEquipe(this.lesEquipes, nom);
+                        System.out.println("Equipe créé avec succès");
+                    }
+                    else{
+                        System.out.println("Annulation de la création.");
+                    }
+                    condition = false;
+                } catch (AlreadyExistException e) {
+                    System.err.println(e.getMessage());
+                }
+            }            
         }
     }
 
     public void ajoutAthleteEquipe(){
-        System.out.println("Vous allez ajouter un athlete à une équipe (existante ou non)\nEntrez un nom d'Equipe.");
-        String nom = System.console().readLine().strip();
-        System.out.println("Voulez vous créer l'équipe : " + nom + " (Y/N)");
-        String commandeVerif = System.console().readLine();
-        commandeVerif = commandeVerif.strip().toUpperCase();
-        if(commandeVerif.equals("Y")){
-            Equipe equipe = new Equipe(nom);
-            if( ! (this.lesEquipes.contains(equipe))){
-                this.lesEquipes.add(equipe);
-                System.out.println("L'équipe " + nom + " a bien été rajouté.");
+        boolean condition = true;
+        boolean condition2 = true;
+        String nomEquipe = ""; 
+        Equipe equipe;
+        String[] entreeAthlete;
+        while (condition) {
+            try {
+                System.out.println("Vous allez ajouter un athlete à une équipe\nEntrez un nom d'Equipe.\n(Ecrivez 0000 pour revenir en arrière)");
+                nomEquipe = System.console().readLine().strip();
+                condition = ! (nomEquipe.equals("0000"));
+                if(condition){
+                    equipe = this.getEquipe(nomEquipe);
+                    while (condition2) {
+                        System.out.println("Vous avez sélectionnez l'équipe " + nomEquipe +"\n Entrez les différents chants dans l'ordre en les espaçant par des \",\" \n" + 
+                                                    "Nom,prenom,sexe(H/F),pays\n" +
+                                                    "(Ecrivez 0000 pour revenir en arrière)");
+                        entreeAthlete = System.console().readLine().strip().split(",");
+                        condition2 = ! (entreeAthlete[0].equals("0000"));
+                        if (condition2){
+                            try {
+                                equipe.ajouter(this.getAthlete(entreeAthlete[0], entreeAthlete[1], entreeAthlete[2].charAt(0), entreeAthlete[3]));
+                                System.out.println("Athlete ajouté à l'équipe avec succès, continuer ? (O/N)");
+                                condition2 = System.console().readLine().strip().equals("O");
+                            } catch (DoesntExistException doesntExistException) {
+                                System.err.println(doesntExistException.getMessage());
+                            } catch (AlreadyInException alreadyInException){
+                                System.err.println(alreadyInException.getMessage());
+                            } catch (NotSameCountryException notSameCountryException){
+                                System.err.println(notSameCountryException.getMessage());
+                            } catch (NotSameGenderException notSameGenderException){
+                                System.err.println(notSameGenderException.getMessage());
+                            } catch (ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException){
+                                System.err.println("Vous n'avez pas rentré assès de valeur, veillez recommencer.");
+                            } 
+                        }
+                    }
+                    condition = false;
+                }
+            } catch (DoesntExistException e) {
+                System.out.println("L'équipe " + nomEquipe + " n'existe pas, voulez vous la créer ? (O/N)");
+                if(System.console().readLine().strip().toUpperCase().equals("O")){
+                    try {
+                        LibCreation.creerEquipe(this.lesEquipes, nomEquipe);
+                        System.out.println("Equipe créé avec succès, veuillez réessayer d'ajouter l'athlete.");
+                    } catch (AlreadyExistException e2) {
+                        System.err.println("Ce message n'est pas censé apparaître");
+                    }
+                }
+                else{
+                    System.out.println("Veuillez entrer un nom d'équipe corecte.");
+                }
             }
-            else{
-                System.err.println("Cette équipe existe déjà.");
-            }
-        }
-        else{
-            System.out.println("L'équipe n'a pas été rajouté.");
         }
     }
 
