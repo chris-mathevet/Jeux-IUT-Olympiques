@@ -33,6 +33,26 @@ public class JO {
         this.init();
     }
 
+    public List<Athlete> getLesAthletes() {
+        return lesAthletes;
+    }
+
+    public List<Equipe> getLesEquipes() {
+        return lesEquipes;
+    }
+
+    public List<Epreuve<? extends Participant>> getLesEpreuves() {
+        return lesEpreuves;
+    }
+
+    public List<Sport> getLesSports() {
+        return lesSports;
+    }
+
+    public List<Pays> getLesPays() {
+        return lesPays;
+    }
+
     public void csvToListe(String chemin){
         // List<Athlete> listeAthletes = new ArrayList<>();
 
