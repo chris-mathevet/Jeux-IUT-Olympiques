@@ -265,8 +265,13 @@ public class JO {
             condition = ! (entree[0].equals("0000"));
             if(condition){
                 try {
-                    LibCreation.creerAthlete(this.lesAthletes,entree[0], entree[1], entree[2].charAt(0), Integer.valueOf(entree[3]), Integer.valueOf(entree[4]), Integer.valueOf(entree[5]),this.getPays(entree[6]));
-                    System.out.println("Athlete créé avec succès");
+                    Athlete athlete = new Athlete(entree[0], entree[1], entree[2].charAt(0), Integer.valueOf(entree[3]), Integer.valueOf(entree[4]), Integer.valueOf(entree[5]),this.getPays(entree[6]));
+                    System.out.println("Etes vous sur de vouloir créer cet athlete ? (O/N)\n" + athlete);
+                    if(System.console().readLine().strip().toUpperCase().equals("O")){
+                        LibCreation.creerAthlete(this.lesAthletes,athlete);
+                        System.out.println("Athlete créé avec succès");
+                    }
+                    else{System.out.println("Annulation de la création.");}                    
                     condition = false;
                 } catch(ArrayIndexOutOfBoundsException e) {
                     System.err.println("Vous n'avez pas rentré assès de valeur, veillez recommencer.");
