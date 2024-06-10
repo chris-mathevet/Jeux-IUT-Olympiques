@@ -6,13 +6,44 @@ public class Executable {
     }
 
     private static Modes modeAccueil(){
+        boolean menuStatement = true;
+        Modes returnedMode = Modes.QUITTER;
         System.out.println(""+ 
             " ┌──────────────────────────────────┐\n" + 
             " │              ACCUEIL             │\n" +
             " ├──────────────────────────────────┤\n" +
-            " │  A - Ajouter un athlete          │\n" + 
+            " │  A - Menu Athlete                │\n" + 
+            " │  E - Menu Equipe                 │\n" + 
+            " │  P - Menu Pays                   │\n" + 
+            " │  Q - Quitter                     │\n" + 
             " └──────────────────────────────────┘");
-        return Modes.QUITTER;
+        while (menuStatement) {
+            switch (System.console().readLine().strip().toUpperCase()) {
+                case "A":
+                    returnedMode = Modes.ATHLETE;
+                    menuStatement = false;
+                    break;
+
+                case "E":
+                    returnedMode = Modes.EQUIPE;
+                    menuStatement = false;
+                    break;
+
+                case "P":
+                    returnedMode = Modes.PAYS;
+                    menuStatement = false;
+                    break;
+
+                case "Q":
+                    returnedMode = Modes.QUITTER;
+                    menuStatement = false;
+                    break;
+            
+                default:
+                    break;
+            }
+        }
+        return returnedMode;
     }
 
     private static Modes modeAthlete(){
