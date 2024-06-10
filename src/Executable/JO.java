@@ -29,6 +29,10 @@ public class JO {
     private Natation nat;
     private Athletisme athle;
 
+    public JO(){
+        this.init();
+    }
+
     public void csvToListe(String chemin){
         // List<Athlete> listeAthletes = new ArrayList<>();
 
@@ -375,5 +379,4 @@ public class JO {
             }
         }
     }
-
 }
