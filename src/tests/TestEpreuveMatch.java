@@ -2,8 +2,9 @@ package tests;
 
 import java.util.List;
 
-import static org.junit.Assert.assertTrue;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue; // Changement ici pour utiliser JUnit Jupiter
+import org.junit.jupiter.api.Test; // Changement ici pour utiliser JUnit Jupiter
+import org.junit.jupiter.api.BeforeEach; // Changement ici pour utiliser JUnit Jupiter
 
 import epreuves.*;
 import exceptions.*;
@@ -14,20 +15,94 @@ import sports.Natation;
 import sports.VoleyBall;
 
 public class TestEpreuveMatch {
+
+    private Escrime escrime;
+    private VoleyBall voley;
+    private Athletisme athletisme;
+    private Natation natation;
+
+    private Pays france;
+
+    private Athlete baptiste;
+    private Athlete chris;
+    private Athlete julian;
+    private Athlete axel;
+    private Athlete michelle;
+    private Athlete shanka;
+    private Athlete bastien;
+    private Athlete riri;
+    private Athlete fifi;
+    private Athlete loulou;
+    private Athlete pixou;
+    private Athlete donald;
+    private Athlete flagada;
+    private Equipe equipe1;
+    private Equipe equipe2;
+
+    private Epreuve<Athlete> mettre110H;
+    private Epreuve<Athlete> mettre110F;
+    private Epreuve<Equipe> epreuve;
+    private Epreuve<Athlete> athletisme110;
+    private Epreuve<Athlete> athletisme4x110;
+    private Epreuve<Athlete> natatione110;
+    private Epreuve<Athlete> natation4x110;
+    private Epreuve<Athlete> epreuveVoleyTest;
+
+    private Match<Athlete> matchsTestH;
+    private Match<Athlete> matchsTestF;
+    private Match<Equipe> match;
+    private Match<Athlete> matchsAthle100;
+    private Match<Athlete> matchsAthle4x100;
+    private Match<Athlete> matchsNatation100;
+    private Match<Athlete> matchsNatation4x100;
+    
+
+    @BeforeEach
+    public void setUp() {
+        escrime = new Escrime();
+        voley = new VoleyBall();
+
+        france = new Pays("France");
+        baptiste = new Athlete("RICHARD", "Baptiste", 'M', 11, 18, 16, france);
+        chris = new Athlete("MATEHEVET", "Chris", 'F', 13, 17, 15, france);
+        julian = new Athlete("MARQUES", "Julian", 'M', 15, 10, 19, france);
+        axel = new Athlete("MEUNIER", "Axel", 'M', 19, 18, 9, france);
+        michelle = new Athlete("MICHMICH", "Michelle", 'F', 12, 16, 14, france);
+        shanka = new Athlete("ClERMONT", "shanka", 'M', 19, 18, 9, france);
+        bastien = new Athlete("MONET", "bastien", 'M', 19, 18, 9, france);
+        mettre110H = new Epreuve<>("110 m haies hommes", escrime, 'M');
+        mettre110F = new Epreuve<>("110 m haies femmes", escrime, 'F');
+        epreuve = new Epreuve<>("test", voley, 'M');
+        riri = new Athlete("Duck", "riri", 'M', 1, 8, 19, france);
+        fifi = new Athlete("Duck", "fifi", 'M', 12, 5, 9, france);
+        loulou = new Athlete("Duck", "loulou", 'M', 19, 8, 9, france);
+        pixou = new Athlete("Duck", "pixou", 'M', 19, 12, 9, france);
+        donald = new Athlete("Duck", "donald", 'M', 19, 18, 19, france);
+        flagada = new Athlete("Jones", "Flagada", 'M', 19, 18, 19, france);
+
+        equipe1 = new Equipe("1");
+        equipe2 = new Equipe("2");
+
+        matchsTestH = new Match<>(0, "Tour test", mettre110H);
+        matchsTestF = new Match<>(0, "Tour test", mettre110F);
+        match = new Match<>(1, "test", epreuve);
+
+        athletisme = new Athletisme();
+        natation = new Natation();
+        athletisme110 = new Epreuve<>("110 m haies hommes", athletisme, 'M');
+        athletisme4x110 = new Epreuve<>("4*110 m haies hommes", athletisme, 'M');
+        natatione110 = new Epreuve<>("110 m nage libre hommes", natation, 'M');
+        natation4x110 = new Epreuve<>("4*110 m nage libre hommes", natation, 'M');
+        matchsAthle100 = new Match<>(0, "Tour athle 110", athletisme110);
+        matchsAthle4x100 = new Match<>(0, "Tour athle 4*110", athletisme4x110);
+        matchsNatation100 = new Match<>(0, "Tour nata 110", natatione110);
+        matchsNatation4x100 = new Match<>(0, "Tour nata 4*110", natation4x110);
+
+        epreuveVoleyTest = new Epreuve<>("VoleyBall athlete (impossible)", voley, 'M');
+    }
+
     @Test
-    public void testMatchAthlete(){
-        Escrime escrime = new Escrime();
-        Pays france = new Pays("France");
-
-        Athlete baptiste = new Athlete("RICHARD","Baptiste",'M', 11, 18, 16,france);
-        Athlete chris = new Athlete("MATEHEVET","Chris",'F', 13,17, 15,france);
-        Athlete julian = new Athlete("MARQUES","Julian",'M', 15,10, 19,france);
-        Athlete axel = new Athlete("MEUNIER","Axel",'M', 19,18, 9,france);
-        Athlete michelle = new Athlete("MICHMICH","Michelle",'F', 12,16, 14,france);
-
-        Epreuve<Athlete> mettre110H = new Epreuve<>("110 m haies hommes", escrime, 'M');
-        Epreuve<Athlete> mettre110F = new Epreuve<>("110 m haies femmes", escrime, 'F');
-
+    public void testMatchAthlete() {
         try {
             mettre110F.inscrire(chris);
             mettre110F.inscrire(michelle);
@@ -35,52 +110,25 @@ public class TestEpreuveMatch {
             mettre110H.inscrire(baptiste);
             mettre110H.inscrire(julian);
             mettre110H.inscrire(axel);
-            
-        } catch (AlreadyInException e) {
-            System.err.println(e.getMessage());
-        } catch(CanNotRegisterException e){
-            System.err.println(e.getMessage());
-        } catch(NotSameGenderException e){
+        } catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {
             System.err.println(e.getMessage());
         }
-        
-        Match<Athlete> matchsTestH = new Match<>(0, "Tour test", mettre110H);
-        Match<Athlete> matchsTestF = new Match<>(0, "Tour test", mettre110F);
-        
+
         List<Double> resH = matchsTestH.getResultats();
         List<Double> resF = matchsTestF.getResultats();
 
-        for(Double temps1 : resH){
-            assertTrue(temps1>=0);
-            assertTrue(temps1<=200);
+        for (Double temps1 : resH) {
+            assertTrue(temps1 >= 0);
+            assertTrue(temps1 <= 200);
         }
-        for(Double temps2 : resF){
-            assertTrue(temps2>=0);
-            assertTrue(temps2<=200);
+        for (Double temps2 : resF) {
+            assertTrue(temps2 >= 0);
+            assertTrue(temps2 <= 200);
         }
     }
-    
+
     @Test
-    public void testMatchEquipe(){
-        Pays france = new Pays("France");
-        
-        Athlete baptiste = new Athlete("RICHARD","Baptiste",'M', 11, 18, 16,france);
-        Athlete chris = new Athlete("MATEHEVET","Chris",'M', 13,17, 15,france);
-        Athlete julian = new Athlete("MARQUES","Julian",'M', 15,10, 19,france);
-        Athlete axel = new Athlete("MEUNIER","Axel",'M', 19,18, 9,france);
-        Athlete shanka = new Athlete("ClERMONT","shanka",'M', 19,18, 9,france);
-        Athlete bastien = new Athlete("MONET","bastien",'M', 19,18, 9,france);
-
-        Athlete riri = new Athlete("Duck","riri",'M', 1,8, 19,france);
-        Athlete fifi = new Athlete("Duck","fifi",'M', 12,5, 9,france);
-        Athlete loulou = new Athlete("Duck","loulou",'M', 19,8, 9,france);
-        Athlete pixou = new Athlete("Duck","pixou",'M', 19,12, 9,france);
-        Athlete donald = new Athlete("Duck","donald",'M', 19,18, 19,france);
-        Athlete flagada = new Athlete("Jones","Flagada",'M', 19,18, 19,france);
-
-        Equipe equipe1 = new Equipe("1");
-        Equipe equipe2 = new Equipe("2");
-
+    public void testMatchEquipe() {
         try {
             equipe1.ajouter(baptiste);
             equipe1.ajouter(chris);
@@ -92,53 +140,25 @@ public class TestEpreuveMatch {
             equipe2.ajouter(riri);
             equipe2.ajouter(fifi);
             equipe2.ajouter(loulou);
-            equipe2.ajouter(pixou);   
+            equipe2.ajouter(pixou);
             equipe2.ajouter(donald);
             equipe2.ajouter(flagada);
-        } catch (AlreadyInException e) {
-            System.err.println(e.getMessage());
-        } catch(NotSameCountryException e){
-            System.err.println(e.getMessage());
-        } catch(NotSameGenderException e){
+        } catch (AlreadyInException | NotSameCountryException | NotSameGenderException e) {
             System.err.println(e.getMessage());
         }
-
-        VoleyBall voley = new VoleyBall();
-
-        Epreuve<Equipe> epreuve = new Epreuve<>("test", voley, 'M');
 
         try {
             epreuve.inscrire(equipe1);
             epreuve.inscrire(equipe2);
-            
-        } catch (AlreadyInException e) {
-            System.err.println(e.getMessage());
-        } catch(CanNotRegisterException e){
-            System.err.println(e.getMessage());
-        } catch(NotSameGenderException e){
+        } catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {
             System.err.println(e.getMessage());
         }
 
-        Match<Equipe> match = new Match<>(1, "test", epreuve);
-
-        assertTrue(match.getResultats()!=null);
+        assertTrue(match.getResultats() != null);
     }
 
     @Test
-    public void testTemps(){
-        Athletisme athletisme = new Athletisme();
-        Natation natation = new Natation();
-        Pays france = new Pays("France");
-
-        Athlete baptiste = new Athlete("RICHARD","Baptiste",'M', 11, 18, 16,france);
-        Athlete julian = new Athlete("MARQUES","Julian",'M', 15,10, 19,france);
-        Athlete axel = new Athlete("MEUNIER","Axel",'M', 19,18, 9,france);
-
-        Epreuve<Athlete> athletisme110 = new Epreuve<>("110 m haies hommes", athletisme, 'M');
-        Epreuve<Athlete> athletisme4x110 = new Epreuve<>("4*110 m haies hommes", athletisme, 'M');
-        Epreuve<Athlete> natatione110 = new Epreuve<>("110 m nage libre hommes", natation, 'M');
-        Epreuve<Athlete> natation4x110 = new Epreuve<>("4*110 m nage libre hommes", natation, 'M');
-
+    public void testTemps() {
         try {
             athletisme110.inscrire(baptiste);
             athletisme110.inscrire(julian);
@@ -155,58 +175,35 @@ public class TestEpreuveMatch {
             natation4x110.inscrire(baptiste);
             natation4x110.inscrire(julian);
             natation4x110.inscrire(axel);
-            
-        } catch (AlreadyInException e) {
-            System.err.println(e.getMessage());
-        } catch(CanNotRegisterException e){
-            System.err.println(e.getMessage());
-        }catch(NotSameGenderException e){
+        } catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {
             System.err.println(e.getMessage());
         }
 
-        Match<Athlete> matchsAthle100 = new Match<>(0, "Tour athle 110", athletisme110);
-        Match<Athlete> matchsAthle4x100 = new Match<>(0, "Tour athle 4*110", athletisme4x110);
-        Match<Athlete> matchsNatation100 = new Match<>(0, "Tour nata 110", natatione110);
-        Match<Athlete> matchsNatation4x100 = new Match<>(0, "Tour nata 4*110", natation4x110);
-        
         List<Double> resAthle100 = matchsAthle100.getResultats();
         List<Double> resAthle4x100 = matchsAthle4x100.getResultats();
         List<Double> resNata100 = matchsNatation100.getResultats();
         List<Double> resNata4x100 = matchsNatation4x100.getResultats();
 
-
-        for(Double temps1 : resAthle100){
-            assertTrue(temps1>=10.2);
-            assertTrue(temps1<=20.0);
+        for (Double temps1 : resAthle100) {
+            assertTrue(temps1 >= 10.2);
+            assertTrue(temps1 <= 20.0);
         }
-        for(Double temps1 : resAthle4x100){
-            assertTrue(temps1>=30.2);
-            assertTrue(temps1<=40.0);
+        for (Double temps1 : resAthle4x100) {
+            assertTrue(temps1 >= 30.2);
+            assertTrue(temps1 <= 40.0);
         }
-        for(Double temps1 : resNata100){
-            assertTrue(temps1>=42.2);
-            assertTrue(temps1<=52.0);
+        for (Double temps1 : resNata100) {
+            assertTrue(temps1 >= 42.2);
+            assertTrue(temps1 <= 52.0);
         }
-        for(Double temps1 : resNata4x100){
-            assertTrue(temps1>=182.0);
-            assertTrue(temps1<=280.0);
+        for (Double temps1 : resNata4x100) {
+            assertTrue(temps1 >= 182.0);
+            assertTrue(temps1 <= 280.0);
         }
     }
 
     @Test
-    public void testInscrireAthlete(){
-        Athletisme athletisme = new Athletisme();
-        VoleyBall voleyBall = new VoleyBall();
-        Pays france = new Pays("France");
-
-        Athlete baptiste = new Athlete("RICHARD","Baptiste",'M', 11, 18, 16,france);
-        Athlete julian = new Athlete("MARQUES","Julian",'M', 15,10, 19,france);
-        Athlete axel = new Athlete("MEUNIER","Axel",'M', 19,18, 9,france);
-        Athlete mich = new Athlete("Michel","mich",'F', 19,18, 9,france);
-
-        Epreuve<Athlete> athletisme110 = new Epreuve<>("110 m haies hommes", athletisme, 'M');
-        Epreuve<Athlete> epreuveVoleyTest = new Epreuve<>("VoleyBall athlete (impossible)", voleyBall, 'M');
-
+    public void testInscrireAthlete() {
         boolean testNormal = false;
         boolean testAlreadyIn = false;
         boolean testPeuxPasInscrire = false;
@@ -217,23 +214,13 @@ public class TestEpreuveMatch {
             athletisme110.inscrire(julian);
             athletisme110.inscrire(axel);
             testNormal = true;
-            
-        } catch (AlreadyInException e) {
-            System.err.println(e.getMessage());
-        } catch(CanNotRegisterException e){
-            System.err.println(e.getMessage());
-        } catch(NotSameGenderException e){
+        } catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {
             System.err.println(e.getMessage());
         }
 
         try {
-            athletisme110.inscrire(mich); 
-            
-        } catch (AlreadyInException e) {
-            System.err.println(e.getMessage());
-        } catch(CanNotRegisterException e){
-            System.err.println(e.getMessage());
-        } catch(NotSameGenderException e){
+            athletisme110.inscrire(michelle);
+        } catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {
             System.err.println(e.getMessage());
             testSexe = true;
         }
@@ -242,13 +229,10 @@ public class TestEpreuveMatch {
             athletisme110.inscrire(baptiste);
             athletisme110.inscrire(julian);
             athletisme110.inscrire(axel);
-            
         } catch (AlreadyInException e) {
             System.err.println(e.getMessage());
             testAlreadyIn = true;
-        } catch(CanNotRegisterException e){
-            System.err.println(e.getMessage());
-        } catch(NotSameGenderException e){
+        } catch (CanNotRegisterException | NotSameGenderException e) {
             System.err.println(e.getMessage());
         }
 
@@ -256,14 +240,11 @@ public class TestEpreuveMatch {
             epreuveVoleyTest.inscrire(baptiste);
             epreuveVoleyTest.inscrire(julian);
             epreuveVoleyTest.inscrire(axel);
-            
-        } catch (AlreadyInException e) {
+        } catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {
             System.err.println(e.getMessage());
-        } catch(CanNotRegisterException e){
-            testPeuxPasInscrire = true;
-            System.err.println(e.getMessage());
-        } catch(NotSameGenderException e){
-            System.err.println(e.getMessage());
+            if (e instanceof CanNotRegisterException) {
+                testPeuxPasInscrire = true;
+            }
         }
 
         assertTrue(testPeuxPasInscrire);
