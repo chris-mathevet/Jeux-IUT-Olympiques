@@ -20,7 +20,7 @@ public class JO {
     private List<Epreuve<? extends Participant>> lesEpreuves;
     private List<Pays> lesPays;
 
-    private enum tris{NATUREL, MEDAILLES, TOTAL}
+    public enum Tris{NATUREL, MEDAILLES, TOTAL}
 
     private VoleyBall voley;
     private HandBall hand;
@@ -177,7 +177,7 @@ public class JO {
         return null;
     }
 
-    private void triPays(tris leTri){
+    public void triPays(Tris leTri){
         switch (leTri) {
             case MEDAILLES:
                 Collections.sort(lesPays, new ComparateurMedailles());
@@ -357,7 +357,7 @@ public class JO {
                 if(condition){
                     equipe = this.getEquipe(nomEquipe);
                     while (condition2) {
-                        System.out.println("\nVous avez sélectionnez l'équipe " + nomEquipe +"\n Entrez les différents chants dans l'ordre en les espaçant par des \",\" \n" + 
+                        System.out.println("\nVous avez sélectionnez l'équipe " + nomEquipe +"\nEntrez les différents chants dans l'ordre en les espaçant par des \",\" \n" + 
                                                     "Nom,prenom,sexe(H/F),pays\n" +
                                                     "(Ecrivez 0000 pour revenir en arrière)");
                         entreeAthlete = System.console().readLine().strip().split(",");
