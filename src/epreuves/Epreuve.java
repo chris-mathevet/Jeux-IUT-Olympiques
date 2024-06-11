@@ -2,6 +2,7 @@ package epreuves;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import exceptions.AlreadyInException;
 import exceptions.CanNotRegisterException;
@@ -251,6 +252,15 @@ public class Epreuve<T extends Participant> {
 				this.troisieme.getPays().addMedailleBronze(1);
 			}
 		}
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null){return false;}
+		if(obj == this){return true;}
+		if (!(obj instanceof Epreuve)){return false;}
+		Epreuve epreuve = (Epreuve) obj;
+		return epreuve.getDescription().equals(this.getDescription()) && epreuve.getSexe() == this.getSexe() && this.getSport().equals(epreuve.getSport());
 	}
 
 	@Override

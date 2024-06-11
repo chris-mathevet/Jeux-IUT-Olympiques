@@ -13,12 +13,15 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.crypto.AlgorithmMethod;
+
 public class JO {
     private List<Sport> lesSports;
     private List<Athlete> lesAthletes;
     private List<Equipe> lesEquipes;
-    private List<Epreuve<? extends Participant>> lesEpreuves;
+    private List<Epreuve<Participant>> lesEpreuves;
     private List<Pays> lesPays;
+    private List<Participant> lesParticipants;
 
     public enum Tris{NATUREL, MEDAILLES, TOTAL}
 
@@ -40,8 +43,8 @@ public class JO {
         return lesEquipes;
     }
 
-    public List<Epreuve<? extends Participant>> getLesEpreuves() {
-        return lesEpreuves;
+    public List<Epreuve<Participant>> getLesEpreuves() {
+        return this.lesEpreuves;
     }
 
     public List<Sport> getLesSports() {
@@ -51,71 +54,77 @@ public class JO {
     public List<Pays> getLesPays() {
         return lesPays;
     }
+	
+    public List<Participant> getLesParticipants() throws ListeVideException {
+        if (this.lesParticipants == null || this.lesParticipants.isEmpty()) {
+            throw new ListeVideException("La liste des participants est vide.");
+        }
+        return this.lesParticipants;
+	}
+    public void csvToListe(String chemin){
+        // List<Athlete> listeAthletes = new ArrayList<>();
 
-    // public void csvToListe(String chemin){
-    //     // List<Athlete> listeAthletes = new ArrayList<>();
-
-    //     String ligne;
-    //     String split =",";
-    //     Epreuve<Athlete> vraiEpreuve;
+        String ligne;
+        String split =",";
+        Epreuve<Athlete> vraiEpreuve;
         
-    //     try (BufferedReader line = new BufferedReader(new FileReader(chemin))){
-    //         line.readLine();
-    //         while ((ligne = line.readLine())!= null) {
+        try (BufferedReader line = new BufferedReader(new FileReader(chemin))){
+            line.readLine();
+            while ((ligne = line.readLine())!= null) {
                 
-    //             // tableau de String => String []
-    //             String[] ligneElems = ligne.split(split);
-    //             if(ligneElems.length >=9){
-    //                 try {
+                // tableau de String => String []
+                String[] ligneElems = ligne.split(split);
+                if(ligneElems.length >=9){
+                    try {
                         
-    //                 String nom= ligneElems[0];
-    //                 String prenom= ligneElems[1];
-    //                 char sexe= ligneElems[2].charAt(0);
-    //                 String nomPays = ligneElems[3];
-    //                 Pays pays =  new Pays(nomPays);
-    //                 String sport= ligneElems[4];
-    //                 String epreuve = ligneElems[5];
-    //                 int force=  Integer.parseInt(ligneElems[6]);
-    //                 int endurance = Integer.parseInt(ligneElems[7]);
-    //                 int agilite=  Integer.parseInt(ligneElems[8]);
+                    String nom= ligneElems[0];
+                    String prenom= ligneElems[1];
+                    char sexe= ligneElems[2].charAt(0);
+                    String nomPays = ligneElems[3];
+                    Pays pays =  new Pays(nomPays);
+                    String sport= ligneElems[4];
+                    String epreuve = ligneElems[5];
+                    int force=  Integer.parseInt(ligneElems[6]);
+                    int endurance = Integer.parseInt(ligneElems[7]);
+                    int agilite=  Integer.parseInt(ligneElems[8]);
                     
-    //                 Athlete mich = new Athlete(nom,prenom,sexe,force,endurance,agilite,pays);
+                    Athlete mich = new Athlete(nom,prenom,sexe,force,endurance,agilite,pays);
                     
-    //                 // si athlete pas creee le cree, sinon l'add a une epreuve
-    //                 // incrire()
-    //                 if(!(this.lesAthletes.contains(mich))){
-    //                     this.lesAthletes.add(mich);
-    //                     addPays(pays);
-    //                     addSport(sport);
-    //                     try {
-    //                         vraiEpreuve = (Epreuve<Athlete>) this.getEpreuve(epreuve);
-    //                         vraiEpreuve.inscrire(mich);    
-    //                     } catch (Exception e) {
-    //                         System.err.println("erreur inscription");
-    //                     }
+                    // si athlete pas creee le cree, sinon l'add a une epreuve
+                    // incrire()
+                    if(!(this.lesAthletes.contains(mich))){
+                        this.lesAthletes.add(mich);
+                        addPays(pays);
+                        addSport(sport);
+                        try {
+                            vraiEpreuve = (Epreuve<Athlete>) this.getEpreuve(epreuve);
+                            vraiEpreuve.inscrire(mich);    
+                        } catch (Exception e) {
+                            System.err.println("erreur inscription");
+                        }
                         
-    //                 }
-    //                 else{
-    //                     addPays(pays);
-    //                     addSport(sport);
-    //                     try {
-    //                         vraiEpreuve = (Epreuve<Athlete>) this.getEpreuve(epreuve);
-    //                         vraiEpreuve.inscrire(mich);    
-    //                     } catch (Exception e) {
-    //                         System.err.println("erreur inscription");
-    //                     }
-    //                 }
-    //             } catch (Exception e) {
-    //                 System.out.println("erreur format ligne : "+ligne);
-    //             }
+                    }
+                    else{
+                        addPays(pays);
+                        addSport(sport);
+                        try {
+                            vraiEpreuve = (Epreuve<Athlete>) this.getEpreuve(epreuve);
+                            vraiEpreuve.inscrire(mich);    
+                        } catch (Exception e) {
+                            System.err.println("erreur inscription");
+                        }
+                    }
+                } catch (Exception e) {
+                    System.out.println("erreur format ligne : "+ligne);
+                }
                  
-    //             }
+                }
                 
-    //         }
-    //     }catch (Exception e) {
-    //         e.printStackTrace();  
-    //     }
-    // }
+            }
+        }catch (Exception e) {
+            e.printStackTrace();  
+        }
+    }
     public boolean addPays(Pays p){
         if(!(this.lesPays.contains(p))){
             this.lesPays.add(p);   
@@ -193,7 +202,7 @@ public class JO {
         }
     }
 
-    private Pays getPays(String nom) throws DoesntExistException{
+    private Pays getPays(String nom) throws DoesntExistException{   
         for (Pays pays : this.lesPays){
             if(pays.getNomPays().equals(nom)){
                 return pays;
@@ -231,7 +240,7 @@ public class JO {
         this.lesSports = Arrays.asList(voley,hand,escr,nat,athle);
         this.lesAthletes = new ArrayList<>();
         this.lesEquipes = new ArrayList<>();
-        this.lesEpreuves = Arrays.asList(
+        this.lesEpreuves = new ArrayList<>(Arrays.asList(
             // epreuves = ["Natation 100 brasse", "Natation relais libre", "Handball", "Volley-Ball", "Escrime fleuret", "Escrime épée", "Athétisme 110 haies", "Athlétisme relais 400m"]
 
             new Epreuve<>("Natation 100 brasse",nat,'H'),
@@ -250,7 +259,7 @@ public class JO {
             new Epreuve<>("Athétisme 110 haies",athle,'F'),
             new Epreuve<>("Athlétisme relais 400m",athle,'H'),
             new Epreuve<>("Athlétisme relais 400m",athle,'F')
-        );
+        ));
         this.lesPays = new ArrayList<>();
         // Import de la BD
     }   
@@ -366,7 +375,7 @@ public class JO {
                             try {
                                 equipe.ajouter(this.getAthlete(entreeAthlete[0], entreeAthlete[1], entreeAthlete[2].charAt(0), entreeAthlete[3]));
                                 System.out.println("\nAthlete ajouté à l'équipe avec succès, continuer ? (O/N)");
-                                condition2 = System.console().readLine().strip().equals("O");
+                                condition2 = System.console().readLine().strip().toUpperCase().equals("O");
                             } catch (DoesntExistException doesntExistException) {
                                 System.err.println("\n" + doesntExistException.getMessage() + "\n");
                             } catch (AlreadyInException alreadyInException){
@@ -395,4 +404,157 @@ public class JO {
             }
         }
     }
+
+    public void inscrireEpreuve(){
+        // String description, Sport sport, char sexe
+        // quel epreuve > collectif ou non > demandé equipe / athlete selon le collect true ou pas
+        boolean condition = true;
+        boolean condition2 = true;
+        String nomEpreuve = ""; 
+        Equipe equipe; 
+        Epreuve<? extends Participant> epreuve;
+        Epreuve<Athlete> epreuveAthlete;
+        Epreuve<Equipe> epreuveEquipe;
+        String[] entreeEpreuve;
+        Athlete unAthlete;
+        while (condition) {
+            try {
+                System.out.println("Quelle epreuve?\nEntrez un nom d'Epreuve .\n(Ecrivez 0000 pour revenir en arrière)");
+                nomEpreuve = System.console().readLine().strip();
+                condition = ! (nomEpreuve.equals("0000"));
+                if(condition){
+                    epreuve = this.getEpreuve(nomEpreuve);
+                    if (epreuve != null &&( epreuve.getSport().getNbParEquipe()>1)){
+                        epreuveEquipe = (Epreuve<Equipe>)epreuve;
+                        while (condition2) {
+                            System.out.println("\nEQUIPE\nEntrez le nom de votre equipe \",\" \n" +
+                                                        "(Ecrivez 0000 pour revenir en arrière)");
+                            entreeEpreuve = System.console().readLine().strip().split(",");
+                            condition2 = ! (entreeEpreuve[0].equals("0000"));
+                            if (condition2){
+                                try {
+                                    equipe = getEquipe(entreeEpreuve[0]);
+                                    epreuveEquipe.inscrire(equipe);
+
+                                    
+                                    // equipe.ajouter(this.getAthlete(entreeAthlete[0], entreeAthlete[1], entreeAthlete[2].charAt(0), entreeAthlete[3]));
+                                    System.out.println("\nAthlete ajouté à l'équipe avec succès, continuer ? (O/N)");
+                                    condition2 = System.console().readLine().strip().toUpperCase().equals("O");
+                                } catch (DoesntExistException doesntExistException) {
+                                    System.err.println("\n" + doesntExistException.getMessage() + "\n");
+                                } catch (CanNotRegisterException canNotRegisterException) {
+                                    System.err.println("\n" + canNotRegisterException.getMessage() + "\n");
+                                } catch (AlreadyInException alreadyInException){
+                                    System.err.println("\n" + alreadyInException.getMessage() + "\n");
+                                } catch (NotSameGenderException notSameGenderException){
+                                    System.err.println("\n" + notSameGenderException.getMessage() + "\n");
+                                } catch (ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException){
+                                    System.err.println("\nVous n'avez pas rentré assès de valeur, veillez recommencer.");
+                                } 
+                            }
+                        }
+                    }else if (epreuve != null &&( epreuve.getSport().getNbParEquipe()==1)){
+                        
+                        epreuveAthlete = (Epreuve<Athlete>)epreuve;
+
+                        while (condition2) {
+                            System.out.println("\nATHLETE\nEntrez le nom de votre Athlete Entrez les différents chants dans l'ordre en les espaçant par des \",\" \n" + 
+                                                                "nom,prenom,sexe(H/F),Pays \n" +
+                                                        "(Ecrivez 0000 pour revenir en arrière)");
+                            entreeEpreuve = System.console().readLine().strip().split(",");
+                            condition2 = ! (entreeEpreuve[0].equals("0000"));
+                            if (condition2){
+                                try {
+                                    unAthlete = this.getAthlete(entreeEpreuve[0],entreeEpreuve[1],entreeEpreuve[2].charAt(0),entreeEpreuve[3]);
+                                    epreuveAthlete.inscrire(unAthlete); 
+
+                                    
+                                    // equipe.ajouter(this.getAthlete(entreeAthlete[0], entreeAthlete[1], entreeAthlete[2].charAt(0), entreeAthlete[3]));
+                                    System.out.println("\nAthlete ajouté à l'équipe avec succès, continuer ? (O/N)");
+                                    condition2 = System.console().readLine().strip().toUpperCase().equals("O");
+                                } catch (DoesntExistException doesntExistException) {
+                                    System.err.println("\n" + doesntExistException.getMessage() + "\n");
+                                } catch (CanNotRegisterException canNotRegisterException) {
+                                    System.err.println("\n" + canNotRegisterException.getMessage() + "\n");
+                                } catch (AlreadyInException alreadyInException){
+                                    System.err.println("\n" + alreadyInException.getMessage() + "\n");
+                                }catch (NotSameGenderException notSameGenderException){
+                                    System.err.println("\n" + notSameGenderException.getMessage() + "\n");
+                                } catch (ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException){
+                                    System.err.println("\nVous n'avez pas rentré assès de valeur, veillez recommencer.");
+                                } 
+                            }
+                        }
+
+                    }
+                    
+                    condition = false;
+                }
+            // } catch (DoesntExistException e) {
+            } catch (Exception e) {
+                System.out.println("\nl'Epreuve n'existe pas, voulez vous la créer ? (O/N)");
+                if(System.console().readLine().strip().toUpperCase().equals("O")){
+                    creerEpreuve();
+                    System.out.println("\nEpreuve créé avec succès, veuillez réessayer d'ajouter l'athlete.\n");
+
+                }
+            }
+        }
+    }
+    
+    public Sport getSport(String nom)throws DoesntExistException{
+        // Sport entree = new Sport<>();
+
+        for (Sport unSport : this.lesSports){
+            if(unSport.getSport().equals(nom)){
+                return unSport;
+            }
+        }
+        throw new DoesntExistException("Cette equipe n'existe pas");
+
+    }
+    public void creerEpreuve(){
+        boolean condition = true;
+        String[] entree;
+        
+        while (condition) {
+            System.out.println("Vous allez créer une Epreuve\nEntrez les différents chants dans l'ordre en les espaçant par des \",\" \ndescription,sport,sexe(H/F)\n(Ecrivez 0000 pour revenir en arrière)");
+            entree = System.console().readLine().strip().split(",");
+            condition = ! (entree[0].equals("0000"));
+            if(condition){
+                try {
+                    Epreuve<Participant> uneEpreuve = new Epreuve<Participant>(entree[0], this.getSport(entree[1]), entree[2].charAt(0));
+                    System.out.println("\nEtes vous sur de vouloir créer cette Epreuve ? (O/N)\n" + uneEpreuve);
+                    if(System.console().readLine().strip().toUpperCase().equals("O")){
+                        LibCreation.creerEpreuve(this.lesEpreuves,uneEpreuve);
+                        System.out.println("\nEpreuve créé avec succès\n");
+                    }
+                    else{System.out.println("\nAnnulation de la création.\n");}                    
+                    condition = false;
+                } catch(ArrayIndexOutOfBoundsException e) {
+                    System.err.println("\nVous n'avez pas rentré assès de valeur, veillez recommencer.\n");
+                } catch (AlreadyExistException e){
+                    System.err.println("\n" + e.getMessage() + "\n");
+                    condition = false;
+                    
+                } catch (DoesntExistException e){
+                    System.out.println("\nCette Epreuve n'existe pas, voulez vous le créer ? (O/N)");
+                    if ((System.console().readLine().strip().toUpperCase()).equals("O")){
+                        try {
+                            Epreuve<Participant> uneEpreuve = new Epreuve<Participant>(entree[0], this.getSport(entree[1]), entree[2].charAt(0));
+
+                            LibCreation.creerEpreuve(this.lesEpreuves, uneEpreuve);
+                            System.out.println("\nEpreuve créé avec succès, réessayer de créer l'athlete.\n");
+                        } catch (AlreadyExistException e2) {
+                            System.err.println("Ce message n'est pas censé apparaître");
+                        }
+                        catch(DoesntExistException e3){
+                            System.err.println(e3.getMessage());
+                        }
+                    }
+                }
+            }      
+        }
+    }
+
 }

@@ -2,6 +2,7 @@ package sports;
 
 import java.util.Random;
 
+import epreuves.Epreuve;
 import participants.Athlete;
 
 public abstract class Sport {
@@ -142,5 +143,14 @@ public abstract class Sport {
 			return this.nomSport + ",sport individuel";
 		}
 		
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null){return false;}
+		if(obj == this){return true;}
+		if (!(obj instanceof Sport)){return false;}
+		Sport sport = (Sport) obj;
+		return this.getSport().equals(sport.getSport()) && this.getNbParEquipe() == sport.getNbParEquipe();
 	}
 }

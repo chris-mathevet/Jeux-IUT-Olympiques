@@ -1,15 +1,18 @@
 package executable;
 
+import epreuves.Epreuve;
+import exceptions.ListeVideException;
 import executable.JO.Tris;
 import participants.Athlete;
 import participants.Equipe;
+import participants.Participant;
 import participants.Pays;
 
 public class Executable {
     private static JO jo = new JO();
 
     public enum Modes{
-        QUITTER,ACCUEIL,ATHLETE,EQUIPE,PAYS
+        QUITTER,ACCUEIL,ATHLETE,EQUIPE,PAYS,EPREUVE
     }
 
     private static void clearConsole(){
@@ -39,6 +42,7 @@ public class Executable {
             " │  A - Menu Athlete                │\n" + 
             " │  E - Menu Equipe                 │\n" + 
             " │  P - Menu Pays                   │\n" + 
+            " │  V - Menu Epreuve                │\n" + 
             " │  Q - Quitter                     │\n" + 
             " └──────────────────────────────────┘");
             switch (System.console().readLine().strip().toUpperCase()) {
@@ -59,6 +63,11 @@ public class Executable {
 
                 case "Q":
                     returnedMode = Modes.QUITTER;
+                    menuStatement = false;
+                    break;
+            
+                case "V":
+                    returnedMode = Modes.EPREUVE;
                     menuStatement = false;
                     break;
             
@@ -237,9 +246,81 @@ public class Executable {
                     appStatement = modePays();
                     break;
 
+                case EPREUVE:
+                    appStatement = modeEpreuve();
+                    break;
+
                 default:
                     break;
             }
         }
     }
+
+
+    private static Modes modeEpreuve(){
+        boolean menuStatement = true;
+        Modes returnedMode = Modes.QUITTER;
+        while (menuStatement) {
+            System.out.println(""+ 
+            " ┌──────────────────────────────────┐\n" + 
+            " │              EPREUVE             │\n" +
+            " ├──────────────────────────────────┤\n" +
+            " │  A - Ajouter une Epreuve         │\n" + 
+            " │  V - Voir les epreuves           │\n" + 
+            " │  I - Inscrire Participant        │\n" + 
+            " │  F - Participant Inscrit         │\n" + 
+            " │  H - Retour accueil              │\n" + 
+            " │  Q - Quitter                     │\n" + 
+            " └──────────────────────────────────┘");
+            switch (System.console().readLine().strip().toUpperCase()) {
+                case "A":
+                    clearConsole();
+                    Executable.jo.creerEpreuve();
+                    break;
+
+                case "V":
+                    clearConsole();
+                    System.out.println("\nLes athlètes");
+                    for (Epreuve<? extends Participant> uneEpreuve : Executable.jo.getLesEpreuves()){
+                        System.out.println(uneEpreuve);
+                    }
+                    break;
+                case "I":
+                    clearConsole();
+                    Executable.jo.inscrireEpreuve();
+                    break;
+                case "F":
+                    clearConsole();
+                    System.out.println("\nLes Participants inscrit");
+                    // for (Epreuve<? extends Participant> uneEpreuve : Executable.jo.getLesEpreuves()){
+                    //     System.out.println(uneEpreuve);
+                    // }
+                    try {
+                        for (Participant elem : Executable.jo.getLesParticipants()) {
+                            System.out.println(elem);   
+                        }    
+                    } catch (ListeVideException e) {
+                        System.err.println("\n" + e.getMessage() + "\n");
+                    }
+                    
+                    break;
+                case "H":
+                    returnedMode = Modes.ACCUEIL;
+                    menuStatement = false;
+                    break;
+
+                case "Q":
+                    returnedMode = Modes.QUITTER;
+                    menuStatement = false;
+                    break;
+            
+                default:
+                    clearConsole();
+                    break;
+            }
+        }
+        clearConsole();
+        return returnedMode;
+    }
+
 }

@@ -2,9 +2,11 @@ package executable;
 
 import java.util.List;
 
+import epreuves.Epreuve;
 import exceptions.AlreadyExistException;
 import participants.Athlete;
 import participants.Equipe;
+import participants.Participant;
 import participants.Pays;
 
 public class LibCreation {
@@ -39,6 +41,16 @@ public class LibCreation {
         }
         else{
             throw new AlreadyExistException("Ce pays existe déjà");
+        }
+    }
+
+    public static <T extends Participant> void creerEpreuve(List<Epreuve<T>> lesEpreuves , Epreuve<T> uneEpreuve)
+    throws AlreadyExistException{
+        if(!lesEpreuves.contains(uneEpreuve)){
+            lesEpreuves.add(uneEpreuve);
+        }
+        else{
+            throw new AlreadyExistException("Cette Epreuve existe déjà");
         }
     }
 }
