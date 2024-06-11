@@ -37,7 +37,7 @@ public class Epreuve<T extends Participant> {
 		this.premier = null;
 		this.second = null;
 		this.troisieme = null;
-		this.leClassement = null;
+		this.leClassement = new ArrayList<>();
 	}
 
 	public List<T> getLesParticipants() {

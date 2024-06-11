@@ -56,6 +56,7 @@ public class TestEpreuveMatch {
     private Match<Athlete> matchsAthle4x100;
     private Match<Athlete> matchsNatation100;
     private Match<Athlete> matchsNatation4x100;
+    private Match<Equipe> matchVoleyH;
     
 
     @BeforeEach
@@ -100,6 +101,8 @@ public class TestEpreuveMatch {
         matchsNatation4x100 = new Match<>(0, "Tour nata 4*110", natation4x110);
 
         epreuveVoleyTest = new Epreuve<>("VoleyBall athlete (impossible)", voley, 'M');
+        matchVoleyH = new Match<Equipe>(0, "Tour test", epreuveVoleyTest);
+
     }
 
     //Partie Epreuve 
@@ -133,19 +136,18 @@ public class TestEpreuveMatch {
     @Test
     public void testGetPremier() {
         try {
-            epreuveVoleyTest.inscrire(chris);
-            epreuveVoleyTest.inscrire(michelle);
+            epreuveVoleyTest.inscrire(equipe1);
+            epreuveVoleyTest.inscrire(equipe2);
 
-            epreuveVoleyTest.inscrire(baptiste);
-            epreuveVoleyTest.inscrire(julian);
-            epreuveVoleyTest.inscrire(axel);
         }
         catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {
             System.err.println(e.getMessage());
         }
+        epreuveVoleyTest.ajoutMatch(matchVoleyH);
         epreuveVoleyTest.getLeClassement();
+        System.out.println(epreuveVoleyTest.getLeClassement());
       
-        assertEquals(epreuveVoleyTest.getPremier(), axel);
+        assertEquals(epreuveVoleyTest.getPremier(), equipe1);
 
 
     }
