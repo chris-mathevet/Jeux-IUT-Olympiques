@@ -55,12 +55,7 @@ public class JO {
         return lesPays;
     }
 	
-    public List<Participant> getLesParticipants() throws ListeVideException {
-        if (this.lesParticipants == null || this.lesParticipants.isEmpty()) {
-            throw new ListeVideException("La liste des participants est vide.");
-        }
-        return this.lesParticipants;
-	}
+
     public void csvToListe(String chemin){
         // List<Athlete> listeAthletes = new ArrayList<>();
 
@@ -125,6 +120,9 @@ public class JO {
             e.printStackTrace();  
         }
     }
+
+
+
     public boolean addPays(Pays p){
         if(!(this.lesPays.contains(p))){
             this.lesPays.add(p);   
@@ -176,14 +174,15 @@ public class JO {
         return true;
     }
 
-    private Epreuve<? extends Participant> getEpreuve(String epreuve){
+    private Epreuve<? extends Participant> getEpreuve(String epreuve) throws DoesntExistException{
         
         for (Epreuve<? extends Participant> epreuve2: this.lesEpreuves){
             if(epreuve2.getDescription().equals(epreuve)){
                 return epreuve2;
             }
         }
-        return null;
+        throw new DoesntExistException("Cette Epreuve n'existe pas");
+
     }
 
     public void triPays(Tris leTri){
@@ -556,5 +555,29 @@ public class JO {
             }      
         }
     }
+
+
+
+
+    
+
+    public void csvImport(){
+        boolean condition = true;
+        String chemin = ""; 
+
+        while (condition) {
+            System.out.println("Vous allez Importer un fichier d'athlete \nEntrez un chemin vers se fichier.\n(Ecrivez 0000 pour revenir en arrière)");
+            chemin = System.console().readLine().strip();
+            condition = ! (chemin.equals("0000"));
+            if(condition){
+                csvToListe(chemin);
+            }    
+            condition = false;
+        }
+    }
+
+
+
+
 
 }

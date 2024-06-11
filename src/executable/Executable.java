@@ -1,7 +1,6 @@
 package executable;
 
 import epreuves.Epreuve;
-import exceptions.ListeVideException;
 import executable.JO.Tris;
 import participants.Athlete;
 import participants.Equipe;
@@ -90,6 +89,7 @@ public class Executable {
             " ├──────────────────────────────────┤\n" +
             " │  A - Ajouter une athlete         │\n" + 
             " │  V - Voir les athletes           │\n" + 
+            " │  I - Import CSV                  │\n" + 
             " │  H - Retour accueil              │\n" + 
             " │  Q - Quitter                     │\n" + 
             " └──────────────────────────────────┘");
@@ -105,6 +105,10 @@ public class Executable {
                     for (Athlete athlete : Executable.jo.getLesAthletes()){
                         System.out.println(athlete);
                     }
+                    break;
+                case "I":
+                    clearConsole();
+                    Executable.jo.csvImport();
                     break;
 
                 case "H":
@@ -268,7 +272,6 @@ public class Executable {
             " │  A - Ajouter une Epreuve         │\n" + 
             " │  V - Voir les epreuves           │\n" + 
             " │  I - Inscrire Participant        │\n" + 
-            " │  F - Participant Inscrit         │\n" + 
             " │  H - Retour accueil              │\n" + 
             " │  Q - Quitter                     │\n" + 
             " └──────────────────────────────────┘");
@@ -289,21 +292,7 @@ public class Executable {
                     clearConsole();
                     Executable.jo.inscrireEpreuve();
                     break;
-                case "F":
-                    clearConsole();
-                    System.out.println("\nLes Participants inscrit");
-                    // for (Epreuve<? extends Participant> uneEpreuve : Executable.jo.getLesEpreuves()){
-                    //     System.out.println(uneEpreuve);
-                    // }
-                    try {
-                        for (Participant elem : Executable.jo.getLesParticipants()) {
-                            System.out.println(elem);   
-                        }    
-                    } catch (ListeVideException e) {
-                        System.err.println("\n" + e.getMessage() + "\n");
-                    }
-                    
-                    break;
+
                 case "H":
                     returnedMode = Modes.ACCUEIL;
                     menuStatement = false;
