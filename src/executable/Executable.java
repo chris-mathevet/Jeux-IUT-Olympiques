@@ -13,11 +13,16 @@ public class Executable {
     }
 
     private static void clearConsole(){
-        String[] commande = {"cmd", "/c", "clear"};
-        if( System.getProperty("os.name").startsWith("Windows")){commande[2] = "cls";}
-        System.out.println();
         try {
-            new ProcessBuilder(commande).inheritIO().start().waitFor();
+            if(System.getProperty("os.name").startsWith("Linux")){
+                new ProcessBuilder("clear").inheritIO().start().waitFor();
+            }
+            else if(System.getProperty("os.name").startsWith("Windows")){
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            }
+            else{
+                System.out.println("\033[H\033[2J");
+            }
         } catch (Exception e) {
             System.out.println("\033[H\033[2J");
         }
