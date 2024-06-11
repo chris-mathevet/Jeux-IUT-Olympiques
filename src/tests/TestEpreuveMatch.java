@@ -5,6 +5,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertTrue; // Changement ici pour utiliser JUnit Jupiter
 import org.junit.jupiter.api.Test; // Changement ici pour utiliser JUnit Jupiter
 import org.junit.jupiter.api.BeforeEach; // Changement ici pour utiliser JUnit Jupiter
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import epreuves.*;
 import exceptions.*;
@@ -99,6 +100,54 @@ public class TestEpreuveMatch {
         matchsNatation4x100 = new Match<>(0, "Tour nata 4*110", natation4x110);
 
         epreuveVoleyTest = new Epreuve<>("VoleyBall athlete (impossible)", voley, 'M');
+    }
+
+    //Partie Epreuve 
+
+    @Test
+    public void testGetLesParticipants() {
+        try {
+            epreuveVoleyTest.inscrire(axel);
+            assertTrue(epreuveVoleyTest.getLesParticipants().size() == 1);
+        } catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testGetSport() {
+        assertEquals( epreuveVoleyTest.getSport(), voley);
+    }
+
+    @Test
+    public void testGetDescription() {
+        System.out.println(epreuveVoleyTest.getDescription());
+        assertEquals(epreuveVoleyTest.getDescription(),"VoleyBall athlete (impossible)" );
+    }
+
+    @Test
+    public void testGetSexe() {
+        assertEquals(epreuveVoleyTest.getSexe(), 'H');
+    }
+
+    @Test
+    public void testGetPremier() {
+        try {
+            epreuveVoleyTest.inscrire(chris);
+            epreuveVoleyTest.inscrire(michelle);
+
+            epreuveVoleyTest.inscrire(baptiste);
+            epreuveVoleyTest.inscrire(julian);
+            epreuveVoleyTest.inscrire(axel);
+        }
+        catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {
+            System.err.println(e.getMessage());
+        }
+        epreuveVoleyTest.getLeClassement();
+      
+        assertEquals(epreuveVoleyTest.getPremier(), axel);
+
+
     }
 
     @Test

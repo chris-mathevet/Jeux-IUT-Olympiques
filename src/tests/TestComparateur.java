@@ -1,5 +1,9 @@
 package tests;
 
+import static org.junit.jupiter.api.Assertions.assertTrue; // Changement ici pour utiliser JUnit Jupiter
+import org.junit.jupiter.api.Test; // Changement ici pour utiliser JUnit Jupiter
+import org.junit.jupiter.api.BeforeEach; // Changement ici pour utiliser JUnit Jupiter
+
 import static org.junit.Assert.*;
 
 import java.util.Arrays;
@@ -7,47 +11,63 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import participants.Pays;
 import comparateurs.*;
 
 public class TestComparateur {
+
+    private Pays france;
+    private Pays angleterre;
+    private Pays portugal;
+    private Pays italie;
+    private Pays russie;
+    private Pays vatican;
+    private Pays finlande;
+    private List<Pays> lesPays;
+    private List<Pays> trie1;
+    private List<Pays> trie2;
+    private List<Pays> trie3;
+    private Comparator<Pays> compTotal;
+    private Comparator<Pays> compMedaille;
+
+    @BeforeEach
+    public void setUp() {
+
+        france = new Pays("France");
+        angleterre = new Pays("Angleterre");
+        portugal = new Pays("Portugal");
+        italie = new Pays("Italie");
+        russie = new Pays("Russie");
+        vatican = new Pays("Vatican");
+        finlande = new Pays("Finlande");
+        lesPays = Arrays.asList(france,angleterre,portugal,italie,russie,vatican,finlande);
+        trie1 = Arrays.asList(angleterre, finlande,france,italie,portugal,russie,vatican);
+        trie2 = Arrays.asList(vatican, angleterre,finlande,france,russie,italie,portugal);
+        trie3 = Arrays.asList(vatican, france,portugal,angleterre,italie,russie,finlande);
+        compTotal = new ComparateurTotal();
+        compMedaille = new ComparateurMedailles();
+
+    }
     
     @Test
     public void testCompNaturel(){
-        Pays france = new Pays("France");
-        Pays angleterre = new Pays("Angleterre");
-        Pays portugal = new Pays("Portugal");
-        Pays italie = new Pays("Italie");
-        Pays russie = new Pays("Russie");
-        Pays vatican = new Pays("Vatican");
-        Pays finlande = new Pays("Finlande");
 
-        List<Pays> lesPays = Arrays.asList(france,angleterre,portugal,italie,russie,vatican,finlande);
+       
 
         Collections.sort(lesPays);
 
-        List<Pays> trie = Arrays.asList(angleterre, finlande,france,italie,portugal,russie,vatican);
+
         // System.out.println(trie);
         // System.out.println();
         // System.out.println(lesPays);
 
-        assertEquals(lesPays, trie);
+        assertEquals(lesPays, trie1);
     }
 
     @Test
     public void testCompTotal(){
-        Pays france = new Pays("France");
-        Pays angleterre = new Pays("Angleterre");
-        Pays portugal = new Pays("Portugal");
-        Pays italie = new Pays("Italie");
-        Pays russie = new Pays("Russie");
-        Pays vatican = new Pays("Vatican");
-        Pays finlande = new Pays("Finlande");
-
-        List<Pays> lesPays = Arrays.asList(france,angleterre,portugal,italie,russie,vatican,finlande);
-        List<Pays> trie = Arrays.asList(vatican, angleterre,finlande,france,russie,italie,portugal);
 
         // Ajout des médailles
 
@@ -79,25 +99,16 @@ public class TestComparateur {
         finlande.addMedailleArgent(0);
         finlande.addMedailleBronze(0);
 
-        Comparator<Pays> comp = new ComparateurTotal();
 
-        Collections.sort(lesPays,comp);
 
-        assertEquals(lesPays, trie);
+        Collections.sort(lesPays,compTotal);
+
+        assertEquals(lesPays, trie2);
     }
 
     @Test
     public void testCompMedailles(){
-        Pays france = new Pays("France");
-        Pays angleterre = new Pays("Angleterre");
-        Pays portugal = new Pays("Portugal");
-        Pays italie = new Pays("Italie");
-        Pays russie = new Pays("Russie");
-        Pays vatican = new Pays("Vatican");
-        Pays finlande = new Pays("Finlande");
 
-        List<Pays> lesPays = Arrays.asList(france,angleterre,portugal,italie,russie,vatican,finlande);
-        List<Pays> trie = Arrays.asList(vatican, france,portugal,angleterre,italie,russie,finlande);
 
         // Ajout des médailles
 
@@ -129,12 +140,12 @@ public class TestComparateur {
         finlande.addMedailleArgent(0);
         finlande.addMedailleBronze(0);
 
-        Comparator<Pays> comp = new ComparateurMedailles();
+        
 
-        Collections.sort(lesPays,comp);
+        Collections.sort(lesPays,compMedaille);
 
         System.out.println(lesPays);
         
-        assertEquals(lesPays, trie);
+        assertEquals(lesPays, trie3);
     }
 }
