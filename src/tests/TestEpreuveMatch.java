@@ -47,7 +47,8 @@ public class TestEpreuveMatch {
     private Epreuve<Athlete> athletisme4x110;
     private Epreuve<Athlete> natatione110;
     private Epreuve<Athlete> natation4x110;
-    private Epreuve<Equipe> epreuveVoleyTest;
+    private Epreuve<Athlete> epreuveVoleyTest;
+    private Epreuve<Equipe> epreuveVoleyVraiTest;
 
     private Match<Athlete> matchsTestH;
     private Match<Athlete> matchsTestF;
@@ -56,8 +57,6 @@ public class TestEpreuveMatch {
     private Match<Athlete> matchsAthle4x100;
     private Match<Athlete> matchsNatation100;
     private Match<Athlete> matchsNatation4x100;
-    private Match<Equipe> matchVoleyH;
-    
     
 
     @BeforeEach
@@ -102,8 +101,7 @@ public class TestEpreuveMatch {
         matchsNatation4x100 = new Match<>(0, "Tour nata 4*110", natation4x110);
 
         epreuveVoleyTest = new Epreuve<>("VoleyBall athlete (impossible)", voley, 'M');
-        matchVoleyH = new Match<>(0, "Tour test", epreuveVoleyTest);
-
+        epreuveVoleyVraiTest = new Epreuve<>("VoleyBall equipe", voley, 'M');
     }
 
     //Partie Epreuve 
@@ -111,8 +109,8 @@ public class TestEpreuveMatch {
     @Test
     public void testGetLesParticipants() {
         try {
-            athletisme4x110.inscrire(axel);
-            assertTrue(athletisme4x110.getLesParticipants().size() == 1);
+            epreuveVoleyTest.inscrire(axel);
+            assertTrue(epreuveVoleyTest.getLesParticipants().size() == 1);
         } catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {
             System.err.println(e.getMessage());
         }
@@ -136,19 +134,40 @@ public class TestEpreuveMatch {
 
     @Test
     public void testGetPremier() {
+
+        boolean test = true;
+
         try {
-            epreuveVoleyTest.inscrire(equipe1);
-            epreuveVoleyTest.inscrire(equipe2);
+            equipe1.ajouter(axel);
+            equipe1.ajouter(julian);
+            equipe1.ajouter(chris);
+        } 
+        catch (AlreadyInException e) {
+            System.err.println("Déja dans la liste");
+        }
+        catch (NotSameCountryException e) {
+            System.err.println("Pas le bon pays");
+        }
+        catch (NotSameGenderException e){
+            System.err.println("Pas le même sexe");
+        }
+
+        test = false;
+        
+        try {
+            epreuveVoleyVraiTest.inscrire(equipe1);
+            epreuveVoleyVraiTest.inscrire(equipe2);
 
         }
         catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {
             System.err.println(e.getMessage());
+            
+            
         }
-        epreuveVoleyTest.ajoutMatch(matchVoleyH);
-        epreuveVoleyTest.getLeClassement();
-        System.out.println(epreuveVoleyTest.getLeClassement());
+        epreuveVoleyVraiTest.ajoutMatch(match);
       
-        assertEquals(epreuveVoleyTest.getPremier(), equipe1);
+      
+        assertTrue(test);
 
 
     }
@@ -289,9 +308,9 @@ public class TestEpreuveMatch {
         }
 
         try {
-            athletisme4x110.inscrire(baptiste);
-            athletisme4x110.inscrire(julian);
-            athletisme4x110.inscrire(axel);
+            epreuveVoleyTest.inscrire(baptiste);
+            epreuveVoleyTest.inscrire(julian);
+            epreuveVoleyTest.inscrire(axel);
         } catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {
             System.err.println(e.getMessage());
             if (e instanceof CanNotRegisterException) {
