@@ -47,7 +47,7 @@ public class TestEpreuveMatch {
     private Epreuve<Athlete> athletisme4x110;
     private Epreuve<Athlete> natatione110;
     private Epreuve<Athlete> natation4x110;
-    private Epreuve<Athlete> epreuveVoleyTest;
+    private Epreuve<Equipe> epreuveVoleyTest;
 
     private Match<Athlete> matchsTestH;
     private Match<Athlete> matchsTestF;
@@ -57,6 +57,7 @@ public class TestEpreuveMatch {
     private Match<Athlete> matchsNatation100;
     private Match<Athlete> matchsNatation4x100;
     private Match<Equipe> matchVoleyH;
+    
     
 
     @BeforeEach
@@ -101,7 +102,7 @@ public class TestEpreuveMatch {
         matchsNatation4x100 = new Match<>(0, "Tour nata 4*110", natation4x110);
 
         epreuveVoleyTest = new Epreuve<>("VoleyBall athlete (impossible)", voley, 'M');
-        matchVoleyH = new Match<Equipe>(0, "Tour test", epreuveVoleyTest);
+        matchVoleyH = new Match<>(0, "Tour test", epreuveVoleyTest);
 
     }
 
@@ -110,8 +111,8 @@ public class TestEpreuveMatch {
     @Test
     public void testGetLesParticipants() {
         try {
-            epreuveVoleyTest.inscrire(axel);
-            assertTrue(epreuveVoleyTest.getLesParticipants().size() == 1);
+            athletisme4x110.inscrire(axel);
+            assertTrue(athletisme4x110.getLesParticipants().size() == 1);
         } catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {
             System.err.println(e.getMessage());
         }
@@ -288,9 +289,9 @@ public class TestEpreuveMatch {
         }
 
         try {
-            epreuveVoleyTest.inscrire(baptiste);
-            epreuveVoleyTest.inscrire(julian);
-            epreuveVoleyTest.inscrire(axel);
+            athletisme4x110.inscrire(baptiste);
+            athletisme4x110.inscrire(julian);
+            athletisme4x110.inscrire(axel);
         } catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {
             System.err.println(e.getMessage());
             if (e instanceof CanNotRegisterException) {
