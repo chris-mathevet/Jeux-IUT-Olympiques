@@ -12,6 +12,17 @@ public class Executable {
         QUITTER,ACCUEIL,ATHLETE,EQUIPE,PAYS
     }
 
+    private static void clearConsole(){
+        String[] commande = {"cmd", "/c", "clear"};
+        if( System.getProperty("os.name").startsWith("Windows")){commande[2] = "cls";}
+        System.out.println();
+        try {
+            new ProcessBuilder(commande).inheritIO().start().waitFor();
+        } catch (Exception e) {
+            System.out.println("\033[H\033[2J");
+        }
+    }
+
     private static Modes modeAccueil(){
         boolean menuStatement = true;
         Modes returnedMode = Modes.QUITTER;
@@ -47,11 +58,11 @@ public class Executable {
                     break;
             
                 default:
-                    System.out.println("\033[H\033[2J");
+                    clearConsole();
                     break;
             }
         }
-        System.out.println("\033[H\033[2J");
+        clearConsole();
         return returnedMode;
     }
 
@@ -70,12 +81,12 @@ public class Executable {
             " └──────────────────────────────────┘");
             switch (System.console().readLine().strip().toUpperCase()) {
                 case "A":
-                    System.out.println("\033[H\033[2J");
+                    clearConsole();
                     Executable.jo.creerAthelete();
                     break;
 
                 case "V":
-                    System.out.println("\033[H\033[2J");
+                    clearConsole();
                     System.out.println("\nLes athlètes");
                     for (Athlete athlete : Executable.jo.getLesAthletes()){
                         System.out.println(athlete);
@@ -93,11 +104,11 @@ public class Executable {
                     break;
             
                 default:
-                    System.out.println("\033[H\033[2J");
+                    clearConsole();
                     break;
             }
         }
-        System.out.println("\033[H\033[2J");
+        clearConsole();
         return returnedMode;
     }
 
@@ -118,17 +129,17 @@ public class Executable {
             " └──────────────────────────────────┘");
             switch (System.console().readLine().strip().toUpperCase()) {
                 case "E":
-                    System.out.println("\033[H\033[2J");
+                    clearConsole();
                     Executable.jo.creerEquipe();
                     break;
 
                 case "A":
-                    System.out.println("\033[H\033[2J");
+                    clearConsole();
                     Executable.jo.ajoutAthleteEquipe();
                     break;
 
                 case "V":
-                    System.out.println("\033[H\033[2J");
+                    clearConsole();
                     System.out.println("\nLes équipes");
                     for (Equipe equipe : Executable.jo.getLesEquipes()){
                         System.out.println(equipe);
@@ -146,11 +157,11 @@ public class Executable {
                     break;
             
                 default:
-                    System.out.println("\033[H\033[2J");
+                    clearConsole();
                     break;
             }
         }
-        System.out.println("\033[H\033[2J");
+        clearConsole();
         return returnedMode;
     }
 
@@ -169,12 +180,12 @@ public class Executable {
             " └──────────────────────────────────┘");
             switch (System.console().readLine().strip().toUpperCase()) {
                 case "A":
-                    System.out.println("\033[H\033[2J");
+                    clearConsole();
                     Executable.jo.creerPays();
                     break;
 
                 case "V":
-                    System.out.println("\033[H\033[2J");
+                    clearConsole();
                     System.out.println("\nLes pays");
                     Executable.jo.triPays(Tris.NATUREL);
                     for (Pays pays : Executable.jo.getLesPays()){
@@ -193,11 +204,11 @@ public class Executable {
                     break;
             
                 default:
-                    System.out.println("\033[H\033[2J");
+                    clearConsole();
                     break;
             }
         }
-        System.out.println("\033[H\033[2J");
+        clearConsole();
         return returnedMode;
     }
 
