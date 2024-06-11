@@ -1,6 +1,9 @@
 package executable;
 
+import executable.JO.Tris;
 import participants.Athlete;
+import participants.Equipe;
+import participants.Pays;
 
 public class Executable {
     private static JO jo = new JO();
@@ -110,21 +113,30 @@ public class Executable {
             " │  A - Ajouter un athlete          │\n" +
             " │      a une équipe                │\n" + 
             " │  V - Voir les equipes            │\n" + 
-            " │  Q - Retour accueil              │\n" + 
+            " │  H - Retour accueil              │\n" + 
+            " │  Q - Quitter                     │\n" + 
             " └──────────────────────────────────┘");
             switch (System.console().readLine().strip().toUpperCase()) {
-                case "A":
-                    returnedMode = Modes.ATHLETE;
-                    menuStatement = false;
-                    break;
-
                 case "E":
-                    returnedMode = Modes.EQUIPE;
-                    menuStatement = false;
+                    System.out.println("\033[H\033[2J");
+                    Executable.jo.creerEquipe();
                     break;
 
-                case "P":
-                    returnedMode = Modes.PAYS;
+                case "A":
+                    System.out.println("\033[H\033[2J");
+                    Executable.jo.ajoutAthleteEquipe();
+                    break;
+
+                case "V":
+                    System.out.println("\033[H\033[2J");
+                    System.out.println("\nLes équipes");
+                    for (Equipe equipe : Executable.jo.getLesEquipes()){
+                        System.out.println(equipe);
+                    }
+                    break;
+
+                case "H":
+                    returnedMode = Modes.ACCUEIL;
                     menuStatement = false;
                     break;
 
@@ -143,13 +155,50 @@ public class Executable {
     }
 
     private static Modes modePays(){
-        System.out.println(""+ 
+        boolean menuStatement = true;
+        Modes returnedMode = Modes.QUITTER;
+        while (menuStatement) {
+            System.out.println(""+ 
             " ┌──────────────────────────────────┐\n" + 
-            " │               PAYS               │\n" +
+            " │               Pays               │\n" +
             " ├──────────────────────────────────┤\n" +
-            " │  A - Ajouter un athlete          │\n" + 
+            " │  A - Ajouter un pays             │\n" + 
+            " │  V - Voir les pays               │\n" + 
+            " │  H - Retour accueil              │\n" + 
+            " │  Q - Quitter                     │\n" + 
             " └──────────────────────────────────┘");
-        return Modes.QUITTER;
+            switch (System.console().readLine().strip().toUpperCase()) {
+                case "A":
+                    System.out.println("\033[H\033[2J");
+                    Executable.jo.creerPays();
+                    break;
+
+                case "V":
+                    System.out.println("\033[H\033[2J");
+                    System.out.println("\nLes pays");
+                    Executable.jo.triPays(Tris.NATUREL);
+                    for (Pays pays : Executable.jo.getLesPays()){
+                        System.out.println(pays);
+                    }
+                    break;
+
+                case "H":
+                    returnedMode = Modes.ACCUEIL;
+                    menuStatement = false;
+                    break;
+
+                case "Q":
+                    returnedMode = Modes.QUITTER;
+                    menuStatement = false;
+                    break;
+            
+                default:
+                    System.out.println("\033[H\033[2J");
+                    break;
+            }
+        }
+        System.out.println("\033[H\033[2J");
+        return returnedMode;
     }
 
     public static void main(String[] args) {
