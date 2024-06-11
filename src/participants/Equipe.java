@@ -98,6 +98,10 @@ public class Equipe extends ArrayList<Athlete> implements Participant{
 
 	@Override
 	public String toString() {
-		return this.nom +", membre: " +super.toString();
+		String res = this.nom +" : \n";
+		for (Athlete athlete : this){
+			res += athlete + ",\n";
+		}
+		return res;
 	}
 }
