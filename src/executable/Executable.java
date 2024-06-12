@@ -42,6 +42,7 @@ public class Executable {
             " │  E - Menu Equipe                 │\n" + 
             " │  P - Menu Pays                   │\n" + 
             " │  V - Menu Epreuve                │\n" + 
+            " │  I - Import CSV                  │\n" + 
             " │  Q - Quitter                     │\n" + 
             " └──────────────────────────────────┘");
             switch (System.console().readLine().strip().toUpperCase()) {
@@ -60,13 +61,18 @@ public class Executable {
                     menuStatement = false;
                     break;
 
-                case "Q":
-                    returnedMode = Modes.QUITTER;
-                    menuStatement = false;
-                    break;
-            
                 case "V":
                     returnedMode = Modes.EPREUVE;
+                    menuStatement = false;
+                    break;
+
+                case "I":
+                    clearConsole();
+                    Executable.jo.csvImport();
+                    break;
+
+                case "Q":
+                    returnedMode = Modes.QUITTER;
                     menuStatement = false;
                     break;
             
@@ -89,7 +95,6 @@ public class Executable {
             " ├──────────────────────────────────┤\n" +
             " │  A - Ajouter une athlete         │\n" + 
             " │  V - Voir les athletes           │\n" + 
-            " │  I - Import CSV                  │\n" + 
             " │  H - Retour accueil              │\n" + 
             " │  Q - Quitter                     │\n" + 
             " └──────────────────────────────────┘");
@@ -105,10 +110,6 @@ public class Executable {
                     for (Athlete athlete : Executable.jo.getLesAthletes()){
                         System.out.println(athlete);
                     }
-                    break;
-                case "I":
-                    clearConsole();
-                    Executable.jo.csvImport();
                     break;
 
                 case "H":
