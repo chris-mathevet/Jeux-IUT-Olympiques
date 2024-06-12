@@ -225,9 +225,14 @@ public class Epreuve<T extends Participant> {
 	 */
 	public void majPodium(){
 		if(this.leClassement != null){
-			this.setPremier(this.leClassement.get(0));
-			this.setSecond(this.leClassement.get(1));
-			this.setTroisieme(this.leClassement.get(2));
+			try{
+				this.setPremier(this.leClassement.get(0));
+				this.setSecond(this.leClassement.get(1));
+				this.setTroisieme(this.leClassement.get(2));
+			}
+			catch(IndexOutOfBoundsException e){
+			}
+		
 		}
 	}
 
@@ -237,18 +242,24 @@ public class Epreuve<T extends Participant> {
 		if( ! this.leClassement.isEmpty()){
 			if(this.premier == null){
 				this.majPodium();
-				this.premier.getPays().addMedailleOr(1);
-				this.second.getPays().addMedailleArgent(1);
-				this.troisieme.getPays().addMedailleBronze(1);
+				try{
+					this.premier.getPays().addMedailleOr(1);
+					this.second.getPays().addMedailleArgent(1);
+					this.troisieme.getPays().addMedailleBronze(1);
+				} catch(Exception e){
+				}
 			}
 			else{
-				this.premier.getPays().addMedailleOr(-1);
-				this.second.getPays().addMedailleArgent(-1);
-				this.troisieme.getPays().addMedailleBronze(-1);
-				this.majPodium();
-				this.premier.getPays().addMedailleOr(1);
-				this.second.getPays().addMedailleArgent(1);
-				this.troisieme.getPays().addMedailleBronze(1);
+				try{
+					this.premier.getPays().addMedailleOr(-1);
+					this.second.getPays().addMedailleArgent(-1);
+					this.troisieme.getPays().addMedailleBronze(-1);
+					this.majPodium();
+					this.premier.getPays().addMedailleOr(1);
+					this.second.getPays().addMedailleArgent(1);
+					this.troisieme.getPays().addMedailleBronze(1);
+				} catch(Exception e){
+				}
 			}
 		}
 	}
