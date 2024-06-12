@@ -30,71 +30,118 @@ import sports.HandBall;
     private Athlete a2;
     private Athlete a3;
     private Athlete a4;
+    private Athlete a5;
     private HandBall sport1;
     private Epreuve&lt;Equipe&gt; epreuveTest;
     private Match&lt;Equipe&gt; matchTest;
 
     @BeforeEach
     public void setUp() {
-<span class="fc" id="L39">        equipe = new Equipe(&quot;France&quot;);</span>
-<span class="fc" id="L40">        fr = new Pays(&quot;France&quot;);</span>
-<span class="fc" id="L41">        ge = new Pays(&quot;Germany&quot;);</span>
-<span class="fc" id="L42">        a0 = new Athlete(&quot;init&quot;, &quot;test&quot;, 'H', 0, 0, 0, fr);</span>
-<span class="fc" id="L43">        a1 = new Athlete(&quot;george&quot;, &quot;martin&quot;, 'H', 9, 8, 5, fr);</span>
-<span class="fc" id="L44">        a2 = new Athlete(&quot;raphael&quot;, &quot;nadal&quot;, 'H', 9, 8, 5, fr);</span>
-<span class="fc" id="L45">        a3 = new Athlete(&quot;sophie&quot;, &quot;duke&quot;, 'F', 9, 8, 5, fr);</span>
-<span class="fc" id="L46">        a4 = new Athlete(&quot;Thomas&quot;, &quot;King&quot;, 'F', 9, 8, 5, ge);</span>
-<span class="fc" id="L47">        sport1 = new HandBall();</span>
-<span class="fc" id="L48">        epreuveTest = new Epreuve&lt;&gt;(&quot;Test&quot;, sport1, 'H');</span>
-<span class="fc" id="L49">        matchTest = new Match&lt;&gt;(3, &quot;Test&quot;, epreuveTest);</span>
+<span class="fc" id="L40">        equipe = new Equipe(&quot;France&quot;);</span>
+<span class="fc" id="L41">        fr = new Pays(&quot;France&quot;);</span>
+<span class="fc" id="L42">        ge = new Pays(&quot;Germany&quot;);</span>
+<span class="fc" id="L43">        a0 = new Athlete(&quot;init&quot;, &quot;test&quot;, 'H', 0, 0, 0, fr);</span>
+<span class="fc" id="L44">        a1 = new Athlete(&quot;george&quot;, &quot;martin&quot;, 'H', 9, 8, 5, fr);</span>
+<span class="fc" id="L45">        a2 = new Athlete(&quot;raphael&quot;, &quot;nadal&quot;, 'H', 9, 8, 5, fr);</span>
+<span class="fc" id="L46">        a3 = new Athlete(&quot;sophie&quot;, &quot;duke&quot;, 'F', 9, 8, 5, fr);</span>
+<span class="fc" id="L47">        a4 = new Athlete(&quot;Thomas&quot;, &quot;King&quot;, 'F', 9, 8, 5, ge);</span>
+<span class="fc" id="L48">        a5 = new Athlete(&quot;Harry&quot;, &quot;Potter&quot;, 'H', 9, 8, 5, ge);</span>
+<span class="fc" id="L49">        sport1 = new HandBall();</span>
+<span class="fc" id="L50">        epreuveTest = new Epreuve&lt;&gt;(&quot;Test&quot;, sport1, 'H');</span>
+<span class="fc" id="L51">        matchTest = new Match&lt;&gt;(3, &quot;Test&quot;, epreuveTest);</span>
 
-<span class="fc" id="L51">    }</span>
+<span class="fc" id="L53">    }</span>
 
     @Test
     public void testGetNom() {
-<span class="fc" id="L55">        assertEquals(&quot;France&quot;, equipe.getNom());</span>
-<span class="fc" id="L56">    }</span>
+<span class="fc" id="L57">        assertEquals(&quot;France&quot;, equipe.getNom());</span>
+<span class="fc" id="L58">    }</span>
 
     @Test
     public void testGetPays() {
-<span class="fc" id="L60">        equipe.add(a0);</span>
-<span class="fc" id="L61">        assertEquals(&quot;France&quot;, equipe.getPays().getNomPays());</span>
-<span class="fc" id="L62">    }</span>
+<span class="fc" id="L62">        equipe.add(a0);</span>
+<span class="fc" id="L63">        assertEquals(&quot;France&quot;, equipe.getPays().getNomPays());</span>
+<span class="fc" id="L64">    }</span>
 
     @Test
     public void testGetSexe() {
-<span class="fc" id="L66">        equipe.add(a0);</span>
-<span class="fc" id="L67">        assertEquals('H', equipe.getSexe());</span>
-<span class="fc" id="L68">    }</span>
+<span class="fc" id="L68">        equipe.add(a0);</span>
+<span class="fc" id="L69">        assertEquals('H', equipe.getSexe());</span>
+<span class="fc" id="L70">    }</span>
 
     @Test
     public void testAjouter() {
 
         try {
-<span class="fc" id="L74">            equipe.ajouter(a1);</span>
-<span class="fc" id="L75">            equipe.ajouter(a2);</span>
-<span class="nc" id="L76">            equipe.ajouter(a3);</span>
+<span class="fc" id="L76">            equipe.ajouter(a1);</span>
+<span class="fc" id="L77">            equipe.ajouter(a2);</span>
+<span class="nc" id="L78">            equipe.ajouter(a3);</span>
         } 
-<span class="nc" id="L78">        catch (AlreadyInException e) {</span>
-<span class="nc" id="L79">            System.err.println(&quot;Déja dans la liste&quot;);</span>
+<span class="nc" id="L80">        catch (AlreadyInException e) {</span>
+<span class="nc" id="L81">            System.err.println(&quot;Déja dans la liste&quot;);</span>
         }
-<span class="nc" id="L81">        catch (NotSameCountryException e) {</span>
-<span class="nc" id="L82">            System.err.println(&quot;Pas le bon pays&quot;);</span>
+<span class="nc" id="L83">        catch (NotSameCountryException e) {</span>
+<span class="nc" id="L84">            System.err.println(&quot;Pas le bon pays&quot;);</span>
         }
-<span class="fc" id="L84">        catch (NotSameGenderException e){</span>
-<span class="fc" id="L85">            System.err.println(&quot;Pas le même sexe&quot;);</span>
-<span class="nc" id="L86">        }</span>
+<span class="fc" id="L86">        catch (NotSameGenderException e){</span>
+<span class="fc" id="L87">            System.err.println(&quot;Pas le même sexe&quot;);</span>
+<span class="nc" id="L88">        }</span>
 
-<span class="fc" id="L88">        assertEquals(equipe, Arrays.asList(a1,a2));</span>
-<span class="fc" id="L89">        assertNotEquals(equipe, Arrays.asList(a1,a2,a4));</span>
+<span class="fc" id="L90">        assertEquals(equipe, Arrays.asList(a1,a2));</span>
+<span class="fc" id="L91">        assertNotEquals(equipe, Arrays.asList(a1,a2,a4));</span>
        
-<span class="fc" id="L91">    }   </span>
+<span class="fc" id="L93">    }   </span>
 
     @Test
     public void testParticiper() {
-<span class="pc bpc" id="L95" title="1 of 2 branches missed.">        assertTrue(equipe.participer(matchTest)&gt;=4 * equipe.size());</span>
-<span class="pc bpc" id="L96" title="1 of 2 branches missed.">        assertTrue(equipe.participer(matchTest)&lt;=200 * equipe.size());</span>
-<span class="fc" id="L97">    }</span>
+<span class="pc bpc" id="L97" title="1 of 2 branches missed.">        assertTrue(equipe.participer(matchTest)&gt;=4 * equipe.size());</span>
+<span class="pc bpc" id="L98" title="1 of 2 branches missed.">        assertTrue(equipe.participer(matchTest)&lt;=200 * equipe.size());</span>
+<span class="fc" id="L99">    }</span>
+
+    @Test
+    public void testException() {
+
+<span class="fc" id="L104">        boolean testGender = false;</span>
+<span class="fc" id="L105">        boolean testCountry = false;</span>
+<span class="fc" id="L106">        boolean testAlreay = false;</span>
+
+
+        try {
+<span class="fc" id="L110">            equipe.ajouter(a1);</span>
+<span class="nc" id="L111">            equipe.ajouter(a1);</span>
+        } 
+<span class="fc" id="L113">        catch (AlreadyInException | NotSameCountryException | NotSameGenderException e) {</span>
+<span class="fc" id="L114">            System.err.println(e.getMessage());</span>
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">            if (e instanceof AlreadyInException) {</span>
+<span class="fc" id="L116">                testAlreay = true;</span>
+            }
+<span class="nc" id="L118">        }</span>
+
+        try {
+<span class="fc" id="L121">            equipe.ajouter(a2);</span>
+<span class="nc" id="L122">            equipe.ajouter(a3);</span>
+        } 
+<span class="fc" id="L124">        catch (AlreadyInException | NotSameCountryException | NotSameGenderException e) {</span>
+<span class="fc" id="L125">            System.err.println(e.getMessage());</span>
+<span class="pc bpc" id="L126" title="1 of 2 branches missed.">            if (e instanceof NotSameGenderException) {</span>
+<span class="fc" id="L127">                testGender = true;</span>
+            }
+<span class="nc" id="L129">        }</span>
+
+        try {
+<span class="nc" id="L132">            equipe.ajouter(a5);</span>
+        } 
+<span class="fc" id="L134">        catch (AlreadyInException | NotSameCountryException | NotSameGenderException e) {</span>
+<span class="fc" id="L135">            System.err.println(e.getMessage());</span>
+<span class="pc bpc" id="L136" title="1 of 2 branches missed.">            if (e instanceof NotSameCountryException) {</span>
+<span class="fc" id="L137">                testCountry = true;</span>
+            }
+<span class="nc" id="L139">        }</span>
+
+<span class="fc" id="L141">        assertTrue(testAlreay);</span>
+<span class="fc" id="L142">        assertTrue(testCountry);</span>
+<span class="fc" id="L143">        assertTrue(testGender);</span>
+<span class="fc" id="L144">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

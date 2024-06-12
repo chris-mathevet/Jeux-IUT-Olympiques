@@ -67,10 +67,10 @@ public class Pays implements Comparable&lt;Pays&gt;{
 	@Override
 	public boolean equals(Object obj) {
 <span class="pc bpc" id="L69" title="1 of 2 branches missed.">		if(obj == null){return false;}</span>
-<span class="pc bpc" id="L70" title="1 of 2 branches missed.">		if(this == obj){return true;}</span>
-<span class="nc bnc" id="L71" title="All 2 branches missed.">		if(! (obj instanceof Pays)){return false;}</span>
-<span class="nc" id="L72">		Pays p = (Pays) obj;</span>
-<span class="nc" id="L73">		return this.nom.equals(p.getNomPays());</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">		if(this == obj){return true;}</span>
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">		if(! (obj instanceof Pays)){return false;}</span>
+<span class="fc" id="L72">		Pays p = (Pays) obj;</span>
+<span class="fc" id="L73">		return this.nom.equals(p.getNomPays());</span>
 	}
 
 	@Override

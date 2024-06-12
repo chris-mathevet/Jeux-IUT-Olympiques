@@ -30,6 +30,7 @@ public class TestEquipe {
     private Athlete a2;
     private Athlete a3;
     private Athlete a4;
+    private Athlete a5;
     private HandBall sport1;
     private Epreuve<Equipe> epreuveTest;
     private Match<Equipe> matchTest;
@@ -44,6 +45,7 @@ public class TestEquipe {
         a2 = new Athlete("raphael", "nadal", 'H', 9, 8, 5, fr);
         a3 = new Athlete("sophie", "duke", 'F', 9, 8, 5, fr);
         a4 = new Athlete("Thomas", "King", 'F', 9, 8, 5, ge);
+        a5 = new Athlete("Harry", "Potter", 'H', 9, 8, 5, ge);
         sport1 = new HandBall();
         epreuveTest = new Epreuve<>("Test", sport1, 'H');
         matchTest = new Match<>(3, "Test", epreuveTest);
@@ -76,13 +78,13 @@ public class TestEquipe {
             equipe.ajouter(a3);
         } 
         catch (AlreadyInException e) {
-            System.err.println("Déja dans la liste");
+            System.err.println(e.getMessage());
         }
         catch (NotSameCountryException e) {
-            System.err.println("Pas le bon pays");
+            System.err.println(e.getMessage());
         }
         catch (NotSameGenderException e){
-            System.err.println("Pas le même sexe");
+            System.err.println(e.getMessage());
         }
 
         assertEquals(equipe, Arrays.asList(a1,a2));
@@ -94,6 +96,51 @@ public class TestEquipe {
     public void testParticiper() {
         assertTrue(equipe.participer(matchTest)>=4 * equipe.size());
         assertTrue(equipe.participer(matchTest)<=200 * equipe.size());
+    }
+
+    @Test
+    public void testException() {
+
+        boolean testGender = false;
+        boolean testCountry = false;
+        boolean testAlreay = false;
+
+
+        try {
+            equipe.ajouter(a1);
+            equipe.ajouter(a1);
+        } 
+        catch (AlreadyInException | NotSameCountryException | NotSameGenderException e) {
+            System.err.println(e.getMessage());
+            if (e instanceof AlreadyInException) {
+                testAlreay = true;
+            }
+        }
+
+        try {
+            equipe.ajouter(a2);
+            equipe.ajouter(a3);
+        } 
+        catch (AlreadyInException | NotSameCountryException | NotSameGenderException e) {
+            System.err.println(e.getMessage());
+            if (e instanceof NotSameGenderException) {
+                testGender = true;
+            }
+        }
+
+        try {
+            equipe.ajouter(a5);
+        } 
+        catch (AlreadyInException | NotSameCountryException | NotSameGenderException e) {
+            System.err.println(e.getMessage());
+            if (e instanceof NotSameCountryException) {
+                testCountry = true;
+            }
+        }
+
+        assertTrue(testAlreay);
+        assertTrue(testCountry);
+        assertTrue(testGender);
     }
 
 }
