@@ -447,7 +447,7 @@ public class JO {
                 condition = ! (nomEpreuve.equals("0000"));
                 if(condition){
                     epreuve = this.getEpreuve(nomEpreuve);
-                    if (epreuve != null &&( epreuve.getSport().getNbParEquipe()>1)){
+                    if (epreuve.getSport().getNbParEquipe()>1){
                         epreuveEquipe = (Epreuve<Equipe>)epreuve;
                         while (condition2) {
                             System.out.println("\nEQUIPE\nEntrez le nom de votre equipe \",\" \n" +
@@ -476,7 +476,7 @@ public class JO {
                                 } 
                             }
                         }
-                    }else if (epreuve != null &&( epreuve.getSport().getNbParEquipe()==1)){
+                    }else{
                         
                         epreuveAthlete = (Epreuve<Athlete>)epreuve;
 
@@ -513,8 +513,7 @@ public class JO {
                     
                     condition = false;
                 }
-            // } catch (DoesntExistException e) {
-            } catch (Exception e) {
+            } catch (DoesntExistException e) {
                 System.out.println("\nl'Epreuve n'existe pas, voulez vous la créer ? (O/N)");
                 if(System.console().readLine().strip().toUpperCase().equals("O")){
                     creerEpreuve();
@@ -577,25 +576,27 @@ public class JO {
             System.out.println("Choississez le classement à voir\n1 - Par médailles (Or, Argent, Bronze)\n2 - Par total de médailles");
             commande = System.console().readLine().strip();
             condition = ! (commande.equals("0000"));
-            try {
-                tri = Integer.valueOf(commande);
+            if (condition){
+                try {
+                    tri = Integer.valueOf(commande);
 
-                if (tri == 1){
-                    System.out.println("\nTriage en fonction des médailles.\n");
-                    this.triPays(Tris.MEDAILLES);
-                    condition = false;
+                    if (tri == 1){
+                        System.out.println("\nTriage en fonction des médailles.\n");
+                        this.triPays(Tris.MEDAILLES);
+                        condition = false;
+                    }
+                    else if (tri == 2){
+                        System.out.println("\nTriage en fonction du total de médailles.\n");
+                        this.triPays(Tris.TOTAL);
+                        condition = false;
+                    }
+                    else{
+                        System.out.println("\nEntrez un chiffre valide.\n");
+                    }
+                    
+                } catch (NumberFormatException e) {
+                    System.err.println("\nVeuillez entrer un chiffre.\n");
                 }
-                else if (tri == 2){
-                    System.out.println("\nTriage en fonction du total de médailles.\n");
-                    this.triPays(Tris.TOTAL);
-                    condition = false;
-                }
-                else{
-                    System.out.println("\nEntrez un chiffre valide.\n");
-                }
-                
-            } catch (NumberFormatException e) {
-                System.err.println("\nVeuillez entrer un chiffre.\n");
             }
         }
     }
@@ -612,6 +613,32 @@ public class JO {
                 csvToListe(chemin);
             }    
             condition = false;
+        }
+    }
+
+    public void voirInscritEpreuve(){
+        boolean condition = true;
+        String nomEpreuve = ""; 
+        Epreuve<? extends Participant> epreuve;
+        while (condition) {
+            try {
+                System.out.println("Quelle epreuve?\nEntrez un nom d'Epreuve .\n(Ecrivez 0000 pour revenir en arrière)");
+                nomEpreuve = System.console().readLine().strip();
+                condition = ! (nomEpreuve.equals("0000"));
+                if(condition){
+                    epreuve = this.getEpreuve(nomEpreuve);
+                    System.out.println("\nLes participants :\n");
+                    for (Participant participant : epreuve.getLesParticipants()){
+                        System.err.println(participant);
+                    }
+                    condition = false;
+                }
+            } catch (DoesntExistException e) {
+                System.out.println("\nl'Epreuve n'existe pas, voulez vous la créer ? (O/N)");
+                if(System.console().readLine().strip().toUpperCase().equals("O")){
+                    this.creerEpreuve();
+                }
+            }
         }
     }
 

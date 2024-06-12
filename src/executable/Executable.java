@@ -282,6 +282,8 @@ public class Executable {
             " │  A - Ajouter une Epreuve         │\n" + 
             " │  V - Voir les epreuves           │\n" + 
             " │  I - Inscrire Participant        │\n" + 
+            " │  T - Voir participants a         │\n" + 
+            " │      une épreuve                 │\n" + 
             " │  H - Retour accueil              │\n" + 
             " │  Q - Quitter                     │\n" + 
             " └──────────────────────────────────┘");
@@ -301,6 +303,11 @@ public class Executable {
                 case "I":
                     clearConsole();
                     Executable.jo.inscrireEpreuve();
+                    break;
+
+                case "T":
+                    clearConsole();
+                    Executable.jo.voirInscritEpreuve();
                     break;
 
                 case "H":
