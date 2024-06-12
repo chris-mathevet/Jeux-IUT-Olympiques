@@ -26,10 +26,10 @@ public class Equipe extends ArrayList&lt;Athlete&gt; implements Participant{
 	 */
 	@Override
 	public Pays getPays(){
-<span class="fc bfc" id="L29" title="All 2 branches covered.">		if (! this.isEmpty()){</span>
+<span class="pc bpc" id="L29" title="1 of 2 branches missed.">		if (! this.isEmpty()){</span>
 <span class="fc" id="L30">			return this.get(0).getPays();</span>
 		}
-<span class="fc" id="L32">		return null;</span>
+<span class="nc" id="L32">		return null;</span>
 	}
 
 	/**
@@ -37,10 +37,10 @@ public class Equipe extends ArrayList&lt;Athlete&gt; implements Participant{
 	 */
 	@Override
 	public char getSexe(){
-<span class="fc bfc" id="L40" title="All 2 branches covered.">		if (! this.isEmpty()){</span>
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">		if (! this.isEmpty()){</span>
 <span class="fc" id="L41">			return this.get(0).getSexe();</span>
 		}
-<span class="fc" id="L43">		return ' ';</span>
+<span class="nc" id="L43">		return ' ';</span>
 	}
 
 	/**
@@ -81,15 +81,24 @@ public class Equipe extends ArrayList&lt;Athlete&gt; implements Participant{
 	@Override
 	public int participer(Match&lt;? extends Participant&gt; match) {
 <span class="fc" id="L83">		int sommeBareme = 0;</span>
-<span class="fc bfc" id="L84" title="All 2 branches covered.">		for (Athlete athlete : this) {</span>
-<span class="fc" id="L85">			sommeBareme += athlete.participer(match);</span>
-<span class="fc" id="L86">		}</span>
+<span class="pc bpc" id="L84" title="1 of 2 branches missed.">		for (Athlete athlete : this) {</span>
+<span class="nc" id="L85">			sommeBareme += athlete.participer(match);</span>
+<span class="nc" id="L86">		}</span>
 <span class="fc" id="L87">		return sommeBareme;</span>
 	}
 
 	@Override
+	public boolean equals(Object o) {
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">		if(o == null){return false;}</span>
+<span class="pc bpc" id="L93" title="1 of 2 branches missed.">		if(o == this){return true;}</span>
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">		if(! (o instanceof Equipe)){return false;}</span>
+<span class="nc" id="L95">		Equipe equipe = (Equipe) o;</span>
+<span class="nc" id="L96">		return this.nom.equals(equipe.getNom());</span>
+	}
+
+	@Override
 	public String toString() {
-<span class="fc" id="L92">		return this.nom +&quot;, membre: &quot; +super.toString();</span>
+<span class="fc" id="L101">		return this.nom +&quot;, membre: &quot; +super.toString();</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

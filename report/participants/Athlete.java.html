@@ -28,9 +28,9 @@ public class Athlete implements Participant{
 <span class="fc bfc" id="L28" title="All 2 branches covered.">		if (this.sexe != 'F'){</span>
 <span class="fc" id="L29">			this.sexe = 'H';</span>
 		}
-<span class="fc" id="L31">		this.force = force;</span>
-<span class="fc" id="L32">		this.endurance = endurance;</span>
-<span class="fc" id="L33">		this.agilite = agilite;</span>
+<span class="fc" id="L31">		this.force = (force%20)+1;</span>
+<span class="fc" id="L32">		this.endurance = (endurance%20)+1;</span>
+<span class="fc" id="L33">		this.agilite = (agilite%20)+1;</span>
 <span class="fc" id="L34">		this.lePays = pays;</span>
 <span class="fc" id="L35">		this.lePays.getLesAthletes().add(this);</span>
 <span class="fc" id="L36">	}</span>
@@ -76,7 +76,7 @@ public class Athlete implements Participant{
 <span class="fc bfc" id="L76" title="All 2 branches covered.">		if(o == this){return true;}</span>
 <span class="pc bpc" id="L77" title="1 of 2 branches missed.">		if(!(o instanceof Athlete)){return false;}</span>
 <span class="fc" id="L78">		Athlete athlete = (Athlete) o;</span>
-<span class="pc bpc" id="L79" title="5 of 8 branches missed.">		return athlete.nom.equals(this.nom) &amp;&amp; athlete.prenom.equals(this.prenom) &amp;&amp; this.sexe == athlete.sexe &amp;&amp; this.lePays == athlete.lePays;</span>
+<span class="pc bpc" id="L79" title="7 of 8 branches missed.">		return athlete.nom.equals(this.nom) &amp;&amp; athlete.prenom.equals(this.prenom) &amp;&amp; this.sexe == athlete.sexe &amp;&amp; this.lePays == athlete.lePays;</span>
 	}
 
 	@Override

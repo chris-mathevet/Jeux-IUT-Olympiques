@@ -74,8 +74,8 @@ public class TestEpreuveMatch {
         michelle = new Athlete("MICHMICH", "Michelle", 'F', 12, 16, 14, france);
         shanka = new Athlete("ClERMONT", "shanka", 'M', 19, 18, 9, france);
         bastien = new Athlete("MONET", "bastien", 'M', 19, 18, 9, france);
-        mettre110H = new Epreuve<>("110 m haies hommes", escrime, 'M');
-        mettre110F = new Epreuve<>("110 m haies femmes", escrime, 'F');
+        mettre110H = new Epreuve<>("Athletisme relais 110 haies", escrime, 'M');
+        mettre110F = new Epreuve<>("Athletisme relais 110 haies", escrime, 'F');
         epreuve = new Epreuve<>("test", voley, 'M');
         riri = new Athlete("Duck", "riri", 'M', 1, 8, 19, france);
         fifi = new Athlete("Duck", "fifi", 'M', 12, 5, 9, france);
@@ -93,10 +93,10 @@ public class TestEpreuveMatch {
 
         athletisme = new Athletisme();
         natation = new Natation();
-        athletisme110 = new Epreuve<>("110 m haies hommes", athletisme, 'M');
-        athletisme4x110 = new Epreuve<>("4*110 m haies hommes", athletisme, 'M');
-        natatione110 = new Epreuve<>("110 m nage libre hommes", natation, 'M');
-        natation4x110 = new Epreuve<>("4*110 m nage libre hommes", natation, 'M');
+        athletisme110 = new Epreuve<>("Athletisme 110 haies", athletisme, 'M');
+        athletisme4x110 = new Epreuve<>("Athletisme relais 110 haies", athletisme, 'M');
+        natatione110 = new Epreuve<>("Natation 100 libre", natation, 'M');
+        natation4x110 = new Epreuve<>("Natation relais 100 libre", natation, 'M');
         matchsAthle100 = new Match<>(3, "Tour athle 110", athletisme110);
         matchsAthle4x100 = new Match<>(0, "Tour athle 4*110", athletisme4x110);
         matchsNatation100 = new Match<>(0, "Tour nata 110", natatione110);
