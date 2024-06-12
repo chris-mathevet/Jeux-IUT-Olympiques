@@ -7,16 +7,16 @@ import participants.Pays;
 public class ComparateurTotal implements Comparator&lt;Pays&gt;{
 
     public ComparateurTotal(){
-<span class="nc" id="L10">        super();</span>
-<span class="nc" id="L11">    }</span>
+<span class="fc" id="L10">        super();</span>
+<span class="fc" id="L11">    }</span>
 
     private int sommeMedaille(Pays pays){
-<span class="nc" id="L14">        return pays.getMedailleArgent() + pays.getMedailleBronze() + pays.getMedailleOr();</span>
+<span class="fc" id="L14">        return pays.getMedailleArgent() + pays.getMedailleBronze() + pays.getMedailleOr();</span>
     }
 
     @Override
     public int compare(Pays p1, Pays p2) {
-<span class="nc" id="L19">        return this.sommeMedaille(p2)-this.sommeMedaille(p1);</span>
+<span class="fc" id="L19">        return this.sommeMedaille(p2)-this.sommeMedaille(p1);</span>
     }    
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

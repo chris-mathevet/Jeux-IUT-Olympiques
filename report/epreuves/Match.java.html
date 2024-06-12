@@ -14,13 +14,13 @@ public class Match&lt;T extends Participant&gt; {
 	private List&lt;Double&gt; resultats;
 	private Epreuve&lt;T&gt; epreuve;
 
-<span class="nc" id="L17">	public Match(int nbTour, String nomTour, Epreuve&lt;T&gt; epreuve) {</span>
-<span class="nc" id="L18">		this.numéroDeTour = nbTour;</span>
-<span class="nc" id="L19">		this.nomDeTour = nomTour;</span>
-<span class="nc" id="L20">		this.epreuve = epreuve;</span>
-<span class="nc" id="L21">		this.epreuve.ajoutMatch(this);</span>
-<span class="nc" id="L22">		this.resultats = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L23">	}</span>
+<span class="fc" id="L17">	public Match(int nbTour, String nomTour, Epreuve&lt;T&gt; epreuve) {</span>
+<span class="fc" id="L18">		this.numéroDeTour = nbTour;</span>
+<span class="fc" id="L19">		this.nomDeTour = nomTour;</span>
+<span class="fc" id="L20">		this.epreuve = epreuve;</span>
+<span class="fc" id="L21">		this.epreuve.ajoutMatch(this);</span>
+<span class="fc" id="L22">		this.resultats = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L23">	}</span>
 
 	public int getNumeroDeTour() {
 <span class="nc" id="L26">		return this.numéroDeTour;</span>
@@ -31,13 +31,13 @@ public class Match&lt;T extends Participant&gt; {
 	}
 
 	public List&lt;Double&gt; getResultats() {
-<span class="nc bnc" id="L34" title="All 2 branches missed.">		if(this.resultats.isEmpty()){this.calculResultat();}</span>
-<span class="nc" id="L35">		this.resultats = this.transfoPointTemps(resultats);</span>
-<span class="nc" id="L36">		return this.resultats;</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">		if(this.resultats.isEmpty()){this.calculResultat();}</span>
+<span class="fc" id="L35">		this.resultats = this.transfoPointTemps(resultats);</span>
+<span class="fc" id="L36">		return this.resultats;</span>
 	}
 	
 	public Epreuve&lt;T&gt; getEpreuve(){
-<span class="nc" id="L40">		return this.epreuve;</span>
+<span class="fc" id="L40">		return this.epreuve;</span>
 	}
 
 	/**
@@ -65,66 +65,66 @@ public class Match&lt;T extends Participant&gt; {
 	 * @return int Lindice du maximum
 	 */
 	public static int indiemeMax(List&lt;Double&gt; liste, int index){
-<span class="nc" id="L68">        Double max = null;</span>
-<span class="nc" id="L69">        int ind = index;</span>
-<span class="nc bnc" id="L70" title="All 2 branches missed.">        for(int i = index; i&lt;liste.size();++i){</span>
-<span class="nc bnc" id="L71" title="All 4 branches missed.">            if(max == null || liste.get(i)&gt;max){</span>
-<span class="nc" id="L72">                max = liste.get(i);</span>
-<span class="nc" id="L73">                ind = i;</span>
+<span class="fc" id="L68">        Double max = null;</span>
+<span class="fc" id="L69">        int ind = index;</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">        for(int i = index; i&lt;liste.size();++i){</span>
+<span class="fc bfc" id="L71" title="All 4 branches covered.">            if(max == null || liste.get(i)&gt;max){</span>
+<span class="fc" id="L72">                max = liste.get(i);</span>
+<span class="fc" id="L73">                ind = i;</span>
             }
         }
-<span class="nc" id="L76">        return ind;</span>
+<span class="fc" id="L76">        return ind;</span>
     }
 
 	/**
 	 * Calcul les résultats des participants du match (index partagé avec la liste de participants de l'épreuve)
 	 */
 	private void calculResultat() {
-<span class="nc bnc" id="L83" title="All 2 branches missed.">		if(this.resultats.isEmpty()){</span>
-<span class="nc" id="L84">			List&lt;T&gt; participants = this.epreuve.getLesParticipants();</span>
-<span class="nc bnc" id="L85" title="All 2 branches missed.">			for(T participant : participants){</span>
-<span class="nc" id="L86">				resultats.add((double) participant.participer(this));</span>
-<span class="nc" id="L87">			}</span>
+<span class="pc bpc" id="L83" title="1 of 2 branches missed.">		if(this.resultats.isEmpty()){</span>
+<span class="fc" id="L84">			List&lt;T&gt; participants = this.epreuve.getLesParticipants();</span>
+<span class="fc bfc" id="L85" title="All 2 branches covered.">			for(T participant : participants){</span>
+<span class="fc" id="L86">				resultats.add((double) participant.participer(this));</span>
+<span class="fc" id="L87">			}</span>
 		}
-<span class="nc" id="L89">	}</span>
+<span class="fc" id="L89">	}</span>
 
 	/**
 	 * Transforme (ou non) la liste de points en temps (en s)
 	 * @return List&lt;Double&gt; La liste transformé ou non
 	 */
 	private List&lt;Double&gt; transfoPointTemps(List&lt;Double&gt; resultats){
-<span class="nc" id="L96">		Sport leSport = this.epreuve.getSport();</span>
+<span class="fc" id="L96">		Sport leSport = this.epreuve.getSport();</span>
 		List&lt;Double&gt; tranfo;
-<span class="nc" id="L98">		int modifier1 = 0;</span>
-<span class="nc" id="L99">		int modifier2 = 20;</span>
-<span class="nc bnc" id="L100" title="All 2 branches missed.">		if(leSport.getEstTemsp()){ // Athletisme ou Natation</span>
-<span class="nc" id="L101">			tranfo =  new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L102" title="All 2 branches missed.">			if(leSport instanceof Athletisme){</span>
-<span class="nc bnc" id="L103" title="All 2 branches missed.">				if(this.epreuve.getDescription().contains(&quot;4&quot;)){ // 4*100m</span>
-<span class="nc" id="L104">					modifier1 = Athletisme.getModifiertemps4x100m();</span>
+<span class="fc" id="L98">		int modifier1 = 0;</span>
+<span class="fc" id="L99">		int modifier2 = 20;</span>
+<span class="fc bfc" id="L100" title="All 2 branches covered.">		if(leSport.getEstTemsp()){ // Athletisme ou Natation</span>
+<span class="fc" id="L101">			tranfo =  new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">			if(leSport instanceof Athletisme){</span>
+<span class="fc bfc" id="L103" title="All 2 branches covered.">				if(this.epreuve.getDescription().contains(&quot;4&quot;)){ // 4*100m</span>
+<span class="fc" id="L104">					modifier1 = Athletisme.getModifiertemps4x100m();</span>
 				}
 				else{
-<span class="nc" id="L107">					modifier1 = Athletisme.getModifierTemp100();</span>
+<span class="fc" id="L107">					modifier1 = Athletisme.getModifierTemp100();</span>
 				}
 			}
 			else{ // Natattion
-<span class="nc bnc" id="L111" title="All 2 branches missed.">				if(this.epreuve.getDescription().contains(&quot;4&quot;)){ // 4*100m</span>
-<span class="nc" id="L112">					modifier1 = Natation.getModifiertemps4x100m();</span>
-<span class="nc" id="L113">					modifier2 = 2;</span>
+<span class="fc bfc" id="L111" title="All 2 branches covered.">				if(this.epreuve.getDescription().contains(&quot;4&quot;)){ // 4*100m</span>
+<span class="fc" id="L112">					modifier1 = Natation.getModifiertemps4x100m();</span>
+<span class="fc" id="L113">					modifier2 = 2;</span>
 				}
 				else{
-<span class="nc" id="L116">					modifier1 = Natation.getModifierTemp100();</span>
+<span class="fc" id="L116">					modifier1 = Natation.getModifierTemp100();</span>
 				}
 			}
-<span class="nc bnc" id="L119" title="All 2 branches missed.">			for(Double res : resultats){</span>
-<span class="nc" id="L120">				res = (modifier1 + ((0-res)+204)/modifier2);</span>
-<span class="nc" id="L121">				tranfo.add(res);</span>
-<span class="nc" id="L122">			}</span>
+<span class="fc bfc" id="L119" title="All 2 branches covered.">			for(Double res : resultats){</span>
+<span class="fc" id="L120">				res = (modifier1 + ((0-res)+204)/modifier2);</span>
+<span class="fc" id="L121">				tranfo.add(res);</span>
+<span class="fc" id="L122">			}</span>
 		}
 		else{
-<span class="nc" id="L125">			tranfo =  new ArrayList&lt;&gt;(resultats);</span>
+<span class="fc" id="L125">			tranfo =  new ArrayList&lt;&gt;(resultats);</span>
 		}
-<span class="nc" id="L127">		return tranfo;</span>
+<span class="fc" id="L127">		return tranfo;</span>
 	}
 
 	/**
@@ -145,7 +145,7 @@ public class Match&lt;T extends Participant&gt; {
 
 	@Override
 	public String toString() {
-<span class="nc" id="L148">		return this.nomDeTour + this.numéroDeTour;</span>
+<span class="fc" id="L148">		return this.nomDeTour + this.numéroDeTour;</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

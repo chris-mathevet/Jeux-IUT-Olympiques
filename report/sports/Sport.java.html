@@ -24,16 +24,16 @@ public abstract class Sport {
 	 * @param int Le coef random utilisé dans le bareme
 	 * @param boolean si le résultat d'un sport est en temps
 	 */
-<span class="nc" id="L27">	public Sport(int nbParEquipe, String nomSport, int coefForce, int coefEndurance, int coefAgilite, int coefRandom, boolean estTemps) {</span>
-<span class="nc" id="L28">		this.nbParEquipe = nbParEquipe;</span>
-<span class="nc" id="L29">		this.nomSport = nomSport;</span>
+<span class="fc" id="L27">	public Sport(int nbParEquipe, String nomSport, int coefForce, int coefEndurance, int coefAgilite, int coefRandom, boolean estTemps) {</span>
+<span class="fc" id="L28">		this.nbParEquipe = nbParEquipe;</span>
+<span class="fc" id="L29">		this.nomSport = nomSport;</span>
 		
-<span class="nc" id="L31">		this.coefForce = coefForce;</span>
-<span class="nc" id="L32">		this.coefEndurance = coefEndurance;</span>
-<span class="nc" id="L33">		this.coefAgilite = coefAgilite;</span>
-<span class="nc" id="L34">		this.coefRandom = coefRandom;</span>
-<span class="nc" id="L35">		this.estTemps = estTemps;</span>
-<span class="nc" id="L36">	}</span>
+<span class="fc" id="L31">		this.coefForce = coefForce;</span>
+<span class="fc" id="L32">		this.coefEndurance = coefEndurance;</span>
+<span class="fc" id="L33">		this.coefAgilite = coefAgilite;</span>
+<span class="fc" id="L34">		this.coefRandom = coefRandom;</span>
+<span class="fc" id="L35">		this.estTemps = estTemps;</span>
+<span class="fc" id="L36">	}</span>
 
 
 	/**
@@ -41,42 +41,42 @@ public abstract class Sport {
 	 * @return int
 	 */
 	public int getNbParEquipe() {
-<span class="nc" id="L44">		return this.nbParEquipe;</span>
+<span class="fc" id="L44">		return this.nbParEquipe;</span>
 	}
 	/**
 	 * Retourne le nom du sport 
 	 * @return String
 	 */
 	public String getSport() {
-<span class="nc" id="L51">		return this.nomSport;</span>
+<span class="fc" id="L51">		return this.nomSport;</span>
 	}
 	/**
 	 * Retourne le coef du paramettre Force dans le bareme pour ce sport
 	 * @return int
 	 */
 	public int getCoefForce() {
-<span class="nc" id="L58">		return this.coefForce;</span>
+<span class="fc" id="L58">		return this.coefForce;</span>
 	}
 	/**
 	 * Retourne le coef du paramettre Endurance dans le bareme pour ce sport
 	 * @return int
 	 */
 	public int getCoefEndurance() {
-<span class="nc" id="L65">		return this.coefEndurance;</span>
+<span class="fc" id="L65">		return this.coefEndurance;</span>
 	}
 	/**
 	 * Retourne le coef du paramettre Agilite dans le bareme pour ce sport
 	 * @return int
 	 */
 	public int getCoefAgilite() {
-<span class="nc" id="L72">		return this.coefAgilite;</span>
+<span class="fc" id="L72">		return this.coefAgilite;</span>
 	}
 	/**
 	 * Retourne le coef du paramettre Random dans le bareme pour ce sport
 	 * @return int
 	 */
 	public int getCoefRandom() {
-<span class="nc" id="L79">		return this.coefRandom;</span>
+<span class="fc" id="L79">		return this.coefRandom;</span>
 	}
 
 	/**
@@ -84,7 +84,7 @@ public abstract class Sport {
 	 * @return boolean
 	 */
 	public boolean getEstTemsp(){
-<span class="nc" id="L87">		return this.estTemps;</span>
+<span class="fc" id="L87">		return this.estTemps;</span>
 	}
 
 	
@@ -93,32 +93,32 @@ public abstract class Sport {
 	 * @return void
 	 */
 	public void setCoefForce(int coefForce) {
-<span class="nc" id="L96">		this.coefForce = coefForce;</span>
-<span class="nc" id="L97">	}</span>
+<span class="fc" id="L96">		this.coefForce = coefForce;</span>
+<span class="fc" id="L97">	}</span>
 
 	/**
 	 * change le coef du paramettre Endurance dans le bareme pour ce sport
 	 * @return void
 	 */
 	public void setCoefEndurance(int coefEndurance) {
-<span class="nc" id="L104">		this.coefEndurance = coefEndurance;</span>
-<span class="nc" id="L105">	}</span>
+<span class="fc" id="L104">		this.coefEndurance = coefEndurance;</span>
+<span class="fc" id="L105">	}</span>
 
 	/**
 	 * change le coef du paramettre agilite dans le bareme pour ce sport
 	 * @return void
 	 */
 	public void setCoefAgilite(int coefAgilite) {
-<span class="nc" id="L112">		this.coefAgilite = coefAgilite;</span>
-<span class="nc" id="L113">	}</span>
+<span class="fc" id="L112">		this.coefAgilite = coefAgilite;</span>
+<span class="fc" id="L113">	}</span>
 
 	/**
 	 * change le coef du paramettre Random dans le bareme pour ce sport
 	 * @return void
 	 */
 	public void setCoefRandom(int coefRandom) {
-<span class="nc" id="L120">		this.coefRandom = coefRandom;</span>
-<span class="nc" id="L121">	}</span>
+<span class="fc" id="L120">		this.coefRandom = coefRandom;</span>
+<span class="fc" id="L121">	}</span>
 
 	/**
 	 * Retourne le nombre de point que l'athlete a eu en fonction du bareme donné (Avec les coefs)
@@ -126,11 +126,11 @@ public abstract class Sport {
 	 * @return int Le nombre de point de l'athlete pour un sport
 	 */
 	public int bareme(Athlete athlete){
-<span class="nc" id="L129">		Random e = new Random();</span>
-<span class="nc" id="L130">		return (int)(athlete.getAgilite() * this.getCoefAgilite() + </span>
-<span class="nc" id="L131">					athlete.getForce() * this.getCoefForce() + </span>
-<span class="nc" id="L132">					(e.nextInt(20)+1)* this.getCoefRandom() + </span>
-<span class="nc" id="L133">					athlete.getEndurance()* this.getCoefEndurance());</span>
+<span class="fc" id="L129">		Random e = new Random();</span>
+<span class="fc" id="L130">		return (int)(athlete.getAgilite() * this.getCoefAgilite() + </span>
+<span class="fc" id="L131">					athlete.getForce() * this.getCoefForce() + </span>
+<span class="fc" id="L132">					(e.nextInt(20)+1)* this.getCoefRandom() + </span>
+<span class="fc" id="L133">					athlete.getEndurance()* this.getCoefEndurance());</span>
 	}
 
 	@Override

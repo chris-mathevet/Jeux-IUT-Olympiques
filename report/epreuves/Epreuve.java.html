@@ -25,77 +25,77 @@ public class Epreuve&lt;T extends Participant&gt; {
 	 * @param Sport Le sport correspondant à cette épreuve
 	 * @param char Le sexe des participants de l'épreuve
 	 */
-<span class="nc" id="L28">	public Epreuve(String description, Sport sport, char sexe) {</span>
-<span class="nc" id="L29">		this.description = description;</span>
-<span class="nc" id="L30">		this.leSport = sport;</span>
-<span class="nc" id="L31">		this.sexe = sexe;</span>
-<span class="nc bnc" id="L32" title="All 2 branches missed.">		if (this.sexe != 'F'){</span>
-<span class="nc" id="L33">			this.sexe = 'H';</span>
+<span class="fc" id="L28">	public Epreuve(String description, Sport sport, char sexe) {</span>
+<span class="fc" id="L29">		this.description = description;</span>
+<span class="fc" id="L30">		this.leSport = sport;</span>
+<span class="fc" id="L31">		this.sexe = sexe;</span>
+<span class="fc bfc" id="L32" title="All 2 branches covered.">		if (this.sexe != 'F'){</span>
+<span class="fc" id="L33">			this.sexe = 'H';</span>
 		}
-<span class="nc" id="L35">		this.lesMatchs = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L36">		this.lesParticipants = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L37">		this.premier = null;</span>
-<span class="nc" id="L38">		this.second = null;</span>
-<span class="nc" id="L39">		this.troisieme = null;</span>
-<span class="nc" id="L40">		this.leClassement = null;</span>
-<span class="nc" id="L41">	}</span>
+<span class="fc" id="L35">		this.lesMatchs = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L36">		this.lesParticipants = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L37">		this.premier = null;</span>
+<span class="fc" id="L38">		this.second = null;</span>
+<span class="fc" id="L39">		this.troisieme = null;</span>
+<span class="fc" id="L40">		this.leClassement = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L41">	}</span>
 
 	public List&lt;T&gt; getLesParticipants() {
-<span class="nc" id="L44">		return this.lesParticipants;</span>
+<span class="fc" id="L44">		return this.lesParticipants;</span>
 	}
 
 	public Sport getSport() {
-<span class="nc" id="L48">		return this.leSport;</span>
+<span class="fc" id="L48">		return this.leSport;</span>
 	}
 
 	public String getDescription() {
-<span class="nc" id="L52">		return this.description;</span>
+<span class="fc" id="L52">		return this.description;</span>
 	}
 	
 	public char getSexe() {
-<span class="nc" id="L56">		return this.sexe;</span>
+<span class="fc" id="L56">		return this.sexe;</span>
 	}
 
 	public T getPremier() {
-<span class="nc" id="L60">		return this.premier;</span>
+<span class="fc" id="L60">		return this.premier;</span>
 	}
 
 	public T getSecond() {
-<span class="nc" id="L64">		return this.second;</span>
+<span class="fc" id="L64">		return this.second;</span>
 	}
 
 	public T getTroisieme() {
-<span class="nc" id="L68">		return this.troisieme;</span>
+<span class="fc" id="L68">		return this.troisieme;</span>
 	}
 
 	public List&lt;Match&lt;T&gt;&gt; getLesMatchs() {
-<span class="nc" id="L72">		return this.lesMatchs;</span>
+<span class="fc" id="L72">		return this.lesMatchs;</span>
 	}
 
 	public List&lt;T&gt; getLeClassement() {
-<span class="nc bnc" id="L76" title="All 2 branches missed.">		if(this.leClassement.isEmpty()){this.classement();}</span>
-<span class="nc" id="L77">		this.majMedailles();</span>
-<span class="nc" id="L78">		return this.leClassement;</span>
+<span class="pc bpc" id="L76" title="1 of 2 branches missed.">		if(this.leClassement.isEmpty()){this.classement();}</span>
+<span class="fc" id="L77">		this.majMedailles();</span>
+<span class="fc" id="L78">		return this.leClassement;</span>
 	}
 
 	private void setPremier(T premier) {
-<span class="nc" id="L82">		this.premier = premier;</span>
-<span class="nc" id="L83">	}</span>
+<span class="fc" id="L82">		this.premier = premier;</span>
+<span class="fc" id="L83">	}</span>
 
 	private void setSecond(T second) {
-<span class="nc" id="L86">		this.second = second;</span>
-<span class="nc" id="L87">	}</span>
+<span class="fc" id="L86">		this.second = second;</span>
+<span class="fc" id="L87">	}</span>
 
 	private void setTroisieme(T troisieme) {
-<span class="nc" id="L90">		this.troisieme = troisieme;</span>
-<span class="nc" id="L91">	}</span>
+<span class="fc" id="L90">		this.troisieme = troisieme;</span>
+<span class="fc" id="L91">	}</span>
 
 	/** Ajoute un match a la liste de match
 	 * @param Match&lt;T&gt; le match a ajouté
 	 */
 	public void ajoutMatch(Match&lt;T&gt; match){
-<span class="nc" id="L97">		this.lesMatchs.add(match);</span>
-<span class="nc" id="L98">	}</span>
+<span class="fc" id="L97">		this.lesMatchs.add(match);</span>
+<span class="fc" id="L98">	}</span>
 
 	/**
 	 * Inscrit une équipe ou un athlete à une épreuve
@@ -103,61 +103,61 @@ public class Epreuve&lt;T extends Participant&gt; {
 	 */
 	public void inscrire(T participant) 
 	 throws AlreadyInException, CanNotRegisterException, NotSameGenderException{
-<span class="nc" id="L106">		int taille = leSport.getNbParEquipe();</span>
-<span class="nc" id="L107">		boolean peutInscrire = false;</span>
-<span class="nc" id="L108">		boolean estAthlete = participant instanceof Athlete;</span>
+<span class="fc" id="L106">		int taille = leSport.getNbParEquipe();</span>
+<span class="fc" id="L107">		boolean peutInscrire = false;</span>
+<span class="fc" id="L108">		boolean estAthlete = participant instanceof Athlete;</span>
 		// Voit si le participant peut s'inscrire ou non
-<span class="nc bnc" id="L110" title="All 2 branches missed.">		if(estAthlete){</span>
-<span class="nc bnc" id="L111" title="All 2 branches missed.">			peutInscrire = (taille == 1);</span>
+<span class="fc bfc" id="L110" title="All 2 branches covered.">		if(estAthlete){</span>
+<span class="fc bfc" id="L111" title="All 2 branches covered.">			peutInscrire = (taille == 1);</span>
 		}
 		else{
-<span class="nc bnc" id="L114" title="All 2 branches missed.">			peutInscrire = (taille == ((Equipe) participant).size());</span>
+<span class="pc bpc" id="L114" title="1 of 2 branches missed.">			peutInscrire = (taille == ((Equipe) participant).size());</span>
 		}
 		// S'il ne peut pas s'inscrire, léve l'exeption ne peut pas s'inscrire
-<span class="nc bnc" id="L117" title="All 2 branches missed.">		if( ! peutInscrire){</span>
-<span class="nc bnc" id="L118" title="All 2 branches missed.">			if(estAthlete){</span>
-<span class="nc" id="L119">				throw new CanNotRegisterException(&quot;Un athelete ne peux s'inscrire à une épreuve collective.&quot;);</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">		if( ! peutInscrire){</span>
+<span class="fc bfc" id="L118" title="All 2 branches covered.">			if(estAthlete){</span>
+<span class="fc" id="L119">				throw new CanNotRegisterException(&quot;Un athelete ne peux s'inscrire à une épreuve collective.&quot;);</span>
 			}
 			else{
-<span class="nc" id="L122">				throw new CanNotRegisterException(&quot;Cet équipe ne peut pas s'incrire, taille équipe: &quot; + ((Equipe) participant).size() + &quot; taille requise: &quot; + taille);</span>
+<span class="fc" id="L122">				throw new CanNotRegisterException(&quot;Cet équipe ne peut pas s'incrire, taille équipe: &quot; + ((Equipe) participant).size() + &quot; taille requise: &quot; + taille);</span>
 			}
 		}
 		// Sinon
 		else{
-<span class="nc bnc" id="L127" title="All 2 branches missed.">			if(this.lesParticipants.contains(participant)){</span>
-<span class="nc bnc" id="L128" title="All 2 branches missed.">				if(estAthlete){</span>
-<span class="nc" id="L129">					throw new AlreadyInException(&quot;Cet athlete est déjà inscrit à cette épreuve&quot;);</span>
+<span class="fc bfc" id="L127" title="All 2 branches covered.">			if(this.lesParticipants.contains(participant)){</span>
+<span class="pc bpc" id="L128" title="1 of 2 branches missed.">				if(estAthlete){</span>
+<span class="fc" id="L129">					throw new AlreadyInException(&quot;Cet athlete est déjà inscrit à cette épreuve&quot;);</span>
 				}
 				else{
 <span class="nc" id="L132">					throw new AlreadyInException(&quot;Cette équipe est déjà inscrite à cette épreuve&quot;);</span>
 				}
 			}
-<span class="nc bnc" id="L135" title="All 2 branches missed.">			else if(participant.getSexe() != this.getSexe()) {</span>
-<span class="nc bnc" id="L136" title="All 2 branches missed.">				if(estAthlete){</span>
-<span class="nc" id="L137">					throw new NotSameGenderException(&quot;Cet athlete n'est pas du même sexe que l'épreuve&quot;);</span>
+<span class="fc bfc" id="L135" title="All 2 branches covered.">			else if(participant.getSexe() != this.getSexe()) {</span>
+<span class="pc bpc" id="L136" title="1 of 2 branches missed.">				if(estAthlete){</span>
+<span class="fc" id="L137">					throw new NotSameGenderException(&quot;Cet athlete n'est pas du même sexe que l'épreuve&quot;);</span>
 				}
 				else{
 <span class="nc" id="L140">					throw new NotSameGenderException(&quot;Cette équipe n'est pas du même sexe que l'épreuve&quot;);</span>
 				}
 			}
 			else{
-<span class="nc" id="L144">				this.lesParticipants.add(participant);</span>
+<span class="fc" id="L144">				this.lesParticipants.add(participant);</span>
 			}
 		}
-<span class="nc" id="L147">	}</span>
+<span class="fc" id="L147">	}</span>
 
 	/**
 	 * Renvoie la liste des résultats de chaque matchs cumulés
 	 * @return List&lt;Double&gt; La liste cumulé
 	 */
 	private List&lt;Double&gt; cumulResultats(){
-<span class="nc" id="L154">		List&lt;Double&gt; resultats = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L155">		List&lt;Double&gt; resultatMatch = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L154">		List&lt;Double&gt; resultats = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L155">		List&lt;Double&gt; resultatMatch = new ArrayList&lt;&gt;();</span>
 
 		// Cumul les résultats des différents matchs
-<span class="nc bnc" id="L158" title="All 2 branches missed.">		for (Match&lt;T&gt; match : lesMatchs){</span>
-<span class="nc bnc" id="L159" title="All 2 branches missed.">			if(resultats.isEmpty()){</span>
-<span class="nc" id="L160">				resultats = new ArrayList&lt;&gt;(match.getResultats());</span>
+<span class="fc bfc" id="L158" title="All 2 branches covered.">		for (Match&lt;T&gt; match : lesMatchs){</span>
+<span class="pc bpc" id="L159" title="1 of 2 branches missed.">			if(resultats.isEmpty()){</span>
+<span class="fc" id="L160">				resultats = new ArrayList&lt;&gt;(match.getResultats());</span>
 			}
 			else{
 <span class="nc" id="L163">				resultatMatch = match.getResultats();</span>
@@ -166,8 +166,8 @@ public class Epreuve&lt;T extends Participant&gt; {
 				}
 				
 			}
-<span class="nc" id="L169">		}</span>
-<span class="nc" id="L170">		return resultats;</span>
+<span class="fc" id="L169">		}</span>
+<span class="fc" id="L170">		return resultats;</span>
 	}
 
 	/**
@@ -175,12 +175,12 @@ public class Epreuve&lt;T extends Participant&gt; {
 	 * @return List&lt;Double&gt; La liste de moyenne
 	 */
 	private List&lt;Double&gt; moyResultats(){
-<span class="nc" id="L178">		List&lt;Double&gt; resultats = this.cumulResultats();</span>
-<span class="nc" id="L179">		int taille = this.lesMatchs.size();</span>
-<span class="nc bnc" id="L180" title="All 2 branches missed.">		for(Double res : resultats){</span>
-<span class="nc" id="L181">			res /= taille;</span>
-<span class="nc" id="L182">		}</span>
-<span class="nc" id="L183">		return resultats;</span>
+<span class="fc" id="L178">		List&lt;Double&gt; resultats = this.cumulResultats();</span>
+<span class="fc" id="L179">		int taille = this.lesMatchs.size();</span>
+<span class="fc bfc" id="L180" title="All 2 branches covered.">		for(Double res : resultats){</span>
+<span class="fc" id="L181">			res /= taille;</span>
+<span class="fc" id="L182">		}</span>
+<span class="fc" id="L183">		return resultats;</span>
 	}
 
 	/**
@@ -189,15 +189,15 @@ public class Epreuve&lt;T extends Participant&gt; {
 	 * @return List&lt;T&gt; Le classement pour une épreuve
 	 */
 	private void classement() {
-<span class="nc" id="L192">		List&lt;Double&gt; resultats = this.moyResultats();</span>
-<span class="nc" id="L193">		this.leClassement = new ArrayList&lt;&gt;(this.lesParticipants);</span>
-<span class="nc" id="L194">		int indMinMax = 0;</span>
-<span class="nc" id="L195">		Double tmp = null;</span>
+<span class="fc" id="L192">		List&lt;Double&gt; resultats = this.moyResultats();</span>
+<span class="fc" id="L193">		this.leClassement = new ArrayList&lt;&gt;(this.lesParticipants);</span>
+<span class="fc" id="L194">		int indMinMax = 0;</span>
+<span class="fc" id="L195">		Double tmp = null;</span>
 
 		// Fabrication du classement selon les moyennes de résultat, 
 		// si il est en temps, le résultat est calculé selon la méthode du minimum (plus petit temps en premier)
 		// sinon le résultat est calculé selon la méthode du maximum (plus grand nombre de points en premier)
-<span class="nc bnc" id="L200" title="All 2 branches missed.">		if(this.getSport().getEstTemsp()){</span>
+<span class="pc bpc" id="L200" title="1 of 2 branches missed.">		if(this.getSport().getEstTemsp()){</span>
 <span class="nc bnc" id="L201" title="All 2 branches missed.">			for (int i = 0; i&lt;resultats.size();++i){</span>
 <span class="nc" id="L202">				indMinMax = Match.indiemeMin(resultats, i); // Indice du min</span>
 				// Permutation du min et de l'actuel
@@ -209,49 +209,49 @@ public class Epreuve&lt;T extends Participant&gt; {
 			}
 		}
 		else{
-<span class="nc bnc" id="L212" title="All 2 branches missed.">			for (int i = 0; i&lt;resultats.size();++i){</span>
-<span class="nc" id="L213">				indMinMax = Match.indiemeMax(resultats, i); // Indice du max</span>
+<span class="fc bfc" id="L212" title="All 2 branches covered.">			for (int i = 0; i&lt;resultats.size();++i){</span>
+<span class="fc" id="L213">				indMinMax = Match.indiemeMax(resultats, i); // Indice du max</span>
 				// Permutation du max et de l'actuel
-<span class="nc" id="L215">				tmp = resultats.get(i);</span>
-<span class="nc" id="L216">                resultats.set(i, resultats.get(indMinMax));</span>
-<span class="nc" id="L217">                resultats.set(indMinMax,tmp);</span>
+<span class="fc" id="L215">				tmp = resultats.get(i);</span>
+<span class="fc" id="L216">                resultats.set(i, resultats.get(indMinMax));</span>
+<span class="fc" id="L217">                resultats.set(indMinMax,tmp);</span>
 				// MAJ du classement
-<span class="nc" id="L219">				this.leClassement.set(i, this.lesParticipants.get(indMinMax));</span>
+<span class="fc" id="L219">				this.leClassement.set(i, this.lesParticipants.get(indMinMax));</span>
 			}
 		}
-<span class="nc" id="L222">	}</span>
+<span class="fc" id="L222">	}</span>
 
 	/** Met a jour le podium de l'épreuve (attributs)
 	 */
 	public void majPodium(){
-<span class="nc bnc" id="L227" title="All 2 branches missed.">		if(this.leClassement != null){</span>
-<span class="nc" id="L228">			this.setPremier(this.leClassement.get(0));</span>
-<span class="nc" id="L229">			this.setSecond(this.leClassement.get(1));</span>
-<span class="nc" id="L230">			this.setTroisieme(this.leClassement.get(2));</span>
+<span class="pc bpc" id="L227" title="1 of 2 branches missed.">		if(this.leClassement != null){</span>
+<span class="fc" id="L228">			this.setPremier(this.leClassement.get(0));</span>
+<span class="fc" id="L229">			this.setSecond(this.leClassement.get(1));</span>
+<span class="fc" id="L230">			this.setTroisieme(this.leClassement.get(2));</span>
 		}
-<span class="nc" id="L232">	}</span>
+<span class="fc" id="L232">	}</span>
 
 	/** Met a jour le nombre de médaille des pays du podium
 	 */
 	public void majMedailles(){
-<span class="nc bnc" id="L237" title="All 2 branches missed.">		if(this.leClassement != null){</span>
-<span class="nc bnc" id="L238" title="All 2 branches missed.">			if(this.premier == null){</span>
-<span class="nc" id="L239">				this.majPodium();</span>
-<span class="nc" id="L240">				this.premier.getPays().addMedailleOr(1);</span>
-<span class="nc" id="L241">				this.second.getPays().addMedailleArgent(1);</span>
-<span class="nc" id="L242">				this.troisieme.getPays().addMedailleBronze(1);</span>
+<span class="pc bpc" id="L237" title="1 of 2 branches missed.">		if(this.leClassement != null){</span>
+<span class="fc bfc" id="L238" title="All 2 branches covered.">			if(this.premier == null){</span>
+<span class="fc" id="L239">				this.majPodium();</span>
+<span class="fc" id="L240">				this.premier.getPays().addMedailleOr(1);</span>
+<span class="fc" id="L241">				this.second.getPays().addMedailleArgent(1);</span>
+<span class="fc" id="L242">				this.troisieme.getPays().addMedailleBronze(1);</span>
 			}
 			else{
-<span class="nc" id="L245">				this.premier.getPays().addMedailleOr(-1);</span>
-<span class="nc" id="L246">				this.second.getPays().addMedailleArgent(-1);</span>
-<span class="nc" id="L247">				this.troisieme.getPays().addMedailleBronze(-1);</span>
-<span class="nc" id="L248">				this.majPodium();</span>
-<span class="nc" id="L249">				this.premier.getPays().addMedailleOr(1);</span>
-<span class="nc" id="L250">				this.second.getPays().addMedailleArgent(1);</span>
-<span class="nc" id="L251">				this.troisieme.getPays().addMedailleBronze(1);</span>
+<span class="fc" id="L245">				this.premier.getPays().addMedailleOr(-1);</span>
+<span class="fc" id="L246">				this.second.getPays().addMedailleArgent(-1);</span>
+<span class="fc" id="L247">				this.troisieme.getPays().addMedailleBronze(-1);</span>
+<span class="fc" id="L248">				this.majPodium();</span>
+<span class="fc" id="L249">				this.premier.getPays().addMedailleOr(1);</span>
+<span class="fc" id="L250">				this.second.getPays().addMedailleArgent(1);</span>
+<span class="fc" id="L251">				this.troisieme.getPays().addMedailleBronze(1);</span>
 			}
 		}
-<span class="nc" id="L254">	}</span>
+<span class="fc" id="L254">	}</span>
 
 	@Override
 	public String toString() {

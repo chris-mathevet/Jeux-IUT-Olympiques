@@ -7,23 +7,23 @@ import participants.Pays;
 public class ComparateurMedailles implements Comparator&lt;Pays&gt;{
 
     public ComparateurMedailles(){
-<span class="nc" id="L10">        super();</span>
-<span class="nc" id="L11">    }</span>
+<span class="fc" id="L10">        super();</span>
+<span class="fc" id="L11">    }</span>
 
     @Override
     public int compare(Pays p1, Pays p2) {
-<span class="nc" id="L15">        int diffOr = p2.getMedailleOr() - p1.getMedailleOr();</span>
-<span class="nc" id="L16">        int diffAr = p2.getMedailleArgent() - p1.getMedailleArgent();</span>
-<span class="nc" id="L17">        int diffBr = p2.getMedailleBronze() - p1.getMedailleBronze();</span>
-<span class="nc bnc" id="L18" title="All 2 branches missed.">        if (diffOr != 0){</span>
-<span class="nc" id="L19">            return diffOr;</span>
+<span class="fc" id="L15">        int diffOr = p2.getMedailleOr() - p1.getMedailleOr();</span>
+<span class="fc" id="L16">        int diffAr = p2.getMedailleArgent() - p1.getMedailleArgent();</span>
+<span class="fc" id="L17">        int diffBr = p2.getMedailleBronze() - p1.getMedailleBronze();</span>
+<span class="fc bfc" id="L18" title="All 2 branches covered.">        if (diffOr != 0){</span>
+<span class="fc" id="L19">            return diffOr;</span>
         }
         else{
-<span class="nc bnc" id="L22" title="All 2 branches missed.">            if (diffAr != 0){</span>
-<span class="nc" id="L23">                return diffAr;</span>
+<span class="fc bfc" id="L22" title="All 2 branches covered.">            if (diffAr != 0){</span>
+<span class="fc" id="L23">                return diffAr;</span>
             }
             else{
-<span class="nc" id="L26">                return diffBr;</span>
+<span class="fc" id="L26">                return diffBr;</span>
             }
         }
     }

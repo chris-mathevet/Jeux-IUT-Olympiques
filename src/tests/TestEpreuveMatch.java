@@ -1,5 +1,7 @@
 package tests;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue; // Changement ici pour utiliser JUnit Jupiter
@@ -48,7 +50,7 @@ public class TestEpreuveMatch {
     private Epreuve<Athlete> natatione110;
     private Epreuve<Athlete> natation4x110;
     private Epreuve<Athlete> epreuveVoleyTest;
-    private Epreuve<Equipe> epreuveVoleyVraiTest;
+
 
     private Match<Athlete> matchsTestH;
     private Match<Athlete> matchsTestF;
@@ -101,7 +103,7 @@ public class TestEpreuveMatch {
         matchsNatation4x100 = new Match<>(0, "Tour nata 4*110", natation4x110);
 
         epreuveVoleyTest = new Epreuve<>("VoleyBall athlete (impossible)", voley, 'M');
-        epreuveVoleyVraiTest = new Epreuve<>("VoleyBall equipe", voley, 'M');
+
     }
 
     //Partie Epreuve 
@@ -135,42 +137,69 @@ public class TestEpreuveMatch {
     @Test
     public void testGetPremier() {
 
-        boolean test = true;
-
         try {
-            equipe1.ajouter(axel);
-            equipe1.ajouter(julian);
-            equipe1.ajouter(chris);
-        } 
-        catch (AlreadyInException e) {
-            System.err.println("Déja dans la liste");
-        }
-        catch (NotSameCountryException e) {
-            System.err.println("Pas le bon pays");
-        }
-        catch (NotSameGenderException e){
-            System.err.println("Pas le même sexe");
-        }
+         
 
-        test = false;
-        
-        try {
-            epreuveVoleyVraiTest.inscrire(equipe1);
-            epreuveVoleyVraiTest.inscrire(equipe2);
-
-        }
-        catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {
+            mettre110H.inscrire(baptiste);
+            mettre110H.inscrire(julian);
+            mettre110H.inscrire(axel);
+        } catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {
             System.err.println(e.getMessage());
-            
-            
         }
-        epreuveVoleyVraiTest.ajoutMatch(match);
-      
-      
-        assertTrue(test);
 
+        mettre110H.getLeClassement();
+        mettre110H.ajoutMatch(matchsTestH);
 
+        assertTrue(mettre110H.getPremier() != null);
     }
+
+    @Test
+    public void testGetSecond() {
+
+        try {
+         
+
+            mettre110H.inscrire(baptiste);
+            mettre110H.inscrire(julian);
+            mettre110H.inscrire(axel);
+        } catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {
+            System.err.println(e.getMessage());
+        }
+
+        mettre110H.getLeClassement();
+        mettre110H.ajoutMatch(matchsTestH);
+
+        assertTrue(mettre110H.getSecond() != null);
+    }
+
+    @Test
+    public void testGetTroisieme() {
+
+        try {
+         
+
+            mettre110H.inscrire(baptiste);
+            mettre110H.inscrire(julian);
+            mettre110H.inscrire(axel);
+        } catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {
+            System.err.println(e.getMessage());
+        }
+
+        mettre110H.getLeClassement();
+        mettre110H.ajoutMatch(matchsTestH);
+
+        assertTrue(mettre110H.getTroisieme() != null);
+    }
+
+    @Test
+    public void testGetLesMatchs() {
+
+        List<Match<Athlete>> lesMatchs = new ArrayList<>();
+        lesMatchs.add(matchsTestH);
+        assertEquals(mettre110H.getLesMatchs(), lesMatchs);
+    }
+
+
 
     @Test
     public void testMatchAthlete() {
