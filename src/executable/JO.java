@@ -556,6 +556,37 @@ public class JO {
         }
     }
 
+    public void demandeClassement(){
+        boolean condition = true;
+        String commande;
+        int tri;
+        while (condition) {
+            System.out.println("Choississez le classement à voir\n1 - Par médailles (Or, Argent, Bronze)\n2 - Par total de médailles");
+            commande = System.console().readLine().strip();
+            condition = ! (commande.equals("0000"));
+            try {
+                tri = Integer.valueOf(commande);
+
+                if (tri == 1){
+                    System.out.println("\nTriage en fonction des médailles.\n");
+                    this.triPays(Tris.MEDAILLES);
+                    condition = false;
+                }
+                else if (tri == 2){
+                    System.out.println("\nTriage en fonction du total de médailles.\n");
+                    this.triPays(Tris.TOTAL);
+                    condition = false;
+                }
+                else{
+                    System.out.println("\nEntrez un chiffre valide.\n");
+                }
+                
+            } catch (NumberFormatException e) {
+                System.err.println("\nVeuillez entrer un chiffre.\n");
+            }
+        }
+    }
+
 
 
 
