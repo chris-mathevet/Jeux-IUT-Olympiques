@@ -35,6 +35,48 @@ public class JO {
         this.init();
     }
 
+    public void init(){
+        this.voley = new VoleyBall();
+        this.hand = new HandBall();
+        this.escr = new Escrime();
+        this.nat = new Natation();
+        this.athle = new Athletisme();
+
+        this.lesSports = Arrays.asList(voley,hand,escr,nat,athle);
+        this.lesAthletes = new ArrayList<>();
+        this.lesEquipes = new ArrayList<>();
+        this.lesPays = new ArrayList<>();
+        this.lesEpreuves = new ArrayList<>(Arrays.asList(
+            // epreuves = ["Natation 100 brasse", "Natation relais libre", "Handball", "Volley-Ball", "Escrime fleuret", "Escrime épée", "Athétisme 110 haies", "Athlétisme relais 400m"]
+
+            new Epreuve<>("Natation 100 brasse",nat,'H'),
+            new Epreuve<>("Natation 100 brasse",nat,'F'),
+            new Epreuve<>("Natation relais libre",nat,'H'),
+            new Epreuve<>("Natation relais libre",nat,'F'),
+            new Epreuve<>("Handball",hand,'H'),
+            new Epreuve<>("Handball",hand,'F'),
+            new Epreuve<>("Voley-Ball",voley,'H'),
+            new Epreuve<>("Voley-Ball",voley,'F'),
+            new Epreuve<>("Escrime fleuret",escr,'H'),
+            new Epreuve<>("Escrime fleuret",escr,'F'),
+            new Epreuve<>("Escrime épée",escr,'H'),
+            new Epreuve<>("Escrime épée",escr,'F'),
+            new Epreuve<>("Athétisme 110 haies",athle,'H'),
+            new Epreuve<>("Athétisme 110 haies",athle,'F'),
+            new Epreuve<>("Athlétisme relais 400m",athle,'H'),
+            new Epreuve<>("Athlétisme relais 400m",athle,'F')
+        ));
+
+        for (Epreuve<Participant> epreuve : this.lesEpreuves){
+            for (int i = 0; i<8; ++i){
+                Match<Participant> match = new Match<>(i, "Tour " + i, epreuve);
+                epreuve.ajoutMatch(match);
+            }
+        }
+    }   
+
+    // Geteurs 
+
     public List<Athlete> getLesAthletes() {
         return lesAthletes;
     }
@@ -54,7 +96,57 @@ public class JO {
     public List<Pays> getLesPays() {
         return lesPays;
     }
-	
+
+    private Pays getPays(String nom) throws DoesntExistException{   
+        for (Pays pays : this.lesPays){
+            if(pays.getNomPays().equals(nom)){
+                return pays;
+            }
+        }
+        throw new DoesntExistException("Ce pays n'existe pas");
+    }
+
+    private Equipe getEquipe(String nom) throws DoesntExistException{
+        for (Equipe equipe : this.lesEquipes){
+            if(equipe.getNom().equals(nom)){
+                return equipe;
+            }
+        }
+        throw new DoesntExistException("Cette equipe n'existe pas");
+    }
+
+    private Athlete getAthlete(String nom, String prenom, char sexe, String pays) throws DoesntExistException{
+        Athlete entree = new Athlete(nom, prenom, sexe, 0, 0, 0, this.getPays(pays));
+        for (Athlete athlete : this.lesAthletes){
+            if(athlete.equals(entree)){
+                return athlete;
+            }
+        }
+        throw new DoesntExistException("Cet athlete n'existe pas");
+    }
+
+    private Epreuve<? extends Participant> getEpreuve(String epreuve) throws DoesntExistException{
+        
+        for (Epreuve<? extends Participant> epreuve2: this.lesEpreuves){
+            if(epreuve2.getDescription().equals(epreuve)){
+                return epreuve2;
+            }
+        }
+        throw new DoesntExistException("Cette Epreuve n'existe pas");
+    }
+
+    public Sport getSport(String nom)throws DoesntExistException{
+        // Sport entree = new Sport<>();
+
+        for (Sport unSport : this.lesSports){
+            if(unSport.getSport().equals(nom)){
+                return unSport;
+            }
+        }
+        throw new DoesntExistException("Cette equipe n'existe pas");
+    }
+
+    // CSV
 
     public void csvToListe(String chemin){
         // List<Athlete> listeAthletes = new ArrayList<>();
@@ -122,6 +214,7 @@ public class JO {
     }
 
 
+    // Ajouts
 
     public boolean addPays(Pays p){
         if(!(this.lesPays.contains(p))){
@@ -174,16 +267,7 @@ public class JO {
         return true;
     }
 
-    private Epreuve<? extends Participant> getEpreuve(String epreuve) throws DoesntExistException{
-        
-        for (Epreuve<? extends Participant> epreuve2: this.lesEpreuves){
-            if(epreuve2.getDescription().equals(epreuve)){
-                return epreuve2;
-            }
-        }
-        throw new DoesntExistException("Cette Epreuve n'existe pas");
-
-    }
+    // TRI
 
     public void triPays(Tris leTri){
         switch (leTri) {
@@ -201,67 +285,7 @@ public class JO {
         }
     }
 
-    private Pays getPays(String nom) throws DoesntExistException{   
-        for (Pays pays : this.lesPays){
-            if(pays.getNomPays().equals(nom)){
-                return pays;
-            }
-        }
-        throw new DoesntExistException("Ce pays n'existe pas");
-    }
-
-    private Equipe getEquipe(String nom) throws DoesntExistException{
-        for (Equipe equipe : this.lesEquipes){
-            if(equipe.getNom().equals(nom)){
-                return equipe;
-            }
-        }
-        throw new DoesntExistException("Cette equipe n'existe pas");
-    }
-
-    private Athlete getAthlete(String nom, String prenom, char sexe, String pays) throws DoesntExistException{
-        Athlete entree = new Athlete(nom, prenom, sexe, 0, 0, 0, this.getPays(pays));
-        for (Athlete athlete : this.lesAthletes){
-            if(athlete.equals(entree)){
-                return athlete;
-            }
-        }
-        throw new DoesntExistException("Cet athlete n'existe pas");
-    }
-
-    public void init(){
-        this.voley = new VoleyBall();
-        this.hand = new HandBall();
-        this.escr = new Escrime();
-        this.nat = new Natation();
-        this.athle = new Athletisme();
-
-        this.lesSports = Arrays.asList(voley,hand,escr,nat,athle);
-        this.lesAthletes = new ArrayList<>();
-        this.lesEquipes = new ArrayList<>();
-        this.lesEpreuves = new ArrayList<>(Arrays.asList(
-            // epreuves = ["Natation 100 brasse", "Natation relais libre", "Handball", "Volley-Ball", "Escrime fleuret", "Escrime épée", "Athétisme 110 haies", "Athlétisme relais 400m"]
-
-            new Epreuve<>("Natation 100 brasse",nat,'H'),
-            new Epreuve<>("Natation 100 brasse",nat,'F'),
-            new Epreuve<>("Natation relais libre",nat,'H'),
-            new Epreuve<>("Natation relais libre",nat,'F'),
-            new Epreuve<>("Handball",hand,'H'),
-            new Epreuve<>("Handball",hand,'F'),
-            new Epreuve<>("Voley-Ball",voley,'H'),
-            new Epreuve<>("Voley-Ball",voley,'F'),
-            new Epreuve<>("Escrime fleuret",escr,'H'),
-            new Epreuve<>("Escrime fleuret",escr,'F'),
-            new Epreuve<>("Escrime épée",escr,'H'),
-            new Epreuve<>("Escrime épée",escr,'F'),
-            new Epreuve<>("Athétisme 110 haies",athle,'H'),
-            new Epreuve<>("Athétisme 110 haies",athle,'F'),
-            new Epreuve<>("Athlétisme relais 400m",athle,'H'),
-            new Epreuve<>("Athlétisme relais 400m",athle,'F')
-        ));
-        this.lesPays = new ArrayList<>();
-        // Import de la BD
-    }   
+    // Demandes utilisateurs
 
     public void creerPays(){
         boolean condition = true;
@@ -501,17 +525,6 @@ public class JO {
         }
     }
     
-    public Sport getSport(String nom)throws DoesntExistException{
-        // Sport entree = new Sport<>();
-
-        for (Sport unSport : this.lesSports){
-            if(unSport.getSport().equals(nom)){
-                return unSport;
-            }
-        }
-        throw new DoesntExistException("Cette equipe n'existe pas");
-
-    }
     public void creerEpreuve(){
         boolean condition = true;
         String[] entree;
@@ -586,11 +599,6 @@ public class JO {
             }
         }
     }
-
-
-
-
-    
 
     public void csvImport(){
         boolean condition = true;
