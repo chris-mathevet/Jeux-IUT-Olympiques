@@ -69,10 +69,10 @@ public class JO {
 
         for (Epreuve<Participant> epreuve : this.lesEpreuves){
             for (int i = 1; i<8; ++i){
-                epreuve.ajoutMatch(new Match<Participant>(i, "Tour ", epreuve));
+                new Match<Participant>(i, "Tour ", epreuve); 
             }
         }
-
+        
         for (Epreuve<Participant> epreuve : this.lesEpreuves){
             System.out.println(epreuve);
             for (Match<Participant> match : epreuve.getLesMatchs()){
