@@ -1,4 +1,4 @@
-@REM @echo off
+@echo off
 cls
 javac -d ./bin/ src/exceptions/*.java
 javac -cp ./bin/ -d ./bin/ src/participants/*.java src/sports/*.java src/epreuves/*.java

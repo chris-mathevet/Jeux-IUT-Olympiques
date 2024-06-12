@@ -55,8 +55,8 @@ public class JO {
             new Epreuve<>("Natation relais libre",nat,'F'),
             new Epreuve<>("Handball",hand,'H'),
             new Epreuve<>("Handball",hand,'F'),
-            new Epreuve<>("Voley-Ball",voley,'H'),
-            new Epreuve<>("Voley-Ball",voley,'F'),
+            new Epreuve<>("Volley-Ball",voley,'H'),
+            new Epreuve<>("Volley-Ball",voley,'F'),
             new Epreuve<>("Escrime fleuret",escr,'H'),
             new Epreuve<>("Escrime fleuret",escr,'F'),
             new Epreuve<>("Escrime épée",escr,'H'),
@@ -193,9 +193,18 @@ public class JO {
                         try {
                             vraiEpreuve = (Epreuve<Athlete>) this.getEpreuve(epreuve, mich.getSexe());
                             vraiEpreuve.inscrire(mich);    
-                        } catch (Exception e) {
-                            System.err.println("erreur inscription");
-                        }
+               
+                        } catch (DoesntExistException doesntExistException) {
+                            System.err.println("\n" + doesntExistException.getMessage() +"epreuve: "+ ((Epreuve<Athlete>) this.getEpreuve(epreuve, mich.getSexe())).getDescription() + "\n");
+                        } catch (CanNotRegisterException canNotRegisterException) {
+                            System.err.println("\n" + canNotRegisterException.getMessage() + "\n");
+                        } catch (AlreadyInException alreadyInException){
+                            System.err.println("\n" + alreadyInException.getMessage() + "\n");
+                        }catch (NotSameGenderException notSameGenderException){
+                            System.err.println("\n" + notSameGenderException.getMessage() + "\n");
+                        } catch (ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException){
+                            System.err.println("\nVous n'avez pas rentré assès de valeur, veillez recommencer.");
+                        } 
                         
                     }
                     else{
@@ -204,9 +213,18 @@ public class JO {
                         try {
                             vraiEpreuve = (Epreuve<Athlete>) this.getEpreuve(epreuve, mich.getSexe());
                             vraiEpreuve.inscrire(mich);    
-                        } catch (Exception e) {
-                            System.err.println("erreur inscription");
-                        }
+               
+                        } catch (DoesntExistException doesntExistException) {
+                            System.err.println("\n" + doesntExistException.getMessage() +"epreuve: "+ ((Epreuve<Athlete>) this.getEpreuve(epreuve, mich.getSexe())).getDescription() + "\n");
+                        } catch (CanNotRegisterException canNotRegisterException) {
+                            System.err.println("\n" + canNotRegisterException.getMessage() + "\n");
+                        } catch (AlreadyInException alreadyInException){
+                            System.err.println("\n" + alreadyInException.getMessage() + "\n");
+                        }catch (NotSameGenderException notSameGenderException){
+                            System.err.println("\n" + notSameGenderException.getMessage() + "\n");
+                        } catch (ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException){
+                            System.err.println("\nVous n'avez pas rentré assès de valeur, veillez recommencer.");
+                        } 
                     }
                 } catch (Exception e) {
                     System.out.println("erreur format ligne : "+ligne);

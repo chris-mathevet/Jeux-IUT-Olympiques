@@ -16,7 +16,17 @@ prenoms_ma = ["Youssef", "Aya", "Imane", "Mehdi", "Nour", "Hamza", "Fatima", "Ay
 
 sexes = ["M", "F"]
 pays = ["USA", "Chine", "Japon", "Kenya", "France", "Maroc", "Allemagne", "Australie", "Brésil", "Turquie"]
-epreuves = ["Natation 100 brasse", "Natation relais libre", "Handball", "Volley-Ball", "Escrime fleuret", "Escrime épée", "Athétisme 110 haies", "Athlétisme relais 400m"]
+epreuves = [("Natation","Natation 100 brasse",) 
+            ,("Natation","Natation relais libre")
+            ,("Handball","Handball") 
+            ,("Voley","Volley-Ball") 
+            ,("Escrime","Escrime fleuret" )
+            ,("Escrime","Escrime épée") 
+            ,("Athletisme","Athétisme 110 haies") 
+            ,("Athletisme","Athlétisme relais 400m")]
+
+
+
 
 # Génération des enregistrements
 records = []
@@ -39,14 +49,41 @@ for _ in range(400):
     force = random.randint(1, 20)
     endurance = random.randint(1, 20)
     agilite = random.randint(1, 20)
-    records.append([nom, prenom, sexe, pays_choice, epreuve, force,endurance, agilite])
+    records.append([nom, prenom, sexe, pays_choice,epreuve[0], epreuve[1], force,endurance, agilite])
 
 # Écriture des données dans un fichier CSV
-with open('donnees.csv', 'w', newline='', encoding='utf-8') as file:
+with open('../donnees2.csv', 'w', newline='', encoding='utf-8') as file:
     writer = csv.writer(file)
     # Écriture de l'en-tête
-    writer.writerow(["Nom", "Prénom", "Sexe", "Pays", "Épreuve","Force","Endurance","agilite"])
+    # Nom,Prénom,Sexe,Pays,Sport,Épreuve,Force,Endurance,Agilite
+
+    writer.writerow(["Nom", "Prénom", "Sexe", "Pays","Sport", "Épreuve","Force","Endurance","agilite"])
     # Écriture des enregistrements
     writer.writerows(records)
 
 print("Fichier CSV généré avec succès.")
+
+
+
+
+
+
+
+
+
+# "Natation 100 brasse"
+# "Natation 100 brasse"
+# "Natation relais libre"
+# "Natation relais libre"
+# "Handball"
+# "Handball"
+# "Voley-Ball"
+# "Voley-Ball"
+# "Escrime fleuret"
+# "Escrime fleuret"
+# "Escrime épée"
+# "Escrime épée"
+# "Athétisme 110 haies"
+# "Athétisme 110 haies"
+# "Athlétisme relais 400m"
+# "Athlétisme relais 400m"
