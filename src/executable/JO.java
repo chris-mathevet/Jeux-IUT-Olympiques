@@ -68,10 +68,17 @@ public class JO {
         ));
 
         for (Epreuve<Participant> epreuve : this.lesEpreuves){
-            for (int i = 0; i<8; ++i){
-                Match<Participant> match = new Match<>(i, "Tour " + i, epreuve);
-                epreuve.ajoutMatch(match);
+            for (int i = 1; i<8; ++i){
+                epreuve.ajoutMatch(new Match<Participant>(i, "Tour ", epreuve));
             }
+        }
+
+        for (Epreuve<Participant> epreuve : this.lesEpreuves){
+            System.out.println(epreuve);
+            for (Match<Participant> match : epreuve.getLesMatchs()){
+                System.out.println(match);
+            }
+            System.out.println();
         }
     }   
 
@@ -125,10 +132,10 @@ public class JO {
         throw new DoesntExistException("Cet athlete n'existe pas");
     }
 
-    private Epreuve<? extends Participant> getEpreuve(String epreuve) throws DoesntExistException{
+    private Epreuve<? extends Participant> getEpreuve(String epreuve, char sexe) throws DoesntExistException{
         
         for (Epreuve<? extends Participant> epreuve2: this.lesEpreuves){
-            if(epreuve2.getDescription().equals(epreuve)){
+            if(epreuve2.getDescription().equals(epreuve) && epreuve2.getSexe() == sexe){
                 return epreuve2;
             }
         }
@@ -184,7 +191,7 @@ public class JO {
                         addPays(pays);
                         addSport(sport);
                         try {
-                            vraiEpreuve = (Epreuve<Athlete>) this.getEpreuve(epreuve);
+                            vraiEpreuve = (Epreuve<Athlete>) this.getEpreuve(epreuve, mich.getSexe());
                             vraiEpreuve.inscrire(mich);    
                         } catch (Exception e) {
                             System.err.println("erreur inscription");
@@ -195,7 +202,7 @@ public class JO {
                         addPays(pays);
                         addSport(sport);
                         try {
-                            vraiEpreuve = (Epreuve<Athlete>) this.getEpreuve(epreuve);
+                            vraiEpreuve = (Epreuve<Athlete>) this.getEpreuve(epreuve, mich.getSexe());
                             vraiEpreuve.inscrire(mich);    
                         } catch (Exception e) {
                             System.err.println("erreur inscription");
@@ -433,7 +440,7 @@ public class JO {
         // quel epreuve > collectif ou non > demandé equipe / athlete selon le collect true ou pas
         boolean condition = true;
         boolean condition2 = true;
-        String nomEpreuve = ""; 
+        String[] nomEpreuve; 
         Equipe equipe; 
         Epreuve<? extends Participant> epreuve;
         Epreuve<Athlete> epreuveAthlete;
@@ -442,11 +449,11 @@ public class JO {
         Athlete unAthlete;
         while (condition) {
             try {
-                System.out.println("Quelle epreuve?\nEntrez un nom d'Epreuve .\n(Ecrivez 0000 pour revenir en arrière)");
-                nomEpreuve = System.console().readLine().strip();
-                condition = ! (nomEpreuve.equals("0000"));
+                System.out.println("Quelle epreuve?\nEntrez un nom d'Epreuve et son sexe séparé par des \",\".\n(Ecrivez 0000 pour revenir en arrière)");
+                nomEpreuve = System.console().readLine().strip().split(",");
+                condition = ! (nomEpreuve[0].equals("0000"));
                 if(condition){
-                    epreuve = this.getEpreuve(nomEpreuve);
+                    epreuve = this.getEpreuve(nomEpreuve[0],nomEpreuve[1].charAt(0));
                     if (epreuve.getSport().getNbParEquipe()>1){
                         epreuveEquipe = (Epreuve<Equipe>)epreuve;
                         while (condition2) {
@@ -520,6 +527,8 @@ public class JO {
                     System.out.println("\nEpreuve créé avec succès, veuillez réessayer d'ajouter l'athlete.\n");
 
                 }
+            } catch (ArrayIndexOutOfBoundsException e3){
+                System.err.println("\nVeuillez entrer les informations demandées.\n");
             }
         }
     }
@@ -618,18 +627,18 @@ public class JO {
 
     public void voirInscritEpreuve(){
         boolean condition = true;
-        String nomEpreuve = ""; 
+        String[] nomEpreuve; 
         Epreuve<? extends Participant> epreuve;
         while (condition) {
             try {
-                System.out.println("Quelle epreuve?\nEntrez un nom d'Epreuve .\n(Ecrivez 0000 pour revenir en arrière)");
-                nomEpreuve = System.console().readLine().strip();
-                condition = ! (nomEpreuve.equals("0000"));
+                System.out.println("Quelle epreuve?\nEntrez un nom d'Epreuve et son sexe séparé par des \",\".\n(Ecrivez 0000 pour revenir en arrière)");
+                nomEpreuve = System.console().readLine().strip().split(",");
+                condition = ! (nomEpreuve[0].equals("0000"));
                 if(condition){
-                    epreuve = this.getEpreuve(nomEpreuve);
+                    epreuve = this.getEpreuve(nomEpreuve[0],nomEpreuve[1].charAt(0));
                     System.out.println("\nLes participants :\n");
                     for (Participant participant : epreuve.getLesParticipants()){
-                        System.err.println(participant);
+                        System.out.println(participant);
                     }
                     condition = false;
                 }
@@ -638,6 +647,37 @@ public class JO {
                 if(System.console().readLine().strip().toUpperCase().equals("O")){
                     this.creerEpreuve();
                 }
+            } catch (ArrayIndexOutOfBoundsException e3){
+                System.err.println("\nVeuillez entrer les informations demandées.\n");
+            }
+        }
+    }
+
+    public void voirMatchs(){
+        boolean condition = true;
+        String[] nomEpreuve; 
+        Epreuve<? extends Participant> epreuve;
+        while (condition) {
+            try {
+                System.out.println("Quelle epreuve?\nEntrez un nom d'Epreuve et son sexe séparé par des \",\".\n(Ecrivez 0000 pour revenir en arrière)");
+                nomEpreuve = System.console().readLine().strip().split(",");
+                condition = ! (nomEpreuve[0].equals("0000"));
+                if(condition){
+                    epreuve = this.getEpreuve(nomEpreuve[0], nomEpreuve[1].charAt(0));
+                    System.out.println(epreuve.getLesMatchs());
+                    System.out.println("\nLes matchs :\n");
+                    for (Match<? extends Participant> match : epreuve.getLesMatchs()){
+                        System.out.println(match);
+                    }
+                    condition = false;
+                }
+            } catch (DoesntExistException e) {
+                System.out.println("\nl'Epreuve n'existe pas, voulez vous la créer ? (O/N)");
+                if(System.console().readLine().strip().toUpperCase().equals("O")){
+                    this.creerEpreuve();
+                }
+            } catch (ArrayIndexOutOfBoundsException e3){
+                System.err.println("\nVeuillez entrer les informations demandées.\n");
             }
         }
     }
