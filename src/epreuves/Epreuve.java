@@ -37,7 +37,7 @@ public class Epreuve<T extends Participant> {
 		this.premier = null;
 		this.second = null;
 		this.troisieme = null;
-		this.leClassement = null;
+		this.leClassement = new ArrayList<>();
 	}
 
 	public List<T> getLesParticipants() {
@@ -234,7 +234,7 @@ public class Epreuve<T extends Participant> {
 	/** Met a jour le nombre de médaille des pays du podium
 	 */
 	public void majMedailles(){
-		if(this.leClassement != null){
+		if( ! this.leClassement.isEmpty()){
 			if(this.premier == null){
 				this.majPodium();
 				this.premier.getPays().addMedailleOr(1);

@@ -664,7 +664,6 @@ public class JO {
                 condition = ! (nomEpreuve[0].equals("0000"));
                 if(condition){
                     epreuve = this.getEpreuve(nomEpreuve[0], nomEpreuve[1].charAt(0));
-                    System.out.println(epreuve.getLesMatchs());
                     System.out.println("\nLes matchs :\n");
                     for (Match<? extends Participant> match : epreuve.getLesMatchs()){
                         System.out.println(match);
@@ -682,7 +681,31 @@ public class JO {
         }
     }
 
-
+    public void voirResultatsEpreuve(){
+        boolean condition = true;
+        String[] nomEpreuve; 
+        Epreuve<? extends Participant> epreuve;
+        while (condition) {
+            try {
+                System.out.println("Quelle epreuve?\nEntrez un nom d'Epreuve et son sexe séparé par des \",\".\n(Ecrivez 0000 pour revenir en arrière)");
+                nomEpreuve = System.console().readLine().strip().split(",");
+                condition = ! (nomEpreuve[0].equals("0000"));
+                if(condition){
+                    epreuve = this.getEpreuve(nomEpreuve[0], nomEpreuve[1].charAt(0));
+                    System.out.println("\nLes matchs :\n");
+                    System.out.println(epreuve.getLeClassement());
+                    condition = false;
+                }
+            } catch (DoesntExistException e) {
+                System.out.println("\nl'Epreuve n'existe pas, voulez vous la créer ? (O/N)");
+                if(System.console().readLine().strip().toUpperCase().equals("O")){
+                    this.creerEpreuve();
+                }
+            } catch (ArrayIndexOutOfBoundsException e3){
+                System.err.println("\nVeuillez entrer les informations demandées.\n");
+            }
+        }
+    }
 
 
 

@@ -81,8 +81,7 @@ public class Match<T extends Participant> {
 	 */
 	private void calculResultat() {
 		if(this.resultats.isEmpty()){
-			List<T> participants = this.epreuve.getLesParticipants();
-			for(T participant : participants){
+			for(T participant : this.epreuve.getLesParticipants()){
 				resultats.add((double) participant.participer(this));
 			}
 		}
