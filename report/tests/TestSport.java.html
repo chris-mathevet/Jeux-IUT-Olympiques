@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TestSport.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">tests</a> &gt; <span class="el_source">TestSport.java</span></div><h1>TestSport.java</h1><pre class="source lang-java linenums">package tests;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import participants.Athlete;
+import participants.Pays;
+import sports.*;
+
+<span class="fc" id="L12">public class TestSport {</span>
+    private Athlete michel;
+    private Athlete jean;
+    private VoleyBall voley1;
+    private HandBall handBall1;
+    private Natation natation1;
+    private Escrime escrime1;
+    private Athletisme athletisme1;
+    private VoleyBall voley2;
+    private HandBall handBall2;
+    private Natation natation2;
+    private Escrime escrime2;
+    private Athletisme athletisme2;
+
+    @BeforeEach
+    public void setUp() {
+<span class="fc" id="L28">        michel = new Athlete(&quot;balade&quot;, &quot;Michel&quot;, 'M', 10, 18, 9, new Pays(&quot;France&quot;));</span>
+<span class="fc" id="L29">        jean = new Athlete(&quot;balade&quot;, &quot;Jean&quot;, 'M', 20, 6, 19, new Pays(&quot;France&quot;));</span>
+
+<span class="fc" id="L31">        voley1 = new VoleyBall();</span>
+<span class="fc" id="L32">        handBall1 = new HandBall();</span>
+<span class="fc" id="L33">        natation1 = new Natation();</span>
+<span class="fc" id="L34">        escrime1 = new Escrime();</span>
+<span class="fc" id="L35">        athletisme1 = new Athletisme();</span>
+
+<span class="fc" id="L37">        voley2 = new VoleyBall();</span>
+<span class="fc" id="L38">        handBall2 = new HandBall();</span>
+<span class="fc" id="L39">        natation2 = new Natation();</span>
+<span class="fc" id="L40">        escrime2 = new Escrime();</span>
+<span class="fc" id="L41">        athletisme2 = new Athletisme();</span>
+<span class="fc" id="L42">    }</span>
+
+    @Test
+    public void testGetNbParEquipe() {
+<span class="fc" id="L46">        assertEquals(voley1.getNbParEquipe(), 6);</span>
+<span class="fc" id="L47">        assertEquals(handBall1.getNbParEquipe(), 7);</span>
+<span class="fc" id="L48">        assertEquals(natation1.getNbParEquipe(), 1);</span>
+<span class="fc" id="L49">        assertEquals(escrime1.getNbParEquipe(), 1);</span>
+<span class="fc" id="L50">        assertEquals(athletisme1.getNbParEquipe(), 1);</span>
+<span class="fc" id="L51">    }</span>
+
+    @Test
+    public void testGetSport() {
+<span class="fc" id="L55">        assertEquals(voley1.getSport(), &quot;Voley&quot;);</span>
+<span class="fc" id="L56">        assertEquals(handBall1.getSport(), &quot;Handball&quot;);</span>
+<span class="fc" id="L57">        assertEquals(natation1.getSport(), &quot;Natation&quot;);</span>
+<span class="fc" id="L58">        assertEquals(escrime1.getSport(), &quot;Escrime&quot;);</span>
+<span class="fc" id="L59">        assertEquals(athletisme1.getSport(), &quot;Athletisme&quot;);</span>
+<span class="fc" id="L60">    }</span>
+
+    @Test
+    public void testCoefForce() {
+<span class="fc" id="L64">        assertEquals(voley1.getCoefForce(), 4);</span>
+<span class="fc" id="L65">        assertEquals(handBall1.getCoefForce(), 4);</span>
+<span class="fc" id="L66">        assertEquals(natation1.getCoefForce(), 1);</span>
+<span class="fc" id="L67">        assertEquals(escrime1.getCoefForce(), 1);</span>
+<span class="fc" id="L68">        assertEquals(athletisme1.getCoefForce(), 1);</span>
+<span class="fc" id="L69">    }</span>
+
+    @Test
+    public void testGetCoefEndurance() {
+<span class="fc" id="L73">        assertEquals(voley1.getCoefEndurance(), 2);</span>
+<span class="fc" id="L74">        assertEquals(handBall1.getCoefEndurance(), 3);</span>
+<span class="fc" id="L75">        assertEquals(natation1.getCoefEndurance(), 5);</span>
+<span class="fc" id="L76">        assertEquals(escrime1.getCoefEndurance(), 2);</span>
+<span class="fc" id="L77">        assertEquals(athletisme1.getCoefEndurance(), 3);</span>
+<span class="fc" id="L78">    }</span>
+
+    @Test
+    public void testGetCoefAgilite() {
+<span class="fc" id="L82">        assertEquals(voley1.getCoefAgilite(), 3);</span>
+<span class="fc" id="L83">        assertEquals(handBall1.getCoefAgilite(), 2);</span>
+<span class="fc" id="L84">        assertEquals(natation1.getCoefAgilite(), 2);</span>
+<span class="fc" id="L85">        assertEquals(escrime1.getCoefAgilite(), 4);</span>
+<span class="fc" id="L86">        assertEquals(athletisme1.getCoefAgilite(), 5);</span>
+<span class="fc" id="L87">    }</span>
+
+    @Test
+    public void testGetCoefRandom() {
+<span class="fc" id="L91">        assertEquals(voley1.getCoefRandom(), 1);</span>
+<span class="fc" id="L92">        assertEquals(handBall1.getCoefRandom(), 1);</span>
+<span class="fc" id="L93">        assertEquals(natation1.getCoefRandom(), 2);</span>
+<span class="fc" id="L94">        assertEquals(escrime1.getCoefRandom(), 3);</span>
+<span class="fc" id="L95">        assertEquals(athletisme1.getCoefRandom(), 1);</span>
+<span class="fc" id="L96">    }</span>
+
+    @Test
+    public void testGetEstTemps() {
+<span class="fc" id="L100">        assertEquals(voley1.getEstTemsp(), false);</span>
+<span class="fc" id="L101">        assertEquals(handBall1.getEstTemsp(), false);</span>
+<span class="fc" id="L102">        assertEquals(natation1.getEstTemsp(), true);</span>
+<span class="fc" id="L103">        assertEquals(escrime1.getEstTemsp(), false);</span>
+<span class="fc" id="L104">        assertEquals(athletisme1.getEstTemsp(), true);</span>
+<span class="fc" id="L105">    }</span>
+
+    @Test
+    public void testSetCoefForce() {
+<span class="fc" id="L109">        voley1.setCoefForce(50);</span>
+<span class="fc" id="L110">        assertEquals(voley1.getCoefForce(), 50);</span>
+<span class="fc" id="L111">    }</span>
+
+    @Test
+    public void testSetCoefEndurance() {
+<span class="fc" id="L115">        voley1.setCoefEndurance(50);</span>
+<span class="fc" id="L116">        assertEquals(voley1.getCoefEndurance(), 50);</span>
+<span class="fc" id="L117">    }</span>
+
+    @Test
+    public void testSetCoefAgilite() {
+<span class="fc" id="L121">        voley1.setCoefAgilite(50);</span>
+<span class="fc" id="L122">        assertEquals(voley1.getCoefAgilite(), 50);</span>
+<span class="fc" id="L123">    }</span>
+
+    @Test
+    public void testSetCoefRandom() {
+<span class="fc" id="L127">        voley1.setCoefRandom(50);</span>
+<span class="fc" id="L128">        assertEquals(voley1.getCoefRandom(), 50);</span>
+<span class="fc" id="L129">    }</span>
+
+    @Test
+    public void testBareme() {
+<span class="pc bpc" id="L133" title="1 of 2 branches missed.">        assertTrue(voley1.bareme(michel) &gt;= 4);</span>
+<span class="pc bpc" id="L134" title="1 of 2 branches missed.">        assertTrue(voley1.bareme(michel) &lt;= 200);</span>
+
+<span class="pc bpc" id="L136" title="1 of 2 branches missed.">        assertTrue(handBall1.bareme(michel) &gt;= 4);</span>
+<span class="pc bpc" id="L137" title="1 of 2 branches missed.">        assertTrue(handBall1.bareme(michel) &lt;= 200);</span>
+
+<span class="pc bpc" id="L139" title="1 of 2 branches missed.">        assertTrue(natation1.bareme(michel) &gt;= 4);</span>
+<span class="pc bpc" id="L140" title="1 of 2 branches missed.">        assertTrue(natation1.bareme(michel) &lt;= 200);</span>
+
+<span class="pc bpc" id="L142" title="1 of 2 branches missed.">        assertTrue(escrime1.bareme(michel) &gt;= 4);</span>
+<span class="pc bpc" id="L143" title="1 of 2 branches missed.">        assertTrue(escrime1.bareme(michel) &lt;= 200);</span>
+
+<span class="pc bpc" id="L145" title="1 of 2 branches missed.">        assertTrue(athletisme1.bareme(michel) &gt;= 4);</span>
+<span class="pc bpc" id="L146" title="1 of 2 branches missed.">        assertTrue(athletisme1.bareme(michel) &lt;= 200);</span>
+
+<span class="pc bpc" id="L148" title="1 of 2 branches missed.">        assertTrue(voley2.bareme(jean) &gt;= 4);</span>
+<span class="pc bpc" id="L149" title="1 of 2 branches missed.">        assertTrue(voley2.bareme(jean) &lt;= 200);</span>
+
+<span class="pc bpc" id="L151" title="1 of 2 branches missed.">        assertTrue(handBall2.bareme(jean) &gt;= 4);</span>
+<span class="pc bpc" id="L152" title="1 of 2 branches missed.">        assertTrue(handBall2.bareme(jean) &lt;= 200);</span>
+
+<span class="pc bpc" id="L154" title="1 of 2 branches missed.">        assertTrue(natation2.bareme(jean) &gt;= 4);</span>
+<span class="pc bpc" id="L155" title="1 of 2 branches missed.">        assertTrue(natation2.bareme(jean) &lt;= 200);</span>
+
+<span class="pc bpc" id="L157" title="1 of 2 branches missed.">        assertTrue(escrime2.bareme(jean) &gt;= 4);</span>
+<span class="pc bpc" id="L158" title="1 of 2 branches missed.">        assertTrue(escrime2.bareme(jean) &lt;= 200);</span>
+
+<span class="pc bpc" id="L160" title="1 of 2 branches missed.">        assertTrue(athletisme2.bareme(jean) &gt;= 4);</span>
+<span class="pc bpc" id="L161" title="1 of 2 branches missed.">        assertTrue(athletisme2.bareme(jean) &lt;= 200);</span>
+<span class="fc" id="L162">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

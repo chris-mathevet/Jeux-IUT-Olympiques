@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TestEpreuveMatch.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">tests</a> &gt; <span class="el_source">TestEpreuveMatch.java</span></div><h1>TestEpreuveMatch.java</h1><pre class="source lang-java linenums">package tests;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertTrue; // Changement ici pour utiliser JUnit Jupiter
+import org.junit.jupiter.api.Test; // Changement ici pour utiliser JUnit Jupiter
+import org.junit.jupiter.api.BeforeEach; // Changement ici pour utiliser JUnit Jupiter
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import epreuves.*;
+import exceptions.*;
+import participants.*;
+import sports.Athletisme;
+import sports.Escrime;
+import sports.Natation;
+import sports.VoleyBall;
+
+<span class="fc" id="L20">public class TestEpreuveMatch {</span>
+
+    private Escrime escrime;
+    private VoleyBall voley;
+    private Athletisme athletisme;
+    private Natation natation;
+
+    private Pays france;
+
+    private Athlete baptiste;
+    private Athlete chris;
+    private Athlete julian;
+    private Athlete axel;
+    private Athlete michelle;
+    private Athlete shanka;
+    private Athlete bastien;
+    private Athlete riri;
+    private Athlete fifi;
+    private Athlete loulou;
+    private Athlete pixou;
+    private Athlete donald;
+    private Athlete flagada;
+    private Equipe equipe1;
+    private Equipe equipe2;
+
+    private Epreuve&lt;Athlete&gt; mettre110H;
+    private Epreuve&lt;Athlete&gt; mettre110F;
+    private Epreuve&lt;Equipe&gt; epreuve;
+    private Epreuve&lt;Athlete&gt; athletisme110;
+    private Epreuve&lt;Athlete&gt; athletisme4x110;
+    private Epreuve&lt;Athlete&gt; natatione110;
+    private Epreuve&lt;Athlete&gt; natation4x110;
+    private Epreuve&lt;Athlete&gt; epreuveVoleyTest;
+
+
+    private Match&lt;Athlete&gt; matchsTestH;
+    private Match&lt;Athlete&gt; matchsTestF;
+    private Match&lt;Equipe&gt; match;
+    private Match&lt;Athlete&gt; matchsAthle100;
+    private Match&lt;Athlete&gt; matchsAthle4x100;
+    private Match&lt;Athlete&gt; matchsNatation100;
+    private Match&lt;Athlete&gt; matchsNatation4x100;
+    
+
+    @BeforeEach
+    public void setUp() {
+<span class="fc" id="L66">        escrime = new Escrime();</span>
+<span class="fc" id="L67">        voley = new VoleyBall();</span>
+
+<span class="fc" id="L69">        france = new Pays(&quot;France&quot;);</span>
+<span class="fc" id="L70">        baptiste = new Athlete(&quot;RICHARD&quot;, &quot;Baptiste&quot;, 'M', 11, 18, 16, france);</span>
+<span class="fc" id="L71">        chris = new Athlete(&quot;MATEHEVET&quot;, &quot;Chris&quot;, 'F', 13, 17, 15, france);</span>
+<span class="fc" id="L72">        julian = new Athlete(&quot;MARQUES&quot;, &quot;Julian&quot;, 'M', 15, 10, 19, france);</span>
+<span class="fc" id="L73">        axel = new Athlete(&quot;MEUNIER&quot;, &quot;Axel&quot;, 'M', 19, 18, 9, france);</span>
+<span class="fc" id="L74">        michelle = new Athlete(&quot;MICHMICH&quot;, &quot;Michelle&quot;, 'F', 12, 16, 14, france);</span>
+<span class="fc" id="L75">        shanka = new Athlete(&quot;ClERMONT&quot;, &quot;shanka&quot;, 'M', 19, 18, 9, france);</span>
+<span class="fc" id="L76">        bastien = new Athlete(&quot;MONET&quot;, &quot;bastien&quot;, 'M', 19, 18, 9, france);</span>
+<span class="fc" id="L77">        mettre110H = new Epreuve&lt;&gt;(&quot;110 m haies hommes&quot;, escrime, 'M');</span>
+<span class="fc" id="L78">        mettre110F = new Epreuve&lt;&gt;(&quot;110 m haies femmes&quot;, escrime, 'F');</span>
+<span class="fc" id="L79">        epreuve = new Epreuve&lt;&gt;(&quot;test&quot;, voley, 'M');</span>
+<span class="fc" id="L80">        riri = new Athlete(&quot;Duck&quot;, &quot;riri&quot;, 'M', 1, 8, 19, france);</span>
+<span class="fc" id="L81">        fifi = new Athlete(&quot;Duck&quot;, &quot;fifi&quot;, 'M', 12, 5, 9, france);</span>
+<span class="fc" id="L82">        loulou = new Athlete(&quot;Duck&quot;, &quot;loulou&quot;, 'M', 19, 8, 9, france);</span>
+<span class="fc" id="L83">        pixou = new Athlete(&quot;Duck&quot;, &quot;pixou&quot;, 'M', 19, 12, 9, france);</span>
+<span class="fc" id="L84">        donald = new Athlete(&quot;Duck&quot;, &quot;donald&quot;, 'M', 19, 18, 19, france);</span>
+<span class="fc" id="L85">        flagada = new Athlete(&quot;Jones&quot;, &quot;Flagada&quot;, 'M', 19, 18, 19, france);</span>
+
+<span class="fc" id="L87">        equipe1 = new Equipe(&quot;1&quot;);</span>
+<span class="fc" id="L88">        equipe2 = new Equipe(&quot;2&quot;);</span>
+
+<span class="fc" id="L90">        matchsTestH = new Match&lt;&gt;(0, &quot;Tour test&quot;, mettre110H);</span>
+<span class="fc" id="L91">        matchsTestF = new Match&lt;&gt;(0, &quot;Tour test&quot;, mettre110F);</span>
+<span class="fc" id="L92">        match = new Match&lt;&gt;(1, &quot;test&quot;, epreuve);</span>
+
+<span class="fc" id="L94">        athletisme = new Athletisme();</span>
+<span class="fc" id="L95">        natation = new Natation();</span>
+<span class="fc" id="L96">        athletisme110 = new Epreuve&lt;&gt;(&quot;110 m haies hommes&quot;, athletisme, 'M');</span>
+<span class="fc" id="L97">        athletisme4x110 = new Epreuve&lt;&gt;(&quot;4*110 m haies hommes&quot;, athletisme, 'M');</span>
+<span class="fc" id="L98">        natatione110 = new Epreuve&lt;&gt;(&quot;110 m nage libre hommes&quot;, natation, 'M');</span>
+<span class="fc" id="L99">        natation4x110 = new Epreuve&lt;&gt;(&quot;4*110 m nage libre hommes&quot;, natation, 'M');</span>
+<span class="fc" id="L100">        matchsAthle100 = new Match&lt;&gt;(3, &quot;Tour athle 110&quot;, athletisme110);</span>
+<span class="fc" id="L101">        matchsAthle4x100 = new Match&lt;&gt;(0, &quot;Tour athle 4*110&quot;, athletisme4x110);</span>
+<span class="fc" id="L102">        matchsNatation100 = new Match&lt;&gt;(0, &quot;Tour nata 110&quot;, natatione110);</span>
+<span class="fc" id="L103">        matchsNatation4x100 = new Match&lt;&gt;(0, &quot;Tour nata 4*110&quot;, natation4x110);</span>
+
+<span class="fc" id="L105">        epreuveVoleyTest = new Epreuve&lt;&gt;(&quot;VoleyBall athlete (impossible)&quot;, voley, 'M');</span>
+
+<span class="fc" id="L107">    }</span>
+
+    //Partie Epreuve 
+
+    @Test
+    public void testGetLesParticipants() {
+        try {
+<span class="nc" id="L114">            epreuveVoleyTest.inscrire(axel);</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">            assertTrue(epreuveVoleyTest.getLesParticipants().size() == 1);</span>
+<span class="fc" id="L116">        } catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {</span>
+<span class="fc" id="L117">            System.err.println(e.getMessage());</span>
+<span class="nc" id="L118">        }</span>
+<span class="fc" id="L119">    }</span>
+
+    @Test
+    public void testGetSport() {
+<span class="fc" id="L123">        assertEquals( epreuveVoleyTest.getSport(), voley);</span>
+<span class="fc" id="L124">    }</span>
+
+    @Test
+    public void testGetDescription() {
+<span class="fc" id="L128">        System.out.println(epreuveVoleyTest.getDescription());</span>
+<span class="fc" id="L129">        assertEquals(epreuveVoleyTest.getDescription(),&quot;VoleyBall athlete (impossible)&quot; );</span>
+<span class="fc" id="L130">    }</span>
+
+    @Test
+    public void testGetSexe() {
+<span class="fc" id="L134">        assertEquals(epreuveVoleyTest.getSexe(), 'H');</span>
+<span class="fc" id="L135">    }</span>
+
+    @Test
+    public void testGetPremier() {
+
+        try {
+         
+
+<span class="fc" id="L143">            mettre110H.inscrire(baptiste);</span>
+<span class="fc" id="L144">            mettre110H.inscrire(julian);</span>
+<span class="fc" id="L145">            mettre110H.inscrire(axel);</span>
+<span class="nc" id="L146">        } catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {</span>
+<span class="nc" id="L147">            System.err.println(e.getMessage());</span>
+<span class="fc" id="L148">        }</span>
+
+<span class="fc" id="L150">        mettre110H.getLeClassement();</span>
+<span class="fc" id="L151">        mettre110H.ajoutMatch(matchsTestH);</span>
+
+<span class="pc bpc" id="L153" title="1 of 2 branches missed.">        assertTrue(mettre110H.getPremier() != null);</span>
+<span class="fc" id="L154">    }</span>
+
+    @Test
+    public void testGetSecond() {
+
+        try {
+         
+
+<span class="fc" id="L162">            mettre110H.inscrire(baptiste);</span>
+<span class="fc" id="L163">            mettre110H.inscrire(julian);</span>
+<span class="fc" id="L164">            mettre110H.inscrire(axel);</span>
+<span class="nc" id="L165">        } catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {</span>
+<span class="nc" id="L166">            System.err.println(e.getMessage());</span>
+<span class="fc" id="L167">        }</span>
+
+<span class="fc" id="L169">        mettre110H.getLeClassement();</span>
+<span class="fc" id="L170">        mettre110H.ajoutMatch(matchsTestH);</span>
+
+<span class="pc bpc" id="L172" title="1 of 2 branches missed.">        assertTrue(mettre110H.getSecond() != null);</span>
+<span class="fc" id="L173">    }</span>
+
+    @Test
+    public void testGetTroisieme() {
+
+        try {
+         
+
+<span class="fc" id="L181">            mettre110H.inscrire(baptiste);</span>
+<span class="fc" id="L182">            mettre110H.inscrire(julian);</span>
+<span class="fc" id="L183">            mettre110H.inscrire(axel);</span>
+<span class="nc" id="L184">        } catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {</span>
+<span class="nc" id="L185">            System.err.println(e.getMessage());</span>
+<span class="fc" id="L186">        }</span>
+
+<span class="fc" id="L188">        mettre110H.getLeClassement();</span>
+<span class="fc" id="L189">        mettre110H.ajoutMatch(matchsTestH);</span>
+
+<span class="pc bpc" id="L191" title="1 of 2 branches missed.">        assertTrue(mettre110H.getTroisieme() != null);</span>
+<span class="fc" id="L192">    }</span>
+
+    @Test
+    public void testGetLesMatchs() {
+
+<span class="fc" id="L197">        List&lt;Match&lt;Athlete&gt;&gt; lesMatchs = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L198">        lesMatchs.add(matchsTestH);</span>
+<span class="fc" id="L199">        assertEquals(mettre110H.getLesMatchs(), lesMatchs);</span>
+<span class="fc" id="L200">    }</span>
+
+//Partie Match
+
+    @Test
+    public void testGetNumeroDeTour() {
+<span class="fc" id="L206">        assertEquals(matchsAthle100.getNumeroDeTour(), 3);</span>
+<span class="fc" id="L207">    }</span>
+
+    @Test
+    public void testGetNomDeTour() {
+<span class="fc" id="L211">        assertEquals(matchsAthle100.getNomDeTour(), &quot;Tour athle 110&quot;);</span>
+<span class="fc" id="L212">    }</span>
+
+    @Test
+    public void testGetEpreuve() {
+<span class="fc" id="L216">        assertEquals(matchsAthle100.getEpreuve(), athletisme110);</span>
+<span class="fc" id="L217">    }</span>
+
+
+
+    @Test
+    public void testMatchAthlete() {
+        try {
+<span class="fc" id="L224">            mettre110F.inscrire(chris);</span>
+<span class="fc" id="L225">            mettre110F.inscrire(michelle);</span>
+
+<span class="fc" id="L227">            mettre110H.inscrire(baptiste);</span>
+<span class="fc" id="L228">            mettre110H.inscrire(julian);</span>
+<span class="fc" id="L229">            mettre110H.inscrire(axel);</span>
+<span class="nc" id="L230">        } catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {</span>
+<span class="nc" id="L231">            System.err.println(e.getMessage());</span>
+<span class="fc" id="L232">        }</span>
+
+<span class="fc" id="L234">        List&lt;Double&gt; resH = matchsTestH.getResultats();</span>
+<span class="fc" id="L235">        List&lt;Double&gt; resF = matchsTestF.getResultats();</span>
+
+<span class="fc bfc" id="L237" title="All 2 branches covered.">        for (Double temps1 : resH) {</span>
+<span class="pc bpc" id="L238" title="1 of 2 branches missed.">            assertTrue(temps1 &gt;= 0);</span>
+<span class="pc bpc" id="L239" title="1 of 2 branches missed.">            assertTrue(temps1 &lt;= 200);</span>
+<span class="fc" id="L240">        }</span>
+<span class="fc bfc" id="L241" title="All 2 branches covered.">        for (Double temps2 : resF) {</span>
+<span class="pc bpc" id="L242" title="1 of 2 branches missed.">            assertTrue(temps2 &gt;= 0);</span>
+<span class="pc bpc" id="L243" title="1 of 2 branches missed.">            assertTrue(temps2 &lt;= 200);</span>
+<span class="fc" id="L244">        }</span>
+<span class="fc" id="L245">    }</span>
+
+    @Test
+    public void testMatchEquipe() {
+        try {
+<span class="fc" id="L250">            equipe1.ajouter(baptiste);</span>
+<span class="nc" id="L251">            equipe1.ajouter(chris);</span>
+<span class="nc" id="L252">            equipe1.ajouter(julian);</span>
+<span class="nc" id="L253">            equipe1.ajouter(axel);</span>
+<span class="nc" id="L254">            equipe1.ajouter(shanka);</span>
+<span class="nc" id="L255">            equipe1.ajouter(bastien);</span>
+
+<span class="nc" id="L257">            equipe2.ajouter(riri);</span>
+<span class="nc" id="L258">            equipe2.ajouter(fifi);</span>
+<span class="nc" id="L259">            equipe2.ajouter(loulou);</span>
+<span class="nc" id="L260">            equipe2.ajouter(pixou);</span>
+<span class="nc" id="L261">            equipe2.ajouter(donald);</span>
+<span class="nc" id="L262">            equipe2.ajouter(flagada);</span>
+<span class="fc" id="L263">        } catch (AlreadyInException | NotSameCountryException | NotSameGenderException e) {</span>
+<span class="fc" id="L264">            System.err.println(e.getMessage());</span>
+<span class="nc" id="L265">        }</span>
+
+        try {
+<span class="nc" id="L268">            epreuve.inscrire(equipe1);</span>
+<span class="nc" id="L269">            epreuve.inscrire(equipe2);</span>
+<span class="fc" id="L270">        } catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {</span>
+<span class="fc" id="L271">            System.err.println(e.getMessage());</span>
+<span class="nc" id="L272">        }</span>
+
+<span class="pc bpc" id="L274" title="1 of 2 branches missed.">        assertTrue(match.getResultats() != null);</span>
+<span class="fc" id="L275">    }</span>
+
+    @Test
+    public void testTemps() {
+        try {
+<span class="fc" id="L280">            athletisme110.inscrire(baptiste);</span>
+<span class="fc" id="L281">            athletisme110.inscrire(julian);</span>
+<span class="fc" id="L282">            athletisme110.inscrire(axel);</span>
+
+<span class="fc" id="L284">            athletisme4x110.inscrire(baptiste);</span>
+<span class="fc" id="L285">            athletisme4x110.inscrire(julian);</span>
+<span class="fc" id="L286">            athletisme4x110.inscrire(axel);</span>
+
+<span class="fc" id="L288">            natatione110.inscrire(baptiste);</span>
+<span class="fc" id="L289">            natatione110.inscrire(julian);</span>
+<span class="fc" id="L290">            natatione110.inscrire(axel);</span>
+
+<span class="fc" id="L292">            natation4x110.inscrire(baptiste);</span>
+<span class="fc" id="L293">            natation4x110.inscrire(julian);</span>
+<span class="fc" id="L294">            natation4x110.inscrire(axel);</span>
+<span class="nc" id="L295">        } catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {</span>
+<span class="nc" id="L296">            System.err.println(e.getMessage());</span>
+<span class="fc" id="L297">        }</span>
+
+<span class="fc" id="L299">        List&lt;Double&gt; resAthle100 = matchsAthle100.getResultats();</span>
+<span class="fc" id="L300">        List&lt;Double&gt; resAthle4x100 = matchsAthle4x100.getResultats();</span>
+<span class="fc" id="L301">        List&lt;Double&gt; resNata100 = matchsNatation100.getResultats();</span>
+<span class="fc" id="L302">        List&lt;Double&gt; resNata4x100 = matchsNatation4x100.getResultats();</span>
+
+<span class="fc bfc" id="L304" title="All 2 branches covered.">        for (Double temps1 : resAthle100) {</span>
+<span class="pc bpc" id="L305" title="1 of 2 branches missed.">            assertTrue(temps1 &gt;= 10.2);</span>
+<span class="pc bpc" id="L306" title="1 of 2 branches missed.">            assertTrue(temps1 &lt;= 20.0);</span>
+<span class="fc" id="L307">        }</span>
+<span class="fc bfc" id="L308" title="All 2 branches covered.">        for (Double temps1 : resAthle4x100) {</span>
+<span class="pc bpc" id="L309" title="1 of 2 branches missed.">            assertTrue(temps1 &gt;= 30.2);</span>
+<span class="pc bpc" id="L310" title="1 of 2 branches missed.">            assertTrue(temps1 &lt;= 40.0);</span>
+<span class="fc" id="L311">        }</span>
+<span class="fc bfc" id="L312" title="All 2 branches covered.">        for (Double temps1 : resNata100) {</span>
+<span class="pc bpc" id="L313" title="1 of 2 branches missed.">            assertTrue(temps1 &gt;= 42.2);</span>
+<span class="pc bpc" id="L314" title="1 of 2 branches missed.">            assertTrue(temps1 &lt;= 52.0);</span>
+<span class="fc" id="L315">        }</span>
+<span class="fc bfc" id="L316" title="All 2 branches covered.">        for (Double temps1 : resNata4x100) {</span>
+<span class="pc bpc" id="L317" title="1 of 2 branches missed.">            assertTrue(temps1 &gt;= 182.0);</span>
+<span class="pc bpc" id="L318" title="1 of 2 branches missed.">            assertTrue(temps1 &lt;= 280.0);</span>
+<span class="fc" id="L319">        }</span>
+<span class="fc" id="L320">    }</span>
+
+    @Test
+    public void testInscrireAthlete() {
+<span class="fc" id="L324">        boolean testNormal = false;</span>
+<span class="fc" id="L325">        boolean testAlreadyIn = false;</span>
+<span class="fc" id="L326">        boolean testPeuxPasInscrire = false;</span>
+<span class="fc" id="L327">        boolean testSexe = false;</span>
+
+        try {
+<span class="fc" id="L330">            athletisme110.inscrire(baptiste);</span>
+<span class="fc" id="L331">            athletisme110.inscrire(julian);</span>
+<span class="fc" id="L332">            athletisme110.inscrire(axel);</span>
+<span class="fc" id="L333">            testNormal = true;</span>
+<span class="nc" id="L334">        } catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {</span>
+<span class="nc" id="L335">            System.err.println(e.getMessage());</span>
+<span class="fc" id="L336">        }</span>
+
+        try {
+<span class="nc" id="L339">            athletisme110.inscrire(michelle);</span>
+<span class="fc" id="L340">        } catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {</span>
+<span class="fc" id="L341">            System.err.println(e.getMessage());</span>
+<span class="fc" id="L342">            testSexe = true;</span>
+<span class="nc" id="L343">        }</span>
+
+        try {
+<span class="nc" id="L346">            athletisme110.inscrire(baptiste);</span>
+<span class="nc" id="L347">            athletisme110.inscrire(julian);</span>
+<span class="nc" id="L348">            athletisme110.inscrire(axel);</span>
+<span class="fc" id="L349">        } catch (AlreadyInException e) {</span>
+<span class="fc" id="L350">            System.err.println(e.getMessage());</span>
+<span class="fc" id="L351">            testAlreadyIn = true;</span>
+<span class="nc" id="L352">        } catch (CanNotRegisterException | NotSameGenderException e) {</span>
+<span class="nc" id="L353">            System.err.println(e.getMessage());</span>
+<span class="pc" id="L354">        }</span>
+
+        try {
+<span class="nc" id="L357">            epreuveVoleyTest.inscrire(baptiste);</span>
+<span class="nc" id="L358">            epreuveVoleyTest.inscrire(julian);</span>
+<span class="nc" id="L359">            epreuveVoleyTest.inscrire(axel);</span>
+<span class="fc" id="L360">        } catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {</span>
+<span class="fc" id="L361">            System.err.println(e.getMessage());</span>
+<span class="pc bpc" id="L362" title="1 of 2 branches missed.">            if (e instanceof CanNotRegisterException) {</span>
+<span class="fc" id="L363">                testPeuxPasInscrire = true;</span>
+            }
+<span class="nc" id="L365">        }</span>
+
+<span class="fc" id="L367">        assertTrue(testPeuxPasInscrire);</span>
+<span class="fc" id="L368">        assertTrue(testAlreadyIn);</span>
+<span class="fc" id="L369">        assertTrue(testNormal);</span>
+<span class="fc" id="L370">        assertTrue(testSexe);</span>
+<span class="fc" id="L371">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
