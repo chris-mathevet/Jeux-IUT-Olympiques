@@ -42,6 +42,7 @@ public class Executable {
             " │  E - Menu Equipe                 │\n" + 
             " │  P - Menu Pays                   │\n" + 
             " │  V - Menu Epreuve                │\n" + 
+            " │  C - Voir le Classement          │\n" + 
             " │  I - Import CSV                  │\n" + 
             " │  Q - Quitter                     │\n" + 
             " └──────────────────────────────────┘");
@@ -64,6 +65,14 @@ public class Executable {
                 case "V":
                     returnedMode = Modes.EPREUVE;
                     menuStatement = false;
+                    break;
+
+                case "C":
+                    clearConsole();
+                    Executable.jo.demandeClassement();
+                    for (Pays pays : Executable.jo.getLesPays()){
+                        System.out.println(pays);
+                    }
                     break;
 
                 case "I":
