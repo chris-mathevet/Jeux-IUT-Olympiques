@@ -23,11 +23,11 @@ public class Match&lt;T extends Participant&gt; {
 <span class="fc" id="L23">	}</span>
 
 	public int getNumeroDeTour() {
-<span class="nc" id="L26">		return this.numéroDeTour;</span>
+<span class="fc" id="L26">		return this.numéroDeTour;</span>
 	}
 
 	public String getNomDeTour() {
-<span class="nc" id="L30">		return this.nomDeTour;</span>
+<span class="fc" id="L30">		return this.nomDeTour;</span>
 	}
 
 	public List&lt;Double&gt; getResultats() {
@@ -133,10 +133,10 @@ public class Match&lt;T extends Participant&gt; {
 	 * @return int le résultat de l'athlete / l'équipe, -1 s'il n'a pas participé
 	 */	
 	public double getResultatParticipant(T participant){
-<span class="nc bnc" id="L136" title="All 2 branches missed.">		if(this.resultats.isEmpty()){this.calculResultat();}</span>
-<span class="nc" id="L137">		int index = this.epreuve.getLesParticipants().indexOf(participant);</span>
-<span class="nc bnc" id="L138" title="All 2 branches missed.">		if(index == -1){</span>
-<span class="nc" id="L139">			return -1;</span>
+<span class="pc bpc" id="L136" title="1 of 2 branches missed.">		if(this.resultats.isEmpty()){this.calculResultat();}</span>
+<span class="fc" id="L137">		int index = this.epreuve.getLesParticipants().indexOf(participant);</span>
+<span class="pc bpc" id="L138" title="1 of 2 branches missed.">		if(index == -1){</span>
+<span class="fc" id="L139">			return -1;</span>
 		}
 		else{
 <span class="nc" id="L142">			return this.resultats.get(index);</span>

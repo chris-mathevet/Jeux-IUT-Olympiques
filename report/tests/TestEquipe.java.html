@@ -78,13 +78,13 @@ import sports.HandBall;
 <span class="nc" id="L78">            equipe.ajouter(a3);</span>
         } 
 <span class="nc" id="L80">        catch (AlreadyInException e) {</span>
-<span class="nc" id="L81">            System.err.println(&quot;Déja dans la liste&quot;);</span>
+<span class="nc" id="L81">            System.err.println(e.getMessage());</span>
         }
 <span class="nc" id="L83">        catch (NotSameCountryException e) {</span>
-<span class="nc" id="L84">            System.err.println(&quot;Pas le bon pays&quot;);</span>
+<span class="nc" id="L84">            System.err.println(e.getMessage());</span>
         }
 <span class="fc" id="L86">        catch (NotSameGenderException e){</span>
-<span class="fc" id="L87">            System.err.println(&quot;Pas le même sexe&quot;);</span>
+<span class="fc" id="L87">            System.err.println(e.getMessage());</span>
 <span class="nc" id="L88">        }</span>
 
 <span class="fc" id="L90">        assertEquals(equipe, Arrays.asList(a1,a2));</span>

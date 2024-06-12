@@ -97,7 +97,7 @@ public class TestEpreuveMatch {
         athletisme4x110 = new Epreuve<>("4*110 m haies hommes", athletisme, 'M');
         natatione110 = new Epreuve<>("110 m nage libre hommes", natation, 'M');
         natation4x110 = new Epreuve<>("4*110 m nage libre hommes", natation, 'M');
-        matchsAthle100 = new Match<>(0, "Tour athle 110", athletisme110);
+        matchsAthle100 = new Match<>(3, "Tour athle 110", athletisme110);
         matchsAthle4x100 = new Match<>(0, "Tour athle 4*110", athletisme4x110);
         matchsNatation100 = new Match<>(0, "Tour nata 110", natatione110);
         matchsNatation4x100 = new Match<>(0, "Tour nata 4*110", natation4x110);
@@ -197,6 +197,23 @@ public class TestEpreuveMatch {
         List<Match<Athlete>> lesMatchs = new ArrayList<>();
         lesMatchs.add(matchsTestH);
         assertEquals(mettre110H.getLesMatchs(), lesMatchs);
+    }
+
+//Partie Match
+
+    @Test
+    public void testGetNumeroDeTour() {
+        assertEquals(matchsAthle100.getNumeroDeTour(), 3);
+    }
+
+    @Test
+    public void testGetNomDeTour() {
+        assertEquals(matchsAthle100.getNomDeTour(), "Tour athle 110");
+    }
+
+    @Test
+    public void testGetEpreuve() {
+        assertEquals(matchsAthle100.getEpreuve(), athletisme110);
     }
 
 
