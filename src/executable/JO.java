@@ -72,14 +72,6 @@ public class JO {
                 new Match<Participant>(i, "Tour ", epreuve); 
             }
         }
-        
-        for (Epreuve<Participant> epreuve : this.lesEpreuves){
-            System.out.println(epreuve);
-            for (Match<Participant> match : epreuve.getLesMatchs()){
-                System.out.println(match);
-            }
-            System.out.println();
-        }
     }   
 
     // Geteurs 
