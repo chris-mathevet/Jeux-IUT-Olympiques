@@ -61,10 +61,10 @@ public class Equipe extends ArrayList<Athlete> implements Participant{
 			}
 			else{
 				if (!(athlete.getPays().equals(this.get(0).getPays()))) {
-					throw new NotSameCountryException("Vous ne pouvez pas ajouté un athlete d'un pays différent aux autres.");
+					throw new NotSameCountryException("Vous ne pouvez pas ajouté un athlete d'un pays différent des autres membres.");
 				}
 				else if(athlete.getSexe() != this.getSexe()){
-					throw new NotSameGenderException("Vous ne pouvez pas ajouté un athlete d'un sexe différent aux autres.");
+					throw new NotSameGenderException("Vous ne pouvez pas ajouté un athlete d'un sexe différent des autres membres.");
 				}
 				else{
 					this.add(athlete);
@@ -98,6 +98,10 @@ public class Equipe extends ArrayList<Athlete> implements Participant{
 
 	@Override
 	public String toString() {
-		return this.nom +", membre: " +super.toString();
+		String res = this.nom +" : \n";
+		for (Athlete athlete : this){
+			res += athlete + ",\n";
+		}
+		return res;
 	}
 }

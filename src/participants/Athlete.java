@@ -21,16 +21,32 @@ public class Athlete implements Participant{
 	 * @param int L'agilité de l'athlete comprise entre 1 et 20
 	 * @param Pays Le pays de l'athlete
 	 */
-	public Athlete(String nom, String prenom, char sexe, int force, int endurance, int agilite, Pays pays) {
+	public Athlete(String nom, String prenom, char sexe, int force, int agilite, int endurance, Pays pays) {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.sexe = Character.toUpperCase(sexe);
 		if (this.sexe != 'F'){
 			this.sexe = 'H';
 		}
-		this.force = (force%20)+1;
-		this.endurance = (endurance%20)+1;
-		this.agilite = (agilite%20)+1;
+		this.force = force;
+		this.endurance = endurance;
+		this.agilite = agilite;
+
+		if(this.force<1 || this.force>20){
+			if(this.force<0){this.force = (this.force*-1)-1;}
+			this.force = (this.force % 20) +1;
+		}
+
+		if(this.endurance<1 || this.endurance>20){
+			if(this.endurance<0){this.endurance = (this.endurance*-1)-1;}
+			this.endurance = (this.endurance % 20) +1;
+		}
+
+		if(this.agilite<1 || this.agilite>20){
+			if(this.agilite<0){this.agilite = (this.agilite*-1)-1;}
+			this.agilite = (this.agilite % 20) +1;
+		}
+
 		this.lePays = pays;
 		this.lePays.getLesAthletes().add(this);
 	}

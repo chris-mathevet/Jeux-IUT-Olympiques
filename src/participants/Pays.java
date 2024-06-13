@@ -15,7 +15,10 @@ public class Pays implements Comparable<Pays>{
 	 * @param String le nom du pays
 	 */
 	public Pays(String nom) {
-		this.nom = nom;
+		String vraiNom = "";
+		vraiNom += (nom.charAt(0) + "").toUpperCase();
+		vraiNom += nom.substring(1).toLowerCase();
+		this.nom = vraiNom;
 		this.lesEquipes = new ArrayList<>();
 		this.lesAthletes = new ArrayList<>();
 		this.medailleOr = 0;

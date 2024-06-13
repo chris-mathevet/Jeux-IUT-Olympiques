@@ -197,7 +197,7 @@ public class Epreuve<T extends Participant> {
 		// Fabrication du classement selon les moyennes de résultat, 
 		// si il est en temps, le résultat est calculé selon la méthode du minimum (plus petit temps en premier)
 		// sinon le résultat est calculé selon la méthode du maximum (plus grand nombre de points en premier)
-		if(this.getSport().getEstTemsp()){
+		if(this.getSport().getEstTemps()){
 			for (int i = 0; i<resultats.size();++i){
 				indMinMax = Match.indiemeMin(resultats, i); // Indice du min
 				// Permutation du min et de l'actuel
@@ -224,33 +224,71 @@ public class Epreuve<T extends Participant> {
 	/** Met a jour le podium de l'épreuve (attributs)
 	 */
 	public void majPodium(){
-		if(this.leClassement != null){
-			this.setPremier(this.leClassement.get(0));
-			this.setSecond(this.leClassement.get(1));
-			this.setTroisieme(this.leClassement.get(2));
+		if( ! this.leClassement.isEmpty()){
+			try{
+				this.setPremier(this.leClassement.get(0));
+				this.setSecond(this.leClassement.get(1));
+				this.setTroisieme(this.leClassement.get(2));
+			}
+			catch(IndexOutOfBoundsException e){
+				System.err.println("Probleme maj médailles");
+				System.err.println(e.getMessage());
+			}
+		
 		}
 	}
 
 	/** Met a jour le nombre de médaille des pays du podium
 	 */
 	public void majMedailles(){
-		if(this.leClassement != null){
-			if(this.premier == null){
+		if( ! this.leClassement.isEmpty()){
+			if(this.premier == null || this.second == null || this.troisieme == null){
 				this.majPodium();
-				this.premier.getPays().addMedailleOr(1);
-				this.second.getPays().addMedailleArgent(1);
-				this.troisieme.getPays().addMedailleBronze(1);
+				try{
+					System.out.println(this.premier);
+					System.out.println(this.second);
+					System.out.println(this.troisieme);
+					this.premier.getPays().addMedailleOr(1);
+					this.second.getPays().addMedailleArgent(1);
+					this.troisieme.getPays().addMedailleBronze(1);
+					System.out.println(this.premier.getPays());
+					System.out.println(this.second.getPays());
+					System.out.println(this.troisieme.getPays());
+
+				} catch(Exception e){
+					System.err.println("Probleme maj médailles");
+					System.err.println(e.getMessage());
+				}
 			}
 			else{
-				this.premier.getPays().addMedailleOr(-1);
-				this.second.getPays().addMedailleArgent(-1);
-				this.troisieme.getPays().addMedailleBronze(-1);
-				this.majPodium();
-				this.premier.getPays().addMedailleOr(1);
-				this.second.getPays().addMedailleArgent(1);
-				this.troisieme.getPays().addMedailleBronze(1);
+				try{
+					System.out.println("oui");
+					this.premier.getPays().addMedailleOr(-1);
+					this.second.getPays().addMedailleArgent(-1);
+					this.troisieme.getPays().addMedailleBronze(-1);
+					this.majPodium();
+					this.premier.getPays().addMedailleOr(1);
+					this.second.getPays().addMedailleArgent(1);
+					this.troisieme.getPays().addMedailleBronze(1);
+					System.out.println(this.premier.getPays());
+					System.out.println(this.second.getPays());
+					System.out.println(this.troisieme.getPays());
+				} catch(Exception e){
+					System.err.println("Probleme maj médailles");
+					System.err.println(e.getMessage());
+				}
 			}
 		}
+		System.out.println();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null){return false;}
+		if(obj == this){return true;}
+		if (!(obj instanceof Epreuve)){return false;}
+		Epreuve epreuve = (Epreuve) obj;
+		return epreuve.getDescription().equals(this.getDescription()) && epreuve.getSexe() == this.getSexe() && this.getSport().equals(epreuve.getSport());
 	}
 
 	@Override

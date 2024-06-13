@@ -81,8 +81,7 @@ public class Match<T extends Participant> {
 	 */
 	private void calculResultat() {
 		if(this.resultats.isEmpty()){
-			List<T> participants = this.epreuve.getLesParticipants();
-			for(T participant : participants){
+			for(T participant : this.epreuve.getLesParticipants()){
 				resultats.add((double) participant.participer(this));
 			}
 		}
@@ -97,7 +96,7 @@ public class Match<T extends Participant> {
 		List<Double> tranfo;
 		int modifier1 = 0;
 		int modifier2 = 20;
-		if(leSport.getEstTemsp()){ // Athletisme ou Natation
+		if(leSport.getEstTemps()){ // Athletisme ou Natation
 			tranfo =  new ArrayList<>();
 			if(leSport instanceof Athletisme){
 				if(this.epreuve.getDescription().contains("relais")){ // 4*100m
