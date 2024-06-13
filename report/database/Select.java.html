@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Select.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">database</a> &gt; <span class="el_source">Select.java</span></div><h1>Select.java</h1><pre class="source lang-java linenums">package database;
+
+import java.sql.*;
+
+public class Select {
+    
+    // info de connexion
+    private String url;
+    // SHOW VARIABLES LIKE 'port';  // ===&gt; port du serveur a use
+    // saejava ==&gt; nom de la base a utilisé 
+    private String utilisateur;
+    private String motDePasse ;
+
+    
+<span class="nc" id="L15">    public Select(String url, String user, String mdp ){</span>
+<span class="nc" id="L16">        this.url = url;</span>
+<span class="nc" id="L17">        this.utilisateur= user;</span>
+<span class="nc" id="L18">        this.motDePasse= mdp;</span>
+<span class="nc" id="L19">    }</span>
+<span class="nc" id="L20">    public Select(){</span>
+<span class="nc" id="L21">        this.url = &quot;jdbc:mysql://localhost:3306/saejava&quot;;</span>
+<span class="nc" id="L22">        this.utilisateur = &quot;root&quot;;</span>
+<span class="nc" id="L23">        this.motDePasse = &quot;password&quot;;</span>
+<span class="nc" id="L24">    }</span>
+
+    public String getUrl(){
+<span class="nc" id="L27">        return this.url;</span>
+    }
+    public String getUser(){
+<span class="nc" id="L30">        return this.utilisateur;</span>
+    }
+    public String getMdp(){
+<span class="nc" id="L33">        return this.motDePasse;</span>
+    }
+
+    public void selectSport(){
+<span class="nc" id="L37">        try (Connection connexion = DriverManager.getConnection(url, utilisateur, motDePasse)) {</span>
+<span class="nc" id="L38">            System.out.println(&quot;Connexion réussie !&quot;);</span>
+
+<span class="nc" id="L40">            String sqlSelectionSport = &quot;SELECT * FROM SPORT&quot;;</span>
+<span class="nc" id="L41">            try (Statement statement = connexion.createStatement();</span>
+<span class="nc" id="L42">                 ResultSet resultSet = statement.executeQuery(sqlSelectionSport)) {</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">                while (resultSet.next()) {</span>
+<span class="nc" id="L44">                    int idSport = resultSet.getInt(&quot;idSport&quot;);</span>
+<span class="nc" id="L45">                    String nomSport = resultSet.getString(&quot;nomSport&quot;);</span>
+<span class="nc" id="L46">                    int nbParEquipe = resultSet.getInt(&quot;nbParEquipe&quot;);</span>
+<span class="nc" id="L47">                    System.out.println(&quot;id sport : &quot; + idSport + &quot;, nom sport : &quot; + nomSport+ &quot;, nombre par equipe : &quot; + nbParEquipe);</span>
+<span class="nc" id="L48">                }</span>
+<span class="nc" id="L49">            } catch (SQLException e) {</span>
+<span class="nc" id="L50">                System.out.println(&quot;Erreur lors de la récupération des données de la table SPORT : &quot; + e.getMessage());</span>
+<span class="nc" id="L51">            }</span>
+<span class="nc" id="L52">        } catch (SQLException e) {</span>
+<span class="nc" id="L53">            System.out.println(&quot;Erreur lors de la connexion à la base de données : &quot; + e.getMessage());</span>
+<span class="nc" id="L54">        }</span>
+<span class="nc" id="L55">    }</span>
+    public void selectAthlete(){
+<span class="nc" id="L57">        try (Connection connexion = DriverManager.getConnection(url, utilisateur, motDePasse)) {</span>
+<span class="nc" id="L58">            System.out.println(&quot;Connexion réussie !&quot;);</span>
+
+<span class="nc" id="L60">            String sqlSelectionAthlete = &quot;SELECT * FROM ATHLETE&quot;;</span>
+<span class="nc" id="L61">            try (Statement statement = connexion.createStatement();</span>
+<span class="nc" id="L62">                 ResultSet resultSet = statement.executeQuery(sqlSelectionAthlete)) {</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">                while (resultSet.next()) {</span>
+                    
+<span class="nc" id="L65">                    int idAthlete = resultSet.getInt(&quot;idAthlete&quot;);</span>
+<span class="nc" id="L66">                    String nom = resultSet.getString(&quot;nomAthlete&quot;);</span>
+<span class="nc" id="L67">                    String prenom = resultSet.getString(&quot;prenomAthlete&quot;);</span>
+<span class="nc" id="L68">                    String sexeString = resultSet.getString(&quot;sexe&quot;);</span>
+<span class="nc" id="L69">                    char sexe = ' ';</span>
+<span class="nc bnc" id="L70" title="All 4 branches missed.">                    if (sexeString != null &amp;&amp; !sexeString.isEmpty()) { // convertir le sexe de la base de donné qui est en Varchar (String) en un char </span>
+<span class="nc" id="L71">                        sexe = sexeString.charAt(0);</span>
+                    }
+<span class="nc" id="L73">                    int force = resultSet.getInt(&quot;capaciteForce&quot;);</span>
+<span class="nc" id="L74">                    int endurance = resultSet.getInt(&quot;endurance&quot;);</span>
+<span class="nc" id="L75">                    int agilite = resultSet.getInt(&quot;agilite&quot;);</span>
+<span class="nc" id="L76">                    System.out.println(&quot;idAthlete : &quot; +idAthlete+ &quot;, nom : &quot; + nom + &quot;, prenom : &quot;+prenom +&quot;, sexe : &quot;+ sexe + &quot;, force : &quot;+force + &quot;, endurance : &quot;+endurance + &quot;, agilite : &quot;+ agilite);</span>
+<span class="nc" id="L77">                }</span>
+<span class="nc" id="L78">            } catch (SQLException e) {</span>
+<span class="nc" id="L79">                System.out.println(&quot;Erreur lors de la récupération des données de la table ATHLETE : &quot; + e.getMessage());</span>
+<span class="nc" id="L80">            }</span>
+<span class="nc" id="L81">        } catch (SQLException e) {</span>
+<span class="nc" id="L82">            System.out.println(&quot;Erreur lors de la connexion à la base de données : &quot; + e.getMessage());</span>
+<span class="nc" id="L83">        }</span>
+<span class="nc" id="L84">    }</span>
+    public void rechercherJoueur(Integer id,String prenom, String nom) {
+<span class="nc" id="L86">        StringBuilder queryBuilder = new StringBuilder(&quot;SELECT * FROM ATHLETE WHERE &quot;);</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">        if (id != null) {</span>
+<span class="nc" id="L88">            queryBuilder.append(&quot;idAthlete = ? &quot;);</span>
+        }
+<span class="nc bnc" id="L90" title="All 2 branches missed.">        if (prenom != null) {</span>
+<span class="nc bnc" id="L91" title="All 2 branches missed.">            if (id != null) {</span>
+<span class="nc" id="L92">                queryBuilder.append(&quot;AND &quot;);</span>
+            }
+<span class="nc" id="L94">            queryBuilder.append(&quot;prenomAthlete = ? &quot;);</span>
+        }
+<span class="nc bnc" id="L96" title="All 2 branches missed.">        if (nom != null) {</span>
+<span class="nc bnc" id="L97" title="All 4 branches missed.">            if (id != null || prenom != null) {</span>
+<span class="nc" id="L98">                queryBuilder.append(&quot;AND &quot;);</span>
+            }
+<span class="nc" id="L100">            queryBuilder.append(&quot;nomAthlete = ? &quot;);</span>
+        }
+
+        
+<span class="nc" id="L104">        try (Connection connexion = DriverManager.getConnection(url, utilisateur, motDePasse)){</span>
+<span class="nc" id="L105">            PreparedStatement statement = connexion.prepareStatement(queryBuilder.toString());</span>
+<span class="nc" id="L106">            int parameterIndex = 1;</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">            if (prenom != null) {</span>
+<span class="nc" id="L108">                statement.setString(parameterIndex++, prenom);</span>
+            }
+<span class="nc bnc" id="L110" title="All 2 branches missed.">            if (nom != null) {</span>
+<span class="nc" id="L111">                statement.setString(parameterIndex++, nom);</span>
+            }
+<span class="nc bnc" id="L113" title="All 2 branches missed.">            if (id != null) {</span>
+<span class="nc" id="L114">                statement.setInt(parameterIndex, id);</span>
+            }
+            
+<span class="nc" id="L117">            ResultSet resultSet = statement.executeQuery();</span>
+<span class="nc" id="L118">            System.out.println(resultSet);</span>
+            
+<span class="nc bnc" id="L120" title="All 2 branches missed.">            while (resultSet.next()) {</span>
+<span class="nc" id="L121">                int idAthlete = resultSet.getInt(&quot;idAthlete&quot;);</span>
+<span class="nc" id="L122">                String nomAthlete = resultSet.getString(&quot;nomAthlete&quot;);</span>
+<span class="nc" id="L123">                String prenomAthlete = resultSet.getString(&quot;prenomAthlete&quot;);</span>
+<span class="nc" id="L124">                String sexe = resultSet.getString(&quot;sexe&quot;);</span>
+<span class="nc" id="L125">                int capaciteForce = resultSet.getInt(&quot;capaciteForce&quot;);</span>
+<span class="nc" id="L126">                int endurance = resultSet.getInt(&quot;endurance&quot;);</span>
+<span class="nc" id="L127">                int agilite = resultSet.getInt(&quot;agilite&quot;);</span>
+<span class="nc" id="L128">                int idPays = resultSet.getInt(&quot;idPays&quot;);</span>
+            
+<span class="nc" id="L130">                System.out.println(&quot;ID: &quot; + idAthlete + &quot;, Nom: &quot; + nomAthlete + &quot;, Prénom: &quot; + prenomAthlete +</span>
+                                   &quot;, Sexe: &quot; + sexe + &quot;, Capacité de force: &quot; + capaciteForce + &quot;, Endurance: &quot; +
+                                   endurance + &quot;, Agilité: &quot; + agilite + &quot;, ID Pays: &quot; + idPays);
+<span class="nc" id="L133">            }</span>
+            
+<span class="nc" id="L135">        } catch (SQLException e) {</span>
+<span class="nc" id="L136">            e.printStackTrace();</span>
+<span class="nc" id="L137">        }</span>
+<span class="nc" id="L138">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

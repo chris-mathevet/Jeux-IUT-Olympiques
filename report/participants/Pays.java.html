@@ -15,72 +15,75 @@ public class Pays implements Comparable&lt;Pays&gt;{
 	 * @param String le nom du pays
 	 */
 <span class="fc" id="L17">	public Pays(String nom) {</span>
-<span class="fc" id="L18">		this.nom = nom;</span>
-<span class="fc" id="L19">		this.lesEquipes = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L20">		this.lesAthletes = new ArrayList&lt;&gt;();</span>
-<span class="fc" id="L21">		this.medailleOr = 0;</span>
-<span class="fc" id="L22">		this.medailleArgent = 0;</span>
-<span class="fc" id="L23">		this.medailleBronze = 0;</span>
-<span class="fc" id="L24">	}</span>
+<span class="fc" id="L18">		String vraiNom = &quot;&quot;;</span>
+<span class="fc" id="L19">		vraiNom += (nom.charAt(0) + &quot;&quot;).toUpperCase();</span>
+<span class="fc" id="L20">		vraiNom += nom.substring(1).toLowerCase();</span>
+<span class="fc" id="L21">		this.nom = vraiNom;</span>
+<span class="fc" id="L22">		this.lesEquipes = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L23">		this.lesAthletes = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L24">		this.medailleOr = 0;</span>
+<span class="fc" id="L25">		this.medailleArgent = 0;</span>
+<span class="fc" id="L26">		this.medailleBronze = 0;</span>
+<span class="fc" id="L27">	}</span>
 
 	public List&lt;Equipe&gt; getLesEquipes() {
-<span class="fc" id="L27">		return this.lesEquipes;</span>
+<span class="fc" id="L30">		return this.lesEquipes;</span>
 	}
 
 	public List&lt;Athlete&gt; getLesAthletes() {
-<span class="fc" id="L31">		return this.lesAthletes;</span>
+<span class="fc" id="L34">		return this.lesAthletes;</span>
 	}
 
 	public String getNomPays() {
-<span class="fc" id="L35">		return this.nom;</span>
+<span class="fc" id="L38">		return this.nom;</span>
 	}
 
 	public int getMedailleOr() {
-<span class="fc" id="L39">		return this.medailleOr;</span>
+<span class="fc" id="L42">		return this.medailleOr;</span>
 	}
 
 	public int getMedailleArgent() {
-<span class="fc" id="L43">		return this.medailleArgent;</span>
+<span class="fc" id="L46">		return this.medailleArgent;</span>
 	}
 
 	public int getMedailleBronze() {
-<span class="fc" id="L47">		return this.medailleBronze;</span>
+<span class="fc" id="L50">		return this.medailleBronze;</span>
 	}
 
 	public void addMedailleOr(int medailleOr) {
-<span class="fc" id="L51">		this.medailleOr += medailleOr;</span>
-<span class="fc" id="L52">	}</span>
+<span class="fc" id="L54">		this.medailleOr += medailleOr;</span>
+<span class="fc" id="L55">	}</span>
 
 	public void addMedailleArgent(int medailleArgent) {
-<span class="fc" id="L55">		this.medailleArgent += medailleArgent;</span>
-<span class="fc" id="L56">	}</span>
+<span class="fc" id="L58">		this.medailleArgent += medailleArgent;</span>
+<span class="fc" id="L59">	}</span>
 
 	public void addMedailleBronze(int medailleBronze) {
-<span class="fc" id="L59">		this.medailleBronze += medailleBronze;</span>
-<span class="fc" id="L60">	}</span>
+<span class="fc" id="L62">		this.medailleBronze += medailleBronze;</span>
+<span class="fc" id="L63">	}</span>
 
 	@Override
 	public int compareTo(Pays o) {
-<span class="fc" id="L64">		return this.nom.compareTo(o.getNomPays());</span>
+<span class="fc" id="L67">		return this.nom.compareTo(o.getNomPays());</span>
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-<span class="pc bpc" id="L69" title="1 of 2 branches missed.">		if(obj == null){return false;}</span>
-<span class="fc bfc" id="L70" title="All 2 branches covered.">		if(this == obj){return true;}</span>
-<span class="pc bpc" id="L71" title="1 of 2 branches missed.">		if(! (obj instanceof Pays)){return false;}</span>
-<span class="fc" id="L72">		Pays p = (Pays) obj;</span>
-<span class="fc" id="L73">		return this.nom.equals(p.getNomPays());</span>
+<span class="pc bpc" id="L72" title="1 of 2 branches missed.">		if(obj == null){return false;}</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">		if(this == obj){return true;}</span>
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">		if(! (obj instanceof Pays)){return false;}</span>
+<span class="fc" id="L75">		Pays p = (Pays) obj;</span>
+<span class="fc" id="L76">		return this.nom.equals(p.getNomPays());</span>
 	}
 
 	@Override
 	public int hashCode() {
-<span class="nc" id="L78">		return this.nom.hashCode();</span>
+<span class="nc" id="L81">		return this.nom.hashCode();</span>
 	}
 
 	@Override
 	public String toString() {
-<span class="fc" id="L83">		return this.nom + &quot; or: &quot; + this.medailleOr + &quot; argent: &quot; + this.medailleArgent + &quot; bronze: &quot; + this.medailleBronze;</span>
+<span class="fc" id="L86">		return this.nom + &quot; or: &quot; + this.medailleOr + &quot; argent: &quot; + this.medailleArgent + &quot; bronze: &quot; + this.medailleBronze;</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

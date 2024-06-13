@@ -17,4 +17,5 @@ javac -d ./bin -classpath "lib/hamcrest-2.2.jar;lib/jacocoagent.jar;lib/jacococl
 
 @REM test avec JaCoCo et JUnit
 java -javaagent:lib/jacocoagent.jar=destfile=jacoco.exec -cp "./bin;lib/*" org.junit.platform.console.ConsoleLauncher --class-path "./bin" --scan-class-path --include-classname ".*test.*"
+java -jar lib/jacococli.jar report jacoco.exec --classfiles bin --sourcefiles src --html report
 pause

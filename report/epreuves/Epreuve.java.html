@@ -197,7 +197,7 @@ public class Epreuve&lt;T extends Participant&gt; {
 		// Fabrication du classement selon les moyennes de résultat, 
 		// si il est en temps, le résultat est calculé selon la méthode du minimum (plus petit temps en premier)
 		// sinon le résultat est calculé selon la méthode du maximum (plus grand nombre de points en premier)
-<span class="pc bpc" id="L200" title="1 of 2 branches missed.">		if(this.getSport().getEstTemsp()){</span>
+<span class="pc bpc" id="L200" title="1 of 2 branches missed.">		if(this.getSport().getEstTemps()){</span>
 <span class="nc bnc" id="L201" title="All 2 branches missed.">			for (int i = 0; i&lt;resultats.size();++i){</span>
 <span class="nc" id="L202">				indMinMax = Match.indiemeMin(resultats, i); // Indice du min</span>
 				// Permutation du min et de l'actuel
@@ -224,38 +224,76 @@ public class Epreuve&lt;T extends Participant&gt; {
 	/** Met a jour le podium de l'épreuve (attributs)
 	 */
 	public void majPodium(){
-<span class="pc bpc" id="L227" title="1 of 2 branches missed.">		if(this.leClassement != null){</span>
-<span class="fc" id="L228">			this.setPremier(this.leClassement.get(0));</span>
-<span class="fc" id="L229">			this.setSecond(this.leClassement.get(1));</span>
-<span class="fc" id="L230">			this.setTroisieme(this.leClassement.get(2));</span>
+<span class="pc bpc" id="L227" title="1 of 2 branches missed.">		if( ! this.leClassement.isEmpty()){</span>
+			try{
+<span class="fc" id="L229">				this.setPremier(this.leClassement.get(0));</span>
+<span class="fc" id="L230">				this.setSecond(this.leClassement.get(1));</span>
+<span class="fc" id="L231">				this.setTroisieme(this.leClassement.get(2));</span>
+			}
+<span class="nc" id="L233">			catch(IndexOutOfBoundsException e){</span>
+<span class="nc" id="L234">				System.err.println(&quot;Probleme maj médailles&quot;);</span>
+<span class="nc" id="L235">				System.err.println(e.getMessage());</span>
+<span class="fc" id="L236">			}</span>
+		
 		}
-<span class="fc" id="L232">	}</span>
+<span class="fc" id="L239">	}</span>
 
 	/** Met a jour le nombre de médaille des pays du podium
 	 */
 	public void majMedailles(){
-<span class="pc bpc" id="L237" title="1 of 2 branches missed.">		if(this.leClassement != null){</span>
-<span class="fc bfc" id="L238" title="All 2 branches covered.">			if(this.premier == null){</span>
-<span class="fc" id="L239">				this.majPodium();</span>
-<span class="fc" id="L240">				this.premier.getPays().addMedailleOr(1);</span>
-<span class="fc" id="L241">				this.second.getPays().addMedailleArgent(1);</span>
-<span class="fc" id="L242">				this.troisieme.getPays().addMedailleBronze(1);</span>
+<span class="pc bpc" id="L244" title="1 of 2 branches missed.">		if( ! this.leClassement.isEmpty()){</span>
+<span class="pc bpc" id="L245" title="5 of 6 branches missed.">			if(this.premier == null || this.second == null || this.troisieme == null){</span>
+<span class="fc" id="L246">				this.majPodium();</span>
+				try{
+<span class="fc" id="L248">					System.out.println(this.premier);</span>
+<span class="fc" id="L249">					System.out.println(this.second);</span>
+<span class="fc" id="L250">					System.out.println(this.troisieme);</span>
+<span class="fc" id="L251">					this.premier.getPays().addMedailleOr(1);</span>
+<span class="fc" id="L252">					this.second.getPays().addMedailleArgent(1);</span>
+<span class="fc" id="L253">					this.troisieme.getPays().addMedailleBronze(1);</span>
+<span class="fc" id="L254">					System.out.println(this.premier.getPays());</span>
+<span class="fc" id="L255">					System.out.println(this.second.getPays());</span>
+<span class="fc" id="L256">					System.out.println(this.troisieme.getPays());</span>
+
+<span class="nc" id="L258">				} catch(Exception e){</span>
+<span class="nc" id="L259">					System.err.println(&quot;Probleme maj médailles&quot;);</span>
+<span class="nc" id="L260">					System.err.println(e.getMessage());</span>
+<span class="pc" id="L261">				}</span>
 			}
 			else{
-<span class="fc" id="L245">				this.premier.getPays().addMedailleOr(-1);</span>
-<span class="fc" id="L246">				this.second.getPays().addMedailleArgent(-1);</span>
-<span class="fc" id="L247">				this.troisieme.getPays().addMedailleBronze(-1);</span>
-<span class="fc" id="L248">				this.majPodium();</span>
-<span class="fc" id="L249">				this.premier.getPays().addMedailleOr(1);</span>
-<span class="fc" id="L250">				this.second.getPays().addMedailleArgent(1);</span>
-<span class="fc" id="L251">				this.troisieme.getPays().addMedailleBronze(1);</span>
+				try{
+<span class="nc" id="L265">					System.out.println(&quot;oui&quot;);</span>
+<span class="nc" id="L266">					this.premier.getPays().addMedailleOr(-1);</span>
+<span class="nc" id="L267">					this.second.getPays().addMedailleArgent(-1);</span>
+<span class="nc" id="L268">					this.troisieme.getPays().addMedailleBronze(-1);</span>
+<span class="nc" id="L269">					this.majPodium();</span>
+<span class="nc" id="L270">					this.premier.getPays().addMedailleOr(1);</span>
+<span class="nc" id="L271">					this.second.getPays().addMedailleArgent(1);</span>
+<span class="nc" id="L272">					this.troisieme.getPays().addMedailleBronze(1);</span>
+<span class="nc" id="L273">					System.out.println(this.premier.getPays());</span>
+<span class="nc" id="L274">					System.out.println(this.second.getPays());</span>
+<span class="nc" id="L275">					System.out.println(this.troisieme.getPays());</span>
+<span class="nc" id="L276">				} catch(Exception e){</span>
+<span class="nc" id="L277">					System.err.println(&quot;Probleme maj médailles&quot;);</span>
+<span class="nc" id="L278">					System.err.println(e.getMessage());</span>
+<span class="nc" id="L279">				}</span>
 			}
 		}
-<span class="fc" id="L254">	}</span>
+<span class="fc" id="L282">		System.out.println();</span>
+<span class="fc" id="L283">	}</span>
+
+	@Override
+	public boolean equals(Object obj) {
+<span class="pc bpc" id="L287" title="1 of 2 branches missed.">		if(obj == null){return false;}</span>
+<span class="pc bpc" id="L288" title="1 of 2 branches missed.">		if(obj == this){return true;}</span>
+<span class="nc bnc" id="L289" title="All 2 branches missed.">		if (!(obj instanceof Epreuve)){return false;}</span>
+<span class="nc" id="L290">		Epreuve epreuve = (Epreuve) obj;</span>
+<span class="nc bnc" id="L291" title="All 6 branches missed.">		return epreuve.getDescription().equals(this.getDescription()) &amp;&amp; epreuve.getSexe() == this.getSexe() &amp;&amp; this.getSport().equals(epreuve.getSport());</span>
+	}
 
 	@Override
 	public String toString() {
-<span class="nc" id="L258">		return this.description + &quot; sport: &quot; + this.leSport.toString() + &quot; sexe: &quot; + this.sexe;</span>
+<span class="fc" id="L296">		return this.description + &quot; sport: &quot; + this.leSport.toString() + &quot; sexe: &quot; + this.sexe;</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
