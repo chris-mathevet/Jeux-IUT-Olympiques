@@ -41,9 +41,9 @@ public class Executable {
             " │  A - Menu Athlete                │\n" + 
             " │  E - Menu Equipe                 │\n" + 
             " │  P - Menu Pays                   │\n" + 
+            " │  V - Menu Epreuve                │\n" + 
             " │  L - Lancer toutes               │\n" + 
             " │      les épreuves                │\n" + 
-            " │  V - Menu Epreuve                │\n" + 
             " │  C - Voir le Classement          │\n" + 
             " │  I - Import CSV                  │\n" + 
             " │  Q - Quitter                     │\n" + 
