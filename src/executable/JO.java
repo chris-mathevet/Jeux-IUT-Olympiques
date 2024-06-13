@@ -167,7 +167,13 @@ public class JO {
                     String prenom= ligneElems[1];
                     char sexe= ligneElems[2].charAt(0);
                     String nomPays = ligneElems[3];
-                    Pays pays =  new Pays(nomPays);
+                    Pays pays;
+                    try {
+                        pays = getPays(nomPays);
+                    } catch (DoesntExistException e) {
+                        pays = new Pays(nomPays);
+                        this.lesPays.add(pays);
+                    }
                     String sport= ligneElems[4];
                     String epreuve = ligneElems[5];
                     int force=  Integer.parseInt(ligneElems[6]);
