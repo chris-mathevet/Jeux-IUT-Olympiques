@@ -89,19 +89,19 @@ public class Equipe extends ArrayList&lt;Athlete&gt; implements Participant{
 
 	@Override
 	public boolean equals(Object o) {
-<span class="nc bnc" id="L92" title="All 2 branches missed.">		if(o == null){return false;}</span>
-<span class="nc bnc" id="L93" title="All 2 branches missed.">		if(o == this){return true;}</span>
-<span class="nc bnc" id="L94" title="All 2 branches missed.">		if(! (o instanceof Equipe)){return false;}</span>
-<span class="nc" id="L95">		Equipe equipe = (Equipe) o;</span>
-<span class="nc" id="L96">		return this.nom.equals(equipe.getNom());</span>
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">		if(o == null){return false;}</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">		if(o == this){return true;}</span>
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">		if(! (o instanceof Equipe)){return false;}</span>
+<span class="fc" id="L95">		Equipe equipe = (Equipe) o;</span>
+<span class="fc" id="L96">		return this.nom.equals(equipe.getNom());</span>
 	}
 
 	@Override
 	public String toString() {
 <span class="fc" id="L101">		String res = this.nom +&quot; : \n&quot;;</span>
-<span class="pc bpc" id="L102" title="1 of 2 branches missed.">		for (Athlete athlete : this){</span>
-<span class="nc" id="L103">			res += athlete + &quot;,\n&quot;;</span>
-<span class="nc" id="L104">		}</span>
+<span class="fc bfc" id="L102" title="All 2 branches covered.">		for (Athlete athlete : this){</span>
+<span class="fc" id="L103">			res += athlete + &quot;,\n&quot;;</span>
+<span class="fc" id="L104">		}</span>
 <span class="fc" id="L105">		return res;</span>
 	}
 }

@@ -23,6 +23,8 @@ import sports.HandBall;
 public class TestEquipe {
     
     private Equipe equipe;
+    private Equipe equipe0;
+    private Equipe equipe00;
     private Pays fr;
     private Pays ge;
     private Athlete a0;
@@ -38,6 +40,8 @@ public class TestEquipe {
     @BeforeEach
     public void setUp() {
         equipe = new Equipe("France");
+        equipe0 = new Equipe("equals");
+        equipe00 = new Equipe("equals");
         fr = new Pays("France");
         ge = new Pays("Germany");
         a0 = new Athlete("init", "test", 'H', 0, 0, 0, fr);
@@ -144,8 +148,10 @@ public class TestEquipe {
     }
 
     @Test
-    public void testToString() {
-        assertEquals(equipe.toString(), "France, membre: []");
+    public void testToStringEquals() {
+        assertNotEquals(equipe, equipe0);
+        assertEquals(equipe0, equipe00);
+        assertEquals(equipe.toString(), "France : \n");
     }
 
 }
