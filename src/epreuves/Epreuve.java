@@ -197,7 +197,7 @@ public class Epreuve<T extends Participant> {
 		// Fabrication du classement selon les moyennes de résultat, 
 		// si il est en temps, le résultat est calculé selon la méthode du minimum (plus petit temps en premier)
 		// sinon le résultat est calculé selon la méthode du maximum (plus grand nombre de points en premier)
-		if(this.getSport().getEstTemsp()){
+		if(this.getSport().getEstTemps()){
 			for (int i = 0; i<resultats.size();++i){
 				indMinMax = Match.indiemeMin(resultats, i); // Indice du min
 				// Permutation du min et de l'actuel

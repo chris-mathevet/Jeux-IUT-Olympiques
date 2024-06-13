@@ -84,7 +84,7 @@ public abstract class Sport {
 	 * Retourne si le résultat du sport doit être un temps
 	 * @return boolean
 	 */
-	public boolean getEstTemsp(){
+	public boolean getEstTemps(){
 		return this.estTemps;
 	}
 
