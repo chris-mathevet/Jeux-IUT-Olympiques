@@ -47,8 +47,6 @@ public class JO {
         this.lesEquipes = new ArrayList<>();
         this.lesPays = new ArrayList<>();
         this.lesEpreuves = new ArrayList<>(Arrays.asList(
-            // epreuves = ["Natation 100 brasse", "Natation relais libre", "Handball", "Volley-Ball", "Escrime fleuret", "Escrime épée", "Athétisme 110 haies", "Athlétisme relais 400m"]
-
             new Epreuve<>("Natation 100 brasse",nat,'H'),
             new Epreuve<>("Natation 100 brasse",nat,'F'),
             new Epreuve<>("Natation relais libre",nat,'H'),
@@ -135,101 +133,115 @@ public class JO {
     }
 
     public Sport getSport(String nom)throws DoesntExistException{
-        // Sport entree = new Sport<>();
+        switch (nom) {
+            case "Athletisme":
+                return this.athle;
 
-        for (Sport unSport : this.lesSports){
-            if(unSport.getSport().equals(nom)){
-                return unSport;
-            }
+            case "Escrime":
+                return this.escr;
+
+            case "Handball":
+                return this.hand;
+
+            case "Voley-Ball":
+            case "Voley":
+                return this.voley;
+
+            case "Natation":
+                return this.nat;  
+        
+            default:
+                throw new DoesntExistException("Ce sport n'existe pas");
         }
-        throw new DoesntExistException("Cette equipe n'existe pas");
     }
 
     // CSV
 
     public void csvToListe(String chemin){
-        // List<Athlete> listeAthletes = new ArrayList<>();
-
         String ligne;
         String split =",";
         Epreuve<Athlete> vraiEpreuve;
+        String[] ligneElems;
+        Pays pays;
+        String nom;
+        String prenom;
+        char sexe;
+        String nomPays;
+        String sport;
+        String epreuve;
+        int force;
+        int endurance;
+        int agilite;
+        Athlete mich;
         
         try (BufferedReader line = new BufferedReader(new FileReader(chemin))){
             line.readLine();
             while ((ligne = line.readLine())!= null) {
-                
-                // tableau de String => String []
-                String[] ligneElems = ligne.split(split);
+                ligneElems = ligne.split(split);
                 if(ligneElems.length >=9){
                     try {
-                        
-                    String nom= ligneElems[0];
-                    String prenom= ligneElems[1];
-                    char sexe= ligneElems[2].charAt(0);
-                    String nomPays = ligneElems[3];
-                    Pays pays;
-                    try {
-                        pays = getPays(nomPays);
-                    } catch (DoesntExistException e) {
-                        pays = new Pays(nomPays);
-                        this.lesPays.add(pays);
-                    }
-                    String sport= ligneElems[4];
-                    String epreuve = ligneElems[5];
-                    int force=  Integer.parseInt(ligneElems[6]);
-                    int endurance = Integer.parseInt(ligneElems[7]);
-                    int agilite=  Integer.parseInt(ligneElems[8]);
-                    
-                    Athlete mich = new Athlete(nom,prenom,sexe,force,endurance,agilite,pays);
-                    
-                    // si athlete pas creee le cree, sinon l'add a une epreuve
-                    // incrire()
-                    if(!(this.lesAthletes.contains(mich))){
-                        this.lesAthletes.add(mich);
-                        addPays(pays);
-                        addSport(sport);
+                        nom= ligneElems[0];
+                        prenom= ligneElems[1];
+                        sexe= ligneElems[2].charAt(0);
+                        nomPays = ligneElems[3];
                         try {
-                            vraiEpreuve = (Epreuve<Athlete>) this.getEpreuve(epreuve, mich.getSexe());
-                            vraiEpreuve.inscrire(mich);    
-               
-                        } catch (DoesntExistException doesntExistException) {
-                            System.err.println("\n" + doesntExistException.getMessage() +"epreuve: "+ ((Epreuve<Athlete>) this.getEpreuve(epreuve, mich.getSexe())).getDescription() + "\n");
-                        } catch (CanNotRegisterException canNotRegisterException) {
-                            System.err.println("\n" + canNotRegisterException.getMessage() + "\n");
-                        } catch (AlreadyInException alreadyInException){
-                            System.err.println("\n" + alreadyInException.getMessage() + "\n");
-                        }catch (NotSameGenderException notSameGenderException){
-                            System.err.println("\n" + notSameGenderException.getMessage() + "\n");
-                        } catch (ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException){
-                            System.err.println("\nVous n'avez pas rentré assès de valeur, veillez recommencer.");
-                        } 
-                        
-                    }
-                    else{
-                        addPays(pays);
-                        addSport(sport);
+                            pays = getPays(nomPays);
+                        } catch (DoesntExistException e) {
+                            pays = new Pays(nomPays);
+                            this.lesPays.add(pays);
+                        }
+
+                        sport = ligneElems[4];
+                        epreuve = ligneElems[5];
                         try {
-                            vraiEpreuve = (Epreuve<Athlete>) this.getEpreuve(epreuve, mich.getSexe());
-                            vraiEpreuve.inscrire(mich);    
-               
-                        } catch (DoesntExistException doesntExistException) {
-                            System.err.println("\n" + doesntExistException.getMessage() +"epreuve: "+ ((Epreuve<Athlete>) this.getEpreuve(epreuve, mich.getSexe())).getDescription() + "\n");
-                        } catch (CanNotRegisterException canNotRegisterException) {
-                            System.err.println("\n" + canNotRegisterException.getMessage() + "\n");
-                        } catch (AlreadyInException alreadyInException){
-                            System.err.println("\n" + alreadyInException.getMessage() + "\n");
-                        }catch (NotSameGenderException notSameGenderException){
-                            System.err.println("\n" + notSameGenderException.getMessage() + "\n");
-                        } catch (ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException){
-                            System.err.println("\nVous n'avez pas rentré assès de valeur, veillez recommencer.");
-                        } 
+                            force =  Integer.parseInt(ligneElems[6]);
+                            endurance = Integer.parseInt(ligneElems[7]);
+                            agilite =  Integer.parseInt(ligneElems[8]);
+                            mich = new Athlete(nom,prenom,sexe,force,endurance,agilite,pays);
+                            try {
+                                LibCreation.creerAthlete(this.lesAthletes, mich);
+                                try {
+                                    vraiEpreuve = (Epreuve<Athlete>) this.getEpreuve(epreuve, mich.getSexe());
+                                    vraiEpreuve.inscrire(mich);    
+                    
+                                } catch (DoesntExistException doesntExistException) {
+                                    System.err.println("\n" + doesntExistException.getMessage() +"epreuve: "+ ((Epreuve<Athlete>) this.getEpreuve(epreuve, mich.getSexe())).getDescription() + "\n");
+                                } catch (CanNotRegisterException canNotRegisterException) {
+                                    System.err.println("\n" + canNotRegisterException.getMessage() + "\n");
+                                } catch (AlreadyInException alreadyInException){
+                                    System.err.println("\n" + alreadyInException.getMessage() + "\n");
+                                }catch (NotSameGenderException notSameGenderException){
+                                    System.err.println("\n" + notSameGenderException.getMessage() + "\n");
+                                } catch (ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException){
+                                    System.err.println("\nVous n'avez pas rentré assès de valeur, veillez recommencer.");
+                                } 
+                            } catch (AlreadyExistException e) {
+                                try {
+                                    vraiEpreuve = (Epreuve<Athlete>) this.getEpreuve(epreuve, mich.getSexe());
+                                    vraiEpreuve.inscrire(mich);    
+                    
+                                } catch (DoesntExistException doesntExistException) {
+                                    System.err.println("\n" + doesntExistException.getMessage() +"epreuve: "+ ((Epreuve<Athlete>) this.getEpreuve(epreuve, mich.getSexe())).getDescription() + "\n");
+                                } catch (CanNotRegisterException canNotRegisterException) {
+                                    System.err.println("\n" + canNotRegisterException.getMessage() + "\n");
+                                } catch (AlreadyInException alreadyInException){
+                                    System.err.println("\n" + alreadyInException.getMessage() + "\n");
+                                }catch (NotSameGenderException notSameGenderException){
+                                    System.err.println("\n" + notSameGenderException.getMessage() + "\n");
+                                } catch (ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException){
+                                    System.err.println("\nVous n'avez pas rentré assès de valeur, veillez recommencer.");
+                                } 
+                            }
+                        } catch (NumberFormatException e) {
+                            System.err.println("Problème format nombre, ligne : " + ligne);
+                        }
+                        // si athlete pas creee le cree, sinon l'add a une epreuve
+                        // incrire()
+                        
+                    } catch (Exception e) {
+                        System.out.println("erreur format ligne : "+ligne);
                     }
-                } catch (Exception e) {
-                    System.out.println("erreur format ligne : "+ligne);
                 }
-                 
-                }
-                
             }
         }catch (Exception e) {
             e.printStackTrace();  
@@ -238,14 +250,6 @@ public class JO {
 
 
     // Ajouts
-
-    public boolean addPays(Pays p){
-        if(!(this.lesPays.contains(p))){
-            this.lesPays.add(p);   
-            return true; // ajout du pays a la liste ? oui => true
-        }
-        return false; // ajout du pays a la liste ? non => false
-    }
 
     public boolean addSport(String s){
 
@@ -258,8 +262,6 @@ public class JO {
             ){
 
                 System.out.println("Sport existe deja");
-            
-            
         }
         switch (s) {
             case "Athletisme":
