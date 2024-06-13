@@ -725,6 +725,9 @@ public class JO {
         }
     }
 
-
-
+    public void lancerToutEpreuves(){
+        for (Epreuve<? extends Participant> epreuve : this.lesEpreuves){
+            epreuve.getLeClassement();
+        }
+    }
 }

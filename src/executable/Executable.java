@@ -41,6 +41,8 @@ public class Executable {
             " │  A - Menu Athlete                │\n" + 
             " │  E - Menu Equipe                 │\n" + 
             " │  P - Menu Pays                   │\n" + 
+            " │  L - Lancer toutes               │\n" + 
+            " │      les épreuves                │\n" + 
             " │  V - Menu Epreuve                │\n" + 
             " │  C - Voir le Classement          │\n" + 
             " │  I - Import CSV                  │\n" + 
@@ -65,6 +67,11 @@ public class Executable {
                 case "V":
                     returnedMode = Modes.EPREUVE;
                     menuStatement = false;
+                    break;
+
+                case "L":
+                    clearConsole();
+                    Executable.jo.lancerToutEpreuves();
                     break;
 
                 case "C":
