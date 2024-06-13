@@ -94,7 +94,7 @@ public class JO {
         return lesPays;
     }
 
-    private Pays getPays(String nom) throws DoesntExistException{   
+    public Pays getPays(String nom) throws DoesntExistException{   
         for (Pays pays : this.lesPays){
             if(pays.getNomPays().toUpperCase().equals(nom.toUpperCase())){
                 return pays;
@@ -103,7 +103,7 @@ public class JO {
         throw new DoesntExistException("Ce pays n'existe pas");
     }
 
-    private Equipe getEquipe(String nom) throws DoesntExistException{
+    public Equipe getEquipe(String nom) throws DoesntExistException{
         for (Equipe equipe : this.lesEquipes){
             if(equipe.getNom().equals(nom)){
                 return equipe;
@@ -112,7 +112,7 @@ public class JO {
         throw new DoesntExistException("Cette equipe n'existe pas");
     }
 
-    private Athlete getAthlete(String nom, String prenom, char sexe, String pays) throws DoesntExistException{
+    public Athlete getAthlete(String nom, String prenom, char sexe, String pays) throws DoesntExistException{
         Athlete entree = new Athlete(nom, prenom, sexe, 0, 0, 0, this.getPays(pays));
         for (Athlete athlete : this.lesAthletes){
             if(athlete.equals(entree)){
@@ -122,7 +122,7 @@ public class JO {
         throw new DoesntExistException("Cet athlete n'existe pas");
     }
 
-    private Epreuve<? extends Participant> getEpreuve(String epreuve, char sexe) throws DoesntExistException{
+    public Epreuve<? extends Participant> getEpreuve(String epreuve, char sexe) throws DoesntExistException{
         
         for (Epreuve<? extends Participant> epreuve2: this.lesEpreuves){
             if(epreuve2.getDescription().equals(epreuve) && epreuve2.getSexe() == sexe){
