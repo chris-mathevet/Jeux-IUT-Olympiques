@@ -245,9 +245,16 @@ public class Epreuve<T extends Participant> {
 			if(this.premier == null || this.second == null || this.troisieme == null){
 				this.majPodium();
 				try{
+					System.out.println(this.premier);
+					System.out.println(this.second);
+					System.out.println(this.troisieme);
 					this.premier.getPays().addMedailleOr(1);
 					this.second.getPays().addMedailleArgent(1);
 					this.troisieme.getPays().addMedailleBronze(1);
+					System.out.println(this.premier.getPays());
+					System.out.println(this.second.getPays());
+					System.out.println(this.troisieme.getPays());
+
 				} catch(Exception e){
 					System.err.println("Probleme maj médailles");
 					System.err.println(e.getMessage());
@@ -255,6 +262,7 @@ public class Epreuve<T extends Participant> {
 			}
 			else{
 				try{
+					System.out.println("oui");
 					this.premier.getPays().addMedailleOr(-1);
 					this.second.getPays().addMedailleArgent(-1);
 					this.troisieme.getPays().addMedailleBronze(-1);
@@ -262,12 +270,16 @@ public class Epreuve<T extends Participant> {
 					this.premier.getPays().addMedailleOr(1);
 					this.second.getPays().addMedailleArgent(1);
 					this.troisieme.getPays().addMedailleBronze(1);
+					System.out.println(this.premier.getPays());
+					System.out.println(this.second.getPays());
+					System.out.println(this.troisieme.getPays());
 				} catch(Exception e){
 					System.err.println("Probleme maj médailles");
 					System.err.println(e.getMessage());
 				}
 			}
 		}
+		System.out.println();
 	}
 
 	@Override

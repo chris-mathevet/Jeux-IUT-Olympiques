@@ -106,7 +106,7 @@ public class JO {
 
     private Pays getPays(String nom) throws DoesntExistException{   
         for (Pays pays : this.lesPays){
-            if(pays.getNomPays().equals(nom)){
+            if(pays.getNomPays().toUpperCase().equals(nom.toUpperCase())){
                 return pays;
             }
         }
