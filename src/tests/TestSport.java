@@ -97,11 +97,11 @@ public class TestSport {
 
     @Test
     public void testGetEstTemps() {
-        assertEquals(voley1.getEstTemsp(), false);
-        assertEquals(handBall1.getEstTemsp(), false);
-        assertEquals(natation1.getEstTemsp(), true);
-        assertEquals(escrime1.getEstTemsp(), false);
-        assertEquals(athletisme1.getEstTemsp(), true);
+        assertEquals(voley1.getEstTemps(), false);
+        assertEquals(handBall1.getEstTemps(), false);
+        assertEquals(natation1.getEstTemps(), true);
+        assertEquals(escrime1.getEstTemps(), false);
+        assertEquals(athletisme1.getEstTemps(), true);
     }
 
     @Test

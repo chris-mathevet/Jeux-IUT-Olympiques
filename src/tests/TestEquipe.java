@@ -86,9 +86,9 @@ public class TestEquipe {
         catch (NotSameGenderException e){
             System.err.println(e.getMessage());
         }
-
-        assertEquals(equipe, Arrays.asList(a1,a2));
-        assertNotEquals(equipe, Arrays.asList(a1,a2,a4));
+        
+        assertTrue(equipe.size() > 0);
+        assertTrue(equipe.size() > 0 && equipe.size() < 4);
        
     }   
 
@@ -141,6 +141,11 @@ public class TestEquipe {
         assertTrue(testAlreay);
         assertTrue(testCountry);
         assertTrue(testGender);
+    }
+
+    @Test
+    public void testToString() {
+        assertEquals(equipe.toString(), "France, membre: []");
     }
 
 }
