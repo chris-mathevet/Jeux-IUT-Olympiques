@@ -143,4 +143,9 @@ public class TestEquipe {
         assertTrue(testGender);
     }
 
+    @Test
+    public void testToString() {
+        assertEquals(equipe.toString(), "France, membre: []");
+    }
+
 }

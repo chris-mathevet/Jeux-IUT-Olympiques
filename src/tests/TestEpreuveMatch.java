@@ -369,4 +369,10 @@ public class TestEpreuveMatch {
         assertTrue(testNormal);
         assertTrue(testSexe);
     }
+
+    @Test
+    public void testToString() {
+        assertEquals(epreuve.toString(), "test sport: Voley,nb par equipe :6 sexe: H");
+        assertEquals(match.toString(), "test1");
+    }
 }

@@ -74,8 +74,8 @@ import sports.VoleyBall;
 <span class="fc" id="L74">        michelle = new Athlete(&quot;MICHMICH&quot;, &quot;Michelle&quot;, 'F', 12, 16, 14, france);</span>
 <span class="fc" id="L75">        shanka = new Athlete(&quot;ClERMONT&quot;, &quot;shanka&quot;, 'M', 19, 18, 9, france);</span>
 <span class="fc" id="L76">        bastien = new Athlete(&quot;MONET&quot;, &quot;bastien&quot;, 'M', 19, 18, 9, france);</span>
-<span class="fc" id="L77">        mettre110H = new Epreuve&lt;&gt;(&quot;110 m haies hommes&quot;, escrime, 'M');</span>
-<span class="fc" id="L78">        mettre110F = new Epreuve&lt;&gt;(&quot;110 m haies femmes&quot;, escrime, 'F');</span>
+<span class="fc" id="L77">        mettre110H = new Epreuve&lt;&gt;(&quot;Athletisme relais 110 haies&quot;, escrime, 'M');</span>
+<span class="fc" id="L78">        mettre110F = new Epreuve&lt;&gt;(&quot;Athletisme relais 110 haies&quot;, escrime, 'F');</span>
 <span class="fc" id="L79">        epreuve = new Epreuve&lt;&gt;(&quot;test&quot;, voley, 'M');</span>
 <span class="fc" id="L80">        riri = new Athlete(&quot;Duck&quot;, &quot;riri&quot;, 'M', 1, 8, 19, france);</span>
 <span class="fc" id="L81">        fifi = new Athlete(&quot;Duck&quot;, &quot;fifi&quot;, 'M', 12, 5, 9, france);</span>
@@ -93,10 +93,10 @@ import sports.VoleyBall;
 
 <span class="fc" id="L94">        athletisme = new Athletisme();</span>
 <span class="fc" id="L95">        natation = new Natation();</span>
-<span class="fc" id="L96">        athletisme110 = new Epreuve&lt;&gt;(&quot;110 m haies hommes&quot;, athletisme, 'M');</span>
-<span class="fc" id="L97">        athletisme4x110 = new Epreuve&lt;&gt;(&quot;4*110 m haies hommes&quot;, athletisme, 'M');</span>
-<span class="fc" id="L98">        natatione110 = new Epreuve&lt;&gt;(&quot;110 m nage libre hommes&quot;, natation, 'M');</span>
-<span class="fc" id="L99">        natation4x110 = new Epreuve&lt;&gt;(&quot;4*110 m nage libre hommes&quot;, natation, 'M');</span>
+<span class="fc" id="L96">        athletisme110 = new Epreuve&lt;&gt;(&quot;Athletisme 110 haies&quot;, athletisme, 'M');</span>
+<span class="fc" id="L97">        athletisme4x110 = new Epreuve&lt;&gt;(&quot;Athletisme relais 110 haies&quot;, athletisme, 'M');</span>
+<span class="fc" id="L98">        natatione110 = new Epreuve&lt;&gt;(&quot;Natation 100 libre&quot;, natation, 'M');</span>
+<span class="fc" id="L99">        natation4x110 = new Epreuve&lt;&gt;(&quot;Natation relais 100 libre&quot;, natation, 'M');</span>
 <span class="fc" id="L100">        matchsAthle100 = new Match&lt;&gt;(3, &quot;Tour athle 110&quot;, athletisme110);</span>
 <span class="fc" id="L101">        matchsAthle4x100 = new Match&lt;&gt;(0, &quot;Tour athle 4*110&quot;, athletisme4x110);</span>
 <span class="fc" id="L102">        matchsNatation100 = new Match&lt;&gt;(0, &quot;Tour nata 110&quot;, natatione110);</span>
@@ -306,7 +306,7 @@ import sports.VoleyBall;
 <span class="pc bpc" id="L306" title="1 of 2 branches missed.">            assertTrue(temps1 &lt;= 20.0);</span>
 <span class="fc" id="L307">        }</span>
 <span class="fc bfc" id="L308" title="All 2 branches covered.">        for (Double temps1 : resAthle4x100) {</span>
-<span class="fc bfc" id="L309" title="All 2 branches covered.">            assertTrue(temps1 &gt;= 30.2);</span>
+<span class="pc bpc" id="L309" title="1 of 2 branches missed.">            assertTrue(temps1 &gt;= 30.2);</span>
 <span class="pc bpc" id="L310" title="1 of 2 branches missed.">            assertTrue(temps1 &lt;= 40.0);</span>
 <span class="fc" id="L311">        }</span>
 <span class="fc bfc" id="L312" title="All 2 branches covered.">        for (Double temps1 : resNata100) {</span>
@@ -369,5 +369,11 @@ import sports.VoleyBall;
 <span class="fc" id="L369">        assertTrue(testNormal);</span>
 <span class="fc" id="L370">        assertTrue(testSexe);</span>
 <span class="fc" id="L371">    }</span>
+
+    @Test
+    public void testToString() {
+<span class="fc" id="L375">        assertEquals(epreuve.toString(), &quot;test sport: Voley,nb par equipe :6 sexe: H&quot;);</span>
+<span class="fc" id="L376">        assertEquals(match.toString(), &quot;test1&quot;);</span>
+<span class="fc" id="L377">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

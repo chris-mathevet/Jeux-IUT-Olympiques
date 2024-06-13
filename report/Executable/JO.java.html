@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">Executable</a> &gt; <span class="el_source">JO.java</span></div><h1>JO.java</h1><pre class="source lang-java linenums">package Executable;
+
+import epreuves.*;
+import database.*;
+import exceptions.*;
+import participants.*;
+import sports.*;
+import comparateurs.*;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+public class JO {
+    private List&lt;Sport&gt; lesSports;
+    private List&lt;Athlete&gt; lesAthletes;
+    private List&lt;Equipe&gt; lesEquipes;
+    private List&lt;Epreuve&lt;? extends Participant&gt;&gt; lesEpreuves;
+    private List&lt;Pays&gt; lesPays;
+
+<span class="nc" id="L24">    private enum tris{NATUREL, MEDAILLES, TOTAL}</span>
+
+    private VoleyBall voley;
+    private HandBall hand;
+    private Escrime escr;
+    private Natation nat;
+    private Athletisme athle;
+
+<span class="fc" id="L32">    public JO(){</span>
+<span class="fc" id="L33">        this.init();</span>
+<span class="fc" id="L34">    }</span>
+
+    public void csvToListe(String chemin){
+        // List&lt;Athlete&gt; listeAthletes = new ArrayList&lt;&gt;();
+
+        String ligne;
+<span class="nc" id="L40">        String split =&quot;,&quot;;</span>
+        Epreuve&lt;Athlete&gt; vraiEpreuve;
+        
+<span class="nc" id="L43">        try (BufferedReader line = new BufferedReader(new FileReader(chemin))){</span>
+<span class="nc" id="L44">            line.readLine();</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">            while ((ligne = line.readLine())!= null) {</span>
+                
+                // tableau de String =&gt; String []
+<span class="nc" id="L48">                String[] ligneElems = ligne.split(split);</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">                if(ligneElems.length &gt;=9){</span>
+                    try {
+                        
+<span class="nc" id="L52">                    String nom= ligneElems[0];</span>
+<span class="nc" id="L53">                    String prenom= ligneElems[1];</span>
+<span class="nc" id="L54">                    char sexe= ligneElems[2].charAt(0);</span>
+<span class="nc" id="L55">                    String nomPays = ligneElems[3];</span>
+<span class="nc" id="L56">                    Pays pays =  new Pays(nomPays);</span>
+<span class="nc" id="L57">                    String sport= ligneElems[4];</span>
+<span class="nc" id="L58">                    String epreuve = ligneElems[5];</span>
+<span class="nc" id="L59">                    int force=  Integer.parseInt(ligneElems[6]);</span>
+<span class="nc" id="L60">                    int endurance = Integer.parseInt(ligneElems[7]);</span>
+<span class="nc" id="L61">                    int agilite=  Integer.parseInt(ligneElems[8]);</span>
+                    
+<span class="nc" id="L63">                    Athlete mich = new Athlete(nom,prenom,sexe,force,endurance,agilite,pays);</span>
+                    
+                    // si athlete pas creee le cree, sinon l'add a une epreuve
+                    // incrire()
+<span class="nc bnc" id="L67" title="All 2 branches missed.">                    if(!(this.lesAthletes.contains(mich))){</span>
+<span class="nc" id="L68">                        this.lesAthletes.add(mich);</span>
+<span class="nc" id="L69">                        addPays(pays);</span>
+<span class="nc" id="L70">                        addSport(sport);</span>
+                        try {
+<span class="nc" id="L72">                            vraiEpreuve = (Epreuve&lt;Athlete&gt;) this.getEpreuve(epreuve);</span>
+<span class="nc" id="L73">                            vraiEpreuve.inscrire(mich);    </span>
+<span class="nc" id="L74">                        } catch (Exception e) {</span>
+<span class="nc" id="L75">                            System.err.println(&quot;erreur inscription&quot;);</span>
+<span class="nc" id="L76">                        }</span>
+                        
+                    }
+                    else{
+<span class="nc" id="L80">                        addPays(pays);</span>
+<span class="nc" id="L81">                        addSport(sport);</span>
+                        try {
+<span class="nc" id="L83">                            vraiEpreuve = (Epreuve&lt;Athlete&gt;) this.getEpreuve(epreuve);</span>
+<span class="nc" id="L84">                            vraiEpreuve.inscrire(mich);    </span>
+<span class="nc" id="L85">                        } catch (Exception e) {</span>
+<span class="nc" id="L86">                            System.err.println(&quot;erreur inscription&quot;);</span>
+<span class="nc" id="L87">                        }</span>
+                    }
+<span class="nc" id="L89">                } catch (Exception e) {</span>
+<span class="nc" id="L90">                    System.out.println(&quot;erreur format ligne : &quot;+ligne);</span>
+<span class="nc" id="L91">                }</span>
+                 
+                }
+                
+<span class="nc" id="L95">            }</span>
+<span class="nc" id="L96">        }catch (Exception e) {</span>
+<span class="nc" id="L97">            e.printStackTrace();  </span>
+<span class="nc" id="L98">        }</span>
+<span class="nc" id="L99">    }</span>
+    public boolean addPays(Pays p){
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">        if(!(this.lesPays.contains(p))){</span>
+<span class="fc" id="L102">            this.lesPays.add(p);   </span>
+<span class="fc" id="L103">            return true; // ajout du pays a la liste ? oui =&gt; true</span>
+        }
+<span class="nc" id="L105">        return false; // ajout du pays a la liste ? non =&gt; false</span>
+    }
+
+    public boolean addSport(String s){
+
+<span class="pc bpc" id="L110" title="1 of 2 branches missed.">        if (s.equals(this.athle.getSport()) </span>
+<span class="pc bpc" id="L111" title="1 of 2 branches missed.">            || s.equals(this.athle.getSport())</span>
+<span class="pc bpc" id="L112" title="1 of 2 branches missed.">            || s.equals(this.escr.getSport()) </span>
+<span class="pc bpc" id="L113" title="1 of 2 branches missed.">            || s.equals(this.hand.getSport())</span>
+<span class="pc bpc" id="L114" title="1 of 2 branches missed.">            || s.equals(this.voley.getSport())</span>
+<span class="pc bpc" id="L115" title="1 of 2 branches missed.">            || s.equals(this.nat.getSport())</span>
+            ){
+
+<span class="nc" id="L118">                System.out.println(&quot;Sport existe deja&quot;);</span>
+            
+            
+        }
+<span class="pc bpc" id="L122" title="5 of 6 branches missed.">        switch (s) {</span>
+            case &quot;Athletisme&quot;:
+<span class="nc" id="L124">                this.athle = new Athletisme();</span>
+<span class="nc" id="L125">                break;</span>
+
+            case &quot;Escrime&quot;:
+<span class="nc" id="L128">                this.escr = new Escrime();</span>
+<span class="nc" id="L129">                break;</span>
+
+            case &quot;Handball&quot;:
+<span class="nc" id="L132">                this.hand = new HandBall();</span>
+<span class="nc" id="L133">                break;</span>
+
+            case &quot;Voley-Ball&quot;:
+            case &quot;Voley&quot;:
+<span class="nc" id="L137">                this.voley = new VoleyBall();</span>
+<span class="nc" id="L138">                break;</span>
+
+            case &quot;Natation&quot;:
+<span class="nc" id="L141">                this.nat = new Natation();  </span>
+<span class="nc" id="L142">                break;</span>
+        
+            default:
+<span class="fc" id="L145">            System.err.println(&quot;Erreur lors de la creation du sport&quot;);</span>
+                break;
+        }
+<span class="fc" id="L148">        return true;</span>
+    }
+
+    public Epreuve&lt;? extends Participant&gt; getEpreuve(String epreuve){
+        
+<span class="nc bnc" id="L153" title="All 2 branches missed.">        for (Epreuve&lt;? extends Participant&gt; epreuve2: this.lesEpreuves){</span>
+<span class="nc bnc" id="L154" title="All 2 branches missed.">            if(epreuve2.getDescription().equals(epreuve)){</span>
+<span class="nc" id="L155">                return epreuve2;</span>
+            }
+<span class="nc" id="L157">        }</span>
+<span class="nc" id="L158">        return null;</span>
+    }
+
+    public void triPays(tris leTri){
+<span class="nc bnc" id="L162" title="All 3 branches missed.">        switch (leTri) {</span>
+            case MEDAILLES:
+<span class="nc" id="L164">                Collections.sort(lesPays, new ComparateurMedailles());</span>
+<span class="nc" id="L165">                break;</span>
+            
+            case TOTAL:
+<span class="nc" id="L168">                Collections.sort(lesPays, new ComparateurTotal());</span>
+<span class="nc" id="L169">                break;</span>
+        
+            default:
+<span class="nc" id="L172">                Collections.sort(lesPays);</span>
+                break;
+        }
+<span class="nc" id="L175">    }</span>
+
+    public Pays getPays(String nom) throws DoesntExistException{
+<span class="fc bfc" id="L178" title="All 2 branches covered.">        for (Pays pays : this.lesPays){</span>
+<span class="fc bfc" id="L179" title="All 2 branches covered.">            if(pays.getNomPays().equals(nom)){</span>
+<span class="fc" id="L180">                return pays;</span>
+            }
+<span class="fc" id="L182">        }</span>
+<span class="fc" id="L183">        throw new DoesntExistException(&quot;Ce pays n'existe pas&quot;);</span>
+    }
+
+    public Equipe getEquipe(String nom) throws DoesntExistException{
+<span class="nc bnc" id="L187" title="All 2 branches missed.">        for (Equipe equipe : this.lesEquipes){</span>
+<span class="nc bnc" id="L188" title="All 2 branches missed.">            if(equipe.getNom().equals(nom)){</span>
+<span class="nc" id="L189">                return equipe;</span>
+            }
+<span class="nc" id="L191">        }</span>
+<span class="nc" id="L192">        throw new DoesntExistException(&quot;Cette equipe n'existe pas&quot;);</span>
+    }
+
+    public Athlete getAthlete(String nom, String prenom, char sexe, String pays) throws DoesntExistException{
+<span class="nc" id="L196">        Athlete entree = new Athlete(nom, prenom, sexe, 0, 0, 0, this.getPays(pays));</span>
+<span class="nc bnc" id="L197" title="All 2 branches missed.">        for (Athlete athlete : this.lesAthletes){</span>
+<span class="nc bnc" id="L198" title="All 2 branches missed.">            if(athlete.equals(entree)){</span>
+<span class="nc" id="L199">                return athlete;</span>
+            }
+<span class="nc" id="L201">        }</span>
+<span class="nc" id="L202">        throw new DoesntExistException(&quot;Cet athlete n'existe pas&quot;);</span>
+    }
+
+    public void init(){
+<span class="fc" id="L206">        this.voley = new VoleyBall();</span>
+<span class="fc" id="L207">        this.hand = new HandBall();</span>
+<span class="fc" id="L208">        this.escr = new Escrime();</span>
+<span class="fc" id="L209">        this.nat = new Natation();</span>
+<span class="fc" id="L210">        this.athle = new Athletisme();</span>
+
+<span class="fc" id="L212">        this.lesSports = Arrays.asList(voley,hand,escr,nat,athle);</span>
+<span class="fc" id="L213">        this.lesAthletes = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L214">        this.lesEquipes = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L215">        this.lesEpreuves = Arrays.asList(</span>
+            // epreuves = [&quot;Natation 100 brasse&quot;, &quot;Natation relais libre&quot;, &quot;Handball&quot;, &quot;Volley-Ball&quot;, &quot;Escrime fleuret&quot;, &quot;Escrime épée&quot;, &quot;Athétisme 110 haies&quot;, &quot;Athlétisme relais 400m&quot;]
+
+            new Epreuve&lt;&gt;(&quot;Natation 100 brasse&quot;,nat,'H'),
+            new Epreuve&lt;&gt;(&quot;Natation 100 brasse&quot;,nat,'F'),
+            new Epreuve&lt;&gt;(&quot;Natation relais libre&quot;,nat,'H'),
+            new Epreuve&lt;&gt;(&quot;Natation relais libre&quot;,nat,'F'),
+            new Epreuve&lt;&gt;(&quot;Handball&quot;,hand,'H'),
+            new Epreuve&lt;&gt;(&quot;Handball&quot;,hand,'F'),
+            new Epreuve&lt;&gt;(&quot;Voley-Ball&quot;,voley,'H'),
+            new Epreuve&lt;&gt;(&quot;Voley-Ball&quot;,voley,'F'),
+            new Epreuve&lt;&gt;(&quot;Escrime fleuret&quot;,escr,'H'),
+            new Epreuve&lt;&gt;(&quot;Escrime fleuret&quot;,escr,'F'),
+            new Epreuve&lt;&gt;(&quot;Escrime épée&quot;,escr,'H'),
+            new Epreuve&lt;&gt;(&quot;Escrime épée&quot;,escr,'F'),
+            new Epreuve&lt;&gt;(&quot;Athétisme 110 haies&quot;,athle,'H'),
+            new Epreuve&lt;&gt;(&quot;Athétisme 110 haies&quot;,athle,'F'),
+            new Epreuve&lt;&gt;(&quot;Athlétisme relais 400m&quot;,athle,'H'),
+            new Epreuve&lt;&gt;(&quot;Athlétisme relais 400m&quot;,athle,'F')
+        );
+<span class="fc" id="L235">        this.lesPays = new ArrayList&lt;&gt;();</span>
+        // Import de la BD
+<span class="fc" id="L237">    }   </span>
+
+    public void creerPays(){
+<span class="nc" id="L240">        boolean condition = true;</span>
+        String commandePays;
+<span class="nc bnc" id="L242" title="All 2 branches missed.">        while (condition) {</span>
+<span class="nc" id="L243">            System.out.println(&quot;Vous allez créer un pays\nEntrez un nom de Pays\n(Ecrivez 0000 pour revenir en arrière)&quot;);</span>
+<span class="nc" id="L244">            commandePays = System.console().readLine().strip();</span>
+<span class="nc bnc" id="L245" title="All 2 branches missed.">            condition = ! (commandePays.equals(&quot;0000&quot;));</span>
+<span class="nc bnc" id="L246" title="All 2 branches missed.">            if(condition){</span>
+                try {
+<span class="nc" id="L248">                    System.out.println(&quot;Etes vous sur de vouloir créer le pays: &quot; + commandePays + &quot; ? (O/N)&quot;);</span>
+<span class="nc bnc" id="L249" title="All 2 branches missed.">                    if(System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;)){</span>
+<span class="nc" id="L250">                        LibCreation.creerPays(lesPays, commandePays);</span>
+<span class="nc" id="L251">                        System.out.println(&quot;Pays ajouté avec succès.&quot;);</span>
+                    }
+<span class="nc" id="L253">                    else{System.out.println(&quot;Annulation de la création.&quot;);}</span>
+<span class="nc" id="L254">                    condition = false;</span>
+<span class="nc" id="L255">                } catch (AlreadyExistException e) {</span>
+<span class="nc" id="L256">                    System.err.println(e.getMessage());</span>
+<span class="nc" id="L257">                }</span>
+            }
+        }
+<span class="nc" id="L260">    }</span>
+
+    public void creerAthelete(){
+<span class="nc" id="L263">        boolean condition = true;</span>
+        String[] entree;
+        
+<span class="nc bnc" id="L266" title="All 2 branches missed.">        while (condition) {</span>
+<span class="nc" id="L267">            System.out.println(&quot;Vous allez créer un Athlete\nEntrez les différents chants dans l'ordre en les espaçant par des \&quot;,\&quot; \nNom,prenom,sexe(H/F),force(1-20),agilité(1-20),endurance(1-20),pays\n(Ecrivez 0000 pour revenir en arrière)&quot;);</span>
+<span class="nc" id="L268">            entree = System.console().readLine().strip().split(&quot;,&quot;);</span>
+<span class="nc bnc" id="L269" title="All 2 branches missed.">            condition = ! (entree[0].equals(&quot;0000&quot;));</span>
+<span class="nc bnc" id="L270" title="All 2 branches missed.">            if(condition){</span>
+                try {
+<span class="nc" id="L272">                    Athlete athlete = new Athlete(entree[0], entree[1], entree[2].charAt(0), Integer.valueOf(entree[3]), Integer.valueOf(entree[4]), Integer.valueOf(entree[5]),this.getPays(entree[6]));</span>
+<span class="nc" id="L273">                    System.out.println(&quot;Etes vous sur de vouloir créer cet athlete ? (O/N)\n&quot; + athlete);</span>
+<span class="nc bnc" id="L274" title="All 2 branches missed.">                    if(System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;)){</span>
+<span class="nc" id="L275">                        LibCreation.creerAthlete(this.lesAthletes,athlete);</span>
+<span class="nc" id="L276">                        System.out.println(&quot;Athlete créé avec succès&quot;);</span>
+                    }
+<span class="nc" id="L278">                    else{System.out.println(&quot;Annulation de la création.&quot;);}                    </span>
+<span class="nc" id="L279">                    condition = false;</span>
+<span class="nc" id="L280">                } catch(ArrayIndexOutOfBoundsException e) {</span>
+<span class="nc" id="L281">                    System.err.println(&quot;Vous n'avez pas rentré assès de valeur, veillez recommencer.&quot;);</span>
+<span class="nc" id="L282">                } catch (NumberFormatException e) {</span>
+<span class="nc" id="L283">                    System.err.println(&quot;Valeur incorecte pour les capacités, veillez recommencer.&quot;);</span>
+<span class="nc" id="L284">                } catch (AlreadyExistException e){</span>
+<span class="nc" id="L285">                    System.err.println(e.getMessage());</span>
+<span class="nc" id="L286">                    condition = false;</span>
+<span class="nc" id="L287">                } catch (DoesntExistException e){</span>
+<span class="nc" id="L288">                    System.out.println(&quot;Ce pays n'existe pas, voulez vous le créer ? (O/N)&quot;);</span>
+<span class="nc bnc" id="L289" title="All 2 branches missed.">                    if ((System.console().readLine().strip().toUpperCase()).equals(&quot;O&quot;)){</span>
+                        try {
+<span class="nc" id="L291">                            LibCreation.creerPays(this.lesPays, entree[6]);</span>
+<span class="nc" id="L292">                            System.out.println(&quot;Pays créé avec succès, réessayer de créer l'athlete.&quot;);</span>
+<span class="nc" id="L293">                        } catch (AlreadyExistException e2) {</span>
+<span class="nc" id="L294">                            System.err.println(&quot;Ce message n'est pas censé apparaître&quot;);</span>
+<span class="nc" id="L295">                        }</span>
+                    }
+<span class="nc" id="L297">                }</span>
+            }      
+        }
+<span class="nc" id="L300">    }</span>
+
+    public void creerEquipe(){
+<span class="fc" id="L303">        boolean condition = true;</span>
+        String nom;
+<span class="fc bfc" id="L305" title="All 2 branches covered.">        while (condition) {</span>
+<span class="fc" id="L306">            System.out.println(&quot;Vous allez créer une Equipe\nEntrez un nom d'Equipe.\n(Ecrivez 0000 pour revenir en arrière)&quot;);</span>
+<span class="fc" id="L307">            nom = System.console().readLine().strip();</span>
+<span class="pc bpc" id="L308" title="1 of 2 branches missed.">            condition = ! (nom.equals(&quot;0000&quot;));</span>
+<span class="pc bpc" id="L309" title="1 of 2 branches missed.">            if(condition){</span>
+                try {
+<span class="nc" id="L311">                    System.out.println(&quot;Etes vous sur de vouloir créer l'équipe : &quot; + nom + &quot; (O/N)&quot;);</span>
+<span class="nc bnc" id="L312" title="All 2 branches missed.">                    if(System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;)){</span>
+<span class="nc" id="L313">                        LibCreation.creerEquipe(this.lesEquipes, nom);</span>
+<span class="nc" id="L314">                        System.out.println(&quot;Equipe créé avec succès&quot;);</span>
+                    }
+                    else{
+<span class="nc" id="L317">                        System.out.println(&quot;Annulation de la création.&quot;);</span>
+                    }
+<span class="nc" id="L319">                    condition = false;</span>
+<span class="nc" id="L320">                } catch (AlreadyExistException e) {</span>
+<span class="nc" id="L321">                    System.err.println(e.getMessage());</span>
+<span class="nc" id="L322">                }</span>
+            }            
+        }
+<span class="fc" id="L325">    }</span>
+
+    public void ajoutAthleteEquipe(){
+<span class="nc" id="L328">        boolean condition = true;</span>
+<span class="nc" id="L329">        boolean condition2 = true;</span>
+<span class="nc" id="L330">        String nomEquipe = &quot;&quot;; </span>
+        Equipe equipe;
+        String[] entreeAthlete;
+<span class="nc bnc" id="L333" title="All 2 branches missed.">        while (condition) {</span>
+            try {
+<span class="nc" id="L335">                System.out.println(&quot;Vous allez ajouter un athlete à une équipe\nEntrez un nom d'Equipe.\n(Ecrivez 0000 pour revenir en arrière)&quot;);</span>
+<span class="nc" id="L336">                nomEquipe = System.console().readLine().strip();</span>
+<span class="nc bnc" id="L337" title="All 2 branches missed.">                condition = ! (nomEquipe.equals(&quot;0000&quot;));</span>
+<span class="nc bnc" id="L338" title="All 2 branches missed.">                if(condition){</span>
+<span class="nc" id="L339">                    equipe = this.getEquipe(nomEquipe);</span>
+<span class="nc bnc" id="L340" title="All 2 branches missed.">                    while (condition2) {</span>
+<span class="nc" id="L341">                        System.out.println(&quot;Vous avez sélectionnez l'équipe &quot; + nomEquipe +&quot;\n Entrez les différents chants dans l'ordre en les espaçant par des \&quot;,\&quot; \n&quot; + </span>
+                                                    &quot;Nom,prenom,sexe(H/F),pays\n&quot; +
+                                                    &quot;(Ecrivez 0000 pour revenir en arrière)&quot;);
+<span class="nc" id="L344">                        entreeAthlete = System.console().readLine().strip().split(&quot;,&quot;);</span>
+<span class="nc bnc" id="L345" title="All 2 branches missed.">                        condition2 = ! (entreeAthlete[0].equals(&quot;0000&quot;));</span>
+<span class="nc bnc" id="L346" title="All 2 branches missed.">                        if (condition2){</span>
+                            try {
+<span class="nc" id="L348">                                equipe.ajouter(this.getAthlete(entreeAthlete[0], entreeAthlete[1], entreeAthlete[2].charAt(0), entreeAthlete[3]));</span>
+<span class="nc" id="L349">                                System.out.println(&quot;Athlete ajouté à l'équipe avec succès, continuer ? (O/N)&quot;);</span>
+<span class="nc" id="L350">                                condition2 = System.console().readLine().strip().equals(&quot;O&quot;);</span>
+<span class="nc" id="L351">                            } catch (DoesntExistException doesntExistException) {</span>
+<span class="nc" id="L352">                                System.err.println(doesntExistException.getMessage());</span>
+<span class="nc" id="L353">                            } catch (AlreadyInException alreadyInException){</span>
+<span class="nc" id="L354">                                System.err.println(alreadyInException.getMessage());</span>
+<span class="nc" id="L355">                            } catch (NotSameCountryException notSameCountryException){</span>
+<span class="nc" id="L356">                                System.err.println(notSameCountryException.getMessage());</span>
+<span class="nc" id="L357">                            } catch (NotSameGenderException notSameGenderException){</span>
+<span class="nc" id="L358">                                System.err.println(notSameGenderException.getMessage());</span>
+<span class="nc" id="L359">                            } catch (ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException){</span>
+<span class="nc" id="L360">                                System.err.println(&quot;Vous n'avez pas rentré assès de valeur, veillez recommencer.&quot;);</span>
+<span class="nc" id="L361">                            } </span>
+                        }
+                    }
+<span class="nc" id="L364">                    condition = false;</span>
+                }
+<span class="nc" id="L366">            } catch (DoesntExistException e) {</span>
+<span class="nc" id="L367">                System.out.println(&quot;L'équipe &quot; + nomEquipe + &quot; n'existe pas, voulez vous la créer ? (O/N)&quot;);</span>
+<span class="nc bnc" id="L368" title="All 2 branches missed.">                if(System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;)){</span>
+                    try {
+<span class="nc" id="L370">                        LibCreation.creerEquipe(this.lesEquipes, nomEquipe);</span>
+<span class="nc" id="L371">                        System.out.println(&quot;Equipe créé avec succès, veuillez réessayer d'ajouter l'athlete.&quot;);</span>
+<span class="nc" id="L372">                    } catch (AlreadyExistException e2) {</span>
+<span class="nc" id="L373">                        System.err.println(&quot;Ce message n'est pas censé apparaître&quot;);</span>
+<span class="nc" id="L374">                    }</span>
+                }
+                else{
+<span class="nc" id="L377">                    System.out.println(&quot;Veuillez entrer un nom d'équipe corecte.&quot;);</span>
+                }
+<span class="nc" id="L379">            }</span>
+        }
+<span class="nc" id="L381">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

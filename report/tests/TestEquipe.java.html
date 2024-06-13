@@ -86,9 +86,9 @@ import sports.HandBall;
 <span class="fc" id="L86">        catch (NotSameGenderException e){</span>
 <span class="fc" id="L87">            System.err.println(e.getMessage());</span>
 <span class="nc" id="L88">        }</span>
-
-<span class="fc" id="L90">        assertEquals(equipe, Arrays.asList(a1,a2));</span>
-<span class="fc" id="L91">        assertNotEquals(equipe, Arrays.asList(a1,a2,a4));</span>
+        
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">        assertTrue(equipe.size() &gt; 0);</span>
+<span class="pc bpc" id="L91" title="2 of 4 branches missed.">        assertTrue(equipe.size() &gt; 0 &amp;&amp; equipe.size() &lt; 4);</span>
        
 <span class="fc" id="L93">    }   </span>
 
@@ -142,6 +142,11 @@ import sports.HandBall;
 <span class="fc" id="L142">        assertTrue(testCountry);</span>
 <span class="fc" id="L143">        assertTrue(testGender);</span>
 <span class="fc" id="L144">    }</span>
+
+    @Test
+    public void testToString() {
+<span class="fc" id="L148">        assertEquals(equipe.toString(), &quot;France, membre: []&quot;);</span>
+<span class="fc" id="L149">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

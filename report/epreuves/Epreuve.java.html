@@ -235,27 +235,27 @@ public class Epreuve&lt;T extends Participant&gt; {
 	 */
 	public void majMedailles(){
 <span class="pc bpc" id="L237" title="1 of 2 branches missed.">		if(this.leClassement != null){</span>
-<span class="fc bfc" id="L238" title="All 2 branches covered.">			if(this.premier == null){</span>
+<span class="pc bpc" id="L238" title="1 of 2 branches missed.">			if(this.premier == null){</span>
 <span class="fc" id="L239">				this.majPodium();</span>
 <span class="fc" id="L240">				this.premier.getPays().addMedailleOr(1);</span>
 <span class="fc" id="L241">				this.second.getPays().addMedailleArgent(1);</span>
 <span class="fc" id="L242">				this.troisieme.getPays().addMedailleBronze(1);</span>
 			}
 			else{
-<span class="fc" id="L245">				this.premier.getPays().addMedailleOr(-1);</span>
-<span class="fc" id="L246">				this.second.getPays().addMedailleArgent(-1);</span>
-<span class="fc" id="L247">				this.troisieme.getPays().addMedailleBronze(-1);</span>
-<span class="fc" id="L248">				this.majPodium();</span>
-<span class="fc" id="L249">				this.premier.getPays().addMedailleOr(1);</span>
-<span class="fc" id="L250">				this.second.getPays().addMedailleArgent(1);</span>
-<span class="fc" id="L251">				this.troisieme.getPays().addMedailleBronze(1);</span>
+<span class="nc" id="L245">				this.premier.getPays().addMedailleOr(-1);</span>
+<span class="nc" id="L246">				this.second.getPays().addMedailleArgent(-1);</span>
+<span class="nc" id="L247">				this.troisieme.getPays().addMedailleBronze(-1);</span>
+<span class="nc" id="L248">				this.majPodium();</span>
+<span class="nc" id="L249">				this.premier.getPays().addMedailleOr(1);</span>
+<span class="nc" id="L250">				this.second.getPays().addMedailleArgent(1);</span>
+<span class="nc" id="L251">				this.troisieme.getPays().addMedailleBronze(1);</span>
 			}
 		}
 <span class="fc" id="L254">	}</span>
 
 	@Override
 	public String toString() {
-<span class="nc" id="L258">		return this.description + &quot; sport: &quot; + this.leSport.toString() + &quot; sexe: &quot; + this.sexe;</span>
+<span class="fc" id="L258">		return this.description + &quot; sport: &quot; + this.leSport.toString() + &quot; sexe: &quot; + this.sexe;</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

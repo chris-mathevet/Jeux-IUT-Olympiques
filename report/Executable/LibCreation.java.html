@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LibCreation.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">Executable</a> &gt; <span class="el_source">LibCreation.java</span></div><h1>LibCreation.java</h1><pre class="source lang-java linenums">package Executable;
+
+import java.util.List;
+
+import exceptions.AlreadyExistException;
+import participants.Athlete;
+import participants.Equipe;
+import participants.Pays;
+
+public class LibCreation {
+    private LibCreation(){}
+
+    public static void creerAthlete(List&lt;Athlete&gt; lesAthletes, Athlete athlete)
+    throws AlreadyExistException{
+<span class="nc bnc" id="L15" title="All 2 branches missed.">        if(!lesAthletes.contains(athlete)){</span>
+<span class="nc" id="L16">            lesAthletes.add(athlete);</span>
+        }
+        else{
+<span class="nc" id="L19">            throw new AlreadyExistException(&quot;Cet athlete existe déjà&quot;);</span>
+        }
+<span class="nc" id="L21">    }</span>
+
+    public static void creerEquipe(List&lt;Equipe&gt; lesEquipes, String nom)
+    throws AlreadyExistException{
+<span class="nc" id="L25">        Equipe equipe = new Equipe(nom);</span>
+<span class="nc bnc" id="L26" title="All 2 branches missed.">        if(!lesEquipes.contains(equipe)){</span>
+<span class="nc" id="L27">            lesEquipes.add(equipe);</span>
+        }
+        else{
+<span class="nc" id="L30">            throw new AlreadyExistException(&quot;Cette equipe existe déjà&quot;);</span>
+        }
+<span class="nc" id="L32">    }</span>
+
+    public static void creerPays(List&lt;Pays&gt; lesPays, String nom)
+    throws AlreadyExistException{
+<span class="nc" id="L36">        Pays pays = new Pays(nom);</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">        if(!lesPays.contains(pays)){</span>
+<span class="nc" id="L38">            lesPays.add(pays);</span>
+        }
+        else{
+<span class="nc" id="L41">            throw new AlreadyExistException(&quot;Ce pays existe déjà&quot;);</span>
+        }
+<span class="nc" id="L43">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
