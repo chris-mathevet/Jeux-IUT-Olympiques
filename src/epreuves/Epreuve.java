@@ -256,7 +256,7 @@ public class Epreuve<T extends Participant> {
 					System.out.println(this.troisieme.getPays());
 
 				} catch(Exception e){
-					System.err.println("Probleme maj médailles");
+					System.err.println("Probleme maj médailles, pas accès de participant pour cet épreuve");
 					System.err.println(e.getMessage());
 				}
 			}
@@ -274,7 +274,7 @@ public class Epreuve<T extends Participant> {
 					System.out.println(this.second.getPays());
 					System.out.println(this.troisieme.getPays());
 				} catch(Exception e){
-					System.err.println("Probleme maj médailles");
+					System.err.println("Probleme maj médailles, pas accès de participant pour cet épreuve");
 					System.err.println(e.getMessage());
 				}
 			}
