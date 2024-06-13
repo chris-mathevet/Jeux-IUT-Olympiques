@@ -28,40 +28,60 @@ import sports.VoleyBall;
     
     private JO jo;
 
+
     @BeforeEach
     public void setUp() {
-<span class="fc" id="L33">        jo = new JO();</span>
+<span class="fc" id="L34">        jo = new JO();</span>
         try {
-<span class="fc" id="L35">            LibCreation.creerPays(jo.getLesPays(), &quot;France&quot;);</span>
+<span class="fc" id="L36">            LibCreation.creerPays(jo.getLesPays(), &quot;France&quot;);</span>
             
-<span class="nc" id="L37">        } catch (AlreadyExistException e) {</span>
-<span class="fc" id="L38">        }</span>
-<span class="fc" id="L39">        jo.addSport(&quot;VolleyBall&quot;);</span>
-<span class="fc" id="L40">        jo.creerEquipe();</span>
-<span class="fc" id="L41">    }</span>
+<span class="nc" id="L38">        } catch (AlreadyExistException e) {</span>
+<span class="fc" id="L39">        }</span>
+<span class="fc" id="L40">        jo.addSport(&quot;VolleyBall&quot;);</span>
+<span class="fc" id="L41">        jo.creerEquipe();</span>
+<span class="fc" id="L42">    }</span>
 
     @Test
     public void testGetPays() {
 
-<span class="fc" id="L46">        boolean testDoesnt = false;</span>
+<span class="fc" id="L47">        boolean testDoesnt = false;</span>
 
         try {
-<span class="fc" id="L49">            jo.getPays(&quot;France&quot;);</span>
-<span class="nc" id="L50">        } catch (DoesntExistException e) {</span>
-<span class="nc" id="L51">            System.err.println(e.getMessage());</span>
-<span class="fc" id="L52">        }</span>
+<span class="fc" id="L50">            jo.getPays(&quot;France&quot;);</span>
+<span class="nc" id="L51">        } catch (DoesntExistException e) {</span>
+<span class="nc" id="L52">            System.err.println(e.getMessage());</span>
+<span class="fc" id="L53">        }</span>
 
         try {
-<span class="nc" id="L55">            jo.getPays(&quot;Congo&quot;);</span>
-<span class="fc" id="L56">        } catch (DoesntExistException e) {</span>
-<span class="fc" id="L57">            System.err.println(e.getMessage());</span>
-<span class="fc" id="L58">            testDoesnt = true;</span>
-<span class="nc" id="L59">        }</span>
+<span class="nc" id="L56">            jo.getPays(&quot;Congo&quot;);</span>
+<span class="fc" id="L57">        } catch (DoesntExistException e) {</span>
+<span class="fc" id="L58">            System.err.println(e.getMessage());</span>
+<span class="fc" id="L59">            testDoesnt = true;</span>
+<span class="nc" id="L60">        }</span>
 
-<span class="fc" id="L61">        assertTrue(testDoesnt);</span>
+<span class="fc" id="L62">        assertTrue(testDoesnt);</span>
         
-<span class="fc" id="L63">    }</span>
+<span class="fc" id="L64">    }</span>
 
+    @Test
+    public void testCreation() {
+
+<span class="fc" id="L69">        boolean testAlreay = false;</span>
+
+        try {
+<span class="fc" id="L72">            LibCreation.creerAthlete(jo.getLesAthletes(), new Athlete(&quot;Test&quot;,&quot;init&quot;, 'H',0,0,0,jo.getPays(&quot;France&quot;)));</span>
+<span class="nc" id="L73">        } catch (AlreadyExistException | DoesntExistException e) {</span>
+<span class="nc" id="L74">            System.err.println(e.getMessage());</span>
+<span class="fc" id="L75">        }</span>
+        try {
+<span class="nc" id="L77">            LibCreation.creerAthlete(jo.getLesAthletes(), new Athlete(&quot;Test&quot;,&quot;init&quot;, 'H',0,0,0,jo.getPays(&quot;France&quot;)));</span>
+<span class="fc" id="L78">        } catch (AlreadyExistException | DoesntExistException e) {</span>
+<span class="fc" id="L79">            System.err.println(e.getMessage());</span>
+<span class="fc" id="L80">            testAlreay = true;</span>
+<span class="nc" id="L81">        }</span>
+
+<span class="fc" id="L83">        assertTrue(testAlreay);</span>
+<span class="fc" id="L84">    }</span>
 
     
 }

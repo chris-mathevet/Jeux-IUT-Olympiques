@@ -14,13 +14,13 @@ public class LibCreation {
 
     public static void creerAthlete(List&lt;Athlete&gt; lesAthletes, Athlete athlete)
     throws AlreadyExistException{
-<span class="nc bnc" id="L17" title="All 2 branches missed.">        if(!lesAthletes.contains(athlete)){</span>
-<span class="nc" id="L18">            lesAthletes.add(athlete);</span>
+<span class="fc bfc" id="L17" title="All 2 branches covered.">        if(!lesAthletes.contains(athlete)){</span>
+<span class="fc" id="L18">            lesAthletes.add(athlete);</span>
         }
         else{
-<span class="nc" id="L21">            throw new AlreadyExistException(&quot;Cet athlete existe déjà&quot;);</span>
+<span class="fc" id="L21">            throw new AlreadyExistException(&quot;Cet athlete existe déjà&quot;);</span>
         }
-<span class="nc" id="L23">    }</span>
+<span class="fc" id="L23">    }</span>
 
     public static void creerEquipe(List&lt;Equipe&gt; lesEquipes, String nom)
     throws AlreadyExistException{
