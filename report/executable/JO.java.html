@@ -75,7 +75,7 @@ public class JO {
     // Geteurs 
 
     public List&lt;Athlete&gt; getLesAthletes() {
-<span class="nc" id="L78">        return lesAthletes;</span>
+<span class="fc" id="L78">        return lesAthletes;</span>
     }
 
     public List&lt;Equipe&gt; getLesEquipes() {
@@ -381,21 +381,21 @@ public class JO {
 <span class="fc bfc" id="L381" title="All 2 branches covered.">        while (condition) {</span>
 <span class="fc" id="L382">            System.out.println(&quot;Vous allez créer une Equipe\nEntrez un nom d'Equipe.\n(Ecrivez 0000 pour revenir en arrière)&quot;);</span>
 <span class="fc" id="L383">            nom = System.console().readLine().strip();</span>
-<span class="pc bpc" id="L384" title="1 of 2 branches missed.">            condition = ! (nom.equals(&quot;0000&quot;));</span>
-<span class="pc bpc" id="L385" title="1 of 2 branches missed.">            if(condition){</span>
+<span class="fc bfc" id="L384" title="All 2 branches covered.">            condition = ! (nom.equals(&quot;0000&quot;));</span>
+<span class="fc bfc" id="L385" title="All 2 branches covered.">            if(condition){</span>
                 try {
-<span class="nc" id="L387">                    System.out.println(&quot;Etes vous sur de vouloir créer l'équipe : &quot; + nom + &quot; (O/N)&quot;);</span>
-<span class="nc bnc" id="L388" title="All 2 branches missed.">                    if(System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;)){</span>
+<span class="fc" id="L387">                    System.out.println(&quot;Etes vous sur de vouloir créer l'équipe : &quot; + nom + &quot; (O/N)&quot;);</span>
+<span class="pc bpc" id="L388" title="1 of 2 branches missed.">                    if(System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;)){</span>
 <span class="nc" id="L389">                        LibCreation.creerEquipe(this.lesEquipes, nom);</span>
 <span class="nc" id="L390">                        System.out.println(&quot;\nEquipe créé avec succès\n&quot;);</span>
                     }
                     else{
-<span class="nc" id="L393">                        System.out.println(&quot;\nAnnulation de la création.\n&quot;);</span>
+<span class="fc" id="L393">                        System.out.println(&quot;\nAnnulation de la création.\n&quot;);</span>
                     }
-<span class="nc" id="L395">                    condition = false;</span>
+<span class="fc" id="L395">                    condition = false;</span>
 <span class="nc" id="L396">                } catch (AlreadyExistException e) {</span>
 <span class="nc" id="L397">                    System.err.println(&quot;\n&quot; + e.getMessage() + &quot;\n&quot;);</span>
-<span class="nc" id="L398">                }</span>
+<span class="pc" id="L398">                }</span>
             }            
         }
 <span class="fc" id="L401">    }</span>

@@ -197,15 +197,15 @@ public class Epreuve&lt;T extends Participant&gt; {
 		// Fabrication du classement selon les moyennes de résultat, 
 		// si il est en temps, le résultat est calculé selon la méthode du minimum (plus petit temps en premier)
 		// sinon le résultat est calculé selon la méthode du maximum (plus grand nombre de points en premier)
-<span class="pc bpc" id="L200" title="1 of 2 branches missed.">		if(this.getSport().getEstTemps()){</span>
-<span class="nc bnc" id="L201" title="All 2 branches missed.">			for (int i = 0; i&lt;resultats.size();++i){</span>
-<span class="nc" id="L202">				indMinMax = Match.indiemeMin(resultats, i); // Indice du min</span>
+<span class="fc bfc" id="L200" title="All 2 branches covered.">		if(this.getSport().getEstTemps()){</span>
+<span class="fc bfc" id="L201" title="All 2 branches covered.">			for (int i = 0; i&lt;resultats.size();++i){</span>
+<span class="fc" id="L202">				indMinMax = Match.indiemeMin(resultats, i); // Indice du min</span>
 				// Permutation du min et de l'actuel
-<span class="nc" id="L204">				tmp = resultats.get(i);</span>
-<span class="nc" id="L205">                resultats.set(i, resultats.get(indMinMax));</span>
-<span class="nc" id="L206">                resultats.set(indMinMax,tmp);</span>
+<span class="fc" id="L204">				tmp = resultats.get(i);</span>
+<span class="fc" id="L205">                resultats.set(i, resultats.get(indMinMax));</span>
+<span class="fc" id="L206">                resultats.set(indMinMax,tmp);</span>
 				// MAJ du classement
-<span class="nc" id="L208">				this.leClassement.set(i, this.lesParticipants.get(indMinMax));</span>
+<span class="fc" id="L208">				this.leClassement.set(i, this.lesParticipants.get(indMinMax));</span>
 			}
 		}
 		else{
@@ -230,9 +230,9 @@ public class Epreuve&lt;T extends Participant&gt; {
 <span class="fc" id="L230">				this.setSecond(this.leClassement.get(1));</span>
 <span class="fc" id="L231">				this.setTroisieme(this.leClassement.get(2));</span>
 			}
-<span class="nc" id="L233">			catch(IndexOutOfBoundsException e){</span>
-<span class="nc" id="L234">				System.err.println(&quot;Probleme maj médailles&quot;);</span>
-<span class="nc" id="L235">				System.err.println(e.getMessage());</span>
+<span class="fc" id="L233">			catch(IndexOutOfBoundsException e){</span>
+<span class="fc" id="L234">				System.err.println(&quot;Probleme maj médailles&quot;);</span>
+<span class="fc" id="L235">				System.err.println(e.getMessage());</span>
 <span class="fc" id="L236">			}</span>
 		
 		}
@@ -255,10 +255,10 @@ public class Epreuve&lt;T extends Participant&gt; {
 <span class="fc" id="L255">					System.out.println(this.second.getPays());</span>
 <span class="fc" id="L256">					System.out.println(this.troisieme.getPays());</span>
 
-<span class="nc" id="L258">				} catch(Exception e){</span>
-<span class="nc" id="L259">					System.err.println(&quot;Probleme maj médailles&quot;);</span>
-<span class="nc" id="L260">					System.err.println(e.getMessage());</span>
-<span class="pc" id="L261">				}</span>
+<span class="fc" id="L258">				} catch(Exception e){</span>
+<span class="fc" id="L259">					System.err.println(&quot;Probleme maj médailles&quot;);</span>
+<span class="fc" id="L260">					System.err.println(e.getMessage());</span>
+<span class="fc" id="L261">				}</span>
 			}
 			else{
 				try{
@@ -285,10 +285,10 @@ public class Epreuve&lt;T extends Participant&gt; {
 	@Override
 	public boolean equals(Object obj) {
 <span class="pc bpc" id="L287" title="1 of 2 branches missed.">		if(obj == null){return false;}</span>
-<span class="pc bpc" id="L288" title="1 of 2 branches missed.">		if(obj == this){return true;}</span>
-<span class="nc bnc" id="L289" title="All 2 branches missed.">		if (!(obj instanceof Epreuve)){return false;}</span>
-<span class="nc" id="L290">		Epreuve epreuve = (Epreuve) obj;</span>
-<span class="nc bnc" id="L291" title="All 6 branches missed.">		return epreuve.getDescription().equals(this.getDescription()) &amp;&amp; epreuve.getSexe() == this.getSexe() &amp;&amp; this.getSport().equals(epreuve.getSport());</span>
+<span class="fc bfc" id="L288" title="All 2 branches covered.">		if(obj == this){return true;}</span>
+<span class="pc bpc" id="L289" title="1 of 2 branches missed.">		if (!(obj instanceof Epreuve)){return false;}</span>
+<span class="fc" id="L290">		Epreuve epreuve = (Epreuve) obj;</span>
+<span class="pc bpc" id="L291" title="2 of 6 branches missed.">		return epreuve.getDescription().equals(this.getDescription()) &amp;&amp; epreuve.getSexe() == this.getSexe() &amp;&amp; this.getSport().equals(epreuve.getSport());</span>
 	}
 
 	@Override

@@ -6,7 +6,5 @@ public class NotSameCountryException extends Exception{
         super(message);
     }    
     
-    public NotSameCountryException() {
-        super("Le pays est différent");
-    }
+
 }

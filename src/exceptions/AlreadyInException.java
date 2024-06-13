@@ -6,7 +6,5 @@ public class AlreadyInException extends Exception{
         super(message);
     }    
     
-    public AlreadyInException() {
-        super("Déjà dedans");
-    }
+
 }

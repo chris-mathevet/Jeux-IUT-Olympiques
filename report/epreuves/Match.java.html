@@ -47,15 +47,15 @@ public class Match&lt;T extends Participant&gt; {
 	 * @return int Lindice du minimum
 	 */
 	public static int indiemeMin(List&lt;Double&gt; liste, int index){
-<span class="nc" id="L50">        Double min = null;</span>
-<span class="nc" id="L51">        int ind = index;</span>
-<span class="nc bnc" id="L52" title="All 2 branches missed.">        for(int i = index; i&lt;liste.size();++i){</span>
-<span class="nc bnc" id="L53" title="All 4 branches missed.">            if(min == null || liste.get(i)&lt;min){</span>
-<span class="nc" id="L54">                min = liste.get(i);</span>
-<span class="nc" id="L55">                ind = i;</span>
+<span class="fc" id="L50">        Double min = null;</span>
+<span class="fc" id="L51">        int ind = index;</span>
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        for(int i = index; i&lt;liste.size();++i){</span>
+<span class="pc bpc" id="L53" title="3 of 4 branches missed.">            if(min == null || liste.get(i)&lt;min){</span>
+<span class="fc" id="L54">                min = liste.get(i);</span>
+<span class="fc" id="L55">                ind = i;</span>
             }
         }
-<span class="nc" id="L58">        return ind;</span>
+<span class="fc" id="L58">        return ind;</span>
     }
 
 	/**
@@ -132,13 +132,13 @@ public class Match&lt;T extends Participant&gt; {
 	 * @return int le résultat de l'athlete / l'équipe, -1 s'il n'a pas participé
 	 */	
 	public double getResultatParticipant(T participant){
-<span class="nc bnc" id="L135" title="All 2 branches missed.">		if(this.resultats.isEmpty()){this.calculResultat();}</span>
-<span class="nc" id="L136">		int index = this.epreuve.getLesParticipants().indexOf(participant);</span>
-<span class="nc bnc" id="L137" title="All 2 branches missed.">		if(index == -1){</span>
+<span class="pc bpc" id="L135" title="1 of 2 branches missed.">		if(this.resultats.isEmpty()){this.calculResultat();}</span>
+<span class="fc" id="L136">		int index = this.epreuve.getLesParticipants().indexOf(participant);</span>
+<span class="pc bpc" id="L137" title="1 of 2 branches missed.">		if(index == -1){</span>
 <span class="nc" id="L138">			return -1;</span>
 		}
 		else{
-<span class="nc" id="L141">			return this.resultats.get(index);</span>
+<span class="fc" id="L141">			return this.resultats.get(index);</span>
 		}	
 	}
 

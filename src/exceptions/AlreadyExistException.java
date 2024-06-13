@@ -6,8 +6,6 @@ public class AlreadyExistException extends Exception{
         super(message);
     }
 
-    public AlreadyExistException(){
-        super("Existe déjà");
-    }
+
     
 }

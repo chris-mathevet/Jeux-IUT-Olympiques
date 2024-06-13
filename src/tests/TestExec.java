@@ -28,6 +28,7 @@ public class TestExec {
     
     private JO jo;
 
+
     @BeforeEach
     public void setUp() {
         jo = new JO();
@@ -62,6 +63,25 @@ public class TestExec {
         
     }
 
+    @Test
+    public void testCreation() {
+
+        boolean testAlreay = false;
+
+        try {
+            LibCreation.creerAthlete(jo.getLesAthletes(), new Athlete("Test","init", 'H',0,0,0,jo.getPays("France")));
+        } catch (AlreadyExistException | DoesntExistException e) {
+            System.err.println(e.getMessage());
+        }
+        try {
+            LibCreation.creerAthlete(jo.getLesAthletes(), new Athlete("Test","init", 'H',0,0,0,jo.getPays("France")));
+        } catch (AlreadyExistException | DoesntExistException e) {
+            System.err.println(e.getMessage());
+            testAlreay = true;
+        }
+
+        assertTrue(testAlreay);
+    }
 
     
 }
