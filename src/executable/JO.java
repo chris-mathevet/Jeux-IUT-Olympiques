@@ -161,6 +161,7 @@ public class JO {
         String ligne;
         String split =",";
         Epreuve<Athlete> vraiEpreuve;
+        Epreuve<Equipe> vraiEpreuveEquipe;
         String[] ligneElems;
         Pays pays;
         String nom;
@@ -173,6 +174,8 @@ public class JO {
         int endurance;
         int agilite;
         Athlete mich;
+        String nomEquipe;
+        Equipe equipe;
         
         try (BufferedReader line = new BufferedReader(new FileReader(chemin))){
             line.readLine();
@@ -207,7 +210,28 @@ public class JO {
                                 } catch (DoesntExistException doesntExistException) {
                                     System.err.println("\n" + doesntExistException.getMessage() +"epreuve: "+ ((Epreuve<Athlete>) this.getEpreuve(epreuve, mich.getSexe())).getDescription() + "\n");
                                 } catch (CanNotRegisterException canNotRegisterException) {
-                                    System.err.println("\n" + canNotRegisterException.getMessage() + "\n");
+                                    nomEquipe = pays.getNomPays() + epreuve + mich.getSexe();
+                                    try {
+                                        equipe = this.getEquipe(nomEquipe);
+                                    } catch (DoesntExistException e) {
+                                        LibCreation.creerEquipe(this.lesEquipes, nomEquipe);
+                                        equipe = this.getEquipe(nomEquipe);
+                                    }
+                                    try {
+                                        equipe.ajouter(mich);
+                                        vraiEpreuveEquipe = (Epreuve<Equipe>) this.getEpreuve(epreuve, equipe.getSexe());
+                                        vraiEpreuveEquipe.inscrire(equipe);    
+                                    } catch (AlreadyInException e2) {
+                                        System.err.println("N'est pas censé s'afficher.");
+                                    } catch (NotSameCountryException e2) {
+                                        System.err.println("N'est pas censé s'afficher.");
+                                    } catch (NotSameGenderException e2) {
+                                        System.err.println("N'est pas censé s'afficher.");
+                                    } catch (DoesntExistException e2) {
+                                        System.err.println("Cette épreuve n'existe pas.");
+                                    } catch (CanNotRegisterException e3){
+                                        System.err.println(e3.getMessage());
+                                    }
                                 } catch (AlreadyInException alreadyInException){
                                     System.err.println("\n" + alreadyInException.getMessage() + "\n");
                                 }catch (NotSameGenderException notSameGenderException){
@@ -223,7 +247,28 @@ public class JO {
                                 } catch (DoesntExistException doesntExistException) {
                                     System.err.println("\n" + doesntExistException.getMessage() +"epreuve: "+ ((Epreuve<Athlete>) this.getEpreuve(epreuve, mich.getSexe())).getDescription() + "\n");
                                 } catch (CanNotRegisterException canNotRegisterException) {
-                                    System.err.println("\n" + canNotRegisterException.getMessage() + "\n");
+                                    nomEquipe = pays.getNomPays() + epreuve + mich.getSexe();
+                                    try {
+                                        equipe = this.getEquipe(nomEquipe);
+                                    } catch (DoesntExistException e2) {
+                                        LibCreation.creerEquipe(this.lesEquipes, nomEquipe);
+                                        equipe = this.getEquipe(nomEquipe);
+                                    }
+                                    try {
+                                        equipe.ajouter(mich);
+                                        vraiEpreuveEquipe = (Epreuve<Equipe>) this.getEpreuve(epreuve, equipe.getSexe());
+                                        vraiEpreuveEquipe.inscrire(equipe);    
+                                    } catch (AlreadyInException e2) {
+                                        System.err.println("N'est pas censé s'afficher.");
+                                    } catch (NotSameCountryException e2) {
+                                        System.err.println("N'est pas censé s'afficher.");
+                                    } catch (NotSameGenderException e2) {
+                                        System.err.println("N'est pas censé s'afficher.");
+                                    } catch (DoesntExistException e2) {
+                                        System.err.println("Cette épreuve n'existe pas.");
+                                    } catch (CanNotRegisterException e3){
+                                        System.err.println(e3.getMessage());
+                                    }
                                 } catch (AlreadyInException alreadyInException){
                                     System.err.println("\n" + alreadyInException.getMessage() + "\n");
                                 }catch (NotSameGenderException notSameGenderException){
