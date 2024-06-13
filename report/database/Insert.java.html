@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Insert.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">database</a> &gt; <span class="el_source">Insert.java</span></div><h1>Insert.java</h1><pre class="source lang-java linenums">package database;
+
+import java.sql.*;
+
+public class Insert {
+    
+    // Informations de connexion
+    private String url;
+    // SHOW VARIABLES LIKE 'port';  // ===&gt; port du serveur a use
+    // saejava ==&gt; nom de la base a utilisé 
+    private String utilisateur;
+    private String motDePasse ;
+
+    
+<span class="nc" id="L15">    public Insert(String url, String user, String mdp ){</span>
+<span class="nc" id="L16">        this.url = url;</span>
+<span class="nc" id="L17">        this.utilisateur= user;</span>
+<span class="nc" id="L18">        this.motDePasse= mdp;</span>
+<span class="nc" id="L19">    }</span>
+    // serveur
+<span class="nc" id="L21">    public Insert(){</span>
+<span class="nc" id="L22">        this.url = &quot;jdbc:mysql://cigale1.lescigales.org:3310/s4a_julian&quot;;</span>
+<span class="nc" id="L23">        this.utilisateur = &quot;s4a_julian&quot;;</span>
+<span class="nc" id="L24">        this.motDePasse = &quot; &quot;;</span>
+<span class="nc" id="L25">    }</span>
+    
+    // local
+    // public Insert(){        
+    //     this.url = &quot;jdbc:mysql://localhost:3306/saejava&quot;;
+    //     this.utilisateur = &quot;root&quot;;
+    //     this.motDePasse = &quot; &quot;;
+    // }
+
+    public String getUrl(){
+<span class="nc" id="L35">        return this.url;</span>
+    }
+    public String getUser(){
+<span class="nc" id="L38">        return this.utilisateur;</span>
+    }
+    public String getMdp(){
+<span class="nc" id="L41">        return this.motDePasse;</span>
+    }
+
+    public void insertSport(int idSport, String nomSport, int nbParEquipe){
+<span class="nc" id="L45">        try (Connection connexion = DriverManager.getConnection(url, utilisateur, motDePasse)) {</span>
+<span class="nc" id="L46">            System.out.println(&quot;Connexion réussie !&quot;);</span>
+            
+            // Insertion de données
+<span class="nc" id="L49">            String sqlInsertionSport = &quot;INSERT INTO SPORT (idSport, nomSport, nbParEquipe) VALUES (?, ?, ?)&quot;;</span>
+            // String sqlInsertion = &quot;INSERT INTO table1 (colonne1, colonne2) VALUES (?, ?)&quot;;
+<span class="nc" id="L51">            try (PreparedStatement preparedStatement = connexion.prepareStatement(sqlInsertionSport)) {</span>
+<span class="nc" id="L52">                preparedStatement.setInt(1, idSport);</span>
+<span class="nc" id="L53">                preparedStatement.setString(2, nomSport);</span>
+<span class="nc" id="L54">                preparedStatement.setInt(3, nbParEquipe);</span>
+<span class="nc" id="L55">                preparedStatement.executeUpdate();</span>
+<span class="nc" id="L56">                System.out.println(&quot;Données insérées avec succès !&quot;);</span>
+<span class="nc" id="L57">            } catch (SQLException e) {</span>
+<span class="nc" id="L58">                System.out.println(&quot;Erreur lors de l'insertion d'un sport : &quot; + e.getMessage());</span>
+<span class="nc" id="L59">            }</span>
+            
+<span class="nc" id="L61">        } catch (SQLException e) {</span>
+<span class="nc" id="L62">            System.out.println(&quot;Erreur lors de la connexion à la base de données : &quot; + e.getMessage());</span>
+<span class="nc" id="L63">        }</span>
+<span class="nc" id="L64">    }</span>
+
+    public void insertEpreuve(int idEpreuve, String description, String typeEpreuve, int idSport){
+<span class="nc" id="L67">        try (Connection connexion = DriverManager.getConnection(url, utilisateur, motDePasse)) {</span>
+<span class="nc" id="L68">            System.out.println(&quot;Connexion réussie !&quot;);</span>
+            
+            // Insertion de données
+<span class="nc" id="L71">            String sqlInsertionEpreuve = &quot;INSERT INTO Epreuve (idEpreuve, descriptionEpreuve, typeEpreuve, idSport) VALUES (?, ?, ?, ?)&quot;;</span>
+            // String sqlInsertion = &quot;INSERT INTO table1 (colonne1, colonne2) VALUES (?, ?)&quot;;
+<span class="nc" id="L73">            try (PreparedStatement preparedStatement = connexion.prepareStatement(sqlInsertionEpreuve)) {</span>
+<span class="nc" id="L74">                preparedStatement.setInt(1, idEpreuve);</span>
+<span class="nc" id="L75">                preparedStatement.setString(2, description);</span>
+<span class="nc" id="L76">                preparedStatement.setString(3, typeEpreuve);</span>
+<span class="nc" id="L77">                preparedStatement.setInt(4, idSport);</span>
+
+<span class="nc" id="L79">                preparedStatement.executeUpdate();</span>
+<span class="nc" id="L80">                System.out.println(&quot;Données insérées avec succès !&quot;);</span>
+<span class="nc" id="L81">            } catch (SQLException e) {</span>
+<span class="nc" id="L82">                System.out.println(&quot;Erreur lors de l'insertion d'une epreuve : &quot; + e.getMessage());</span>
+<span class="nc" id="L83">            }</span>
+            
+<span class="nc" id="L85">        } catch (SQLException e) {</span>
+<span class="nc" id="L86">            System.out.println(&quot;Erreur lors de la connexion à la base de données : &quot; + e.getMessage());</span>
+<span class="nc" id="L87">        }</span>
+<span class="nc" id="L88">    }</span>
+
+    public void insertEquipe(int idEquipe, String nomEquipe){
+<span class="nc" id="L91">        try (Connection connexion = DriverManager.getConnection(url, utilisateur, motDePasse)) {</span>
+<span class="nc" id="L92">            System.out.println(&quot;Connexion réussie !&quot;);</span>
+            
+            // Insertion de données
+<span class="nc" id="L95">            String sqlInsertionEquipe = &quot;INSERT INTO EQUIPE (idEquipe,nomEquipe) VALUES (?, ?)&quot;;</span>
+            // String sqlInsertion = &quot;INSERT INTO table1 (colonne1, colonne2) VALUES (?, ?)&quot;;
+<span class="nc" id="L97">            try (PreparedStatement preparedStatement = connexion.prepareStatement(sqlInsertionEquipe)) {</span>
+<span class="nc" id="L98">                preparedStatement.setInt(1, idEquipe);</span>
+<span class="nc" id="L99">                preparedStatement.setString(2, nomEquipe);</span>
+<span class="nc" id="L100">                preparedStatement.executeUpdate();</span>
+<span class="nc" id="L101">                System.out.println(&quot;Données insérées avec succès !&quot;);</span>
+<span class="nc" id="L102">            } catch (SQLException e) {</span>
+<span class="nc" id="L103">                System.out.println(&quot;Erreur lors de l'insertion d'une equipe : &quot; + e.getMessage());</span>
+<span class="nc" id="L104">            }</span>
+            
+<span class="nc" id="L106">        } catch (SQLException e) {</span>
+<span class="nc" id="L107">            System.out.println(&quot;Erreur lors de la connexion à la base de données : &quot; + e.getMessage());</span>
+<span class="nc" id="L108">        }</span>
+<span class="nc" id="L109">    }</span>
+
+    public void insertAthlete(int idAthlete, String nom, String prenom, char sexe, int force, int endurance, int agilite, int idPays){
+<span class="nc" id="L112">        try (Connection connexion = DriverManager.getConnection(url, utilisateur, motDePasse)) {</span>
+<span class="nc" id="L113">            System.out.println(&quot;Connexion réussie !&quot;);</span>
+            
+            // Insertion de données
+<span class="nc" id="L116">            String sqlInsertionAthlete = &quot;INSERT INTO ATHLETE (idAthlete, nomAthlete, prenomAthlete, sexe, capaciteForce, endurance, agilite, idPays) VALUES (?, ?, ?, ?, ?, ?, ?, ?)&quot;;</span>
+            // String sqlInsertion = &quot;INSERT INTO table1 (colonne1, colonne2) VALUES (?, ?)&quot;;
+<span class="nc" id="L118">            try (PreparedStatement preparedStatement = connexion.prepareStatement(sqlInsertionAthlete)) {</span>
+<span class="nc" id="L119">                preparedStatement.setInt(1, idAthlete);</span>
+<span class="nc" id="L120">                preparedStatement.setString(2, nom);</span>
+<span class="nc" id="L121">                preparedStatement.setString(3, prenom);</span>
+<span class="nc" id="L122">                preparedStatement.setString(4, String.valueOf(sexe)); // set string mais sexe est un char donc faut le convertir en string</span>
+<span class="nc" id="L123">                preparedStatement.setInt(5, force);</span>
+<span class="nc" id="L124">                preparedStatement.setInt(6, endurance);</span>
+<span class="nc" id="L125">                preparedStatement.setInt(7, agilite);</span>
+<span class="nc" id="L126">                preparedStatement.setInt(8,idPays);</span>
+<span class="nc" id="L127">                preparedStatement.executeUpdate();</span>
+<span class="nc" id="L128">                System.out.println(&quot;Données insérées avec succès !&quot;);</span>
+<span class="nc" id="L129">            } catch (SQLException e) {</span>
+<span class="nc" id="L130">                System.out.println(&quot;Erreur lors de l'insertion de l'athlete: &quot; + e.getMessage());</span>
+<span class="nc" id="L131">            }</span>
+            
+<span class="nc" id="L133">        } catch (SQLException e) {</span>
+<span class="nc" id="L134">            System.out.println(&quot;Erreur lors de la connexion à la base de données : &quot; + e.getMessage());</span>
+<span class="nc" id="L135">        }</span>
+<span class="nc" id="L136">    }   </span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
