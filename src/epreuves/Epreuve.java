@@ -224,13 +224,15 @@ public class Epreuve<T extends Participant> {
 	/** Met a jour le podium de l'épreuve (attributs)
 	 */
 	public void majPodium(){
-		if(this.leClassement != null){
+		if( ! this.leClassement.isEmpty()){
 			try{
 				this.setPremier(this.leClassement.get(0));
 				this.setSecond(this.leClassement.get(1));
 				this.setTroisieme(this.leClassement.get(2));
 			}
 			catch(IndexOutOfBoundsException e){
+				System.err.println("Probleme maj médailles");
+				System.err.println(e.getMessage());
 			}
 		
 		}
@@ -240,13 +242,15 @@ public class Epreuve<T extends Participant> {
 	 */
 	public void majMedailles(){
 		if( ! this.leClassement.isEmpty()){
-			if(this.premier == null){
+			if(this.premier == null || this.second == null || this.troisieme == null){
 				this.majPodium();
 				try{
 					this.premier.getPays().addMedailleOr(1);
 					this.second.getPays().addMedailleArgent(1);
 					this.troisieme.getPays().addMedailleBronze(1);
 				} catch(Exception e){
+					System.err.println("Probleme maj médailles");
+					System.err.println(e.getMessage());
 				}
 			}
 			else{
@@ -259,6 +263,8 @@ public class Epreuve<T extends Participant> {
 					this.second.getPays().addMedailleArgent(1);
 					this.troisieme.getPays().addMedailleBronze(1);
 				} catch(Exception e){
+					System.err.println("Probleme maj médailles");
+					System.err.println(e.getMessage());
 				}
 			}
 		}

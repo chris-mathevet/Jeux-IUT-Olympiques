@@ -76,6 +76,7 @@ public class Executable {
 
                 case "C":
                     clearConsole();
+                    Executable.jo.lancerToutEpreuves();
                     Executable.jo.demandeClassement();
                     for (Pays pays : Executable.jo.getLesPays()){
                         System.out.println(pays);
