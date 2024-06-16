@@ -6,7 +6,5 @@ public class CanNotRegisterException extends Exception {
         super(message);
     }
 
-    public CanNotRegisterException(){
-        super("Ne peut pas s'inscrire");
-    }
+
 }

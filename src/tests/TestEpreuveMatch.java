@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue; // Changement ici pou
 import org.junit.jupiter.api.Test; // Changement ici pour utiliser JUnit Jupiter
 import org.junit.jupiter.api.BeforeEach; // Changement ici pour utiliser JUnit Jupiter
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import epreuves.*;
 import exceptions.*;
@@ -45,6 +46,7 @@ public class TestEpreuveMatch {
     private Epreuve<Athlete> mettre110H;
     private Epreuve<Athlete> mettre110F;
     private Epreuve<Equipe> epreuve;
+    private Epreuve<Equipe> epreuve0;
     private Epreuve<Athlete> athletisme110;
     private Epreuve<Athlete> athletisme4x110;
     private Epreuve<Athlete> natatione110;
@@ -77,6 +79,7 @@ public class TestEpreuveMatch {
         mettre110H = new Epreuve<>("Athletisme relais 110 haies", escrime, 'M');
         mettre110F = new Epreuve<>("Athletisme relais 110 haies", escrime, 'F');
         epreuve = new Epreuve<>("test", voley, 'M');
+        epreuve0 = new Epreuve<>("test", voley, 'M');
         riri = new Athlete("Duck", "riri", 'M', 1, 8, 19, france);
         fifi = new Athlete("Duck", "fifi", 'M', 12, 5, 9, france);
         loulou = new Athlete("Duck", "loulou", 'M', 19, 8, 9, france);
@@ -214,6 +217,20 @@ public class TestEpreuveMatch {
     @Test
     public void testGetEpreuve() {
         assertEquals(matchsAthle100.getEpreuve(), athletisme110);
+    }
+
+    @Test
+    public void testGetResultatParticipants() {
+        try {
+            athletisme110.inscrire(axel);
+            athletisme110.inscrire(chris);
+        } catch (AlreadyInException | CanNotRegisterException | NotSameGenderException e) {
+            System.err.println(e.getMessage());
+        }
+        athletisme110.getLeClassement();
+        for (Match matchs : athletisme110.getLesMatchs()) {
+            assertTrue(matchs.getResultatParticipant(axel) >= 4 && matchs.getResultatParticipant(axel) <= 200);
+        }
     }
 
 
@@ -371,8 +388,10 @@ public class TestEpreuveMatch {
     }
 
     @Test
-    public void testToString() {
+    public void testToStringEquals() {
         assertEquals(epreuve.toString(), "test sport: Voley,nb par equipe :6 sexe: H");
         assertEquals(match.toString(), "test1");
+        assertEquals(epreuve, epreuve0);
+        assertNotEquals(epreuve, epreuveVoleyTest);
     }
 }

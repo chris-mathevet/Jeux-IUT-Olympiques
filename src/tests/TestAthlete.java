@@ -24,6 +24,7 @@ public class TestAthlete {
     private Pays ge;
     
     private Athlete a0;
+    private Athlete a00;
     private Athlete a1;
     private Athlete a2;
     private Athlete a3;
@@ -38,6 +39,7 @@ public class TestAthlete {
         ge = new Pays("Germany");
 
         a0 = new Athlete("init", "test", 'H', 0, 0, 0, fr);
+        a00 = new Athlete("init", "test", 'H', 0, 0, 0, fr);
         a1 = new Athlete("george", "martin", 'H', 9, 8, 5, fr);
         a2 = new Athlete("raphael", "nadal", 'H', 9, 8, 5, fr);
         a3 = new Athlete("sophie", "duke", 'F', 9, 8, 5, fr);
@@ -95,7 +97,9 @@ public class TestAthlete {
     }
 
     @Test
-    public void testToString() {
+    public void testToStringEquals() {
         assertEquals(a0.toString(), "(nom: init, prénom: test, sexe: H, pays: France, force: 1, agilité: 1, endurance: 1)");
+        assertNotEquals(a0, a1);
+        assertEquals(a0, a00);
     }
 }
