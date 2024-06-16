@@ -221,284 +221,288 @@ public class JO {
 <span class="nc" id="L221">                                        equipe.ajouter(mich);</span>
 <span class="nc" id="L222">                                        vraiEpreuveEquipe = (Epreuve&lt;Equipe&gt;) this.getEpreuve(epreuve, equipe.getSexe());</span>
 <span class="nc" id="L223">                                        vraiEpreuveEquipe.inscrire(equipe);    </span>
-<span class="nc" id="L224">                                    } catch (AlreadyInException e) {</span>
-                                        // TODO: handle exception
-<span class="nc" id="L226">                                    } catch (NotSameCountryException e) {</span>
-                                        // TODO: handle exception
-<span class="nc" id="L228">                                    } catch (NotSameGenderException e) {</span>
+<span class="nc" id="L224">                                    } catch (AlreadyInException e2) {</span>
+<span class="nc" id="L225">                                        System.err.println(&quot;N'est pas censé s'afficher.&quot;);</span>
+<span class="nc" id="L226">                                    } catch (NotSameCountryException e2) {</span>
+<span class="nc" id="L227">                                        System.err.println(&quot;N'est pas censé s'afficher.&quot;);</span>
+<span class="nc" id="L228">                                    } catch (NotSameGenderException e2) {</span>
 <span class="nc" id="L229">                                        System.err.println(&quot;N'est pas censé s'afficher.&quot;);</span>
-<span class="nc" id="L230">                                    } catch (DoesntExistException e) {</span>
+<span class="nc" id="L230">                                    } catch (DoesntExistException e2) {</span>
 <span class="nc" id="L231">                                        System.err.println(&quot;Cette épreuve n'existe pas.&quot;);</span>
-<span class="nc" id="L232">                                    }</span>
-<span class="nc" id="L233">                                } catch (AlreadyInException alreadyInException){</span>
-<span class="nc" id="L234">                                    System.err.println(&quot;\n&quot; + alreadyInException.getMessage() + &quot;\n&quot;);</span>
-<span class="nc" id="L235">                                }catch (NotSameGenderException notSameGenderException){</span>
-<span class="nc" id="L236">                                    System.err.println(&quot;\n&quot; + notSameGenderException.getMessage() + &quot;\n&quot;);</span>
-<span class="nc" id="L237">                                } catch (ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException){</span>
-<span class="nc" id="L238">                                    System.err.println(&quot;\nVous n'avez pas rentré assès de valeur, veillez recommencer.&quot;);</span>
-<span class="nc" id="L239">                                } </span>
-<span class="nc" id="L240">                            } catch (AlreadyExistException e) {</span>
+<span class="nc" id="L232">                                    } catch (CanNotRegisterException e3){</span>
+<span class="nc" id="L233">                                        System.err.println(e3.getMessage());</span>
+<span class="nc" id="L234">                                    }</span>
+<span class="nc" id="L235">                                } catch (AlreadyInException alreadyInException){</span>
+<span class="nc" id="L236">                                    System.err.println(&quot;\n&quot; + alreadyInException.getMessage() + &quot;\n&quot;);</span>
+<span class="nc" id="L237">                                }catch (NotSameGenderException notSameGenderException){</span>
+<span class="nc" id="L238">                                    System.err.println(&quot;\n&quot; + notSameGenderException.getMessage() + &quot;\n&quot;);</span>
+<span class="nc" id="L239">                                } catch (ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException){</span>
+<span class="nc" id="L240">                                    System.err.println(&quot;\nVous n'avez pas rentré assès de valeur, veillez recommencer.&quot;);</span>
+<span class="nc" id="L241">                                } </span>
+<span class="nc" id="L242">                            } catch (AlreadyExistException e) {</span>
                                 try {
-<span class="nc" id="L242">                                    vraiEpreuve = (Epreuve&lt;Athlete&gt;) this.getEpreuve(epreuve, mich.getSexe());</span>
-<span class="nc" id="L243">                                    vraiEpreuve.inscrire(mich);    </span>
+<span class="nc" id="L244">                                    vraiEpreuve = (Epreuve&lt;Athlete&gt;) this.getEpreuve(epreuve, mich.getSexe());</span>
+<span class="nc" id="L245">                                    vraiEpreuve.inscrire(mich);    </span>
                     
-<span class="nc" id="L245">                                } catch (DoesntExistException doesntExistException) {</span>
-<span class="nc" id="L246">                                    System.err.println(&quot;\n&quot; + doesntExistException.getMessage() +&quot;epreuve: &quot;+ ((Epreuve&lt;Athlete&gt;) this.getEpreuve(epreuve, mich.getSexe())).getDescription() + &quot;\n&quot;);</span>
-<span class="nc" id="L247">                                } catch (CanNotRegisterException canNotRegisterException) {</span>
-<span class="nc" id="L248">                                    nomEquipe = pays.getNomPays() + epreuve + mich.getSexe();</span>
+<span class="nc" id="L247">                                } catch (DoesntExistException doesntExistException) {</span>
+<span class="nc" id="L248">                                    System.err.println(&quot;\n&quot; + doesntExistException.getMessage() +&quot;epreuve: &quot;+ ((Epreuve&lt;Athlete&gt;) this.getEpreuve(epreuve, mich.getSexe())).getDescription() + &quot;\n&quot;);</span>
+<span class="nc" id="L249">                                } catch (CanNotRegisterException canNotRegisterException) {</span>
+<span class="nc" id="L250">                                    nomEquipe = pays.getNomPays() + epreuve + mich.getSexe();</span>
                                     try {
-<span class="nc" id="L250">                                        equipe = this.getEquipe(nomEquipe);</span>
-<span class="nc" id="L251">                                    } catch (DoesntExistException e2) {</span>
-<span class="nc" id="L252">                                        LibCreation.creerEquipe(this.lesEquipes, nomEquipe);</span>
-<span class="nc" id="L253">                                        equipe = this.getEquipe(nomEquipe);</span>
-<span class="nc" id="L254">                                    }</span>
+<span class="nc" id="L252">                                        equipe = this.getEquipe(nomEquipe);</span>
+<span class="nc" id="L253">                                    } catch (DoesntExistException e2) {</span>
+<span class="nc" id="L254">                                        LibCreation.creerEquipe(this.lesEquipes, nomEquipe);</span>
+<span class="nc" id="L255">                                        equipe = this.getEquipe(nomEquipe);</span>
+<span class="nc" id="L256">                                    }</span>
                                     try {
-<span class="nc" id="L256">                                        equipe.ajouter(mich);</span>
-<span class="nc" id="L257">                                        vraiEpreuveEquipe = (Epreuve&lt;Equipe&gt;) this.getEpreuve(epreuve, equipe.getSexe());</span>
-<span class="nc" id="L258">                                        vraiEpreuveEquipe.inscrire(equipe);    </span>
-<span class="nc" id="L259">                                    } catch (AlreadyInException e2) {</span>
-                                        // TODO: handle exception
-<span class="nc" id="L261">                                    } catch (NotSameCountryException e2) {</span>
-                                        // TODO: handle exception
-<span class="nc" id="L263">                                    } catch (NotSameGenderException e2) {</span>
+<span class="nc" id="L258">                                        equipe.ajouter(mich);</span>
+<span class="nc" id="L259">                                        vraiEpreuveEquipe = (Epreuve&lt;Equipe&gt;) this.getEpreuve(epreuve, equipe.getSexe());</span>
+<span class="nc" id="L260">                                        vraiEpreuveEquipe.inscrire(equipe);    </span>
+<span class="nc" id="L261">                                    } catch (AlreadyInException e2) {</span>
+<span class="nc" id="L262">                                        System.err.println(&quot;N'est pas censé s'afficher.&quot;);</span>
+<span class="nc" id="L263">                                    } catch (NotSameCountryException e2) {</span>
 <span class="nc" id="L264">                                        System.err.println(&quot;N'est pas censé s'afficher.&quot;);</span>
-<span class="nc" id="L265">                                    } catch (DoesntExistException e2) {</span>
-<span class="nc" id="L266">                                        System.err.println(&quot;Cette épreuve n'existe pas.&quot;);</span>
-<span class="nc" id="L267">                                    }</span>
-<span class="nc" id="L268">                                } catch (AlreadyInException alreadyInException){</span>
-<span class="nc" id="L269">                                    System.err.println(&quot;\n&quot; + alreadyInException.getMessage() + &quot;\n&quot;);</span>
-<span class="nc" id="L270">                                }catch (NotSameGenderException notSameGenderException){</span>
-<span class="nc" id="L271">                                    System.err.println(&quot;\n&quot; + notSameGenderException.getMessage() + &quot;\n&quot;);</span>
-<span class="nc" id="L272">                                } catch (ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException){</span>
-<span class="nc" id="L273">                                    System.err.println(&quot;\nVous n'avez pas rentré assès de valeur, veillez recommencer.&quot;);</span>
-<span class="nc" id="L274">                                } </span>
-<span class="nc" id="L275">                            }</span>
-<span class="nc" id="L276">                        } catch (NumberFormatException e) {</span>
-<span class="nc" id="L277">                            System.err.println(&quot;Problème format nombre, ligne : &quot; + ligne);</span>
-<span class="nc" id="L278">                        }</span>
+<span class="nc" id="L265">                                    } catch (NotSameGenderException e2) {</span>
+<span class="nc" id="L266">                                        System.err.println(&quot;N'est pas censé s'afficher.&quot;);</span>
+<span class="nc" id="L267">                                    } catch (DoesntExistException e2) {</span>
+<span class="nc" id="L268">                                        System.err.println(&quot;Cette épreuve n'existe pas.&quot;);</span>
+<span class="nc" id="L269">                                    } catch (CanNotRegisterException e3){</span>
+<span class="nc" id="L270">                                        System.err.println(e3.getMessage());</span>
+<span class="nc" id="L271">                                    }</span>
+<span class="nc" id="L272">                                } catch (AlreadyInException alreadyInException){</span>
+<span class="nc" id="L273">                                    System.err.println(&quot;\n&quot; + alreadyInException.getMessage() + &quot;\n&quot;);</span>
+<span class="nc" id="L274">                                }catch (NotSameGenderException notSameGenderException){</span>
+<span class="nc" id="L275">                                    System.err.println(&quot;\n&quot; + notSameGenderException.getMessage() + &quot;\n&quot;);</span>
+<span class="nc" id="L276">                                } catch (ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException){</span>
+<span class="nc" id="L277">                                    System.err.println(&quot;\nVous n'avez pas rentré assès de valeur, veillez recommencer.&quot;);</span>
+<span class="nc" id="L278">                                } </span>
+<span class="nc" id="L279">                            }</span>
+<span class="nc" id="L280">                        } catch (NumberFormatException e) {</span>
+<span class="nc" id="L281">                            System.err.println(&quot;Problème format nombre, ligne : &quot; + ligne);</span>
+<span class="nc" id="L282">                        }</span>
                         // si athlete pas creee le cree, sinon l'add a une epreuve
                         // incrire()
                         
-<span class="nc" id="L282">                    } catch (Exception e) {</span>
-<span class="nc" id="L283">                        System.out.println(&quot;erreur format ligne : &quot;+ligne);</span>
-<span class="nc" id="L284">                    }</span>
+<span class="nc" id="L286">                    } catch (Exception e) {</span>
+<span class="nc" id="L287">                        System.out.println(&quot;erreur format ligne : &quot;+ligne);</span>
+<span class="nc" id="L288">                    }</span>
                 }
             }
-<span class="nc" id="L287">        }catch (Exception e) {</span>
-<span class="nc" id="L288">            e.printStackTrace();  </span>
-<span class="nc" id="L289">        }</span>
-<span class="nc" id="L290">    }</span>
+<span class="nc" id="L291">        }catch (Exception e) {</span>
+<span class="nc" id="L292">            e.printStackTrace();  </span>
+<span class="nc" id="L293">        }</span>
+<span class="nc" id="L294">    }</span>
 
 
     // Ajouts
 
     public boolean addSport(String s){
 
-<span class="pc bpc" id="L297" title="1 of 2 branches missed.">        if (s.equals(this.athle.getSport()) </span>
-<span class="pc bpc" id="L298" title="1 of 2 branches missed.">            || s.equals(this.athle.getSport())</span>
-<span class="pc bpc" id="L299" title="1 of 2 branches missed.">            || s.equals(this.escr.getSport()) </span>
-<span class="pc bpc" id="L300" title="1 of 2 branches missed.">            || s.equals(this.hand.getSport())</span>
-<span class="pc bpc" id="L301" title="1 of 2 branches missed.">            || s.equals(this.voley.getSport())</span>
-<span class="pc bpc" id="L302" title="1 of 2 branches missed.">            || s.equals(this.nat.getSport())</span>
+<span class="pc bpc" id="L301" title="1 of 2 branches missed.">        if (s.equals(this.athle.getSport()) </span>
+<span class="pc bpc" id="L302" title="1 of 2 branches missed.">            || s.equals(this.athle.getSport())</span>
+<span class="pc bpc" id="L303" title="1 of 2 branches missed.">            || s.equals(this.escr.getSport()) </span>
+<span class="pc bpc" id="L304" title="1 of 2 branches missed.">            || s.equals(this.hand.getSport())</span>
+<span class="pc bpc" id="L305" title="1 of 2 branches missed.">            || s.equals(this.voley.getSport())</span>
+<span class="pc bpc" id="L306" title="1 of 2 branches missed.">            || s.equals(this.nat.getSport())</span>
             ){
 
-<span class="nc" id="L305">                System.out.println(&quot;Sport existe deja&quot;);</span>
+<span class="nc" id="L309">                System.out.println(&quot;Sport existe deja&quot;);</span>
         }
-<span class="pc bpc" id="L307" title="5 of 6 branches missed.">        switch (s) {</span>
+<span class="pc bpc" id="L311" title="5 of 6 branches missed.">        switch (s) {</span>
             case &quot;Athletisme&quot;:
-<span class="nc" id="L309">                this.athle = new Athletisme();</span>
-<span class="nc" id="L310">                break;</span>
-
-            case &quot;Escrime&quot;:
-<span class="nc" id="L313">                this.escr = new Escrime();</span>
+<span class="nc" id="L313">                this.athle = new Athletisme();</span>
 <span class="nc" id="L314">                break;</span>
 
-            case &quot;Handball&quot;:
-<span class="nc" id="L317">                this.hand = new HandBall();</span>
+            case &quot;Escrime&quot;:
+<span class="nc" id="L317">                this.escr = new Escrime();</span>
 <span class="nc" id="L318">                break;</span>
+
+            case &quot;Handball&quot;:
+<span class="nc" id="L321">                this.hand = new HandBall();</span>
+<span class="nc" id="L322">                break;</span>
 
             case &quot;Voley-Ball&quot;:
             case &quot;Voley&quot;:
-<span class="nc" id="L322">                this.voley = new VoleyBall();</span>
-<span class="nc" id="L323">                break;</span>
+<span class="nc" id="L326">                this.voley = new VoleyBall();</span>
+<span class="nc" id="L327">                break;</span>
 
             case &quot;Natation&quot;:
-<span class="nc" id="L326">                this.nat = new Natation();  </span>
-<span class="nc" id="L327">                break;</span>
+<span class="nc" id="L330">                this.nat = new Natation();  </span>
+<span class="nc" id="L331">                break;</span>
         
             default:
-<span class="fc" id="L330">            System.err.println(&quot;Erreur lors de la creation du sport&quot;);</span>
+<span class="fc" id="L334">            System.err.println(&quot;Erreur lors de la creation du sport&quot;);</span>
                 break;
         }
-<span class="fc" id="L333">        return true;</span>
+<span class="fc" id="L337">        return true;</span>
     }
 
     // TRI
 
     public void triPays(Tris leTri){
-<span class="nc bnc" id="L339" title="All 3 branches missed.">        switch (leTri) {</span>
+<span class="nc bnc" id="L343" title="All 3 branches missed.">        switch (leTri) {</span>
             case MEDAILLES:
-<span class="nc" id="L341">                Collections.sort(lesPays, new ComparateurMedailles());</span>
-<span class="nc" id="L342">                break;</span>
+<span class="nc" id="L345">                Collections.sort(lesPays, new ComparateurMedailles());</span>
+<span class="nc" id="L346">                break;</span>
             
             case TOTAL:
-<span class="nc" id="L345">                Collections.sort(lesPays, new ComparateurTotal());</span>
-<span class="nc" id="L346">                break;</span>
+<span class="nc" id="L349">                Collections.sort(lesPays, new ComparateurTotal());</span>
+<span class="nc" id="L350">                break;</span>
         
             default:
-<span class="nc" id="L349">                Collections.sort(lesPays);</span>
+<span class="nc" id="L353">                Collections.sort(lesPays);</span>
                 break;
         }
-<span class="nc" id="L352">    }</span>
+<span class="nc" id="L356">    }</span>
 
     // Demandes utilisateurs
 
     public void creerPays(){
-<span class="nc" id="L357">        boolean condition = true;</span>
+<span class="nc" id="L361">        boolean condition = true;</span>
         String commandePays;
-<span class="nc bnc" id="L359" title="All 2 branches missed.">        while (condition) {</span>
-<span class="nc" id="L360">            System.out.println(&quot;Vous allez créer un pays\nEntrez un nom de Pays\n(Ecrivez 0000 pour revenir en arrière)&quot;);</span>
-<span class="nc" id="L361">            commandePays = System.console().readLine().strip();</span>
-<span class="nc bnc" id="L362" title="All 2 branches missed.">            condition = ! (commandePays.equals(&quot;0000&quot;));</span>
-<span class="nc bnc" id="L363" title="All 2 branches missed.">            if(condition){</span>
+<span class="nc bnc" id="L363" title="All 2 branches missed.">        while (condition) {</span>
+<span class="nc" id="L364">            System.out.println(&quot;Vous allez créer un pays\nEntrez un nom de Pays\n(Ecrivez 0000 pour revenir en arrière)&quot;);</span>
+<span class="nc" id="L365">            commandePays = System.console().readLine().strip();</span>
+<span class="nc bnc" id="L366" title="All 2 branches missed.">            condition = ! (commandePays.equals(&quot;0000&quot;));</span>
+<span class="nc bnc" id="L367" title="All 2 branches missed.">            if(condition){</span>
                 try {
-<span class="nc" id="L365">                    System.out.println(&quot;\nEtes vous sur de vouloir créer le pays: &quot; + commandePays + &quot; ? (O/N)&quot;);</span>
-<span class="nc bnc" id="L366" title="All 2 branches missed.">                    if(System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;)){</span>
-<span class="nc" id="L367">                        LibCreation.creerPays(lesPays, commandePays);</span>
-<span class="nc" id="L368">                        System.out.println(&quot;\nPays ajouté avec succès.\n&quot;);</span>
+<span class="nc" id="L369">                    System.out.println(&quot;\nEtes vous sur de vouloir créer le pays: &quot; + commandePays + &quot; ? (O/N)&quot;);</span>
+<span class="nc bnc" id="L370" title="All 2 branches missed.">                    if(System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;)){</span>
+<span class="nc" id="L371">                        LibCreation.creerPays(lesPays, commandePays);</span>
+<span class="nc" id="L372">                        System.out.println(&quot;\nPays ajouté avec succès.\n&quot;);</span>
                     }
-<span class="nc" id="L370">                    else{System.out.println(&quot;\nAnnulation de la création.\n&quot;);}</span>
-<span class="nc" id="L371">                    condition = false;</span>
-<span class="nc" id="L372">                } catch (AlreadyExistException e) {</span>
-<span class="nc" id="L373">                    System.err.println(&quot;\n&quot; + e.getMessage() + &quot;\n&quot;);</span>
-<span class="nc" id="L374">                }</span>
+<span class="nc" id="L374">                    else{System.out.println(&quot;\nAnnulation de la création.\n&quot;);}</span>
+<span class="nc" id="L375">                    condition = false;</span>
+<span class="nc" id="L376">                } catch (AlreadyExistException e) {</span>
+<span class="nc" id="L377">                    System.err.println(&quot;\n&quot; + e.getMessage() + &quot;\n&quot;);</span>
+<span class="nc" id="L378">                }</span>
             }
         }
-<span class="nc" id="L377">    }</span>
+<span class="nc" id="L381">    }</span>
 
     public void creerAthelete(){
-<span class="nc" id="L380">        boolean condition = true;</span>
+<span class="nc" id="L384">        boolean condition = true;</span>
         String[] entree;
         
-<span class="nc bnc" id="L383" title="All 2 branches missed.">        while (condition) {</span>
-<span class="nc" id="L384">            System.out.println(&quot;Vous allez créer un Athlete\nEntrez les différents chants dans l'ordre en les espaçant par des \&quot;,\&quot; \nNom,prenom,sexe(H/F),force(1-20),agilité(1-20),endurance(1-20),pays\n(Ecrivez 0000 pour revenir en arrière)&quot;);</span>
-<span class="nc" id="L385">            entree = System.console().readLine().strip().split(&quot;,&quot;);</span>
-<span class="nc bnc" id="L386" title="All 2 branches missed.">            condition = ! (entree[0].equals(&quot;0000&quot;));</span>
-<span class="nc bnc" id="L387" title="All 2 branches missed.">            if(condition){</span>
+<span class="nc bnc" id="L387" title="All 2 branches missed.">        while (condition) {</span>
+<span class="nc" id="L388">            System.out.println(&quot;Vous allez créer un Athlete\nEntrez les différents chants dans l'ordre en les espaçant par des \&quot;,\&quot; \nNom,prenom,sexe(H/F),force(1-20),agilité(1-20),endurance(1-20),pays\n(Ecrivez 0000 pour revenir en arrière)&quot;);</span>
+<span class="nc" id="L389">            entree = System.console().readLine().strip().split(&quot;,&quot;);</span>
+<span class="nc bnc" id="L390" title="All 2 branches missed.">            condition = ! (entree[0].equals(&quot;0000&quot;));</span>
+<span class="nc bnc" id="L391" title="All 2 branches missed.">            if(condition){</span>
                 try {
-<span class="nc" id="L389">                    Athlete athlete = new Athlete(entree[0], entree[1], entree[2].charAt(0), Integer.valueOf(entree[3]), Integer.valueOf(entree[4]), Integer.valueOf(entree[5]),this.getPays(entree[6]));</span>
-<span class="nc" id="L390">                    System.out.println(&quot;\nEtes vous sur de vouloir créer cet athlete ? (O/N)\n&quot; + athlete);</span>
-<span class="nc bnc" id="L391" title="All 2 branches missed.">                    if(System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;)){</span>
-<span class="nc" id="L392">                        LibCreation.creerAthlete(this.lesAthletes,athlete);</span>
-<span class="nc" id="L393">                        System.out.println(&quot;\nAthlete créé avec succès\n&quot;);</span>
+<span class="nc" id="L393">                    Athlete athlete = new Athlete(entree[0], entree[1], entree[2].charAt(0), Integer.valueOf(entree[3]), Integer.valueOf(entree[4]), Integer.valueOf(entree[5]),this.getPays(entree[6]));</span>
+<span class="nc" id="L394">                    System.out.println(&quot;\nEtes vous sur de vouloir créer cet athlete ? (O/N)\n&quot; + athlete);</span>
+<span class="nc bnc" id="L395" title="All 2 branches missed.">                    if(System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;)){</span>
+<span class="nc" id="L396">                        LibCreation.creerAthlete(this.lesAthletes,athlete);</span>
+<span class="nc" id="L397">                        System.out.println(&quot;\nAthlete créé avec succès\n&quot;);</span>
                     }
-<span class="nc" id="L395">                    else{System.out.println(&quot;\nAnnulation de la création.\n&quot;);}                    </span>
-<span class="nc" id="L396">                    condition = false;</span>
-<span class="nc" id="L397">                } catch(ArrayIndexOutOfBoundsException e) {</span>
-<span class="nc" id="L398">                    System.err.println(&quot;\nVous n'avez pas rentré assès de valeur, veillez recommencer.\n&quot;);</span>
-<span class="nc" id="L399">                } catch (NumberFormatException e) {</span>
-<span class="nc" id="L400">                    System.err.println(&quot;\nValeur incorecte pour les capacités, veillez recommencer.\n&quot;);</span>
-<span class="nc" id="L401">                } catch (AlreadyExistException e){</span>
-<span class="nc" id="L402">                    System.err.println(&quot;\n&quot; + e.getMessage() + &quot;\n&quot;);</span>
-<span class="nc" id="L403">                    condition = false;</span>
-<span class="nc" id="L404">                } catch (DoesntExistException e){</span>
-<span class="nc" id="L405">                    System.out.println(&quot;\nCe pays n'existe pas, voulez vous le créer ? (O/N)&quot;);</span>
-<span class="nc bnc" id="L406" title="All 2 branches missed.">                    if ((System.console().readLine().strip().toUpperCase()).equals(&quot;O&quot;)){</span>
+<span class="nc" id="L399">                    else{System.out.println(&quot;\nAnnulation de la création.\n&quot;);}                    </span>
+<span class="nc" id="L400">                    condition = false;</span>
+<span class="nc" id="L401">                } catch(ArrayIndexOutOfBoundsException e) {</span>
+<span class="nc" id="L402">                    System.err.println(&quot;\nVous n'avez pas rentré assès de valeur, veillez recommencer.\n&quot;);</span>
+<span class="nc" id="L403">                } catch (NumberFormatException e) {</span>
+<span class="nc" id="L404">                    System.err.println(&quot;\nValeur incorecte pour les capacités, veillez recommencer.\n&quot;);</span>
+<span class="nc" id="L405">                } catch (AlreadyExistException e){</span>
+<span class="nc" id="L406">                    System.err.println(&quot;\n&quot; + e.getMessage() + &quot;\n&quot;);</span>
+<span class="nc" id="L407">                    condition = false;</span>
+<span class="nc" id="L408">                } catch (DoesntExistException e){</span>
+<span class="nc" id="L409">                    System.out.println(&quot;\nCe pays n'existe pas, voulez vous le créer ? (O/N)&quot;);</span>
+<span class="nc bnc" id="L410" title="All 2 branches missed.">                    if ((System.console().readLine().strip().toUpperCase()).equals(&quot;O&quot;)){</span>
                         try {
-<span class="nc" id="L408">                            LibCreation.creerPays(this.lesPays, entree[6]);</span>
-<span class="nc" id="L409">                            System.out.println(&quot;\nPays créé avec succès, réessayer de créer l'athlete.\n&quot;);</span>
-<span class="nc" id="L410">                        } catch (AlreadyExistException e2) {</span>
-<span class="nc" id="L411">                            System.err.println(&quot;Ce message n'est pas censé apparaître&quot;);</span>
-<span class="nc" id="L412">                        }</span>
+<span class="nc" id="L412">                            LibCreation.creerPays(this.lesPays, entree[6]);</span>
+<span class="nc" id="L413">                            System.out.println(&quot;\nPays créé avec succès, réessayer de créer l'athlete.\n&quot;);</span>
+<span class="nc" id="L414">                        } catch (AlreadyExistException e2) {</span>
+<span class="nc" id="L415">                            System.err.println(&quot;Ce message n'est pas censé apparaître&quot;);</span>
+<span class="nc" id="L416">                        }</span>
                     }
-<span class="nc" id="L414">                }</span>
+<span class="nc" id="L418">                }</span>
             }      
         }
-<span class="nc" id="L417">    }</span>
+<span class="nc" id="L421">    }</span>
 
     public void creerEquipe(){
-<span class="fc" id="L420">        boolean condition = true;</span>
+<span class="fc" id="L424">        boolean condition = true;</span>
         String nom;
-<span class="fc bfc" id="L422" title="All 2 branches covered.">        while (condition) {</span>
-<span class="fc" id="L423">            System.out.println(&quot;Vous allez créer une Equipe\nEntrez un nom d'Equipe.\n(Ecrivez 0000 pour revenir en arrière)&quot;);</span>
-<span class="fc" id="L424">            nom = System.console().readLine().strip();</span>
-<span class="pc bpc" id="L425" title="1 of 2 branches missed.">            condition = ! (nom.equals(&quot;0000&quot;));</span>
-<span class="pc bpc" id="L426" title="1 of 2 branches missed.">            if(condition){</span>
+<span class="fc bfc" id="L426" title="All 2 branches covered.">        while (condition) {</span>
+<span class="fc" id="L427">            System.out.println(&quot;Vous allez créer une Equipe\nEntrez un nom d'Equipe.\n(Ecrivez 0000 pour revenir en arrière)&quot;);</span>
+<span class="fc" id="L428">            nom = System.console().readLine().strip();</span>
+<span class="pc bpc" id="L429" title="1 of 2 branches missed.">            condition = ! (nom.equals(&quot;0000&quot;));</span>
+<span class="pc bpc" id="L430" title="1 of 2 branches missed.">            if(condition){</span>
                 try {
-<span class="nc" id="L428">                    System.out.println(&quot;Etes vous sur de vouloir créer l'équipe : &quot; + nom + &quot; (O/N)&quot;);</span>
-<span class="nc bnc" id="L429" title="All 2 branches missed.">                    if(System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;)){</span>
-<span class="nc" id="L430">                        LibCreation.creerEquipe(this.lesEquipes, nom);</span>
-<span class="nc" id="L431">                        System.out.println(&quot;\nEquipe créé avec succès\n&quot;);</span>
+<span class="nc" id="L432">                    System.out.println(&quot;Etes vous sur de vouloir créer l'équipe : &quot; + nom + &quot; (O/N)&quot;);</span>
+<span class="nc bnc" id="L433" title="All 2 branches missed.">                    if(System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;)){</span>
+<span class="nc" id="L434">                        LibCreation.creerEquipe(this.lesEquipes, nom);</span>
+<span class="nc" id="L435">                        System.out.println(&quot;\nEquipe créé avec succès\n&quot;);</span>
                     }
                     else{
-<span class="nc" id="L434">                        System.out.println(&quot;\nAnnulation de la création.\n&quot;);</span>
+<span class="nc" id="L438">                        System.out.println(&quot;\nAnnulation de la création.\n&quot;);</span>
                     }
-<span class="nc" id="L436">                    condition = false;</span>
-<span class="nc" id="L437">                } catch (AlreadyExistException e) {</span>
-<span class="nc" id="L438">                    System.err.println(&quot;\n&quot; + e.getMessage() + &quot;\n&quot;);</span>
-<span class="nc" id="L439">                }</span>
+<span class="nc" id="L440">                    condition = false;</span>
+<span class="nc" id="L441">                } catch (AlreadyExistException e) {</span>
+<span class="nc" id="L442">                    System.err.println(&quot;\n&quot; + e.getMessage() + &quot;\n&quot;);</span>
+<span class="nc" id="L443">                }</span>
             }            
         }
-<span class="fc" id="L442">    }</span>
+<span class="fc" id="L446">    }</span>
 
     public void ajoutAthleteEquipe(){
-<span class="nc" id="L445">        boolean condition = true;</span>
-<span class="nc" id="L446">        boolean condition2 = true;</span>
-<span class="nc" id="L447">        String nomEquipe = &quot;&quot;; </span>
+<span class="nc" id="L449">        boolean condition = true;</span>
+<span class="nc" id="L450">        boolean condition2 = true;</span>
+<span class="nc" id="L451">        String nomEquipe = &quot;&quot;; </span>
         Equipe equipe;
         String[] entreeAthlete;
-<span class="nc bnc" id="L450" title="All 2 branches missed.">        while (condition) {</span>
+<span class="nc bnc" id="L454" title="All 2 branches missed.">        while (condition) {</span>
             try {
-<span class="nc" id="L452">                System.out.println(&quot;Vous allez ajouter un athlete à une équipe\nEntrez un nom d'Equipe.\n(Ecrivez 0000 pour revenir en arrière)&quot;);</span>
-<span class="nc" id="L453">                nomEquipe = System.console().readLine().strip();</span>
-<span class="nc bnc" id="L454" title="All 2 branches missed.">                condition = ! (nomEquipe.equals(&quot;0000&quot;));</span>
-<span class="nc bnc" id="L455" title="All 2 branches missed.">                if(condition){</span>
-<span class="nc" id="L456">                    equipe = this.getEquipe(nomEquipe);</span>
-<span class="nc bnc" id="L457" title="All 2 branches missed.">                    while (condition2) {</span>
-<span class="nc" id="L458">                        System.out.println(&quot;\nVous avez sélectionnez l'équipe &quot; + nomEquipe +&quot;\nEntrez les différents chants dans l'ordre en les espaçant par des \&quot;,\&quot; \n&quot; + </span>
+<span class="nc" id="L456">                System.out.println(&quot;Vous allez ajouter un athlete à une équipe\nEntrez un nom d'Equipe.\n(Ecrivez 0000 pour revenir en arrière)&quot;);</span>
+<span class="nc" id="L457">                nomEquipe = System.console().readLine().strip();</span>
+<span class="nc bnc" id="L458" title="All 2 branches missed.">                condition = ! (nomEquipe.equals(&quot;0000&quot;));</span>
+<span class="nc bnc" id="L459" title="All 2 branches missed.">                if(condition){</span>
+<span class="nc" id="L460">                    equipe = this.getEquipe(nomEquipe);</span>
+<span class="nc bnc" id="L461" title="All 2 branches missed.">                    while (condition2) {</span>
+<span class="nc" id="L462">                        System.out.println(&quot;\nVous avez sélectionnez l'équipe &quot; + nomEquipe +&quot;\nEntrez les différents chants dans l'ordre en les espaçant par des \&quot;,\&quot; \n&quot; + </span>
                                                     &quot;Nom,prenom,sexe(H/F),pays\n&quot; +
                                                     &quot;(Ecrivez 0000 pour revenir en arrière)&quot;);
-<span class="nc" id="L461">                        entreeAthlete = System.console().readLine().strip().split(&quot;,&quot;);</span>
-<span class="nc bnc" id="L462" title="All 2 branches missed.">                        condition2 = ! (entreeAthlete[0].equals(&quot;0000&quot;));</span>
-<span class="nc bnc" id="L463" title="All 2 branches missed.">                        if (condition2){</span>
+<span class="nc" id="L465">                        entreeAthlete = System.console().readLine().strip().split(&quot;,&quot;);</span>
+<span class="nc bnc" id="L466" title="All 2 branches missed.">                        condition2 = ! (entreeAthlete[0].equals(&quot;0000&quot;));</span>
+<span class="nc bnc" id="L467" title="All 2 branches missed.">                        if (condition2){</span>
                             try {
-<span class="nc" id="L465">                                equipe.ajouter(this.getAthlete(entreeAthlete[0], entreeAthlete[1], entreeAthlete[2].charAt(0), entreeAthlete[3]));</span>
-<span class="nc" id="L466">                                System.out.println(&quot;\nAthlete ajouté à l'équipe avec succès, continuer ? (O/N)&quot;);</span>
-<span class="nc" id="L467">                                condition2 = System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;);</span>
-<span class="nc" id="L468">                            } catch (DoesntExistException doesntExistException) {</span>
-<span class="nc" id="L469">                                System.err.println(&quot;\n&quot; + doesntExistException.getMessage() + &quot;\n&quot;);</span>
-<span class="nc" id="L470">                            } catch (AlreadyInException alreadyInException){</span>
-<span class="nc" id="L471">                                System.err.println(&quot;\n&quot; + alreadyInException.getMessage() + &quot;\n&quot;);</span>
-<span class="nc" id="L472">                            } catch (NotSameCountryException notSameCountryException){</span>
-<span class="nc" id="L473">                                System.err.println(&quot;\n&quot; + notSameCountryException.getMessage() + &quot;\n&quot;);</span>
-<span class="nc" id="L474">                            } catch (NotSameGenderException notSameGenderException){</span>
-<span class="nc" id="L475">                                System.err.println(&quot;\n&quot; + notSameGenderException.getMessage() + &quot;\n&quot;);</span>
-<span class="nc" id="L476">                            } catch (ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException){</span>
-<span class="nc" id="L477">                                System.err.println(&quot;\nVous n'avez pas rentré assès de valeur, veillez recommencer.&quot;);</span>
-<span class="nc" id="L478">                            } </span>
+<span class="nc" id="L469">                                equipe.ajouter(this.getAthlete(entreeAthlete[0], entreeAthlete[1], entreeAthlete[2].charAt(0), entreeAthlete[3]));</span>
+<span class="nc" id="L470">                                System.out.println(&quot;\nAthlete ajouté à l'équipe avec succès, continuer ? (O/N)&quot;);</span>
+<span class="nc" id="L471">                                condition2 = System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;);</span>
+<span class="nc" id="L472">                            } catch (DoesntExistException doesntExistException) {</span>
+<span class="nc" id="L473">                                System.err.println(&quot;\n&quot; + doesntExistException.getMessage() + &quot;\n&quot;);</span>
+<span class="nc" id="L474">                            } catch (AlreadyInException alreadyInException){</span>
+<span class="nc" id="L475">                                System.err.println(&quot;\n&quot; + alreadyInException.getMessage() + &quot;\n&quot;);</span>
+<span class="nc" id="L476">                            } catch (NotSameCountryException notSameCountryException){</span>
+<span class="nc" id="L477">                                System.err.println(&quot;\n&quot; + notSameCountryException.getMessage() + &quot;\n&quot;);</span>
+<span class="nc" id="L478">                            } catch (NotSameGenderException notSameGenderException){</span>
+<span class="nc" id="L479">                                System.err.println(&quot;\n&quot; + notSameGenderException.getMessage() + &quot;\n&quot;);</span>
+<span class="nc" id="L480">                            } catch (ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException){</span>
+<span class="nc" id="L481">                                System.err.println(&quot;\nVous n'avez pas rentré assès de valeur, veillez recommencer.&quot;);</span>
+<span class="nc" id="L482">                            } </span>
                         }
                     }
-<span class="nc" id="L481">                    condition = false;</span>
+<span class="nc" id="L485">                    condition = false;</span>
                 }
-<span class="nc" id="L483">            } catch (DoesntExistException e) {</span>
-<span class="nc" id="L484">                System.out.println(&quot;\nL'équipe &quot; + nomEquipe + &quot; n'existe pas, voulez vous la créer ? (O/N)&quot;);</span>
-<span class="nc bnc" id="L485" title="All 2 branches missed.">                if(System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;)){</span>
+<span class="nc" id="L487">            } catch (DoesntExistException e) {</span>
+<span class="nc" id="L488">                System.out.println(&quot;\nL'équipe &quot; + nomEquipe + &quot; n'existe pas, voulez vous la créer ? (O/N)&quot;);</span>
+<span class="nc bnc" id="L489" title="All 2 branches missed.">                if(System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;)){</span>
                     try {
-<span class="nc" id="L487">                        LibCreation.creerEquipe(this.lesEquipes, nomEquipe);</span>
-<span class="nc" id="L488">                        System.out.println(&quot;\nEquipe créé avec succès, veuillez réessayer d'ajouter l'athlete.\n&quot;);</span>
-<span class="nc" id="L489">                    } catch (AlreadyExistException e2) {</span>
-<span class="nc" id="L490">                        System.err.println(&quot;Ce message n'est pas censé apparaître&quot;);</span>
-<span class="nc" id="L491">                    }</span>
+<span class="nc" id="L491">                        LibCreation.creerEquipe(this.lesEquipes, nomEquipe);</span>
+<span class="nc" id="L492">                        System.out.println(&quot;\nEquipe créé avec succès, veuillez réessayer d'ajouter l'athlete.\n&quot;);</span>
+<span class="nc" id="L493">                    } catch (AlreadyExistException e2) {</span>
+<span class="nc" id="L494">                        System.err.println(&quot;Ce message n'est pas censé apparaître&quot;);</span>
+<span class="nc" id="L495">                    }</span>
                 }
-<span class="nc" id="L493">            }</span>
+<span class="nc" id="L497">            }</span>
         }
-<span class="nc" id="L495">    }</span>
+<span class="nc" id="L499">    }</span>
 
     public void inscrireEpreuve(){
         // String description, Sport sport, char sexe
         // quel epreuve &gt; collectif ou non &gt; demandé equipe / athlete selon le collect true ou pas
-<span class="nc" id="L500">        boolean condition = true;</span>
-<span class="nc" id="L501">        boolean condition2 = true;</span>
+<span class="nc" id="L504">        boolean condition = true;</span>
+<span class="nc" id="L505">        boolean condition2 = true;</span>
         String[] nomEpreuve; 
         Equipe equipe; 
         Epreuve&lt;? extends Participant&gt; epreuve;
@@ -506,270 +510,270 @@ public class JO {
         Epreuve&lt;Equipe&gt; epreuveEquipe;
         String[] entreeEpreuve;
         Athlete unAthlete;
-<span class="nc bnc" id="L509" title="All 2 branches missed.">        while (condition) {</span>
+<span class="nc bnc" id="L513" title="All 2 branches missed.">        while (condition) {</span>
             try {
-<span class="nc" id="L511">                System.out.println(&quot;Quelle epreuve?\nEntrez un nom d'Epreuve et son sexe séparé par des \&quot;,\&quot;.\n(Ecrivez 0000 pour revenir en arrière)&quot;);</span>
-<span class="nc" id="L512">                nomEpreuve = System.console().readLine().strip().split(&quot;,&quot;);</span>
-<span class="nc bnc" id="L513" title="All 2 branches missed.">                condition = ! (nomEpreuve[0].equals(&quot;0000&quot;));</span>
-<span class="nc bnc" id="L514" title="All 2 branches missed.">                if(condition){</span>
-<span class="nc" id="L515">                    epreuve = this.getEpreuve(nomEpreuve[0],nomEpreuve[1].charAt(0));</span>
-<span class="nc bnc" id="L516" title="All 2 branches missed.">                    if (epreuve.getSport().getNbParEquipe()&gt;1){</span>
-<span class="nc" id="L517">                        epreuveEquipe = (Epreuve&lt;Equipe&gt;)epreuve;</span>
-<span class="nc bnc" id="L518" title="All 2 branches missed.">                        while (condition2) {</span>
-<span class="nc" id="L519">                            System.out.println(&quot;\nEQUIPE\nEntrez le nom de votre equipe \&quot;,\&quot; \n&quot; +</span>
+<span class="nc" id="L515">                System.out.println(&quot;Quelle epreuve?\nEntrez un nom d'Epreuve et son sexe séparé par des \&quot;,\&quot;.\n(Ecrivez 0000 pour revenir en arrière)&quot;);</span>
+<span class="nc" id="L516">                nomEpreuve = System.console().readLine().strip().split(&quot;,&quot;);</span>
+<span class="nc bnc" id="L517" title="All 2 branches missed.">                condition = ! (nomEpreuve[0].equals(&quot;0000&quot;));</span>
+<span class="nc bnc" id="L518" title="All 2 branches missed.">                if(condition){</span>
+<span class="nc" id="L519">                    epreuve = this.getEpreuve(nomEpreuve[0],nomEpreuve[1].charAt(0));</span>
+<span class="nc bnc" id="L520" title="All 2 branches missed.">                    if (epreuve.getSport().getNbParEquipe()&gt;1){</span>
+<span class="nc" id="L521">                        epreuveEquipe = (Epreuve&lt;Equipe&gt;)epreuve;</span>
+<span class="nc bnc" id="L522" title="All 2 branches missed.">                        while (condition2) {</span>
+<span class="nc" id="L523">                            System.out.println(&quot;\nEQUIPE\nEntrez le nom de votre equipe \&quot;,\&quot; \n&quot; +</span>
                                                         &quot;(Ecrivez 0000 pour revenir en arrière)&quot;);
-<span class="nc" id="L521">                            entreeEpreuve = System.console().readLine().strip().split(&quot;,&quot;);</span>
-<span class="nc bnc" id="L522" title="All 2 branches missed.">                            condition2 = ! (entreeEpreuve[0].equals(&quot;0000&quot;));</span>
-<span class="nc bnc" id="L523" title="All 2 branches missed.">                            if (condition2){</span>
+<span class="nc" id="L525">                            entreeEpreuve = System.console().readLine().strip().split(&quot;,&quot;);</span>
+<span class="nc bnc" id="L526" title="All 2 branches missed.">                            condition2 = ! (entreeEpreuve[0].equals(&quot;0000&quot;));</span>
+<span class="nc bnc" id="L527" title="All 2 branches missed.">                            if (condition2){</span>
                                 try {
-<span class="nc" id="L525">                                    equipe = getEquipe(entreeEpreuve[0]);</span>
-<span class="nc" id="L526">                                    epreuveEquipe.inscrire(equipe);</span>
+<span class="nc" id="L529">                                    equipe = getEquipe(entreeEpreuve[0]);</span>
+<span class="nc" id="L530">                                    epreuveEquipe.inscrire(equipe);</span>
 
                                     
                                     // equipe.ajouter(this.getAthlete(entreeAthlete[0], entreeAthlete[1], entreeAthlete[2].charAt(0), entreeAthlete[3]));
-<span class="nc" id="L530">                                    System.out.println(&quot;\nAthlete ajouté à l'équipe avec succès, continuer ? (O/N)&quot;);</span>
-<span class="nc" id="L531">                                    condition2 = System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;);</span>
-<span class="nc" id="L532">                                } catch (DoesntExistException doesntExistException) {</span>
-<span class="nc" id="L533">                                    System.err.println(&quot;\n&quot; + doesntExistException.getMessage() + &quot;\n&quot;);</span>
-<span class="nc" id="L534">                                } catch (CanNotRegisterException canNotRegisterException) {</span>
-<span class="nc" id="L535">                                    System.err.println(&quot;\n&quot; + canNotRegisterException.getMessage() + &quot;\n&quot;);</span>
-<span class="nc" id="L536">                                } catch (AlreadyInException alreadyInException){</span>
-<span class="nc" id="L537">                                    System.err.println(&quot;\n&quot; + alreadyInException.getMessage() + &quot;\n&quot;);</span>
-<span class="nc" id="L538">                                } catch (NotSameGenderException notSameGenderException){</span>
-<span class="nc" id="L539">                                    System.err.println(&quot;\n&quot; + notSameGenderException.getMessage() + &quot;\n&quot;);</span>
-<span class="nc" id="L540">                                } catch (ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException){</span>
-<span class="nc" id="L541">                                    System.err.println(&quot;\nVous n'avez pas rentré assès de valeur, veillez recommencer.&quot;);</span>
-<span class="nc" id="L542">                                } </span>
+<span class="nc" id="L534">                                    System.out.println(&quot;\nAthlete ajouté à l'équipe avec succès, continuer ? (O/N)&quot;);</span>
+<span class="nc" id="L535">                                    condition2 = System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;);</span>
+<span class="nc" id="L536">                                } catch (DoesntExistException doesntExistException) {</span>
+<span class="nc" id="L537">                                    System.err.println(&quot;\n&quot; + doesntExistException.getMessage() + &quot;\n&quot;);</span>
+<span class="nc" id="L538">                                } catch (CanNotRegisterException canNotRegisterException) {</span>
+<span class="nc" id="L539">                                    System.err.println(&quot;\n&quot; + canNotRegisterException.getMessage() + &quot;\n&quot;);</span>
+<span class="nc" id="L540">                                } catch (AlreadyInException alreadyInException){</span>
+<span class="nc" id="L541">                                    System.err.println(&quot;\n&quot; + alreadyInException.getMessage() + &quot;\n&quot;);</span>
+<span class="nc" id="L542">                                } catch (NotSameGenderException notSameGenderException){</span>
+<span class="nc" id="L543">                                    System.err.println(&quot;\n&quot; + notSameGenderException.getMessage() + &quot;\n&quot;);</span>
+<span class="nc" id="L544">                                } catch (ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException){</span>
+<span class="nc" id="L545">                                    System.err.println(&quot;\nVous n'avez pas rentré assès de valeur, veillez recommencer.&quot;);</span>
+<span class="nc" id="L546">                                } </span>
                             }
                         }
                     }else{
                         
-<span class="nc" id="L547">                        epreuveAthlete = (Epreuve&lt;Athlete&gt;)epreuve;</span>
+<span class="nc" id="L551">                        epreuveAthlete = (Epreuve&lt;Athlete&gt;)epreuve;</span>
 
-<span class="nc bnc" id="L549" title="All 2 branches missed.">                        while (condition2) {</span>
-<span class="nc" id="L550">                            System.out.println(&quot;\nATHLETE\nEntrez le nom de votre Athlete Entrez les différents chants dans l'ordre en les espaçant par des \&quot;,\&quot; \n&quot; + </span>
+<span class="nc bnc" id="L553" title="All 2 branches missed.">                        while (condition2) {</span>
+<span class="nc" id="L554">                            System.out.println(&quot;\nATHLETE\nEntrez le nom de votre Athlete Entrez les différents chants dans l'ordre en les espaçant par des \&quot;,\&quot; \n&quot; + </span>
                                                                 &quot;nom,prenom,sexe(H/F),Pays \n&quot; +
                                                         &quot;(Ecrivez 0000 pour revenir en arrière)&quot;);
-<span class="nc" id="L553">                            entreeEpreuve = System.console().readLine().strip().split(&quot;,&quot;);</span>
-<span class="nc bnc" id="L554" title="All 2 branches missed.">                            condition2 = ! (entreeEpreuve[0].equals(&quot;0000&quot;));</span>
-<span class="nc bnc" id="L555" title="All 2 branches missed.">                            if (condition2){</span>
+<span class="nc" id="L557">                            entreeEpreuve = System.console().readLine().strip().split(&quot;,&quot;);</span>
+<span class="nc bnc" id="L558" title="All 2 branches missed.">                            condition2 = ! (entreeEpreuve[0].equals(&quot;0000&quot;));</span>
+<span class="nc bnc" id="L559" title="All 2 branches missed.">                            if (condition2){</span>
                                 try {
-<span class="nc" id="L557">                                    unAthlete = this.getAthlete(entreeEpreuve[0],entreeEpreuve[1],entreeEpreuve[2].charAt(0),entreeEpreuve[3]);</span>
-<span class="nc" id="L558">                                    epreuveAthlete.inscrire(unAthlete); </span>
+<span class="nc" id="L561">                                    unAthlete = this.getAthlete(entreeEpreuve[0],entreeEpreuve[1],entreeEpreuve[2].charAt(0),entreeEpreuve[3]);</span>
+<span class="nc" id="L562">                                    epreuveAthlete.inscrire(unAthlete); </span>
 
                                     
                                     // equipe.ajouter(this.getAthlete(entreeAthlete[0], entreeAthlete[1], entreeAthlete[2].charAt(0), entreeAthlete[3]));
-<span class="nc" id="L562">                                    System.out.println(&quot;\nAthlete ajouté à l'équipe avec succès, continuer ? (O/N)&quot;);</span>
-<span class="nc" id="L563">                                    condition2 = System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;);</span>
-<span class="nc" id="L564">                                } catch (DoesntExistException doesntExistException) {</span>
-<span class="nc" id="L565">                                    System.err.println(&quot;\n&quot; + doesntExistException.getMessage() + &quot;\n&quot;);</span>
-<span class="nc" id="L566">                                } catch (CanNotRegisterException canNotRegisterException) {</span>
-<span class="nc" id="L567">                                    System.err.println(&quot;\n&quot; + canNotRegisterException.getMessage() + &quot;\n&quot;);</span>
-<span class="nc" id="L568">                                } catch (AlreadyInException alreadyInException){</span>
-<span class="nc" id="L569">                                    System.err.println(&quot;\n&quot; + alreadyInException.getMessage() + &quot;\n&quot;);</span>
-<span class="nc" id="L570">                                }catch (NotSameGenderException notSameGenderException){</span>
-<span class="nc" id="L571">                                    System.err.println(&quot;\n&quot; + notSameGenderException.getMessage() + &quot;\n&quot;);</span>
-<span class="nc" id="L572">                                } catch (ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException){</span>
-<span class="nc" id="L573">                                    System.err.println(&quot;\nVous n'avez pas rentré assès de valeur, veillez recommencer.&quot;);</span>
-<span class="nc" id="L574">                                } </span>
+<span class="nc" id="L566">                                    System.out.println(&quot;\nAthlete ajouté à l'équipe avec succès, continuer ? (O/N)&quot;);</span>
+<span class="nc" id="L567">                                    condition2 = System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;);</span>
+<span class="nc" id="L568">                                } catch (DoesntExistException doesntExistException) {</span>
+<span class="nc" id="L569">                                    System.err.println(&quot;\n&quot; + doesntExistException.getMessage() + &quot;\n&quot;);</span>
+<span class="nc" id="L570">                                } catch (CanNotRegisterException canNotRegisterException) {</span>
+<span class="nc" id="L571">                                    System.err.println(&quot;\n&quot; + canNotRegisterException.getMessage() + &quot;\n&quot;);</span>
+<span class="nc" id="L572">                                } catch (AlreadyInException alreadyInException){</span>
+<span class="nc" id="L573">                                    System.err.println(&quot;\n&quot; + alreadyInException.getMessage() + &quot;\n&quot;);</span>
+<span class="nc" id="L574">                                }catch (NotSameGenderException notSameGenderException){</span>
+<span class="nc" id="L575">                                    System.err.println(&quot;\n&quot; + notSameGenderException.getMessage() + &quot;\n&quot;);</span>
+<span class="nc" id="L576">                                } catch (ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsException){</span>
+<span class="nc" id="L577">                                    System.err.println(&quot;\nVous n'avez pas rentré assès de valeur, veillez recommencer.&quot;);</span>
+<span class="nc" id="L578">                                } </span>
                             }
                         }
 
                     }
                     
-<span class="nc" id="L580">                    condition = false;</span>
+<span class="nc" id="L584">                    condition = false;</span>
                 }
-<span class="nc" id="L582">            } catch (DoesntExistException e) {</span>
-<span class="nc" id="L583">                System.out.println(&quot;\nl'Epreuve n'existe pas, voulez vous la créer ? (O/N)&quot;);</span>
-<span class="nc bnc" id="L584" title="All 2 branches missed.">                if(System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;)){</span>
-<span class="nc" id="L585">                    creerEpreuve();</span>
-<span class="nc" id="L586">                    System.out.println(&quot;\nEpreuve créé avec succès, veuillez réessayer d'ajouter l'athlete.\n&quot;);</span>
+<span class="nc" id="L586">            } catch (DoesntExistException e) {</span>
+<span class="nc" id="L587">                System.out.println(&quot;\nl'Epreuve n'existe pas, voulez vous la créer ? (O/N)&quot;);</span>
+<span class="nc bnc" id="L588" title="All 2 branches missed.">                if(System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;)){</span>
+<span class="nc" id="L589">                    creerEpreuve();</span>
+<span class="nc" id="L590">                    System.out.println(&quot;\nEpreuve créé avec succès, veuillez réessayer d'ajouter l'athlete.\n&quot;);</span>
 
                 }
-<span class="nc" id="L589">            } catch (ArrayIndexOutOfBoundsException e3){</span>
-<span class="nc" id="L590">                System.err.println(&quot;\nVeuillez entrer les informations demandées.\n&quot;);</span>
-<span class="nc" id="L591">            }</span>
+<span class="nc" id="L593">            } catch (ArrayIndexOutOfBoundsException e3){</span>
+<span class="nc" id="L594">                System.err.println(&quot;\nVeuillez entrer les informations demandées.\n&quot;);</span>
+<span class="nc" id="L595">            }</span>
         }
-<span class="nc" id="L593">    }</span>
+<span class="nc" id="L597">    }</span>
     
     public void creerEpreuve(){
-<span class="nc" id="L596">        boolean condition = true;</span>
+<span class="nc" id="L600">        boolean condition = true;</span>
         String[] entree;
         
-<span class="nc bnc" id="L599" title="All 2 branches missed.">        while (condition) {</span>
-<span class="nc" id="L600">            System.out.println(&quot;Vous allez créer une Epreuve\nEntrez les différents chants dans l'ordre en les espaçant par des \&quot;,\&quot; \ndescription,sport,sexe(H/F)\n(Ecrivez 0000 pour revenir en arrière)&quot;);</span>
-<span class="nc" id="L601">            entree = System.console().readLine().strip().split(&quot;,&quot;);</span>
-<span class="nc bnc" id="L602" title="All 2 branches missed.">            condition = ! (entree[0].equals(&quot;0000&quot;));</span>
-<span class="nc bnc" id="L603" title="All 2 branches missed.">            if(condition){</span>
+<span class="nc bnc" id="L603" title="All 2 branches missed.">        while (condition) {</span>
+<span class="nc" id="L604">            System.out.println(&quot;Vous allez créer une Epreuve\nEntrez les différents chants dans l'ordre en les espaçant par des \&quot;,\&quot; \ndescription,sport,sexe(H/F)\n(Ecrivez 0000 pour revenir en arrière)&quot;);</span>
+<span class="nc" id="L605">            entree = System.console().readLine().strip().split(&quot;,&quot;);</span>
+<span class="nc bnc" id="L606" title="All 2 branches missed.">            condition = ! (entree[0].equals(&quot;0000&quot;));</span>
+<span class="nc bnc" id="L607" title="All 2 branches missed.">            if(condition){</span>
                 try {
-<span class="nc" id="L605">                    Epreuve&lt;Participant&gt; uneEpreuve = new Epreuve&lt;Participant&gt;(entree[0], this.getSport(entree[1]), entree[2].charAt(0));</span>
-<span class="nc" id="L606">                    System.out.println(&quot;\nEtes vous sur de vouloir créer cette Epreuve ? (O/N)\n&quot; + uneEpreuve);</span>
-<span class="nc bnc" id="L607" title="All 2 branches missed.">                    if(System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;)){</span>
-<span class="nc" id="L608">                        LibCreation.creerEpreuve(this.lesEpreuves,uneEpreuve);</span>
-<span class="nc" id="L609">                        System.out.println(&quot;\nEpreuve créé avec succès\n&quot;);</span>
+<span class="nc" id="L609">                    Epreuve&lt;Participant&gt; uneEpreuve = new Epreuve&lt;Participant&gt;(entree[0], this.getSport(entree[1]), entree[2].charAt(0));</span>
+<span class="nc" id="L610">                    System.out.println(&quot;\nEtes vous sur de vouloir créer cette Epreuve ? (O/N)\n&quot; + uneEpreuve);</span>
+<span class="nc bnc" id="L611" title="All 2 branches missed.">                    if(System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;)){</span>
+<span class="nc" id="L612">                        LibCreation.creerEpreuve(this.lesEpreuves,uneEpreuve);</span>
+<span class="nc" id="L613">                        System.out.println(&quot;\nEpreuve créé avec succès\n&quot;);</span>
                     }
-<span class="nc" id="L611">                    else{System.out.println(&quot;\nAnnulation de la création.\n&quot;);}                    </span>
-<span class="nc" id="L612">                    condition = false;</span>
-<span class="nc" id="L613">                } catch(ArrayIndexOutOfBoundsException e) {</span>
-<span class="nc" id="L614">                    System.err.println(&quot;\nVous n'avez pas rentré assès de valeur, veillez recommencer.\n&quot;);</span>
-<span class="nc" id="L615">                } catch (AlreadyExistException e){</span>
-<span class="nc" id="L616">                    System.err.println(&quot;\n&quot; + e.getMessage() + &quot;\n&quot;);</span>
-<span class="nc" id="L617">                    condition = false;</span>
+<span class="nc" id="L615">                    else{System.out.println(&quot;\nAnnulation de la création.\n&quot;);}                    </span>
+<span class="nc" id="L616">                    condition = false;</span>
+<span class="nc" id="L617">                } catch(ArrayIndexOutOfBoundsException e) {</span>
+<span class="nc" id="L618">                    System.err.println(&quot;\nVous n'avez pas rentré assès de valeur, veillez recommencer.\n&quot;);</span>
+<span class="nc" id="L619">                } catch (AlreadyExistException e){</span>
+<span class="nc" id="L620">                    System.err.println(&quot;\n&quot; + e.getMessage() + &quot;\n&quot;);</span>
+<span class="nc" id="L621">                    condition = false;</span>
                     
-<span class="nc" id="L619">                } catch (DoesntExistException e){</span>
-<span class="nc" id="L620">                    System.out.println(&quot;\nCette Epreuve n'existe pas, voulez vous le créer ? (O/N)&quot;);</span>
-<span class="nc bnc" id="L621" title="All 2 branches missed.">                    if ((System.console().readLine().strip().toUpperCase()).equals(&quot;O&quot;)){</span>
+<span class="nc" id="L623">                } catch (DoesntExistException e){</span>
+<span class="nc" id="L624">                    System.out.println(&quot;\nCette Epreuve n'existe pas, voulez vous le créer ? (O/N)&quot;);</span>
+<span class="nc bnc" id="L625" title="All 2 branches missed.">                    if ((System.console().readLine().strip().toUpperCase()).equals(&quot;O&quot;)){</span>
                         try {
-<span class="nc" id="L623">                            Epreuve&lt;Participant&gt; uneEpreuve = new Epreuve&lt;Participant&gt;(entree[0], this.getSport(entree[1]), entree[2].charAt(0));</span>
+<span class="nc" id="L627">                            Epreuve&lt;Participant&gt; uneEpreuve = new Epreuve&lt;Participant&gt;(entree[0], this.getSport(entree[1]), entree[2].charAt(0));</span>
 
-<span class="nc" id="L625">                            LibCreation.creerEpreuve(this.lesEpreuves, uneEpreuve);</span>
-<span class="nc" id="L626">                            System.out.println(&quot;\nEpreuve créé avec succès, réessayer de créer l'athlete.\n&quot;);</span>
-<span class="nc" id="L627">                        } catch (AlreadyExistException e2) {</span>
-<span class="nc" id="L628">                            System.err.println(&quot;Ce message n'est pas censé apparaître&quot;);</span>
+<span class="nc" id="L629">                            LibCreation.creerEpreuve(this.lesEpreuves, uneEpreuve);</span>
+<span class="nc" id="L630">                            System.out.println(&quot;\nEpreuve créé avec succès, réessayer de créer l'athlete.\n&quot;);</span>
+<span class="nc" id="L631">                        } catch (AlreadyExistException e2) {</span>
+<span class="nc" id="L632">                            System.err.println(&quot;Ce message n'est pas censé apparaître&quot;);</span>
                         }
-<span class="nc" id="L630">                        catch(DoesntExistException e3){</span>
-<span class="nc" id="L631">                            System.err.println(e3.getMessage());</span>
-<span class="nc" id="L632">                        }</span>
+<span class="nc" id="L634">                        catch(DoesntExistException e3){</span>
+<span class="nc" id="L635">                            System.err.println(e3.getMessage());</span>
+<span class="nc" id="L636">                        }</span>
                     }
-<span class="nc" id="L634">                }</span>
+<span class="nc" id="L638">                }</span>
             }      
         }
-<span class="nc" id="L637">    }</span>
+<span class="nc" id="L641">    }</span>
 
     public void demandeClassement(){
-<span class="nc" id="L640">        boolean condition = true;</span>
+<span class="nc" id="L644">        boolean condition = true;</span>
         String commande;
         int tri;
-<span class="nc bnc" id="L643" title="All 2 branches missed.">        while (condition) {</span>
-<span class="nc" id="L644">            System.out.println(&quot;Choississez le classement à voir\n1 - Par médailles (Or, Argent, Bronze)\n2 - Par total de médailles&quot;);</span>
-<span class="nc" id="L645">            commande = System.console().readLine().strip();</span>
-<span class="nc bnc" id="L646" title="All 2 branches missed.">            condition = ! (commande.equals(&quot;0000&quot;));</span>
-<span class="nc bnc" id="L647" title="All 2 branches missed.">            if (condition){</span>
+<span class="nc bnc" id="L647" title="All 2 branches missed.">        while (condition) {</span>
+<span class="nc" id="L648">            System.out.println(&quot;Choississez le classement à voir\n1 - Par médailles (Or, Argent, Bronze)\n2 - Par total de médailles&quot;);</span>
+<span class="nc" id="L649">            commande = System.console().readLine().strip();</span>
+<span class="nc bnc" id="L650" title="All 2 branches missed.">            condition = ! (commande.equals(&quot;0000&quot;));</span>
+<span class="nc bnc" id="L651" title="All 2 branches missed.">            if (condition){</span>
                 try {
-<span class="nc" id="L649">                    tri = Integer.valueOf(commande);</span>
+<span class="nc" id="L653">                    tri = Integer.valueOf(commande);</span>
 
-<span class="nc bnc" id="L651" title="All 2 branches missed.">                    if (tri == 1){</span>
-<span class="nc" id="L652">                        System.out.println(&quot;\nTriage en fonction des médailles.\n&quot;);</span>
-<span class="nc" id="L653">                        this.triPays(Tris.MEDAILLES);</span>
-<span class="nc" id="L654">                        condition = false;</span>
+<span class="nc bnc" id="L655" title="All 2 branches missed.">                    if (tri == 1){</span>
+<span class="nc" id="L656">                        System.out.println(&quot;\nTriage en fonction des médailles.\n&quot;);</span>
+<span class="nc" id="L657">                        this.triPays(Tris.MEDAILLES);</span>
+<span class="nc" id="L658">                        condition = false;</span>
                     }
-<span class="nc bnc" id="L656" title="All 2 branches missed.">                    else if (tri == 2){</span>
-<span class="nc" id="L657">                        System.out.println(&quot;\nTriage en fonction du total de médailles.\n&quot;);</span>
-<span class="nc" id="L658">                        this.triPays(Tris.TOTAL);</span>
-<span class="nc" id="L659">                        condition = false;</span>
+<span class="nc bnc" id="L660" title="All 2 branches missed.">                    else if (tri == 2){</span>
+<span class="nc" id="L661">                        System.out.println(&quot;\nTriage en fonction du total de médailles.\n&quot;);</span>
+<span class="nc" id="L662">                        this.triPays(Tris.TOTAL);</span>
+<span class="nc" id="L663">                        condition = false;</span>
                     }
                     else{
-<span class="nc" id="L662">                        System.out.println(&quot;\nEntrez un chiffre valide.\n&quot;);</span>
+<span class="nc" id="L666">                        System.out.println(&quot;\nEntrez un chiffre valide.\n&quot;);</span>
                     }
                     
-<span class="nc" id="L665">                } catch (NumberFormatException e) {</span>
-<span class="nc" id="L666">                    System.err.println(&quot;\nVeuillez entrer un chiffre.\n&quot;);</span>
-<span class="nc" id="L667">                }</span>
+<span class="nc" id="L669">                } catch (NumberFormatException e) {</span>
+<span class="nc" id="L670">                    System.err.println(&quot;\nVeuillez entrer un chiffre.\n&quot;);</span>
+<span class="nc" id="L671">                }</span>
             }
         }
-<span class="nc" id="L670">    }</span>
+<span class="nc" id="L674">    }</span>
 
     public void csvImport(){
-<span class="nc" id="L673">        boolean condition = true;</span>
-<span class="nc" id="L674">        String chemin = &quot;&quot;; </span>
+<span class="nc" id="L677">        boolean condition = true;</span>
+<span class="nc" id="L678">        String chemin = &quot;&quot;; </span>
 
-<span class="nc bnc" id="L676" title="All 2 branches missed.">        while (condition) {</span>
-<span class="nc" id="L677">            System.out.println(&quot;Vous allez Importer un fichier d'athlete \nEntrez un chemin vers se fichier.\n(Ecrivez 0000 pour revenir en arrière)&quot;);</span>
-<span class="nc" id="L678">            chemin = System.console().readLine().strip();</span>
-<span class="nc bnc" id="L679" title="All 2 branches missed.">            condition = ! (chemin.equals(&quot;0000&quot;));</span>
-<span class="nc bnc" id="L680" title="All 2 branches missed.">            if(condition){</span>
-<span class="nc" id="L681">                csvToListe(chemin);</span>
+<span class="nc bnc" id="L680" title="All 2 branches missed.">        while (condition) {</span>
+<span class="nc" id="L681">            System.out.println(&quot;Vous allez Importer un fichier d'athlete \nEntrez un chemin vers se fichier.\n(Ecrivez 0000 pour revenir en arrière)&quot;);</span>
+<span class="nc" id="L682">            chemin = System.console().readLine().strip();</span>
+<span class="nc bnc" id="L683" title="All 2 branches missed.">            condition = ! (chemin.equals(&quot;0000&quot;));</span>
+<span class="nc bnc" id="L684" title="All 2 branches missed.">            if(condition){</span>
+<span class="nc" id="L685">                csvToListe(chemin);</span>
             }    
-<span class="nc" id="L683">            condition = false;</span>
+<span class="nc" id="L687">            condition = false;</span>
         }
-<span class="nc" id="L685">    }</span>
+<span class="nc" id="L689">    }</span>
 
     public void voirInscritEpreuve(){
-<span class="nc" id="L688">        boolean condition = true;</span>
+<span class="nc" id="L692">        boolean condition = true;</span>
         String[] nomEpreuve; 
         Epreuve&lt;? extends Participant&gt; epreuve;
-<span class="nc bnc" id="L691" title="All 2 branches missed.">        while (condition) {</span>
+<span class="nc bnc" id="L695" title="All 2 branches missed.">        while (condition) {</span>
             try {
-<span class="nc" id="L693">                System.out.println(&quot;Quelle epreuve?\nEntrez un nom d'Epreuve et son sexe séparé par des \&quot;,\&quot;.\n(Ecrivez 0000 pour revenir en arrière)&quot;);</span>
-<span class="nc" id="L694">                nomEpreuve = System.console().readLine().strip().split(&quot;,&quot;);</span>
-<span class="nc bnc" id="L695" title="All 2 branches missed.">                condition = ! (nomEpreuve[0].equals(&quot;0000&quot;));</span>
-<span class="nc bnc" id="L696" title="All 2 branches missed.">                if(condition){</span>
-<span class="nc" id="L697">                    epreuve = this.getEpreuve(nomEpreuve[0],nomEpreuve[1].charAt(0));</span>
-<span class="nc" id="L698">                    System.out.println(&quot;\nLes participants :\n&quot;);</span>
-<span class="nc bnc" id="L699" title="All 2 branches missed.">                    for (Participant participant : epreuve.getLesParticipants()){</span>
-<span class="nc" id="L700">                        System.out.println(participant);</span>
-<span class="nc" id="L701">                    }</span>
-<span class="nc" id="L702">                    condition = false;</span>
+<span class="nc" id="L697">                System.out.println(&quot;Quelle epreuve?\nEntrez un nom d'Epreuve et son sexe séparé par des \&quot;,\&quot;.\n(Ecrivez 0000 pour revenir en arrière)&quot;);</span>
+<span class="nc" id="L698">                nomEpreuve = System.console().readLine().strip().split(&quot;,&quot;);</span>
+<span class="nc bnc" id="L699" title="All 2 branches missed.">                condition = ! (nomEpreuve[0].equals(&quot;0000&quot;));</span>
+<span class="nc bnc" id="L700" title="All 2 branches missed.">                if(condition){</span>
+<span class="nc" id="L701">                    epreuve = this.getEpreuve(nomEpreuve[0],nomEpreuve[1].charAt(0));</span>
+<span class="nc" id="L702">                    System.out.println(&quot;\nLes participants :\n&quot;);</span>
+<span class="nc bnc" id="L703" title="All 2 branches missed.">                    for (Participant participant : epreuve.getLesParticipants()){</span>
+<span class="nc" id="L704">                        System.out.println(participant);</span>
+<span class="nc" id="L705">                    }</span>
+<span class="nc" id="L706">                    condition = false;</span>
                 }
-<span class="nc" id="L704">            } catch (DoesntExistException e) {</span>
-<span class="nc" id="L705">                System.out.println(&quot;\nl'Epreuve n'existe pas, voulez vous la créer ? (O/N)&quot;);</span>
-<span class="nc bnc" id="L706" title="All 2 branches missed.">                if(System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;)){</span>
-<span class="nc" id="L707">                    this.creerEpreuve();</span>
+<span class="nc" id="L708">            } catch (DoesntExistException e) {</span>
+<span class="nc" id="L709">                System.out.println(&quot;\nl'Epreuve n'existe pas, voulez vous la créer ? (O/N)&quot;);</span>
+<span class="nc bnc" id="L710" title="All 2 branches missed.">                if(System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;)){</span>
+<span class="nc" id="L711">                    this.creerEpreuve();</span>
                 }
-<span class="nc" id="L709">            } catch (ArrayIndexOutOfBoundsException e3){</span>
-<span class="nc" id="L710">                System.err.println(&quot;\nVeuillez entrer les informations demandées.\n&quot;);</span>
-<span class="nc" id="L711">            }</span>
+<span class="nc" id="L713">            } catch (ArrayIndexOutOfBoundsException e3){</span>
+<span class="nc" id="L714">                System.err.println(&quot;\nVeuillez entrer les informations demandées.\n&quot;);</span>
+<span class="nc" id="L715">            }</span>
         }
-<span class="nc" id="L713">    }</span>
+<span class="nc" id="L717">    }</span>
 
     public void voirMatchs(){
-<span class="nc" id="L716">        boolean condition = true;</span>
+<span class="nc" id="L720">        boolean condition = true;</span>
         String[] nomEpreuve; 
         Epreuve&lt;? extends Participant&gt; epreuve;
-<span class="nc bnc" id="L719" title="All 2 branches missed.">        while (condition) {</span>
+<span class="nc bnc" id="L723" title="All 2 branches missed.">        while (condition) {</span>
             try {
-<span class="nc" id="L721">                System.out.println(&quot;Quelle epreuve?\nEntrez un nom d'Epreuve et son sexe séparé par des \&quot;,\&quot;.\n(Ecrivez 0000 pour revenir en arrière)&quot;);</span>
-<span class="nc" id="L722">                nomEpreuve = System.console().readLine().strip().split(&quot;,&quot;);</span>
-<span class="nc bnc" id="L723" title="All 2 branches missed.">                condition = ! (nomEpreuve[0].equals(&quot;0000&quot;));</span>
-<span class="nc bnc" id="L724" title="All 2 branches missed.">                if(condition){</span>
-<span class="nc" id="L725">                    epreuve = this.getEpreuve(nomEpreuve[0], nomEpreuve[1].charAt(0));</span>
-<span class="nc" id="L726">                    System.out.println(&quot;\nLes matchs :\n&quot;);</span>
-<span class="nc bnc" id="L727" title="All 2 branches missed.">                    for (Match&lt;? extends Participant&gt; match : epreuve.getLesMatchs()){</span>
-<span class="nc" id="L728">                        System.out.println(match);</span>
-<span class="nc" id="L729">                    }</span>
-<span class="nc" id="L730">                    condition = false;</span>
+<span class="nc" id="L725">                System.out.println(&quot;Quelle epreuve?\nEntrez un nom d'Epreuve et son sexe séparé par des \&quot;,\&quot;.\n(Ecrivez 0000 pour revenir en arrière)&quot;);</span>
+<span class="nc" id="L726">                nomEpreuve = System.console().readLine().strip().split(&quot;,&quot;);</span>
+<span class="nc bnc" id="L727" title="All 2 branches missed.">                condition = ! (nomEpreuve[0].equals(&quot;0000&quot;));</span>
+<span class="nc bnc" id="L728" title="All 2 branches missed.">                if(condition){</span>
+<span class="nc" id="L729">                    epreuve = this.getEpreuve(nomEpreuve[0], nomEpreuve[1].charAt(0));</span>
+<span class="nc" id="L730">                    System.out.println(&quot;\nLes matchs :\n&quot;);</span>
+<span class="nc bnc" id="L731" title="All 2 branches missed.">                    for (Match&lt;? extends Participant&gt; match : epreuve.getLesMatchs()){</span>
+<span class="nc" id="L732">                        System.out.println(match);</span>
+<span class="nc" id="L733">                    }</span>
+<span class="nc" id="L734">                    condition = false;</span>
                 }
-<span class="nc" id="L732">            } catch (DoesntExistException e) {</span>
-<span class="nc" id="L733">                System.out.println(&quot;\nl'Epreuve n'existe pas, voulez vous la créer ? (O/N)&quot;);</span>
-<span class="nc bnc" id="L734" title="All 2 branches missed.">                if(System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;)){</span>
-<span class="nc" id="L735">                    this.creerEpreuve();</span>
+<span class="nc" id="L736">            } catch (DoesntExistException e) {</span>
+<span class="nc" id="L737">                System.out.println(&quot;\nl'Epreuve n'existe pas, voulez vous la créer ? (O/N)&quot;);</span>
+<span class="nc bnc" id="L738" title="All 2 branches missed.">                if(System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;)){</span>
+<span class="nc" id="L739">                    this.creerEpreuve();</span>
                 }
-<span class="nc" id="L737">            } catch (ArrayIndexOutOfBoundsException e3){</span>
-<span class="nc" id="L738">                System.err.println(&quot;\nVeuillez entrer les informations demandées.\n&quot;);</span>
-<span class="nc" id="L739">            }</span>
+<span class="nc" id="L741">            } catch (ArrayIndexOutOfBoundsException e3){</span>
+<span class="nc" id="L742">                System.err.println(&quot;\nVeuillez entrer les informations demandées.\n&quot;);</span>
+<span class="nc" id="L743">            }</span>
         }
-<span class="nc" id="L741">    }</span>
+<span class="nc" id="L745">    }</span>
 
     public void voirResultatsEpreuve(){
-<span class="nc" id="L744">        boolean condition = true;</span>
+<span class="nc" id="L748">        boolean condition = true;</span>
         String[] nomEpreuve; 
         Epreuve&lt;? extends Participant&gt; epreuve;
-<span class="nc bnc" id="L747" title="All 2 branches missed.">        while (condition) {</span>
+<span class="nc bnc" id="L751" title="All 2 branches missed.">        while (condition) {</span>
             try {
-<span class="nc" id="L749">                System.out.println(&quot;Quelle epreuve?\nEntrez un nom d'Epreuve et son sexe séparé par des \&quot;,\&quot;.\n(Ecrivez 0000 pour revenir en arrière)&quot;);</span>
-<span class="nc" id="L750">                nomEpreuve = System.console().readLine().strip().split(&quot;,&quot;);</span>
-<span class="nc bnc" id="L751" title="All 2 branches missed.">                condition = ! (nomEpreuve[0].equals(&quot;0000&quot;));</span>
-<span class="nc bnc" id="L752" title="All 2 branches missed.">                if(condition){</span>
-<span class="nc" id="L753">                    epreuve = this.getEpreuve(nomEpreuve[0], nomEpreuve[1].charAt(0));</span>
-<span class="nc" id="L754">                    System.out.println(&quot;\nLes matchs :\n&quot;);</span>
-<span class="nc" id="L755">                    System.out.println(epreuve.getLeClassement());</span>
-<span class="nc" id="L756">                    condition = false;</span>
+<span class="nc" id="L753">                System.out.println(&quot;Quelle epreuve?\nEntrez un nom d'Epreuve et son sexe séparé par des \&quot;,\&quot;.\n(Ecrivez 0000 pour revenir en arrière)&quot;);</span>
+<span class="nc" id="L754">                nomEpreuve = System.console().readLine().strip().split(&quot;,&quot;);</span>
+<span class="nc bnc" id="L755" title="All 2 branches missed.">                condition = ! (nomEpreuve[0].equals(&quot;0000&quot;));</span>
+<span class="nc bnc" id="L756" title="All 2 branches missed.">                if(condition){</span>
+<span class="nc" id="L757">                    epreuve = this.getEpreuve(nomEpreuve[0], nomEpreuve[1].charAt(0));</span>
+<span class="nc" id="L758">                    System.out.println(&quot;\nLes matchs :\n&quot;);</span>
+<span class="nc" id="L759">                    System.out.println(epreuve.getLeClassement());</span>
+<span class="nc" id="L760">                    condition = false;</span>
                 }
-<span class="nc" id="L758">            } catch (DoesntExistException e) {</span>
-<span class="nc" id="L759">                System.out.println(&quot;\nl'Epreuve n'existe pas, voulez vous la créer ? (O/N)&quot;);</span>
-<span class="nc bnc" id="L760" title="All 2 branches missed.">                if(System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;)){</span>
-<span class="nc" id="L761">                    this.creerEpreuve();</span>
+<span class="nc" id="L762">            } catch (DoesntExistException e) {</span>
+<span class="nc" id="L763">                System.out.println(&quot;\nl'Epreuve n'existe pas, voulez vous la créer ? (O/N)&quot;);</span>
+<span class="nc bnc" id="L764" title="All 2 branches missed.">                if(System.console().readLine().strip().toUpperCase().equals(&quot;O&quot;)){</span>
+<span class="nc" id="L765">                    this.creerEpreuve();</span>
                 }
-<span class="nc" id="L763">            } catch (ArrayIndexOutOfBoundsException e3){</span>
-<span class="nc" id="L764">                System.err.println(&quot;\nVeuillez entrer les informations demandées.\n&quot;);</span>
-<span class="nc" id="L765">            }</span>
+<span class="nc" id="L767">            } catch (ArrayIndexOutOfBoundsException e3){</span>
+<span class="nc" id="L768">                System.err.println(&quot;\nVeuillez entrer les informations demandées.\n&quot;);</span>
+<span class="nc" id="L769">            }</span>
         }
-<span class="nc" id="L767">    }</span>
+<span class="nc" id="L771">    }</span>
 
     public void lancerToutEpreuves(){
-<span class="nc bnc" id="L770" title="All 2 branches missed.">        for (Epreuve&lt;? extends Participant&gt; epreuve : this.lesEpreuves){</span>
-<span class="nc" id="L771">            epreuve.getLeClassement();</span>
-<span class="nc" id="L772">        }</span>
-<span class="nc" id="L773">    }</span>
+<span class="nc bnc" id="L774" title="All 2 branches missed.">        for (Epreuve&lt;? extends Participant&gt; epreuve : this.lesEpreuves){</span>
+<span class="nc" id="L775">            epreuve.getLeClassement();</span>
+<span class="nc" id="L776">        }</span>
+<span class="nc" id="L777">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
