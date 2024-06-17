@@ -1,3 +1,15 @@
-#accueil{
-    -fx-background-color : red;
+.accueil{
+    -fx-background-image : url("../img/Page_accueil.png");
+    -fx-background-size: 100% 100%;
 }
+
+
+.application{
+    -fx-background-image : url("../img/Page_App.png");
+    -fx-background-size: 100% 100%;
+}
+
+#boutonConexion{
+    -fx-background-color: ;
+}
+
