@@ -1,4 +1,4 @@
-package vues;
+package MVC.vues;
 
 import java.io.File;
 import java.net.URL;
