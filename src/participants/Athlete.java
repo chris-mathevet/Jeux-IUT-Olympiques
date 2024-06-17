@@ -1,6 +1,6 @@
 package participants;
 
-import epreuves.Match;
+import epreuves.Manche;
 
 public class Athlete implements Participant{
 	private String nom;
@@ -82,8 +82,8 @@ public class Athlete implements Participant{
 	}
 
 	@Override
-	public int participer(Match<? extends Participant> match) {
-		return match.getEpreuve().getSport().bareme(this);
+	public int participer(Manche<? extends Participant> manche) {
+		return manche.getEpreuve().getSport().bareme(this);
 	}
 
 	@Override 

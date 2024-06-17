@@ -67,7 +67,7 @@ public class JO {
 
         for (Epreuve<Participant> epreuve : this.lesEpreuves){
             for (int i = 1; i<8; ++i){
-                new Match<Participant>(i, "Tour ", epreuve); 
+                new Manche<Participant>(i, "Manche ", epreuve); 
             }
         }
     }   
@@ -716,7 +716,7 @@ public class JO {
         }
     }
 
-    public void voirMatchs(){
+    public void voirManches(){
         boolean condition = true;
         String[] nomEpreuve; 
         Epreuve<? extends Participant> epreuve;
@@ -727,9 +727,9 @@ public class JO {
                 condition = ! (nomEpreuve[0].equals("0000"));
                 if(condition){
                     epreuve = this.getEpreuve(nomEpreuve[0], nomEpreuve[1].charAt(0));
-                    System.out.println("\nLes matchs :\n");
-                    for (Match<? extends Participant> match : epreuve.getLesMatchs()){
-                        System.out.println(match);
+                    System.out.println("\nLes manches :\n");
+                    for (Manche<? extends Participant> manche : epreuve.getLesManches()){
+                        System.out.println(manche);
                     }
                     condition = false;
                 }
@@ -755,7 +755,7 @@ public class JO {
                 condition = ! (nomEpreuve[0].equals("0000"));
                 if(condition){
                     epreuve = this.getEpreuve(nomEpreuve[0], nomEpreuve[1].charAt(0));
-                    System.out.println("\nLes matchs :\n");
+                    System.out.println("\nLes manches :\n");
                     System.out.println(epreuve.getLeClassement());
                     condition = false;
                 }

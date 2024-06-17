@@ -13,7 +13,7 @@ public class Epreuve<T extends Participant> {
 	private String description;
 	private Sport leSport;
 	private char sexe;
-	private List<Match<T>> lesMatchs;
+	private List<Manche<T>> lesManches;
 	private List<T> lesParticipants;
 	private T premier; 
 	private T second; 
@@ -32,7 +32,7 @@ public class Epreuve<T extends Participant> {
 		if (this.sexe != 'F'){
 			this.sexe = 'H';
 		}
-		this.lesMatchs = new ArrayList<>();
+		this.lesManches = new ArrayList<>();
 		this.lesParticipants = new ArrayList<>();
 		this.premier = null;
 		this.second = null;
@@ -68,8 +68,8 @@ public class Epreuve<T extends Participant> {
 		return this.troisieme;
 	}
 
-	public List<Match<T>> getLesMatchs() {
-		return this.lesMatchs;
+	public List<Manche<T>> getLesManches() {
+		return this.lesManches;
 	}
 
 	public List<T> getLeClassement() {
@@ -90,11 +90,11 @@ public class Epreuve<T extends Participant> {
 		this.troisieme = troisieme;
 	}
 
-	/** Ajoute un match a la liste de match
-	 * @param Match<T> le match a ajouté
+	/** Ajoute un Manche a la liste de Manche
+	 * @param Manche<T> le Manche a ajouté
 	 */
-	public void ajoutMatch(Match<T> match){
-		this.lesMatchs.add(match);
+	public void ajoutManche(Manche<T> manche){
+		this.lesManches.add(manche);
 	}
 
 	/**
@@ -147,22 +147,22 @@ public class Epreuve<T extends Participant> {
 	}
 
 	/**
-	 * Renvoie la liste des résultats de chaque matchs cumulés
+	 * Renvoie la liste des résultats de chaque Manches cumulés
 	 * @return List<Double> La liste cumulé
 	 */
 	private List<Double> cumulResultats(){
 		List<Double> resultats = new ArrayList<>();
-		List<Double> resultatMatch = new ArrayList<>();
+		List<Double> resultatManche = new ArrayList<>();
 
-		// Cumul les résultats des différents matchs
-		for (Match<T> match : lesMatchs){
+		// Cumul les résultats des différents Manches
+		for (Manche<T> manche : lesManches){
 			if(resultats.isEmpty()){
-				resultats = new ArrayList<>(match.getResultats());
+				resultats = new ArrayList<>(manche.getResultats());
 			}
 			else{
-				resultatMatch = match.getResultats();
+				resultatManche = manche.getResultats();
 				for(int i = 0; i<resultats.size();++i){
-					resultats.set(i, resultats.get(i) + resultatMatch.get(i));
+					resultats.set(i, resultats.get(i) + resultatManche.get(i));
 				}
 				
 			}
@@ -176,7 +176,7 @@ public class Epreuve<T extends Participant> {
 	 */
 	private List<Double> moyResultats(){
 		List<Double> resultats = this.cumulResultats();
-		int taille = this.lesMatchs.size();
+		int taille = this.lesManches.size();
 		for(Double res : resultats){
 			res /= taille;
 		}
@@ -199,7 +199,7 @@ public class Epreuve<T extends Participant> {
 		// sinon le résultat est calculé selon la méthode du maximum (plus grand nombre de points en premier)
 		if(this.getSport().getEstTemps()){
 			for (int i = 0; i<resultats.size();++i){
-				indMinMax = Match.indiemeMin(resultats, i); // Indice du min
+				indMinMax = Manche.indiemeMin(resultats, i); // Indice du min
 				// Permutation du min et de l'actuel
 				tmp = resultats.get(i);
                 resultats.set(i, resultats.get(indMinMax));
@@ -210,7 +210,7 @@ public class Epreuve<T extends Participant> {
 		}
 		else{
 			for (int i = 0; i<resultats.size();++i){
-				indMinMax = Match.indiemeMax(resultats, i); // Indice du max
+				indMinMax = Manche.indiemeMax(resultats, i); // Indice du max
 				// Permutation du max et de l'actuel
 				tmp = resultats.get(i);
                 resultats.set(i, resultats.get(indMinMax));

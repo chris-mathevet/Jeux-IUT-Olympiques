@@ -8,17 +8,17 @@ import sports.Athletisme;
 import sports.Natation;
 import sports.Sport;
 
-public class Match<T extends Participant> {
+public class Manche<T extends Participant> {
 	private int numéroDeTour;
 	private String nomDeTour;
 	private List<Double> resultats;
 	private Epreuve<T> epreuve;
 
-	public Match(int nbTour, String nomTour, Epreuve<T> epreuve) {
+	public Manche(int nbTour, String nomTour, Epreuve<T> epreuve) {
 		this.numéroDeTour = nbTour;
 		this.nomDeTour = nomTour;
 		this.epreuve = epreuve;
-		this.epreuve.ajoutMatch(this);
+		this.epreuve.ajoutManche(this);
 		this.resultats = new ArrayList<>();
 	}
 
@@ -77,7 +77,7 @@ public class Match<T extends Participant> {
     }
 
 	/**
-	 * Calcul les résultats des participants du match (index partagé avec la liste de participants de l'épreuve)
+	 * Calcul les résultats des participants du Manche (index partagé avec la liste de participants de l'épreuve)
 	 */
 	private void calculResultat() {
 		if(this.resultats.isEmpty()){
@@ -127,7 +127,7 @@ public class Match<T extends Participant> {
 	}
 
 	/**
-	 * Renvoie le résultat d'un participant pour un match
+	 * Renvoie le résultat d'un participant pour un Manche
 	 * @param T L'athlete / l'équipe dont on veut le résultat
 	 * @return int le résultat de l'athlete / l'équipe, -1 s'il n'a pas participé
 	 */	

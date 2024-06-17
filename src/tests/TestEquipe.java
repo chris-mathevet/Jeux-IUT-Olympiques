@@ -11,7 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import epreuves.Epreuve;
-import epreuves.Match;
+import epreuves.Manche;
 import exceptions.AlreadyInException;
 import exceptions.NotSameCountryException;
 import exceptions.NotSameGenderException;
@@ -35,7 +35,7 @@ public class TestEquipe {
     private Athlete a5;
     private HandBall sport1;
     private Epreuve<Equipe> epreuveTest;
-    private Match<Equipe> matchTest;
+    private Manche<Equipe> mancheTest;
 
     @BeforeEach
     public void setUp() {
@@ -52,7 +52,7 @@ public class TestEquipe {
         a5 = new Athlete("Harry", "Potter", 'H', 9, 8, 5, ge);
         sport1 = new HandBall();
         epreuveTest = new Epreuve<>("Test", sport1, 'H');
-        matchTest = new Match<>(3, "Test", epreuveTest);
+        mancheTest = new Manche<>(3, "Test", epreuveTest);
 
     }
 
@@ -98,8 +98,8 @@ public class TestEquipe {
 
     @Test
     public void testParticiper() {
-        assertTrue(equipe.participer(matchTest)>=4 * equipe.size());
-        assertTrue(equipe.participer(matchTest)<=200 * equipe.size());
+        assertTrue(equipe.participer(mancheTest)>=4 * equipe.size());
+        assertTrue(equipe.participer(mancheTest)<=200 * equipe.size());
     }
 
     @Test
