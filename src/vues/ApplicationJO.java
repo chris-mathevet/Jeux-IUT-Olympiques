@@ -25,6 +25,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -41,9 +42,9 @@ public class ApplicationJO extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
-        URL url = new File("FXML/Page_app.fxml").toURI().toURL();
+        URL url = new File("FXML/PageConnexion.fxml").toURI().toURL();
         FXMLLoader loader = new FXMLLoader(url);
-        BorderPane racine = loader.load();
+        StackPane racine = loader.load();
         Scene scene = new Scene(racine);
         stage.setTitle("Puissance 4");
         stage.setScene(scene);
