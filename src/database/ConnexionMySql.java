@@ -2,9 +2,9 @@ package database;
 
 import java.sql.*;
 
-public class ConnexionConnexion {
+public class ConnexionMySql {
 	private Connection mysql;
-	public ConnexionConnexion() throws ClassNotFoundException{
+	public ConnexionMySql() throws ClassNotFoundException{
 		this.mysql=null;
 		Class.forName("org.mariadb.jdbc.Driver");
 	}
@@ -18,6 +18,13 @@ public class ConnexionConnexion {
 	public void close() throws SQLException {
 		this.mysql.close();
 	}
+    public Statement createStatement() throws SQLException {
+        if (this.mysql == null) {
+            throw new SQLException("pas connecté");
+        }
+        return this.mysql.createStatement();
+    }
+
 
 	public PreparedStatement prepareStatement(String requete) throws SQLException{
 		return this.mysql.prepareStatement(requete);
