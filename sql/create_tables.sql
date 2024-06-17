@@ -3,15 +3,14 @@
 
 
 CREATE TABLE PAYS (
-    idPays INT PRIMARY KEY,
     nomPays VARCHAR(20),
     nbMedailleOr int,
     nbMedailleArgent int,
     nbMedaillebronze int,
+    PRIMARY KEY (nomPays)
 );
 
 CREATE TABLE ATHLETE (
-    idAthlete INT,
     nomAthlete VARCHAR(20) ,
     prenomAthlete VARCHAR(20),
     sexe CHAR,
@@ -19,8 +18,7 @@ CREATE TABLE ATHLETE (
     endurance INT,
     agilite INT,
     nomPays VARCHAR(20), 
-    PRIMARY key (nomAthlete,prenomAthlete,sexe,idPays),    
-    FOREIGN KEY (idPays) REFERENCES PAYS (idPays)
+    PRIMARY key (nomAthlete,prenomAthlete,sexe,nomPays) 
 );
 
 CREATE TABLE EPREUVE (
@@ -42,7 +40,7 @@ CREATE TABLE MANCHE (
     
     -- cle epreuve
     FOREIGN KEY (descriptionEpreuve) REFERENCES EPREUVE (descriptionEpreuve),
-    FOREIGN KEY (sexe) REFERENCES EPREUVE (sexe),
+    FOREIGN KEY (sexe) REFERENCES EPREUVE (sexe)
 );
 
 CREATE TABLE EQUIPE (
@@ -67,9 +65,9 @@ CREATE TABLE EST_CONSTITUE (
     FOREIGN KEY (nomEquipe) REFERENCES EQUIPE (nomEquipe),
     
     -- cle Athlete
-    FOREIGN KEY (nomPays) REFERENCES ATHLETE (nomPays)
-    FOREIGN KEY (nomAthlete) REFERENCES ATHLETE (nomAthlete)
-    FOREIGN KEY (prenomAthlete) REFERENCES ATHLETE (prenomAthlete)
+    FOREIGN KEY (nomPays) REFERENCES ATHLETE (nomPays),
+    FOREIGN KEY (nomAthlete) REFERENCES ATHLETE (nomAthlete),
+    FOREIGN KEY (prenomAthlete) REFERENCES ATHLETE (prenomAthlete),
     FOREIGN KEY (sexe) REFERENCES ATHLETE (sexe)
 );
 
@@ -87,17 +85,17 @@ CREATE TABLE PARTICIPER_ATHLETE (
     descriptionEpreuve VARCHAR(250),
     sexeEpreuve CHAR,
 
-    PRIMARY KEY (nomAthlete, prenomAthlete, sexe, nomPays,sexe, descriptionEpreuve, nomManche,sexeEpreuve),
+    PRIMARY KEY (nomAthlete, prenomAthlete, sexe, nomPays, descriptionEpreuve, nomManche,sexeEpreuve),
     
     -- cle manche
-    FOREIGN KEY (sexeEpreuve) REFERENCES MANCHE (sexe)
-    FOREIGN KEY (descriptionEpreuve) REFERENCES MANCHE (descriptionEpreuve)
-    FOREIGN KEY (nomManche) REFERENCES MANCHE (nomManche)
+    FOREIGN KEY (sexeEpreuve) REFERENCES MANCHE (sexe),
+    FOREIGN KEY (descriptionEpreuve) REFERENCES MANCHE (descriptionEpreuve),
+    FOREIGN KEY (nomManche) REFERENCES MANCHE (nomManche),
 
     -- cle Athlete
-    FOREIGN KEY (nomPays) REFERENCES ATHLETE (nomPays)
-    FOREIGN KEY (nomAthlete) REFERENCES ATHLETE (nomAthlete)
-    FOREIGN KEY (prenomAthlete) REFERENCES ATHLETE (prenomAthlete)
+    FOREIGN KEY (nomPays) REFERENCES ATHLETE (nomPays),
+    FOREIGN KEY (nomAthlete) REFERENCES ATHLETE (nomAthlete),
+    FOREIGN KEY (prenomAthlete) REFERENCES ATHLETE (prenomAthlete),
     FOREIGN KEY (sexe) REFERENCES ATHLETE (sexe)
 );
 
@@ -117,8 +115,8 @@ CREATE TABLE PARTICIPER_EQUIPE (
 
     
     -- cle manche
-    FOREIGN KEY (sexeEpreuve) REFERENCES MANCHE (sexe)
-    FOREIGN KEY (descriptionEpreuve) REFERENCES MANCHE (descriptionEpreuve)
+    FOREIGN KEY (sexeEpreuve) REFERENCES MANCHE (sexe),
+    FOREIGN KEY (descriptionEpreuve) REFERENCES MANCHE (descriptionEpreuve),
     FOREIGN KEY (nomManche) REFERENCES MANCHE (nomManche)
 
 );
