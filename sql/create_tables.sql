@@ -4,75 +4,125 @@
 
 CREATE TABLE PAYS (
     idPays INT PRIMARY KEY,
-    nomPays VARCHAR(20)
-);
-
-CREATE TABLE SPORT (
-    idSport INT,
-    nomSport VARCHAR(20),
-    nbParEquipe INT
+    nomPays VARCHAR(20),
+    nbMedailleOr int,
+    nbMedailleArgent int,
+    nbMedaillebronze int,
 );
 
 CREATE TABLE ATHLETE (
-    idAthlete INT PRIMARY KEY,
-    nomAthlete VARCHAR(20),
+    idAthlete INT,
+    nomAthlete VARCHAR(20) ,
     prenomAthlete VARCHAR(20),
     sexe CHAR,
     capaciteForce INT,
     endurance INT,
     agilite INT,
-    idPays INT, 
+    nomPays VARCHAR(20), 
+    PRIMARY key (nomAthlete,prenomAthlete,sexe,idPays),    
     FOREIGN KEY (idPays) REFERENCES PAYS (idPays)
 );
 
 CREATE TABLE EPREUVE (
-    -- idEpreuve INT PRIMARY KEY,
-    idEpreuve INT,
     descriptionEpreuve VARCHAR(250),
     typeEpreuve VARCHAR(20),
-    idSport int, 
-    PRIMARY KEY (idEpreuve),
-    FOREIGN KEY (idSport) REFERENCES SPORT (idSport)
-
-    -- FOREIGN KEY (idSport) REFERENCES SPORT (idSport)
+    nomSport VARCHAR(50), 
+    sexe CHAR,
+    PRIMARY KEY (descriptionEpreuve, sexe)
 );
 
-CREATE TABLE MATCH_TABLE (
-    idMatch INT PRIMARY KEY,
-    typeMatch VARCHAR(20),
-    idEpreuve INT,
-    FOREIGN KEY (idEpreuve) REFERENCES EPREUVE (idEpreuve)
+CREATE TABLE MANCHE (
+    nomManche VARCHAR(20),
+    numeroManche INT,
+    -- cle epreuve
+    descriptionEpreuve VARCHAR(250),
+    sexe CHAR,
+
+    PRIMARY KEY (descriptionEpreuve,sexe,nomManche),
+    
+    -- cle epreuve
+    FOREIGN KEY (descriptionEpreuve) REFERENCES EPREUVE (descriptionEpreuve),
+    FOREIGN KEY (sexe) REFERENCES EPREUVE (sexe),
 );
 
 CREATE TABLE EQUIPE (
-    idEquipe INT PRIMARY KEY,
-    nomEquipe VARCHAR(20)
+    nomEquipe VARCHAR(20) PRIMARY KEY
 );
 
 -- Associations
 
-CREATE TABLE EST_CONSTITUER (
-    idEquipe INT,
-    idAthlete INT,
-    PRIMARY KEY (idEquipe, idAthlete),
-    FOREIGN KEY (idEquipe) REFERENCES EQUIPE (idEquipe),
-    FOREIGN KEY (idAthlete) REFERENCES ATHLETE (idAthlete)
+CREATE TABLE EST_CONSTITUE (
+    -- cle Athlete
+    nomPays VARCHAR(20), 
+    nomAthlete VARCHAR(20) ,
+    prenomAthlete VARCHAR(20),
+    sexe CHAR,
+
+    -- cle equipe
+    nomEquipe VARCHAR(30),
+
+    PRIMARY KEY (nomPays, nomAthlete, prenomAthlete, sexe, nomEquipe),
+    
+    -- cle equipe    
+    FOREIGN KEY (nomEquipe) REFERENCES EQUIPE (nomEquipe),
+    
+    -- cle Athlete
+    FOREIGN KEY (nomPays) REFERENCES ATHLETE (nomPays)
+    FOREIGN KEY (nomAthlete) REFERENCES ATHLETE (nomAthlete)
+    FOREIGN KEY (prenomAthlete) REFERENCES ATHLETE (prenomAthlete)
+    FOREIGN KEY (sexe) REFERENCES ATHLETE (sexe)
 );
 
 CREATE TABLE PARTICIPER_ATHLETE (
-    idMatch INT,
-    idAthlete INT,
+
     resultat INT,
-    PRIMARY KEY (idMatch, idAthlete),
-    FOREIGN KEY (idMatch) REFERENCES MATCH_TABLE (idMatch),
-    FOREIGN KEY (idAthlete) REFERENCES ATHLETE (idAthlete)
+
+    -- cle Athlete
+    nomPays VARCHAR(20), 
+    nomAthlete VARCHAR(20) ,
+    prenomAthlete VARCHAR(20),
+    sexe CHAR,
+    -- cle manche
+    nomManche VARCHAR(20),
+    descriptionEpreuve VARCHAR(250),
+    sexeEpreuve CHAR,
+
+    PRIMARY KEY (nomAthlete, prenomAthlete, sexe, nomPays,sexe, descriptionEpreuve, nomManche,sexeEpreuve),
+    
+    -- cle manche
+    FOREIGN KEY (sexeEpreuve) REFERENCES MANCHE (sexe)
+    FOREIGN KEY (descriptionEpreuve) REFERENCES MANCHE (descriptionEpreuve)
+    FOREIGN KEY (nomManche) REFERENCES MANCHE (nomManche)
+
+    -- cle Athlete
+    FOREIGN KEY (nomPays) REFERENCES ATHLETE (nomPays)
+    FOREIGN KEY (nomAthlete) REFERENCES ATHLETE (nomAthlete)
+    FOREIGN KEY (prenomAthlete) REFERENCES ATHLETE (prenomAthlete)
+    FOREIGN KEY (sexe) REFERENCES ATHLETE (sexe)
 );
-&   
+
 CREATE TABLE PARTICIPER_EQUIPE (
-    idMatch INT,
-    idEquipe INT,
-    resultat INT,
-    PRIMARY KEY (idMatch, idEquipe),
-    FOREIGN KEY (idMatch) REFERENCES MATCH_TABLE (idMatch),
-    FOREIGN KEY (idEquipe) REFERENCES EQUIPE (idEquipe)
+    -- cle manche
+    nomManche VARCHAR(20),
+    descriptionEpreuve VARCHAR(250),
+    sexeEpreuve CHAR,
+
+    -- cle equipe
+    nomEquipe VARCHAR(30),
+
+
+    PRIMARY KEY (descriptionEpreuve, nomManche,sexeEpreuve, nomEquipe),
+
+    
+    -- cle manche
+    FOREIGN KEY (sexeEpreuve) REFERENCES MANCHE (sexe)
+    FOREIGN KEY (descriptionEpreuve) REFERENCES MANCHE (descriptionEpreuve)
+    FOREIGN KEY (nomManche) REFERENCES MANCHE (nomManche)
+
+);
+
+create table USER(
+    idPseudo VARCHAR(50) NOT NULL PRIMARY KEY,
+    mdp INT NOT NULL,
+    type ENUM('visiteur', 'admin', 'organisateur') NOT NULL
 );
