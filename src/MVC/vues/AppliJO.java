@@ -22,27 +22,53 @@ public class AppliJO extends Application {
     private ModeleJO modele;
     private Scene laScene;
 
+    private StackPane racineConnexion;
+    private BorderPane racineAppli;
+    private Stage stage;
+
     @Override
     public void init(){
         this.modele = new ModeleJO();
+        this.laScene = new Scene(new Pane());
     }
 
     @Override
     public void start(Stage stage) throws Exception {
+        this.stage = stage;
+        this.modeConnexion();
+    }
+
+    public void modeConnexion() throws Exception {
         URL url = new File("FXML/PageConnexion.fxml").toURI().toURL();
         FXMLLoader loader = new FXMLLoader(url);
-        StackPane racine = loader.load();
-        this.laScene = new Scene(racine);
-        stage.setTitle("Jeux IUT'Olympiques");
-        stage.setScene(this.laScene);
+        this.racineConnexion = loader.load();
+        this.laScene.setRoot(this.racineConnexion);
+        
+        this.stage.setTitle("Jeux IUT'Olympiques");
+        this.stage.setScene(this.laScene);
 
-        stage.show();
+        this.stage.show();
 
         Button boutonConnexion = (Button) laScene.lookup("#boutonConnexion"); 
         boutonConnexion.setOnAction(new BoutonConnexionControleur(this, modele));
-
     }
 
+    public void modeAppli() throws Exception {
+        URL url = new File("FXML/PageAppli.fxml").toURI().toURL();
+        FXMLLoader loader = new FXMLLoader(url);
+        this.racineAppli = loader.load();
+        this.laScene.setRoot(this.racineAppli);
+        this.modeClassement();
+        this.stage.show();
+    }
+
+
+    public void modeClassement() throws Exception {
+        URL url = new File("FXML/PageClassement.fxml").toURI().toURL();
+        FXMLLoader loader = new FXMLLoader(url);
+        BorderPane centre = loader.load();
+        this.racineAppli.setCenter(centre);
+    }
 
 
     public static void main(String[] args) {

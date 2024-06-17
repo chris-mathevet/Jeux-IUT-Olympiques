@@ -21,7 +21,11 @@ public class BoutonConnexionControleur implements EventHandler<ActionEvent>{
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        System.out.println("COUCOU");
+        try {
+            this.vue.modeAppli();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
 
     }
 }
