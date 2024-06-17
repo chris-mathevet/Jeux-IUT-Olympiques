@@ -102,11 +102,13 @@ CREATE TABLE PARTICIPER_ATHLETE (
 );
 
 CREATE TABLE PARTICIPER_EQUIPE (
+    
+    resultat INT,
+
     -- cle manche
     nomManche VARCHAR(20),
     descriptionEpreuve VARCHAR(250),
     sexeEpreuve CHAR,
-
     -- cle equipe
     nomEquipe VARCHAR(30),
 
