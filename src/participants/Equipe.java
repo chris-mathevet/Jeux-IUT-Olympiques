@@ -2,7 +2,7 @@ package participants;
 
 import java.util.ArrayList;
 
-import epreuves.Match;
+import epreuves.Manche;
 import exceptions.AlreadyInException;
 import exceptions.NotSameCountryException;
 import exceptions.NotSameGenderException;
@@ -75,14 +75,14 @@ public class Equipe extends ArrayList<Athlete> implements Participant{
     }
 
 	/**
-	 * @param Match match 
+	 * @param Manche manche 
 	 * @return int (somme des bareme des athlete de l'équipe)
 	 */
 	@Override
-	public int participer(Match<? extends Participant> match) {
+	public int participer(Manche<? extends Participant> manche) {
 		int sommeBareme = 0;
 		for (Athlete athlete : this) {
-			sommeBareme += athlete.participer(match);
+			sommeBareme += athlete.participer(manche);
 		}
 		return sommeBareme;
 	}

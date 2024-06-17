@@ -18,7 +18,7 @@ import sports.Escrime;
 import sports.Natation;
 import sports.VoleyBall;
 
-public class TestEpreuveMatch {
+public class TestEpreuveManche {
 
     private Escrime escrime;
     private VoleyBall voley;
@@ -54,13 +54,13 @@ public class TestEpreuveMatch {
     private Epreuve<Athlete> epreuveVoleyTest;
 
 
-    private Match<Athlete> matchsTestH;
-    private Match<Athlete> matchsTestF;
-    private Match<Equipe> match;
-    private Match<Athlete> matchsAthle100;
-    private Match<Athlete> matchsAthle4x100;
-    private Match<Athlete> matchsNatation100;
-    private Match<Athlete> matchsNatation4x100;
+    private Manche<Athlete> manchesTestH;
+    private Manche<Athlete> manchesTestF;
+    private Manche<Equipe> manche;
+    private Manche<Athlete> manchesAthle100;
+    private Manche<Athlete> manchesAthle4x100;
+    private Manche<Athlete> manchesNatation100;
+    private Manche<Athlete> manchesNatation4x100;
     
 
     @BeforeEach
@@ -90,9 +90,9 @@ public class TestEpreuveMatch {
         equipe1 = new Equipe("1");
         equipe2 = new Equipe("2");
 
-        matchsTestH = new Match<>(0, "Tour test", mettre110H);
-        matchsTestF = new Match<>(0, "Tour test", mettre110F);
-        match = new Match<>(1, "test", epreuve);
+        manchesTestH = new Manche<>(0, "Tour test", mettre110H);
+        manchesTestF = new Manche<>(0, "Tour test", mettre110F);
+        manche = new Manche<>(1, "test", epreuve);
 
         athletisme = new Athletisme();
         natation = new Natation();
@@ -100,10 +100,10 @@ public class TestEpreuveMatch {
         athletisme4x110 = new Epreuve<>("Athletisme relais 110 haies", athletisme, 'M');
         natatione110 = new Epreuve<>("Natation 100 libre", natation, 'M');
         natation4x110 = new Epreuve<>("Natation relais 100 libre", natation, 'M');
-        matchsAthle100 = new Match<>(3, "Tour athle 110", athletisme110);
-        matchsAthle4x100 = new Match<>(0, "Tour athle 4*110", athletisme4x110);
-        matchsNatation100 = new Match<>(0, "Tour nata 110", natatione110);
-        matchsNatation4x100 = new Match<>(0, "Tour nata 4*110", natation4x110);
+        manchesAthle100 = new Manche<>(3, "Tour athle 110", athletisme110);
+        manchesAthle4x100 = new Manche<>(0, "Tour athle 4*110", athletisme4x110);
+        manchesNatation100 = new Manche<>(0, "Tour nata 110", natatione110);
+        manchesNatation4x100 = new Manche<>(0, "Tour nata 4*110", natation4x110);
 
         epreuveVoleyTest = new Epreuve<>("VoleyBall athlete (impossible)", voley, 'M');
 
@@ -151,7 +151,7 @@ public class TestEpreuveMatch {
         }
 
         mettre110H.getLeClassement();
-        mettre110H.ajoutMatch(matchsTestH);
+        mettre110H.ajoutManche(manchesTestH);
 
         assertTrue(mettre110H.getPremier() != null);
     }
@@ -170,7 +170,7 @@ public class TestEpreuveMatch {
         }
 
         mettre110H.getLeClassement();
-        mettre110H.ajoutMatch(matchsTestH);
+        mettre110H.ajoutManche(manchesTestH);
 
         assertTrue(mettre110H.getSecond() != null);
     }
@@ -189,34 +189,34 @@ public class TestEpreuveMatch {
         }
 
         mettre110H.getLeClassement();
-        mettre110H.ajoutMatch(matchsTestH);
+        mettre110H.ajoutManche(manchesTestH);
 
         assertTrue(mettre110H.getTroisieme() != null);
     }
 
     @Test
-    public void testGetLesMatchs() {
+    public void testGetLesManches() {
 
-        List<Match<Athlete>> lesMatchs = new ArrayList<>();
-        lesMatchs.add(matchsTestH);
-        assertEquals(mettre110H.getLesMatchs(), lesMatchs);
+        List<Manche<Athlete>> lesManches = new ArrayList<>();
+        lesManches.add(manchesTestH);
+        assertEquals(mettre110H.getLesManches(), lesManches);
     }
 
-//Partie Match
+//Partie Manche
 
     @Test
     public void testGetNumeroDeTour() {
-        assertEquals(matchsAthle100.getNumeroDeTour(), 3);
+        assertEquals(manchesAthle100.getNumeroDeTour(), 3);
     }
 
     @Test
     public void testGetNomDeTour() {
-        assertEquals(matchsAthle100.getNomDeTour(), "Tour athle 110");
+        assertEquals(manchesAthle100.getNomDeTour(), "Tour athle 110");
     }
 
     @Test
     public void testGetEpreuve() {
-        assertEquals(matchsAthle100.getEpreuve(), athletisme110);
+        assertEquals(manchesAthle100.getEpreuve(), athletisme110);
     }
 
     @Test
@@ -228,15 +228,15 @@ public class TestEpreuveMatch {
             System.err.println(e.getMessage());
         }
         athletisme110.getLeClassement();
-        for (Match matchs : athletisme110.getLesMatchs()) {
-            assertTrue(matchs.getResultatParticipant(axel) >= 4 && matchs.getResultatParticipant(axel) <= 200);
+        for (Manche manches : athletisme110.getLesManches()) {
+            assertTrue(manches.getResultatParticipant(axel) >= 4 && manches.getResultatParticipant(axel) <= 200);
         }
     }
 
 
 
     @Test
-    public void testMatchAthlete() {
+    public void testMancheAthlete() {
         try {
             mettre110F.inscrire(chris);
             mettre110F.inscrire(michelle);
@@ -248,8 +248,8 @@ public class TestEpreuveMatch {
             System.err.println(e.getMessage());
         }
 
-        List<Double> resH = matchsTestH.getResultats();
-        List<Double> resF = matchsTestF.getResultats();
+        List<Double> resH = manchesTestH.getResultats();
+        List<Double> resF = manchesTestF.getResultats();
 
         for (Double temps1 : resH) {
             assertTrue(temps1 >= 0);
@@ -262,14 +262,14 @@ public class TestEpreuveMatch {
     }
 
     @Test
-    public void testMatchEquipe() {
+    public void testMancheEquipe() {
         try {
             equipe1.ajouter(baptiste);
             equipe1.ajouter(chris);
             equipe1.ajouter(julian);
             equipe1.ajouter(axel);
             equipe1.ajouter(shanka);
-            equipe1.ajouter(bastien);
+            equipe1.ajouter(bastien);               
 
             equipe2.ajouter(riri);
             equipe2.ajouter(fifi);
@@ -288,7 +288,7 @@ public class TestEpreuveMatch {
             System.err.println(e.getMessage());
         }
 
-        assertTrue(match.getResultats() != null);
+        assertTrue(manche.getResultats() != null);
     }
 
     @Test
@@ -313,10 +313,10 @@ public class TestEpreuveMatch {
             System.err.println(e.getMessage());
         }
 
-        List<Double> resAthle100 = matchsAthle100.getResultats();
-        List<Double> resAthle4x100 = matchsAthle4x100.getResultats();
-        List<Double> resNata100 = matchsNatation100.getResultats();
-        List<Double> resNata4x100 = matchsNatation4x100.getResultats();
+        List<Double> resAthle100 = manchesAthle100.getResultats();
+        List<Double> resAthle4x100 = manchesAthle4x100.getResultats();
+        List<Double> resNata100 = manchesNatation100.getResultats();
+        List<Double> resNata4x100 = manchesNatation4x100.getResultats();
 
         for (Double temps1 : resAthle100) {
             assertTrue(temps1 >= 10.2);
@@ -390,7 +390,7 @@ public class TestEpreuveMatch {
     @Test
     public void testToStringEquals() {
         assertEquals(epreuve.toString(), "test sport: Voley,nb par equipe :6 sexe: H");
-        assertEquals(match.toString(), "test1");
+        assertEquals(manche.toString(), "test1");
         assertEquals(epreuve, epreuve0);
         assertNotEquals(epreuve, epreuveVoleyTest);
     }
