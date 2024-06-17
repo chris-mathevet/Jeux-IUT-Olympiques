@@ -51,7 +51,7 @@ CREATE TABLE EQUIPE (
 
 -- Associations
 
-CREATE TABLE EST_CONSTITUER (
+CREATE TABLE EST_CONSTITUE (
     idEquipe INT,
     idAthlete INT,
     PRIMARY KEY (idEquipe, idAthlete),
@@ -75,4 +75,10 @@ CREATE TABLE PARTICIPER_EQUIPE (
     PRIMARY KEY (idMatch, idEquipe),
     FOREIGN KEY (idMatch) REFERENCES MATCH_TABLE (idMatch),
     FOREIGN KEY (idEquipe) REFERENCES EQUIPE (idEquipe)
+);
+
+create table USER(    
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    mdp INT NOT NULL,
+    type ENUM('visiteur', 'admin', 'organisateur') NOT NULL
 );

@@ -71,7 +71,6 @@ public class Equipe extends ArrayList<Athlete> implements Participant{
 				}
 			}
 		}
-		
     }
 
 	/**
