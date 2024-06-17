@@ -1,11 +1,11 @@
 #accueil{
-    -fx-background-image : url("../img/Page_accueil.png");
+    -fx-background-image : url("../img/fonds/Page_accueil.png");
     -fx-background-size: 100% 100%;
 }
 
 
 #application{
-    -fx-background-image : url("../img/Page_App.png");
+    -fx-background-image : url("../img/fonds/Page_App.png");
     -fx-background-size: 100% 100%;
 }
 
@@ -31,21 +31,21 @@
 }
 
 #medailleOr{
-    -fx-background-image : url("../img/medailleOr.png");
+    -fx-background-image : url("../img/medailles/medailleOr.png");
     -fx-background-size: auto 100%;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
 
 #medailleArgent{
-    -fx-background-image : url("../img/medailleArgent.png");
+    -fx-background-image : url("../img/medailles/medailleArgent.png");
     -fx-background-size: auto 100%;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
 
 #medailleBronze{
-    -fx-background-image : url("../img/medailleBronze.png");
+    -fx-background-image : url("../img/medailles/medailleBronze.png");
     -fx-background-size: auto 100%;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
