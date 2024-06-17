@@ -16,7 +16,7 @@ import java.util.List;
 import executable.LibCreation;
 import javax.xml.crypto.AlgorithmMethod;
 
-public class modeleJO {
+public class ModeleJO {
     private List<Sport> lesSports;
     private List<Athlete> lesAthletes;
     private List<Equipe> lesEquipes;
@@ -31,7 +31,7 @@ public class modeleJO {
     private Natation nat;
     private Athletisme athle;
 
-    public modeleJO(){
+    public ModeleJO(){
         this.init();
     }
 

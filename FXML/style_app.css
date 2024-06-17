@@ -22,3 +22,10 @@
     -fx-background-radius: 25;
 }
 
+
+#filtre{
+    -fx-background-image : url("../img/logoFiltre.png");
+    -fx-background-color : #D4C47C;
+    -fx-background-size: 100% 100%;
+
+}

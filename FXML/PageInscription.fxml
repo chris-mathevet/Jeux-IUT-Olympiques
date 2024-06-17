@@ -82,7 +82,7 @@
                   </VBox>
                </children>
             </HBox>
-            <Button mnemonicParsing="false" styleClass="boutonConnexion" text="SE CONNECTER">
+            <Button fx:id="boutonConnexion" mnemonicParsing="false" styleClass="boutonConnexion" text="SE CONNECTER">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
