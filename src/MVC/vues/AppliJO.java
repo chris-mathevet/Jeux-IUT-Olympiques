@@ -9,7 +9,7 @@ import MVC.controleur.*;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
@@ -67,6 +67,7 @@ public class AppliJO extends Application {
         URL url = new File("FXML/PageClassement.fxml").toURI().toURL();
         FXMLLoader loader = new FXMLLoader(url);
         BorderPane centre = loader.load();
+        BorderPane.setMargin(centre, new Insets(20));
         this.racineAppli.setCenter(centre);
     }
 
