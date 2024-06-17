@@ -11,9 +11,10 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
+import javafx.scene.Node;
 
 
 public class AppliJO extends Application {

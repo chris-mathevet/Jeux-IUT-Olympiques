@@ -47,7 +47,7 @@
                   <Insets left="30.0" right="30.0" />
                </VBox.margin>
             </PasswordField>
-            <Button alignment="CENTER" mnemonicParsing="false" styleClass="boutonConnexion" text="SE CONNECTER" textAlignment="CENTER">
+            <Button fx:id="boutonConnexion" alignment="CENTER" mnemonicParsing="false" styleClass="boutonConnexion" text="SE CONNECTER" textAlignment="CENTER">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
