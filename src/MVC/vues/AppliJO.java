@@ -36,9 +36,11 @@ public class AppliJO extends Application {
     public void start(Stage stage) throws Exception {
         this.stage = stage;
         this.modeConnexion();
+        //this.stage.show();
     }
 
     public void modeConnexion() throws Exception {
+        // new Connexion(this.laScene);
         URL url = new File("FXML/PageConnexion.fxml").toURI().toURL();
         FXMLLoader loader = new FXMLLoader(url);
         this.racineConnexion = loader.load();
@@ -49,7 +51,7 @@ public class AppliJO extends Application {
 
         this.stage.show();
 
-        Button boutonConnexion = (Button) laScene.lookup("#boutonConnexion"); 
+        Button boutonConnexion = (Button) laScene.lookup("#boutonConnexion");
         boutonConnexion.setOnAction(new BoutonConnexionControleur(this, modele));
     }
 

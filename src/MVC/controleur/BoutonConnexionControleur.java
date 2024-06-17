@@ -2,6 +2,8 @@ package MVC.controleur;
 
 
 import MVC.vues.AppliJO;
+import MVC.vues.Connexion;
+import MVC.modele.ModeleConnexion;
 import MVC.modele.ModeleJO;
 
 import javafx.event.ActionEvent;
