@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
 import javafx.scene.Node;
@@ -47,7 +48,6 @@ public class AppliJO extends Application {
 
     public void modeAccueil() throws Exception{
         this.modeConnexion();
-
     }
 
     public void modeConnexion() throws Exception {
@@ -61,9 +61,9 @@ public class AppliJO extends Application {
         this.stage.setScene(this.laScene);
 
 
-        Button boutonConnexion = (Button) laScene.lookup("#boutonConnexion");
+        Button boutonConnexion = (Button) this.laScene.lookup("#boutonConnexion");
         boutonConnexion.setOnAction(new BoutonConnexionControleur(this, modeleConnexion));
-        Button boutonSwitch = (Button) laScene.lookup("#switchPage");
+        Button boutonSwitch = (Button) this.laScene.lookup("#switchPage");
         boutonSwitch.setOnAction(new ControleurSwitchConnexion(this, modeleConnexion));
     }
 
@@ -77,11 +77,14 @@ public class AppliJO extends Application {
         this.stage.setTitle("Jeux IUT'Olympiques");
         this.stage.setScene(this.laScene);
 
-        Button boutonConnexion = (Button) laScene.lookup("#boutonConnexion");
+        Button boutonConnexion = (Button) this.laScene.lookup("#boutonConnexion");
         boutonConnexion.setOnAction(new BoutonConnexionControleur(this, modeleConnexion));
-        Button boutonSwitch = (Button) laScene.lookup("#switchPage");
+        Button boutonSwitch = (Button) this.laScene.lookup("#switchPage");
         boutonSwitch.setOnAction(new ControleurSwitchConnexion(this, modeleConnexion));
-        this.conditionMDP = (VBox) laScene.lookup("#conditionMDP");
+        VBox conditionMDP = (VBox) this.laScene.lookup("#conditionMDP");
+        TextField motDePasse = (TextField) this.laScene.lookup("#textFieldMotDePasse");
+        System.out.println(motDePasse);
+        motDePasse.focusedProperty().addListener(new ControleurMDP(this.modeleConnexion,motDePasse,conditionMDP));
     }
 
     // MODE APPLI
