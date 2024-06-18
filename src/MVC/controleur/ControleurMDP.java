@@ -72,9 +72,7 @@ public class ControleurMDP implements ChangeListener<Boolean>{
     
     @Override
     public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue){ 
-        System.out.println("Truc");
         if (!newValue) { // si on a perdu le focus
-            System.out.println("machin");
             this.modele.setMdp(this.motDePasse.getText());
             if (this.modele.getEstConnexion()){
 

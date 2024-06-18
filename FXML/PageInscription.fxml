@@ -90,7 +90,7 @@
                            <VBox.margin>
                               <Insets bottom="5.0" />
                            </VBox.margin></PasswordField>
-                        <VBox maxWidth="100.0" spacing="4.0" />
+                        <VBox fx:id="conditionMDPVerif" maxWidth="100.0" spacing="4.0" />
                      </children>
                   </VBox>
                </children>

@@ -81,10 +81,15 @@ public class AppliJO extends Application {
         boutonConnexion.setOnAction(new BoutonConnexionControleur(this, modeleConnexion));
         Button boutonSwitch = (Button) this.laScene.lookup("#switchPage");
         boutonSwitch.setOnAction(new ControleurSwitchConnexion(this, modeleConnexion));
+
         VBox conditionMDP = (VBox) this.laScene.lookup("#conditionMDP");
         TextField motDePasse = (TextField) this.laScene.lookup("#textFieldMotDePasse");
-        System.out.println(motDePasse);
         motDePasse.focusedProperty().addListener(new ControleurMDP(this.modeleConnexion,motDePasse,conditionMDP));
+
+        VBox conditionMDPVerif = (VBox) this.laScene.lookup("#conditionMDPVerif");
+        System.out.println(conditionMDPVerif);
+        TextField motDePasseVerif = (TextField) this.laScene.lookup("#textFieldVerifMDP");
+        motDePasseVerif.focusedProperty().addListener(new ControleurMDPVerif(this.modeleConnexion,motDePasseVerif,conditionMDPVerif));
     }
 
     // MODE APPLI
