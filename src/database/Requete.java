@@ -117,7 +117,6 @@ public class Requete {
 		ResultSet rs=s.executeQuery("SELECT * FROM PAYS");
 		while (rs.next()) {
             lesPays.add(new Pays(rs.getString("nomPays")));
-
 		}
 		rs.close();
     	return lesPays ;
@@ -153,10 +152,10 @@ public class Requete {
 		ps.close();
     }
 
-    public void insertUser(String pseudo,String mdp,String email,String type)throws SQLException{
+    public void insertUser(String pseudo,int mdp,String email,String type)throws SQLException{
         PreparedStatement ps = laConnexion.prepareStatement("INSERT INTO USER (idPseudo, mdp, type) VALUES (?, ?, ?)");
         ps.setString(1, pseudo);
-		ps.setString(2, Object.hashcode(mdp));
+		ps.setString(2, mdp);
 		ps.setString(3, type);
         ps.executeQuery();
 		ps.close();
@@ -193,14 +192,12 @@ public class Requete {
     }
 
     public <T extends Participant> void insertManche(Manche<T> m) throws  SQLException {
-        
         PreparedStatement ps = laConnexion.prepareStatement("INSERT INTO MANCHE (nomManche, descriptionEpreuve, sexe, numeroManche) VALUES (?, ?, ?, ?)");
         ps.setString(1, m.getNomDeTour());
         ps.setString(2, m.getEpreuve().getDescription());
         ps.setString(3, String.valueOf(m.getEpreuve().getSexe()));
         ps.setInt(4, m.getNumeroDeTour());
-        
-    
+
         if(m.getEpreuve().getLesParticipants().get(0) instanceof Equipe){
             Equipe equipe;
             for(Participant p : m.getEpreuve().getLesParticipants()){
@@ -230,7 +227,39 @@ public class Requete {
                 ps.close();
             }
         }
- 
+    }
+
+    public <T extends Participant> void ajoutParticipant(Manche<T> m) throws  SQLException {
+        PreparedStatement ps;
+        if(m.getEpreuve().getLesParticipants().get(0) instanceof Equipe){
+            Equipe equipe;
+            for(Participant p : m.getEpreuve().getLesParticipants()){
+                equipe = (Equipe) p;
+                ps = laConnexion.prepareStatement("INSERT INTO PARTICIPER_ATHLETE (nomManche, descriptionEpreuve, sexe, nomEquipe) VALUES (?, ?, ?, ?)");
+                ps.setString(1, m.getNomDeTour());
+                ps.setString(2, m.getEpreuve().getDescription());
+                ps.setString(3, String.valueOf(m.getEpreuve().getSexe()));
+                ps.setString(4, equipe.getNom());
+                ps.executeQuery();
+                ps.close();
+            }
+        }
+        else{
+            Athlete athleteInsert;
+            for(Participant p:m.getEpreuve().getLesParticipants()){
+                athleteInsert = (Athlete)p;
+                ps = laConnexion.prepareStatement("INSERT INTO PARTICIPER_EQUIPE (nomManche, descriptionEpreuve, sexeEpreuve, nom, prenom, sexe,nomPays) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                ps.setString(1, m.getNomDeTour());
+                ps.setString(2, m.getEpreuve().getDescription());
+                ps.setString(3, String.valueOf(m.getEpreuve().getSexe()));
+                ps.setString(4, athleteInsert.getNom());
+                ps.setString(5, athleteInsert.getPrenom());
+                ps.setString(6, String.valueOf(athleteInsert.getSexe()));
+                ps.setString(7, athleteInsert.getPays().getNomPays());
+                ps.executeQuery();
+                ps.close();
+            }
+        }
     }
 
 
