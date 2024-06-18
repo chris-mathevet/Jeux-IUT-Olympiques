@@ -50,3 +50,9 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
+
+#borderPaneEpreuve{
+    -fx-border-color: #D4C47C;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10;
+}

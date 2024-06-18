@@ -11,7 +11,7 @@
    <top>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: transparent;" text="Classement">
+            <Button fx:id="boutonClassement" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: transparent;" text="Classement">
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin>
@@ -19,7 +19,7 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="125.0" style="-fx-background-color: transparent;" text="Epreuves">
+            <Button id="boutonEpreuve" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="125.0" style="-fx-background-color: transparent;" text="Epreuves">
                <HBox.margin>
                   <Insets right="2.5" />
                </HBox.margin>
@@ -27,7 +27,7 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: transparent;" text="Participants">
+            <Button id="boutonParticipants" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: transparent;" text="Participants">
                <HBox.margin>
                   <Insets left="2.5" />
                </HBox.margin>
@@ -35,7 +35,7 @@
                   <Font size="20.0" />
                </font>
             </Button>
-            <Button maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: transparent;" text="Paramètres">
+            <Button id="boutonParametre" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: transparent;" text="Paramètres">
                <HBox.margin>
                   <Insets left="5.0" />
                </HBox.margin>

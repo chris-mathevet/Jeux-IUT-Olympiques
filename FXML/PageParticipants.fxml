@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<ScrollPane hbarPolicy="NEVER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="285.0" prefWidth="538.0" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="541.0">
+         <children>
+            <TitledPane alignment="TOP_LEFT" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="538.0" text="Athlètes">
+               <content>
+                  <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="500.0" stylesheets="@style_app.css">
+                     <top>
+                        <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="39.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Button id="filtre" mnemonicParsing="false" prefHeight="24.0" prefWidth="22.0">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Button>
+                              <ImageView fitHeight="25.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Athlètes">
+                                 <HBox.margin>
+                                    <Insets left="140.0" right="130.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Text>
+                              <ImageView fitHeight="25.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
+                           </children>
+                           <BorderPane.margin>
+                              <Insets top="20.0" />
+                           </BorderPane.margin>
+                        </HBox>
+                     </top>
+                     <center>
+                        <TableView id="tableView" opacity="0.9" prefHeight="200.0" prefWidth="535.0" BorderPane.alignment="CENTER">
+                           <columns>
+                              <TableColumn editable="false" prefWidth="47.0" text="Pays" />
+                              <TableColumn editable="false" prefWidth="76.0" resizable="false" text="Athlète" />
+                              <TableColumn editable="false" prefWidth="70.0" text="Force" />
+                              <TableColumn editable="false" prefWidth="90.0" resizable="false" text="Endurance" />
+                              <TableColumn editable="false" prefWidth="88.0" text="Agilité" />
+                              <TableColumn editable="false" prefWidth="59.0" resizable="false" text="Equipe" />
+                              <TableColumn editable="false" prefWidth="64.0" text="Epreuve" />
+                           </columns>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                           <BorderPane.margin>
+                              <Insets bottom="10.0" />
+                           </BorderPane.margin>
+                        </TableView>
+                     </center>
+                     <padding>
+                        <Insets left="5.0" right="5.0" />
+                     </padding>
+                  </BorderPane>
+               </content>
+               <VBox.margin>
+                  <Insets left="10.0" top="20.0" />
+               </VBox.margin>
+            </TitledPane>
+            <TitledPane alignment="TOP_LEFT" layoutX="10.0" layoutY="30.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="538.0" text="Athlètes">
+               <content>
+                  <BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="500.0" stylesheets="@style_app.css">
+                     <top>
+                        <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="39.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Button id="filtre" mnemonicParsing="false" prefHeight="24.0" prefWidth="22.0">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Button>
+                              <ImageView fitHeight="25.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Equipes">
+                                 <HBox.margin>
+                                    <Insets left="140.0" right="130.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Text>
+                              <ImageView fitHeight="25.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
+                           </children>
+                           <BorderPane.margin>
+                              <Insets top="20.0" />
+                           </BorderPane.margin>
+                        </HBox>
+                     </top>
+                     <center>
+                        <TableView id="tableView" opacity="0.9" prefHeight="200.0" prefWidth="535.0" BorderPane.alignment="CENTER">
+                           <columns>
+                              <TableColumn editable="false" prefWidth="47.0" text="Pays" />
+                              <TableColumn editable="false" prefWidth="76.0" resizable="false" text="Athlète" />
+                              <TableColumn editable="false" prefWidth="70.0" text="Force" />
+                              <TableColumn editable="false" prefWidth="90.0" resizable="false" text="Endurance" />
+                              <TableColumn editable="false" prefWidth="88.0" text="Agilité" />
+                              <TableColumn editable="false" prefWidth="59.0" resizable="false" text="Equipe" />
+                              <TableColumn editable="false" prefWidth="64.0" text="Epreuve" />
+                           </columns>
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                           <BorderPane.margin>
+                              <Insets bottom="10.0" />
+                           </BorderPane.margin>
+                        </TableView>
+                     </center>
+                     <padding>
+                        <Insets left="5.0" right="5.0" />
+                     </padding>
+                  </BorderPane>
+               </content>
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+            </TitledPane>
+         </children>
+      </VBox>
+   </content>
+</ScrollPane>
