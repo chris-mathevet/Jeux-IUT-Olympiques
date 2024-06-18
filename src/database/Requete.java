@@ -50,7 +50,7 @@ public class Requete {
         return lesAthletes;
     }
 
-    public List<Athlete> rechercherJoueur(String nomPays, String prenom, String nom) throws SQLException {
+    public List<Athlete> rechercherAthletes(String nomPays, String prenom, String nom) throws SQLException {
         List<Athlete> lesAthletes = new ArrayList<>();
 
         StringBuilder queryBuilder = new StringBuilder("SELECT * FROM ATHLETE WHERE ");
@@ -76,7 +76,7 @@ public class Requete {
         PreparedStatement statement = laConnexion.prepareStatement(queryBuilder.toString());
         int index = 1;
         if (nomPays != null) {
-            statement.setInt(index++, nomPays);
+            statement.setString(index++, nomPays);
         }
         if (prenom != null) {
             statement.setString(index++, prenom);
