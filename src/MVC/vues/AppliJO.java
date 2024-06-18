@@ -27,6 +27,8 @@ public class AppliJO extends Application {
     private BorderPane racineAppli;
     private Stage stage;
 
+    private VBox conditionMDP;
+
     @Override
     public void init(){
         this.modele = new ModeleJO();
@@ -79,6 +81,7 @@ public class AppliJO extends Application {
         boutonConnexion.setOnAction(new BoutonConnexionControleur(this, modeleConnexion));
         Button boutonSwitch = (Button) laScene.lookup("#switchPage");
         boutonSwitch.setOnAction(new ControleurSwitchConnexion(this, modeleConnexion));
+        this.conditionMDP = (VBox) laScene.lookup("#conditionMDP");
     }
 
     // MODE APPLI
