@@ -87,9 +87,12 @@ public class AppliJO extends Application {
         motDePasse.focusedProperty().addListener(new ControleurMDP(this.modeleConnexion,motDePasse,conditionMDP));
 
         VBox conditionMDPVerif = (VBox) this.laScene.lookup("#conditionMDPVerif");
-        System.out.println(conditionMDPVerif);
         TextField motDePasseVerif = (TextField) this.laScene.lookup("#textFieldVerifMDP");
         motDePasseVerif.focusedProperty().addListener(new ControleurMDPVerif(this.modeleConnexion,motDePasseVerif,conditionMDPVerif));
+
+        VBox conditionMail = (VBox) this.laScene.lookup("#conditionMail");
+        TextField mail = (TextField) this.laScene.lookup("#textFieldMail");
+        mail.focusedProperty().addListener(new ControleurMail(this.modeleConnexion,mail,conditionMail));
     }
 
     // MODE APPLI

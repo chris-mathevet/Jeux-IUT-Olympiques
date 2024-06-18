@@ -49,6 +49,7 @@
                               <Insets bottom="5.0" />
                            </VBox.margin>
                         </TextField>
+                        <VBox fx:id="conditionPseudo" maxWidth="100.0" spacing="4.0" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
@@ -63,6 +64,7 @@
                               <Insets bottom="5.0" />
                            </VBox.margin>
                         </TextField>
+                        <VBox fx:id="conditionMail" maxWidth="100.0" spacing="4.0" />
                      </children>
                   </VBox>
                   <VBox prefHeight="200.0" prefWidth="100.0" GridPane.hgrow="NEVER" GridPane.rowIndex="1">
