@@ -20,6 +20,7 @@ public class ControleurIdentifiant implements ChangeListener<String>{
 
     HBox conditionNonExist;
     HBox conditionIdentifiant;
+    Text conditionNonExistText;
 
     public ControleurIdentifiant(ModeleConnexion modele, AppliJO vue, TextField mdp, VBox condition){
         this.modele = modele;
@@ -33,7 +34,7 @@ public class ControleurIdentifiant implements ChangeListener<String>{
         this.conditionIdentifiant.setSpacing(4);
 
         Text conditionIdentifiantText = new Text("Au moins 8 caractères");
-        Text conditionNonExistText = new Text("Cet identifiant est déjà attribué");
+        this.conditionNonExistText = new Text("Cet identifiant est déjà attribué");
 
         ImageView imageErreur = new ImageView("erreur.png");
 
@@ -54,13 +55,24 @@ public class ControleurIdentifiant implements ChangeListener<String>{
         if (! newValue.equals(oldValue)) {
             this.modele.setIdentifiant(this.identifiant.getText());
             if (this.modele.getEstConnexion()){
-
+                if(!this.modele.identifiantNonExistant()){
+                    this.identifiant.setStyle("-fx-border-color: #EB5252");
+                    if(! this.conditionBox.getChildren().contains(this.conditionNonExist)){
+                        this.conditionNonExistText.setText("Cet identifiant n'est pas attribué");
+                        this.conditionBox.getChildren().add(this.conditionNonExist);
+                    }
+                }
+                else{
+                    this.identifiant.setStyle("-fx-border-color: #3AD365");
+                    this.conditionBox.getChildren().remove(this.conditionNonExist);
+                }
             }
             else{
                 if(! this.modele.identifiantCorect()){
                     this.identifiant.setStyle("-fx-border-color: #EB5252");
-                    if(!this.modele.identifiantNonExistant()){
+                    if(this.modele.identifiantNonExistant()){
                         if(! this.conditionBox.getChildren().contains(this.conditionNonExist)){
+                            this.conditionNonExistText.setText("Cet identifiant est déjà attribué");
                             this.conditionBox.getChildren().add(this.conditionNonExist);
                         }
                     }

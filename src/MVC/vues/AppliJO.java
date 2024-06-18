@@ -63,8 +63,17 @@ public class AppliJO extends Application {
 
         this.boutonConnexion = (Button) this.laScene.lookup("#boutonConnexion");
         boutonConnexion.setOnAction(new ControleurBoutonConnexion(this, modeleConnexion));
+        this.boutonConnexion.setDisable(true);
+
         Button boutonSwitch = (Button) this.laScene.lookup("#switchPage");
         boutonSwitch.setOnAction(new ControleurSwitchConnexion(this, modeleConnexion));
+
+        VBox conditionIdentifiant = (VBox) this.laScene.lookup("#conditionPseudo");
+        TextField identifiant = (TextField) this.laScene.lookup("#textFieldPseudo");
+        identifiant.textProperty().addListener(new ControleurIdentifiant(this.modeleConnexion,this,identifiant,conditionIdentifiant));
+
+        VBox conditionMDP = (VBox) this.laScene.lookup("#conditionMDP");
+        TextField motDePasse = (TextField) this.laScene.lookup("#textFieldMotDePasse");
     }
 
     public void modeInscription() throws Exception {
