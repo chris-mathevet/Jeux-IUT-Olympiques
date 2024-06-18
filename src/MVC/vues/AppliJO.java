@@ -61,7 +61,7 @@ public class AppliJO extends Application {
         this.stage.setScene(this.laScene);
 
 
-        Button boutonConnexion = (Button) this.laScene.lookup("#boutonConnexion");
+        this.boutonConnexion = (Button) this.laScene.lookup("#boutonConnexion");
         boutonConnexion.setOnAction(new ControleurBoutonConnexion(this, modeleConnexion));
         Button boutonSwitch = (Button) this.laScene.lookup("#switchPage");
         boutonSwitch.setOnAction(new ControleurSwitchConnexion(this, modeleConnexion));
@@ -104,7 +104,12 @@ public class AppliJO extends Application {
 
     public void majBoutonCo(){
         if(this.modeleConnexion.getEstConnexion()){
-
+            if(this.modeleConnexion.peutSeConnecter()){
+                this.boutonConnexion.setDisable(false);
+            }
+            else{
+                this.boutonConnexion.setDisable(true);
+            }
         }
         else{
             if(this.modeleConnexion.peutSinscrire()){
