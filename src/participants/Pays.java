@@ -26,6 +26,18 @@ public class Pays implements Comparable<Pays>{
 		this.medailleBronze = 0;
 	}
 
+	public Pays(String nom, int medailleOr, int medailleArgent, int medailleBronze) {
+		String vraiNom = "";
+		vraiNom += (nom.charAt(0) + "").toUpperCase();
+		vraiNom += nom.substring(1).toLowerCase();
+		this.nom = vraiNom;
+		this.lesEquipes = new ArrayList<>();
+		this.lesAthletes = new ArrayList<>();
+		this.medailleOr =medailleOr;
+		this.medailleArgent =medailleArgent;
+		this.medailleBronze =medailleBronze;
+	}
+
 	public List<Equipe> getLesEquipes() {
 		return this.lesEquipes;
 	}

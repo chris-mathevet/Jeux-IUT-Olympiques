@@ -1,13 +1,15 @@
 package database;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 import epreuves.*;
 import exceptions.*;
 import participants.*;
 import sports.*;
-import participants.*;
+
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class Requete {
     private ConnexionMySql laConnexion;
@@ -102,11 +104,14 @@ public class Requete {
     public Pays getPaysbyNom(String nomPays) throws SQLException{
             
         Statement s=laConnexion.createStatement();
-        ResultSet r=s.executeQuery("select monPays from JOUEUR where nomPays="+nomPays);
+        ResultSet r=s.executeQuery("select * from PAYS where nomPays="+"\""+nomPays+"\""+";");
         r.next();
         String res = r.getString("nomPays"); 
+        int or = r.getInt("nbMedailleOr"); 
+        int argent = r.getInt("nbMedailleArgent"); 
+        int bronze = r.getInt("nbMedaillebronze"); 
         r.close();
-        return new Pays(res);    
+        return new Pays(res, or,argent,bronze);    
     }
 
     public List<Pays> selectPays() throws SQLException{
@@ -124,7 +129,7 @@ public class Requete {
 
     public String getUser(String pseudo, int mdp) throws SQLException{ 
         Statement s=laConnexion.createStatement();
-        ResultSet r=s.executeQuery("select idPseudo, mdp from JOUEUR where idPseudo="+pseudo+ "and mdp="+ mdp);
+        ResultSet r=s.executeQuery("select idPseudo, mdp from USER where idPseudo="+pseudo+ "and mdp="+ mdp);
         r.next();
         String res = r.getString("type"); 
         r.close();
@@ -138,7 +143,7 @@ public class Requete {
 		ps.setInt(2, p.getMedailleOr());
 		ps.setInt(3, p.getMedailleArgent());
         ps.setInt(4, p.getMedailleBronze());
-        ps.executeQuery();
+        ps.executeUpdate();
 		ps.close();
     }
 
@@ -148,7 +153,7 @@ public class Requete {
 		ps.setString(2, e.getDescription());
 		ps.setString(3, String.valueOf(e.getSexe()));
         ps.setString(4, e.getSport().getSport());
-        ps.executeQuery();
+        ps.executeUpdate();
 		ps.close();
     }
 
@@ -157,14 +162,14 @@ public class Requete {
         ps.setString(1, pseudo);
 		ps.setString(2, mdp);
 		ps.setString(3, type);
-        ps.executeQuery();
+        ps.executeUpdate();
 		ps.close();
     }
 
     public void insertEquipe(Equipe e) throws  SQLException {
         PreparedStatement ps = laConnexion.prepareStatement("INSERT INTO EQUIPE (nomEquipe) VALUES (?)");
         ps.setString(1, e.getNom());
-        ps.executeQuery();
+        ps.executeUpdate();
 		ps.close();
         for(Athlete a : e){
             ps = laConnexion.prepareStatement("INSERT INTO EST_CONSTITUE (nomEquipe,nom,prenom,sexe,nomPays) VALUES (?, ?, ?, ?, ?)");
@@ -173,7 +178,7 @@ public class Requete {
             ps.setString(3, a.getPrenom());
             ps.setString(4, String.valueOf(a.getSexe()));
             ps.setString(5, a.getPays().getNomPays());
-            ps.executeQuery();
+            ps.executeUpdate();
             ps.close();
         }
     }
@@ -187,7 +192,7 @@ public class Requete {
         ps.setInt(5, a.getEndurance());
         ps.setInt(6, a.getAgilite());
         ps.setString(7, a.getPays().getNomPays());
-        ps.executeQuery();
+        ps.executeUpdate();
 		ps.close();
     }
 
@@ -240,7 +245,7 @@ public class Requete {
                 ps.setString(2, m.getEpreuve().getDescription());
                 ps.setString(3, String.valueOf(m.getEpreuve().getSexe()));
                 ps.setString(4, equipe.getNom());
-                ps.executeQuery();
+                ps.executeUpdate();
                 ps.close();
             }
         }
@@ -256,7 +261,7 @@ public class Requete {
                 ps.setString(5, athleteInsert.getPrenom());
                 ps.setString(6, String.valueOf(athleteInsert.getSexe()));
                 ps.setString(7, athleteInsert.getPays().getNomPays());
-                ps.executeQuery();
+                ps.executeUpdate();
                 ps.close();
             }
         }
