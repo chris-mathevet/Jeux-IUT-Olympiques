@@ -14,9 +14,9 @@ public class BoutonConnexionControleur implements EventHandler<ActionEvent>{
     
     private AppliJO vue;
 
-    private ModeleJO modele;
+    private ModeleConnexion modele;
     
-    public BoutonConnexionControleur(AppliJO vue, ModeleJO modele) {
+    public BoutonConnexionControleur(AppliJO vue, ModeleConnexion modele) {
         this.vue = vue;
         this.modele = modele;
     }

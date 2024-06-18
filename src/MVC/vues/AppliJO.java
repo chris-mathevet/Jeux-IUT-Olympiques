@@ -20,6 +20,7 @@ import javafx.scene.Node;
 public class AppliJO extends Application {
 
     private ModeleJO modele;
+    private ModeleConnexion modeleConnexion;
     private Scene laScene;
 
     private StackPane racineConnexion;
@@ -52,7 +53,7 @@ public class AppliJO extends Application {
         this.stage.show();
 
         Button boutonConnexion = (Button) laScene.lookup("#boutonConnexion");
-        boutonConnexion.setOnAction(new BoutonConnexionControleur(this, modele));
+        boutonConnexion.setOnAction(new BoutonConnexionControleur(this, modeleConnexion));
     }
 
     public void modeAppli() throws Exception {
@@ -77,5 +78,4 @@ public class AppliJO extends Application {
     public static void main(String[] args) {
         launch(args);
     }   
-    
 }
