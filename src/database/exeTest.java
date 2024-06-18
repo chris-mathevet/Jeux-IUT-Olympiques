@@ -77,9 +77,12 @@ public class ExeTest {
                 for(Athlete a:res){
                     System.out.println(a);
                 }
-                System.out.println(r.rechercherAthletes("russie",null,null));
+                System.out.println("--------------------------------------");
+                System.out.println(r.rechercherAthletes(null,null,"russie"));
+                System.out.println("--------------------------------------");
                 System.out.println(r.rechercherAthletes(null,"Duke",null));
-                System.out.println(r.rechercherAthletes(null,null,"Raphael"));
+                System.out.println("--------------------------------------");
+                System.out.println(r.rechercherAthletes("Raphael",null,null));
             }
             catch(SQLException e){
                 System.err.println("Athlete");

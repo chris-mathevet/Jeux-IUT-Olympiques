@@ -50,13 +50,13 @@ public class Requete {
         return lesAthletes;
     }
 
-    public List<Athlete> rechercherAthletes(String nomPays, String prenom, String nom) throws SQLException {
+    public List<Athlete> rechercherAthletes(String nom , String prenom, String nomPays) throws SQLException {
         List<Athlete> lesAthletes = new ArrayList<>();
-
+    
         StringBuilder queryBuilder = new StringBuilder("SELECT * FROM ATHLETE WHERE ");
         boolean firstCondition = true;
-        if (nomPays != null) {
-            queryBuilder.append("nomPays = ? ");
+        if (nom != null) {
+            queryBuilder.append("nomAthlete = ? ");
             firstCondition = false;
         }
         if (prenom != null) {
@@ -66,25 +66,25 @@ public class Requete {
             queryBuilder.append("prenomAthlete = ? ");
             firstCondition = false;
         }
-        if (nom != null) {
+        if (nomPays != null) {
             if (!firstCondition) {
                 queryBuilder.append("AND ");
             }
-            queryBuilder.append("nomAthlete = ? ");
+            queryBuilder.append("nomPays = ? ");
         }
-
+    
         PreparedStatement statement = laConnexion.prepareStatement(queryBuilder.toString());
         int index = 1;
-        if (nomPays != null) {
-            statement.setString(index++, nomPays);
+        if (nom != null) {
+            statement.setString(index++, nom);
         }
         if (prenom != null) {
             statement.setString(index++, prenom);
         }
-        if (nom != null) {
-            statement.setString(index++, nom);
+        if ( nomPays!= null) {
+            statement.setString(index++,nomPays );
         }
-
+    
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
             String nomAthlete = resultSet.getString("nomAthlete");
@@ -95,12 +95,12 @@ public class Requete {
             int endurance = resultSet.getInt("endurance");
             int agilite = resultSet.getInt("agilite");
             String nomPays2 = resultSet.getString("nomPays");
-
+    
             lesAthletes.add(new Athlete(nomAthlete, prenomAthlete, sexeCaract, capaciteForce, agilite, endurance, getPaysbyNom(nomPays2)));
         }
         resultSet.close();
         statement.close();
-
+    
         return lesAthletes;
     }
     public Pays getPaysbyNom(String nomPays) throws SQLException{
