@@ -204,11 +204,10 @@ public class ModeleConnexion {
      */
     public boolean peutSeConnecter(){
         if(this.estConnexion){
+            if(! this.identifiantNonExistant()){return false;}
             return true;
         }
-        else{
-            return false;
-        }
+        return false;
     }
 
     /**
