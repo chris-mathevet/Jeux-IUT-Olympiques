@@ -162,7 +162,7 @@ public class ModeleConnexion {
      * @return
      */
     public boolean mdpVerif(){
-        return this.mdp.compareTo(this.mdpVerif) == 0;
+        return this.mdp.equals(this.mdpVerif);
     }
 
     // FIN PARTIES __________________________________________________________
