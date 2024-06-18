@@ -1,0 +1,52 @@
+#accueil{
+    -fx-background-image : url("../img/fonds/Page_accueil.png");
+    -fx-background-size: 100% 100%;
+}
+
+
+#application{
+    -fx-background-image : url("../img/fonds/Page_App.png");
+    -fx-background-size: 100% 100%;
+}
+
+.boutonConnexion{
+    -fx-background-color: #EFD76B;
+    -fx-border-color: #343232;
+    -fx-border-radius: 5;
+    -fx-min-width: 150;
+    -fx-max-height: 15;
+}
+
+.groupeConnexion{
+    -fx-background-color : #D4C47C;
+    -fx-background-radius: 25;
+}
+
+
+#filtre{
+    -fx-background-image : url("../img/logoFiltre.png");
+    -fx-background-color : #D4C47C;
+    -fx-background-size: 100% 100%;
+
+}
+
+#medailleOr{
+    -fx-background-image : url("../img/medailles/medailleOr.png");
+    -fx-background-size: auto 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#medailleArgent{
+    -fx-background-image : url("../img/medailles/medailleArgent.png");
+    -fx-background-size: auto 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#medailleBronze{
+    -fx-background-image : url("../img/medailles/medailleBronze.png");
+    -fx-background-size: auto 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
