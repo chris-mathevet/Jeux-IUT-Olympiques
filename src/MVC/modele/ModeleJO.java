@@ -67,7 +67,7 @@ public class ModeleJO {
 
         for (Epreuve<Participant> epreuve : this.lesEpreuves){
             for (int i = 1; i<8; ++i){
-                new Match<Participant>(i, "Manche ", epreuve); 
+                new Manche<Participant>(i, "Manche ", epreuve); 
             }
         }
     }   
@@ -372,8 +372,8 @@ public class ModeleJO {
         return epreuve.getLesParticipants();
     }
 
-    public List<Match<Participant>> lesMatchs(Epreuve<Participant> epreuve){
-        return epreuve.getLesMatchs();
+    public List<Manche<Participant>> lesMatchs(Epreuve<Participant> epreuve){
+        return epreuve.getLesManches();
     }
 
     public List<Participant> leClassement(Epreuve<Participant> epreuve){
