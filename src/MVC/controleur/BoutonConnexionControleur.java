@@ -28,6 +28,5 @@ public class BoutonConnexionControleur implements EventHandler<ActionEvent>{
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-
     }
 }
