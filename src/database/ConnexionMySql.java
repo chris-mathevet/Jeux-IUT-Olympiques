@@ -24,5 +24,11 @@ public class ConnexionMySql {
 	public PreparedStatement prepareStatement(String requete) throws SQLException{
 		return this.mysql.prepareStatement(requete);
 	}
+
+
+    public void executeQuery(String string) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'executeQuery'");
+    }
 	
 }

@@ -50,13 +50,17 @@ public class Requete {
         return lesAthletes;
     }
 
-    public List<Athlete> rechercherAthletes(String nomPays, String prenom, String nom) throws SQLException {
+    public List<Athlete> rechercherAthletes(String nom , String prenom, String sexe, String nomPays) throws SQLException {
         List<Athlete> lesAthletes = new ArrayList<>();
 
-        StringBuilder queryBuilder = new StringBuilder("SELECT * FROM ATHLETE WHERE ");
+        StringBuilder queryBuilder = new StringBuilder("SELECT * FROM ATHLETE");
         boolean firstCondition = true;
-        if (nomPays != null) {
-            queryBuilder.append("nomPays = ? ");
+        if (nom != null || prenom != null || sexe != null || nomPays != null) {
+            queryBuilder.append(" WHERE ");
+    
+        }
+        if (nom != null) {
+            queryBuilder.append("nomAthlete = ? ");
             firstCondition = false;
         }
         if (prenom != null) {
@@ -66,41 +70,52 @@ public class Requete {
             queryBuilder.append("prenomAthlete = ? ");
             firstCondition = false;
         }
-        if (nom != null) {
+        if ( sexe != null) {
             if (!firstCondition) {
                 queryBuilder.append("AND ");
             }
-            queryBuilder.append("nomAthlete = ? ");
+            queryBuilder.append("sexe = ? ");
         }
-
+        if (nomPays != null) {
+            if (!firstCondition) {
+                queryBuilder.append("AND ");
+            }
+            queryBuilder.append("nomPays = ? ");
+        }
+    
         PreparedStatement statement = laConnexion.prepareStatement(queryBuilder.toString());
         int index = 1;
-        if (nomPays != null) {
-            statement.setString(index++, nomPays);
+        if (nom != null) {
+            statement.setString(index++, nom);
         }
         if (prenom != null) {
             statement.setString(index++, prenom);
         }
-        if (nom != null) {
-            statement.setString(index++, nom);
+        if (sexe != null) {
+            statement.setString(index++,sexe );
         }
-
+    
+        if (nomPays != null) {
+            statement.setString(index++,nomPays);
+        }
+    
         ResultSet resultSet = statement.executeQuery();
+    
         while (resultSet.next()) {
             String nomAthlete = resultSet.getString("nomAthlete");
             String prenomAthlete = resultSet.getString("prenomAthlete");
-            String sexe = resultSet.getString("sexe");
-            char sexeCaract = sexe.charAt(0);
+            String sexe2 = resultSet.getString("sexe");
+            char sexeCaract = sexe2.charAt(0);
             int capaciteForce = resultSet.getInt("capaciteForce");
             int endurance = resultSet.getInt("endurance");
             int agilite = resultSet.getInt("agilite");
             String nomPays2 = resultSet.getString("nomPays");
-
+    
             lesAthletes.add(new Athlete(nomAthlete, prenomAthlete, sexeCaract, capaciteForce, agilite, endurance, getPaysbyNom(nomPays2)));
         }
         resultSet.close();
         statement.close();
-
+    
         return lesAthletes;
     }
     public Pays getPaysbyNom(String nomPays) throws SQLException{
@@ -333,5 +348,18 @@ public class Requete {
         ps.setString(4, a.getPays().getNomPays());
 		ps.executeUpdate();
 		ps.close();
+    }
+    public void clearAll() throws SQLException {
+        Statement s = laConnexion.createStatement();
+        s.executeUpdate("TRUNCATE `ATHLETE`;");
+        s.executeUpdate("TRUNCATE `EPREUVE`;");
+        s.executeUpdate("TRUNCATE `EQUIPE`;");
+        s.executeUpdate("TRUNCATE `EST_CONSTITUE`;");
+        s.executeUpdate("TRUNCATE `MANCHE`;");
+        s.executeUpdate("TRUNCATE `PARTICIPER_ATHLETE`;");
+        s.executeUpdate("TRUNCATE `PARTICIPER_EQUIPE`;");
+        s.executeUpdate("TRUNCATE `PAYS`;");
+        s.executeUpdate("TRUNCATE `USER`;");
+        s.close();
     }
 }
