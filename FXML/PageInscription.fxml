@@ -24,27 +24,27 @@
             </Text>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pseudonyme*">
                            <font>
                               <Font size="10.0" />
                            </font>
                         </Text>
-                        <TextField prefHeight="24.0" prefWidth="215.0" />
+                        <TextField prefHeight="24.0" prefWidth="215.0" promptText="Pseudonyme" />
                      </children>
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
                   </VBox>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mail*">
                            <font>
                               <Font size="10.0" />
                            </font>
                         </Text>
-                        <TextField />
+                        <TextField promptText="Mail" />
                      </children>
                      <HBox.margin>
                         <Insets left="10.0" />
@@ -54,27 +54,27 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mot de passe*">
                            <font>
                               <Font size="10.0" />
                            </font>
                         </Text>
-                        <PasswordField />
+                        <PasswordField promptText="Mot de passe" />
                      </children>
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>
                   </VBox>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Verif. Mot de passe*">
                            <font>
                               <Font size="10.0" />
                            </font>
                         </Text>
-                        <PasswordField />
+                        <PasswordField promptText="Mot de passe" />
                      </children>
                      <HBox.margin>
                         <Insets left="10.0" />
