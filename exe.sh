@@ -4,4 +4,4 @@ javac -cp ./bin/ -d ./bin/ src/participants/*.java src/sports/*.java src/epreuve
 javac -cp ./bin/ -d ./bin/ src/comparateurs/*.java
 javac -d ./bin/ -cp ./bin/ src/executable/*.java
 clear
-java -cp ./bin/ executable.Executable
+# java -cp ./bin/ executable.Executable
