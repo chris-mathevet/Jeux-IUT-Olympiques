@@ -47,13 +47,13 @@ public class Requete {
         return lesAthletes;
     }
 
-    public List<Athlete> rechercherJoueur(Integer id, String prenom, String nom) throws SQLException {
+    public List<Athlete> rechercherJoueur(String nomPays, String prenom, String nom) throws SQLException {
         List<Athlete> lesAthletes = new ArrayList<>();
 
         StringBuilder queryBuilder = new StringBuilder("SELECT * FROM ATHLETE WHERE ");
         boolean firstCondition = true;
-        if (id != null) {
-            queryBuilder.append("idAthlete = ? ");
+        if (nomPays != null) {
+            queryBuilder.append("nomPays = ? ");
             firstCondition = false;
         }
         if (prenom != null) {
@@ -72,8 +72,8 @@ public class Requete {
 
         PreparedStatement statement = laConnexion.prepareStatement(queryBuilder.toString());
         int index = 1;
-        if (id != null) {
-            statement.setInt(index++, id);
+        if (nomPays != null) {
+            statement.setInt(index++, nomPays);
         }
         if (prenom != null) {
             statement.setString(index++, prenom);
