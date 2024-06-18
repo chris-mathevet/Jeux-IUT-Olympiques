@@ -1,7 +1,8 @@
 @REM @echo off
 
-set chemin="C:/localApps/openjfx/lib"
-echo %chemin%
+@REM A changé pour chaque PC
+@REM Chris : "C:/localApps/openjfx/lib" // 
+set chemin="C:/localApps/openjfx/lib" 
 
 javac -d ./bin/ src/exceptions/*.java
 javac -cp ./bin/ -d ./bin/ src/participants/*.java src/sports/*.java src/epreuves/*.java
