@@ -148,10 +148,10 @@ public class Requete {
 		ps.close();
     }
 
-    public void insertUser(String id,String mdp,String type)throws SQLException{
+    public void insertUser(String pseudo,String mdp,String email,String type)throws SQLException{
         PreparedStatement ps = laConnexion.prepareStatement("INSERT INTO USER (idPseudo, mdp, type) VALUES (?, ?, ?)");
-        ps.setString(1, id);
-		ps.setString(2, mdp);
+        ps.setString(1, pseudo);
+		ps.setString(2, Object.hashcode(mdp));
 		ps.setString(3, type);
         ps.executeQuery();
 		ps.close();
