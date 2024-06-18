@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import epreuves.Epreuve;
+
 
 public class ExeTest {
     public static void main(String[] args) {
@@ -87,6 +89,30 @@ public class ExeTest {
                 System.out.println(r.rechercherAthletes(null,null,"H",null));
                 System.out.println("--------------------------------------");
                 System.out.println(r.rechercherAthletes(null,null,null,null));
+                
+                System.out.println("==========================================");
+
+                try {
+                    r.insertAllEpreuve();
+                    
+                } catch (Exception e) {
+                    System.err.println(e);
+                }
+                System.out.println("--------------------------------------");
+
+                List<Epreuve<?>> truc = r.selectEpreuves();
+
+                for (Epreuve<?> epreuve : truc) {
+                    System.out.println(epreuve);
+                }
+
+
+                r.csvToBd("donnees.csv");
+                res = r.selectAthlete();
+                for(Athlete a:res){
+                    System.out.println(a);
+                }
+
             }
             catch(SQLException e){
                 System.err.println("Athlete");
