@@ -200,7 +200,6 @@ public class Requete {
         ps.setString(1, pseudo);
 		ps.setInt(2, mdp);
         ps.setString(3, email);
-
 		ps.setString(4, type);
         ps.executeUpdate();
 		ps.close();
@@ -309,7 +308,31 @@ public class Requete {
 
 
     //---------------Modifieur------------------\\
+    //---------------Delete----------------------\\
+    public void effacerAthlete(Athlete a) throws  SQLException {
+        PreparedStatement ps = laConnexion.prepareStatement("delete from PARTICIPER_ATHLETE where nom = ? and prenom = ? and sexe = ? and nomPays = ?");
+        ps.setString(1, a.getNom());
+        ps.setString(2, a.getPrenom());
+        ps.setString(3, String.valueOf(a.getSexe()));
+        ps.setString(4, a.getPays().getNomPays());
+        ps.executeUpdate();
+        ps.close();
 
+        ps = laConnexion.prepareStatement("delete from PARTICIPER_ATHLETE where nom = ? and prenom = ? and sexe = ? and nomPays = ?");
+        ps.setString(1, a.getNom());
+        ps.setString(2, a.getPrenom());
+        ps.setString(3, String.valueOf(a.getSexe()));
+        ps.setString(4, a.getPays().getNomPays());
+        ps.executeUpdate();
+        ps.close();
+
+		ps = laConnexion.prepareStatement("delete from EST_CONSTITUE where nom = ? and prenom = ? and sexe = ? and nomPays = ?");
+        ps.setString(1, a.getNom());
+        ps.setString(2, a.getPrenom());
+        ps.setString(3, String.valueOf(a.getSexe()));
+        ps.setString(4, a.getPays().getNomPays());
+		ps.executeUpdate();
+		ps.close();
 
 
 }
