@@ -5,10 +5,7 @@ import java.sql.*;
 public class ConnexionMySql {
 	private Connection mysql;
 	public ConnexionMySql() throws SQLException{
-		this.mysql = DriverManager.getConnection(
-					"jdbc:mysql://cigale1.lescigales.org:3310/s4a_julian","s4a_julian","VUpitdBD");
-		System.out.println("fzrtzr");
-
+		this.mysql = DriverManager.getConnection("jdbc:mysql://cigale1.lescigales.org:3310/s4a_julian","s4a_julian","VUpitdBD");
 	}
 
 
