@@ -78,11 +78,15 @@ public class ExeTest {
                     System.out.println(a);
                 }
                 System.out.println("--------------------------------------");
-                System.out.println(r.rechercherAthletes(null,null,"russie"));
+                System.out.println(r.rechercherAthletes(null,null,null,"russie"));
                 System.out.println("--------------------------------------");
-                System.out.println(r.rechercherAthletes(null,"Duke",null));
+                System.out.println(r.rechercherAthletes(null,"Duke",null,null));
                 System.out.println("--------------------------------------");
-                System.out.println(r.rechercherAthletes("Raphael",null,null));
+                System.out.println(r.rechercherAthletes("Raphael",null,null,null));
+                System.out.println("--------------------------------------");
+                System.out.println(r.rechercherAthletes(null,null,"H",null));
+                System.out.println("--------------------------------------");
+                System.out.println(r.rechercherAthletes(null,null,null,null));
             }
             catch(SQLException e){
                 System.err.println("Athlete");

@@ -50,11 +50,15 @@ public class Requete {
         return lesAthletes;
     }
 
-    public List<Athlete> rechercherAthletes(String nom , String prenom, String nomPays) throws SQLException {
+    public List<Athlete> rechercherAthletes(String nom , String prenom, String sexe, String nomPays) throws SQLException {
         List<Athlete> lesAthletes = new ArrayList<>();
-    
-        StringBuilder queryBuilder = new StringBuilder("SELECT * FROM ATHLETE WHERE ");
+
+        StringBuilder queryBuilder = new StringBuilder("SELECT * FROM ATHLETE");
         boolean firstCondition = true;
+        if (nom != null || prenom != null || sexe != null || nomPays != null) {
+            queryBuilder.append(" WHERE ");
+    
+        }
         if (nom != null) {
             queryBuilder.append("nomAthlete = ? ");
             firstCondition = false;
@@ -65,6 +69,12 @@ public class Requete {
             }
             queryBuilder.append("prenomAthlete = ? ");
             firstCondition = false;
+        }
+        if ( sexe != null) {
+            if (!firstCondition) {
+                queryBuilder.append("AND ");
+            }
+            queryBuilder.append("sexe = ? ");
         }
         if (nomPays != null) {
             if (!firstCondition) {
@@ -81,16 +91,21 @@ public class Requete {
         if (prenom != null) {
             statement.setString(index++, prenom);
         }
-        if ( nomPays!= null) {
-            statement.setString(index++,nomPays );
+        if (sexe != null) {
+            statement.setString(index++,sexe );
+        }
+    
+        if (nomPays != null) {
+            statement.setString(index++,nomPays);
         }
     
         ResultSet resultSet = statement.executeQuery();
+    
         while (resultSet.next()) {
             String nomAthlete = resultSet.getString("nomAthlete");
             String prenomAthlete = resultSet.getString("prenomAthlete");
-            String sexe = resultSet.getString("sexe");
-            char sexeCaract = sexe.charAt(0);
+            String sexe2 = resultSet.getString("sexe");
+            char sexeCaract = sexe2.charAt(0);
             int capaciteForce = resultSet.getInt("capaciteForce");
             int endurance = resultSet.getInt("endurance");
             int agilite = resultSet.getInt("agilite");
