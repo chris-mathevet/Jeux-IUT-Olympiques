@@ -334,4 +334,17 @@ public class Requete {
 		ps.executeUpdate();
 		ps.close();
     }
+    public void clearAll() throws SQLException {
+        Statement s = laConnexion.createStatement();
+        s.executeUpdate("TRUNCATE `ATHLETE`;");
+        s.executeUpdate("TRUNCATE `EPREUVE`;");
+        s.executeUpdate("TRUNCATE `EQUIPE`;");
+        s.executeUpdate("TRUNCATE `EST_CONSTITUE`;");
+        s.executeUpdate("TRUNCATE `MANCHE`;");
+        s.executeUpdate("TRUNCATE `PARTICIPER_ATHLETE`;");
+        s.executeUpdate("TRUNCATE `PARTICIPER_EQUIPE`;");
+        s.executeUpdate("TRUNCATE `PAYS`;");
+        s.executeUpdate("TRUNCATE `USER`;");
+        s.close();
+    }
 }

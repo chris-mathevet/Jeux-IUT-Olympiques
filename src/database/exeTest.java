@@ -25,9 +25,10 @@ public class ExeTest {
 
             try {
                 System.out.println("debut boucle");    
-                // r.insertUser("Julian", 1323,"truc@gmail.com", "admin");
-                // r.insertUser("truc", 1323,"truc@gmail.com", "visiteur");
-                // r.insertUser("michel", 1323, "truc@gmail.com", "organisateur");
+                r.clearAll();
+                r.insertUser("Julian", 1323,"truc@gmail.com", "admin");
+                r.insertUser("truc", 1323,"truc@gmail.com", "visiteur");
+                r.insertUser("michel", 1323, "truc@gmail.com", "organisateur");
                 System.out.println(r.getUser("truc",1323));
                 System.out.println(r.getUser("michel",1323));
 
