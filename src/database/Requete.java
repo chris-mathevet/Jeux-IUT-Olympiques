@@ -333,6 +333,5 @@ public class Requete {
         ps.setString(4, a.getPays().getNomPays());
 		ps.executeUpdate();
 		ps.close();
-
-
+    }
 }
