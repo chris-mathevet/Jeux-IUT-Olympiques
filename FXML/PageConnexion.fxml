@@ -29,7 +29,7 @@
                   <Font size="10.0" />
                </font>
             </Text>
-            <TextField prefHeight="24.0" prefWidth="215.0" promptText="Pseudonyme">
+            <TextField fx:id="textFieldPseudo" prefHeight="24.0" prefWidth="215.0" promptText="Pseudonyme">
                <VBox.margin>
                   <Insets bottom="15.0" left="30.0" right="30.0" />
                </VBox.margin>
@@ -42,7 +42,7 @@
                   <Insets left="30.0" right="120.0" />
                </VBox.margin>
             </Text>
-            <PasswordField promptText="Mot de passe">
+            <PasswordField fx:id="textFieldMotDePasse" promptText="Mot de passe">
                <VBox.margin>
                   <Insets left="30.0" right="30.0" />
                </VBox.margin>
@@ -55,14 +55,11 @@
                   <Font size="9.0" />
                </font>
             </Button>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pas encore inscrit ? Rejoignez-nous !">
+            <Button fx:id="switchPage" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Pas encore inscrit ? Rejoignez-nous !">
                <font>
                   <Font size="7.0" />
                </font>
-               <VBox.margin>
-                  <Insets top="12.0" />
-               </VBox.margin>
-            </Text>
+            </Button>
          </children>
          <StackPane.margin>
             <Insets />
