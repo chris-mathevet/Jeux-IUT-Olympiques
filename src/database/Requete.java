@@ -194,15 +194,12 @@ public class Requete {
         ps.setString(2, m.getEpreuve().getDescription());
         ps.setString(3, String.valueOf(m.getEpreuve().getSexe()));
         ps.setInt(4, m.getNumeroDeTour());
-        String table;
-
-        if (m.getEpreuve().getLesParticipants().isEmpty()) {
-            return; // No participants to process
-        }
+        
     
         if(m.getEpreuve().getLesParticipants().get(0) instanceof Equipe){
+            Equipe equipe;
             for(Participant p : m.getEpreuve().getLesParticipants()){
-                Equipe equipe = (Equipe) p;
+                equipe = (Equipe) p;
                 ps = laConnexion.prepareStatement("INSERT INTO PARTICIPER_ATHLETE (nomManche, descriptionEpreuve, sexe, nomEquipe) VALUES (?, ?, ?, ?)");
                 ps.setString(1, m.getNomDeTour());
                 ps.setString(2, m.getEpreuve().getDescription());
@@ -213,8 +210,9 @@ public class Requete {
             }
         }
         else{
+            Athlete athleteInsert;
             for(Participant p:m.getEpreuve().getLesParticipants()){
-                Athlete athleteInsert = (Athlete)p;
+                athleteInsert = (Athlete)p;
                 ps = laConnexion.prepareStatement("INSERT INTO PARTICIPER_EQUIPE (nomManche, descriptionEpreuve, sexeEpreuve, nom, prenom, sexe,nomPays) VALUES (?, ?, ?, ?, ?, ?, ?)");
                 ps.setString(1, m.getNomDeTour());
                 ps.setString(2, m.getEpreuve().getDescription());
