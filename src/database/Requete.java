@@ -29,7 +29,6 @@ public class Requete {
 
         while (resultSet.next()) {
             
-            int idAthlete = resultSet.getInt("idAthlete");
             String nomAthlete = resultSet.getString("nomAthlete");
             String prenomAthlete = resultSet.getString("prenomAthlete");
             String sexeString = resultSet.getString("sexe");
@@ -40,8 +39,8 @@ public class Requete {
             int force = resultSet.getInt("capaciteForce");
             int endurance = resultSet.getInt("endurance");
             int agilite = resultSet.getInt("agilite");
-            int idPays = resultSet.getInt("idPays");
-            lesAthletes.add(new Athlete(nomAthlete, prenomAthlete, sexe, force, agilite, endurance, getPaysbyId(idPays)));
+            String nomPays = resultSet.getString("nomPays");
+            lesAthletes.add(new Athlete(nomAthlete, prenomAthlete, sexe, force, agilite, endurance, getPaysbyNom(nomPays)));
         }
 
         return lesAthletes;
@@ -84,7 +83,6 @@ public class Requete {
 
         ResultSet resultSet = statement.executeQuery();
         while (resultSet.next()) {
-            int idAthlete = resultSet.getInt("idAthlete");
             String nomAthlete = resultSet.getString("nomAthlete");
             String prenomAthlete = resultSet.getString("prenomAthlete");
             String sexe = resultSet.getString("sexe");
@@ -92,19 +90,19 @@ public class Requete {
             int capaciteForce = resultSet.getInt("capaciteForce");
             int endurance = resultSet.getInt("endurance");
             int agilite = resultSet.getInt("agilite");
-            int idPays = resultSet.getInt("idPays");
+            String nomPays = resultSet.getString("nomPays");
 
-            lesAthletes.add(new Athlete(nomAthlete, prenomAthlete, sexeCaract, capaciteForce, agilite, endurance, getPaysbyId(idPays)));
+            lesAthletes.add(new Athlete(nomAthlete, prenomAthlete, sexeCaract, capaciteForce, agilite, endurance, getPaysbyNom(nomPays)));
         }
         resultSet.close();
         statement.close();
 
         return lesAthletes;
     }
-    public Pays getPaysbyId(int id) throws SQLException{
+    public Pays getPaysbyNom(String nomPays) throws SQLException{
             
         Statement s=laConnexion.createStatement();
-        ResultSet r=s.executeQuery("select monPays from JOUEUR where id="+id);
+        ResultSet r=s.executeQuery("select monPays from JOUEUR where nomPays="+nomPays);
         r.next();
         String res = r.getString("nomPays"); 
         r.close();
@@ -124,6 +122,14 @@ public class Requete {
     	return lesPays ;
 	}
 
+    public String getUser(String pseudo, int mdp) throws SQLException{ 
+        Statement s=laConnexion.createStatement();
+        ResultSet r=s.executeQuery("select idPseudo, mdp from JOUEUR where idPseudo="+pseudo+ "and mdp="+ mdp);
+        r.next();
+        String res = r.getString("type"); 
+        r.close();
+        return res;    
+    }
     
     //---------------Insert---------------------\\
     public void insertPays(Pays p) throws  SQLException {
@@ -136,7 +142,7 @@ public class Requete {
 		ps.close();
     }
 
-    public void insertEpreuve(Epreuve e) throws  SQLException {
+    public void insertEpreuve(Epreuve<?> e) throws  SQLException {
         PreparedStatement ps = laConnexion.prepareStatement("INSERT INTO EPREUVE (descriptionEpreuve, sexe, typeEpreuve, nomSport) VALUES (?, ?, ?, ?)");
         ps.setString(1,e.getDescription());
 		ps.setString(2, e.getDescription());
