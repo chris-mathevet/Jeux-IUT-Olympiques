@@ -92,9 +92,9 @@ public class Requete {
             int capaciteForce = resultSet.getInt("capaciteForce");
             int endurance = resultSet.getInt("endurance");
             int agilite = resultSet.getInt("agilite");
-            String nomPays = resultSet.getString("nomPays");
+            String nomPays2 = resultSet.getString("nomPays");
 
-            lesAthletes.add(new Athlete(nomAthlete, prenomAthlete, sexeCaract, capaciteForce, agilite, endurance, getPaysbyNom(nomPays)));
+            lesAthletes.add(new Athlete(nomAthlete, prenomAthlete, sexeCaract, capaciteForce, agilite, endurance, getPaysbyNom(nomPays2)));
         }
         resultSet.close();
         statement.close();
