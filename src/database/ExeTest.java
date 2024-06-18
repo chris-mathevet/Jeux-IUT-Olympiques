@@ -11,12 +11,15 @@ import java.util.List;
 
 public class ExeTest {
     public static void main(String[] args) {
+        System.out.println("test1");
         List<Athlete> listeAthletes = new ArrayList<>();
         
         try {
+            System.out.println("test2");
             ConnexionMySql co = new ConnexionMySql();
-
+            System.out.println("test3");
             Requete r = new Requete(co);
+            System.out.println("test4");
             // Pays france = new Pays("France");
             // Athlete toi = new Athlete("le","rouix", 'M', 2,10,6,new Pays("France"));
             // Athlete lui = new Athlete("truc","hdsvfs", 'M', 2,10,6,new Pays("France"));
@@ -25,20 +28,17 @@ public class ExeTest {
             Pays italie = new Pays("Italie");
             Athlete toi = new Athlete("fabri","cation", 'M', 2,10,6,italie);
 
-
             try {
                 System.out.println("debut boucle");    
                 r.insertPays(italie);
 
                 listeAthletes = r.selectAthlete();
                 System.out.println("debut boucle");    
-
+                
                 for (Athlete athlete : listeAthletes) {
                     System.out.println("truc1"+athlete);    
                 }
                 // r.insertAthlete(toi);
-
-                
             } catch (Exception e) {
                 System.err.println("erreur selse"+e);
             }

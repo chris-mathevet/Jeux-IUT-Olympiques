@@ -48,59 +48,59 @@ public class Requete {
         return lesAthletes;
     }
 
-    public List<Athlete> rechercherJoueur(String nomPays, String prenom, String nom) throws SQLException {
-        List<Athlete> lesAthletes = new ArrayList<>();
+    // public List<Athlete> rechercherJoueur(String nomPays, String prenom, String nom) throws SQLException {
+    //     List<Athlete> lesAthletes = new ArrayList<>();
 
-        StringBuilder queryBuilder = new StringBuilder("SELECT * FROM ATHLETE WHERE ");
-        boolean firstCondition = true;
-        if (nomPays != null) {
-            queryBuilder.append("nomPays = ? ");
-            firstCondition = false;
-        }
-        if (prenom != null) {
-            if (!firstCondition) {
-                queryBuilder.append("AND ");
-            }
-            queryBuilder.append("prenomAthlete = ? ");
-            firstCondition = false;
-        }
-        if (nom != null) {
-            if (!firstCondition) {
-                queryBuilder.append("AND ");
-            }
-            queryBuilder.append("nomAthlete = ? ");
-        }
+    //     StringBuilder queryBuilder = new StringBuilder("SELECT * FROM ATHLETE WHERE ");
+    //     boolean firstCondition = true;
+    //     if (nomPays != null) {
+    //         queryBuilder.append("nomPays = ? ");
+    //         firstCondition = false;
+    //     }
+    //     if (prenom != null) {
+    //         if (!firstCondition) {
+    //             queryBuilder.append("AND ");
+    //         }
+    //         queryBuilder.append("prenomAthlete = ? ");
+    //         firstCondition = false;
+    //     }
+    //     if (nom != null) {
+    //         if (!firstCondition) {
+    //             queryBuilder.append("AND ");
+    //         }
+    //         queryBuilder.append("nomAthlete = ? ");
+    //     }
 
-        PreparedStatement statement = laConnexion.prepareStatement(queryBuilder.toString());
-        int index = 1;
-        if (nomPays != null) {
-            statement.setInt(index++, nomPays);
-        }
-        if (prenom != null) {
-            statement.setString(index++, prenom);
-        }
-        if (nom != null) {
-            statement.setString(index++, nom);
-        }
+    //     PreparedStatement statement = laConnexion.prepareStatement(queryBuilder.toString());
+    //     int index = 1;
+    //     if (nomPays != null) {
+    //         statement.setInt(index++, nomPays);
+    //     }
+    //     if (prenom != null) {
+    //         statement.setString(index++, prenom);
+    //     }
+    //     if (nom != null) {
+    //         statement.setString(index++, nom);
+    //     }
 
-        ResultSet resultSet = statement.executeQuery();
-        while (resultSet.next()) {
-            String nomAthlete = resultSet.getString("nomAthlete");
-            String prenomAthlete = resultSet.getString("prenomAthlete");
-            String sexe = resultSet.getString("sexe");
-            char sexeCaract = sexe.charAt(0);
-            int capaciteForce = resultSet.getInt("capaciteForce");
-            int endurance = resultSet.getInt("endurance");
-            int agilite = resultSet.getInt("agilite");
-            String nomPays2 = resultSet.getString("nomPays");
+    //     ResultSet resultSet = statement.executeQuery();
+    //     while (resultSet.next()) {
+    //         String nomAthlete = resultSet.getString("nomAthlete");
+    //         String prenomAthlete = resultSet.getString("prenomAthlete");
+    //         String sexe = resultSet.getString("sexe");
+    //         char sexeCaract = sexe.charAt(0);
+    //         int capaciteForce = resultSet.getInt("capaciteForce");
+    //         int endurance = resultSet.getInt("endurance");
+    //         int agilite = resultSet.getInt("agilite");
+    //         nomPays = resultSet.getString("nomPays");
 
-            lesAthletes.add(new Athlete(nomAthlete, prenomAthlete, sexeCaract, capaciteForce, agilite, endurance, getPaysbyNom(nomPays2)));
-        }
-        resultSet.close();
-        statement.close();
+    //         lesAthletes.add(new Athlete(nomAthlete, prenomAthlete, sexeCaract, capaciteForce, agilite, endurance, getPaysbyNom(nomPays)));
+    //     }
+    //     resultSet.close();
+    //     statement.close();
 
-        return lesAthletes;
-    }
+    //     return lesAthletes;
+    // }
     public Pays getPaysbyNom(String nomPays) throws SQLException{
             
         Statement s=laConnexion.createStatement();
@@ -160,7 +160,7 @@ public class Requete {
     public void insertUser(String pseudo,int mdp,String email,String type)throws SQLException{
         PreparedStatement ps = laConnexion.prepareStatement("INSERT INTO USER (idPseudo, mdp, type) VALUES (?, ?, ?)");
         ps.setString(1, pseudo);
-		ps.setString(2, mdp);
+		ps.setInt(2, mdp);
 		ps.setString(3, type);
         ps.executeUpdate();
 		ps.close();
@@ -267,7 +267,32 @@ public class Requete {
         }
     }
 
+    //---------------delete---------------------\\
+    public void effacerAthlete(Athlete a) throws  SQLException {
+        PreparedStatement ps = laConnexion.prepareStatement("delete from PARTICIPER_ATHLETE where nom = ? and prenom = ? and sexe = ? and nomPays = ?");
+        ps.setString(1, a.getNom());
+        ps.setString(2, a.getPrenom());
+        ps.setString(3, String.valueOf(a.getSexe()));
+        ps.setString(4, a.getPays().getNomPays());
+        ps.executeUpdate();
+        ps.close();
 
+        ps = laConnexion.prepareStatement("delete from PARTICIPER_ATHLETE where nom = ? and prenom = ? and sexe = ? and nomPays = ?");
+        ps.setString(1, a.getNom());
+        ps.setString(2, a.getPrenom());
+        ps.setString(3, String.valueOf(a.getSexe()));
+        ps.setString(4, a.getPays().getNomPays());
+        ps.executeUpdate();
+        ps.close();
+
+		ps = laConnexion.prepareStatement("delete from EST_CONSTITUE where nom = ? and prenom = ? and sexe = ? and nomPays = ?");
+        ps.setString(1, a.getNom());
+        ps.setString(2, a.getPrenom());
+        ps.setString(3, String.valueOf(a.getSexe()));
+        ps.setString(4, a.getPays().getNomPays());
+		ps.executeUpdate();
+		ps.close();
+    }
     //---------------Modifieur------------------\\
 
 
