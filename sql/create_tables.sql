@@ -124,5 +124,6 @@ CREATE TABLE PARTICIPER_EQUIPE (
 create table USER(
     idPseudo VARCHAR(50) NOT NULL PRIMARY KEY,
     mdp INT NOT NULL,
+    email VARCHAR(250),
     type ENUM('visiteur', 'admin', 'organisateur') NOT NULL
 );
