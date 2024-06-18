@@ -82,7 +82,7 @@
                   </VBox>
                </children>
             </HBox>
-            <Button fx:id="boutonConnexion" mnemonicParsing="false" styleClass="boutonConnexion" text="SE CONNECTER">
+            <Button fx:id="boutonConnexion" mnemonicParsing="false" styleClass="boutonConnexion" text="S'INSCRIRE">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
@@ -90,7 +90,7 @@
                   <Font size="10.0" />
                </font>
             </Button>
-            <Button fx:id="switchPage" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Pas encore inscrit ? Rejoignez-nous !">
+            <Button fx:id="switchPage" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Déjà inscrit ? Connectez vous !">
                <font>
                   <Font size="7.0" />
                </font>

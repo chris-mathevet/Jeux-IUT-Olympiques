@@ -30,14 +30,22 @@ public class AppliJO extends Application {
     @Override
     public void init(){
         this.modele = new ModeleJO();
+        this.modeleConnexion = new ModeleConnexion();
         this.laScene = new Scene(new Pane());
     }
 
     @Override
     public void start(Stage stage) throws Exception {
         this.stage = stage;
+        this.modeAccueil();
+        this.stage.show();
+    }
+
+    // MODE CONNEXION
+
+    public void modeAccueil() throws Exception{
         this.modeConnexion();
-        //this.stage.show();
+
     }
 
     public void modeConnexion() throws Exception {
@@ -50,11 +58,30 @@ public class AppliJO extends Application {
         this.stage.setTitle("Jeux IUT'Olympiques");
         this.stage.setScene(this.laScene);
 
-        this.stage.show();
 
         Button boutonConnexion = (Button) laScene.lookup("#boutonConnexion");
         boutonConnexion.setOnAction(new BoutonConnexionControleur(this, modeleConnexion));
+        Button boutonSwitch = (Button) laScene.lookup("#switchPage");
+        boutonSwitch.setOnAction(new ControleurSwitchConnexion(this, modeleConnexion));
     }
+
+    public void modeInscription() throws Exception {
+        // new Connexion(this.laScene);
+        URL url = new File("FXML/PageInscription.fxml").toURI().toURL();
+        FXMLLoader loader = new FXMLLoader(url);
+        this.racineConnexion = loader.load();
+        this.laScene.setRoot(this.racineConnexion);
+        
+        this.stage.setTitle("Jeux IUT'Olympiques");
+        this.stage.setScene(this.laScene);
+
+        Button boutonConnexion = (Button) laScene.lookup("#boutonConnexion");
+        boutonConnexion.setOnAction(new BoutonConnexionControleur(this, modeleConnexion));
+        Button boutonSwitch = (Button) laScene.lookup("#switchPage");
+        boutonSwitch.setOnAction(new ControleurSwitchConnexion(this, modeleConnexion));
+    }
+
+    // MODE APPLI
 
     public void modeAppli() throws Exception {
         URL url = new File("FXML/PageAppli.fxml").toURI().toURL();
@@ -73,7 +100,6 @@ public class AppliJO extends Application {
         BorderPane.setMargin(centre, new Insets(20));
         this.racineAppli.setCenter(centre);
     }
-
 
     public static void main(String[] args) {
         launch(args);
