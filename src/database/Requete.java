@@ -50,13 +50,13 @@ public class Requete {
         return lesAthletes;
     }
 
-    public List<Athlete> rechercherJoueur(Integer id, String prenom, String nom) throws SQLException {
+    public List<Athlete> rechercherJoueur(String nomPays, String prenom, String nom) throws SQLException {
         List<Athlete> lesAthletes = new ArrayList<>();
 
         StringBuilder queryBuilder = new StringBuilder("SELECT * FROM ATHLETE WHERE ");
         boolean firstCondition = true;
-        if (id != null) {
-            queryBuilder.append("idAthlete = ? ");
+        if (nomPays != null) {
+            queryBuilder.append("nomPays = ? ");
             firstCondition = false;
         }
         if (prenom != null) {
@@ -75,8 +75,8 @@ public class Requete {
 
         PreparedStatement statement = laConnexion.prepareStatement(queryBuilder.toString());
         int index = 1;
-        if (id != null) {
-            statement.setInt(index++, id);
+        if (nomPays != null) {
+            statement.setInt(index++, nomPays);
         }
         if (prenom != null) {
             statement.setString(index++, prenom);
@@ -94,9 +94,9 @@ public class Requete {
             int capaciteForce = resultSet.getInt("capaciteForce");
             int endurance = resultSet.getInt("endurance");
             int agilite = resultSet.getInt("agilite");
-            String nomPays = resultSet.getString("nomPays");
+            String nomPays2 = resultSet.getString("nomPays");
 
-            lesAthletes.add(new Athlete(nomAthlete, prenomAthlete, sexeCaract, capaciteForce, agilite, endurance, getPaysbyNom(nomPays)));
+            lesAthletes.add(new Athlete(nomAthlete, prenomAthlete, sexeCaract, capaciteForce, agilite, endurance, getPaysbyNom(nomPays2)));
         }
         resultSet.close();
         statement.close();
@@ -124,7 +124,6 @@ public class Requete {
 		ResultSet rs=s.executeQuery("SELECT * FROM PAYS");
 		while (rs.next()) {
             lesPays.add(new Pays(rs.getString("nomPays")));
-
 		}
 		rs.close();
     	return lesPays ;
@@ -238,14 +237,45 @@ public class Requete {
     }
 
     public <T extends Participant> void insertManche(Manche<T> m) throws  SQLException {
-        
         PreparedStatement ps = laConnexion.prepareStatement("INSERT INTO MANCHE (nomManche, descriptionEpreuve, sexe, numeroManche) VALUES (?, ?, ?, ?)");
         ps.setString(1, m.getNomDeTour());
         ps.setString(2, m.getEpreuve().getDescription());
         ps.setString(3, String.valueOf(m.getEpreuve().getSexe()));
         ps.setInt(4, m.getNumeroDeTour());
-        
-    
+
+        if(m.getEpreuve().getLesParticipants().get(0) instanceof Equipe){
+            Equipe equipe;
+            for(Participant p : m.getEpreuve().getLesParticipants()){
+                equipe = (Equipe) p;
+                ps = laConnexion.prepareStatement("INSERT INTO PARTICIPER_ATHLETE (nomManche, descriptionEpreuve, sexe, nomEquipe) VALUES (?, ?, ?, ?)");
+                ps.setString(1, m.getNomDeTour());
+                ps.setString(2, m.getEpreuve().getDescription());
+                ps.setString(3, String.valueOf(m.getEpreuve().getSexe()));
+                ps.setString(4, equipe.getNom());
+                ps.executeQuery();
+                ps.close();
+            }
+        }
+        else{
+            Athlete athleteInsert;
+            for(Participant p:m.getEpreuve().getLesParticipants()){
+                athleteInsert = (Athlete)p;
+                ps = laConnexion.prepareStatement("INSERT INTO PARTICIPER_EQUIPE (nomManche, descriptionEpreuve, sexeEpreuve, nom, prenom, sexe,nomPays) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                ps.setString(1, m.getNomDeTour());
+                ps.setString(2, m.getEpreuve().getDescription());
+                ps.setString(3, String.valueOf(m.getEpreuve().getSexe()));
+                ps.setString(4, athleteInsert.getNom());
+                ps.setString(5, athleteInsert.getPrenom());
+                ps.setString(6, String.valueOf(athleteInsert.getSexe()));
+                ps.setString(7, athleteInsert.getPays().getNomPays());
+                ps.executeQuery();
+                ps.close();
+            }
+        }
+    }
+
+    public <T extends Participant> void ajoutParticipant(Manche<T> m) throws  SQLException {
+        PreparedStatement ps;
         if(m.getEpreuve().getLesParticipants().get(0) instanceof Equipe){
             Equipe equipe;
             for(Participant p : m.getEpreuve().getLesParticipants()){
@@ -275,7 +305,6 @@ public class Requete {
                 ps.close();
             }
         }
- 
     }
 
 
