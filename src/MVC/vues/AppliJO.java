@@ -93,6 +93,10 @@ public class AppliJO extends Application {
         VBox conditionMail = (VBox) this.laScene.lookup("#conditionMail");
         TextField mail = (TextField) this.laScene.lookup("#textFieldMail");
         mail.focusedProperty().addListener(new ControleurMail(this.modeleConnexion,mail,conditionMail));
+
+        VBox conditionIdentifiant = (VBox) this.laScene.lookup("#conditionPseudo");
+        TextField identifiant = (TextField) this.laScene.lookup("#textFieldPseudo");
+        identifiant.focusedProperty().addListener(new ControleurIdentifiant(this.modeleConnexion,identifiant,conditionIdentifiant));
     }
 
     // MODE APPLI
