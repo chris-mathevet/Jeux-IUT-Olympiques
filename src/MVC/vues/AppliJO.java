@@ -28,7 +28,7 @@ public class AppliJO extends Application {
     private BorderPane racineAppli;
     private Stage stage;
 
-    private VBox conditionMDP;
+    private Button boutonConnexion;
 
     @Override
     public void init(){
@@ -62,7 +62,7 @@ public class AppliJO extends Application {
 
 
         Button boutonConnexion = (Button) this.laScene.lookup("#boutonConnexion");
-        boutonConnexion.setOnAction(new BoutonConnexionControleur(this, modeleConnexion));
+        boutonConnexion.setOnAction(new ControleurBoutonConnexion(this, modeleConnexion));
         Button boutonSwitch = (Button) this.laScene.lookup("#switchPage");
         boutonSwitch.setOnAction(new ControleurSwitchConnexion(this, modeleConnexion));
     }
@@ -77,26 +77,44 @@ public class AppliJO extends Application {
         this.stage.setTitle("Jeux IUT'Olympiques");
         this.stage.setScene(this.laScene);
 
-        Button boutonConnexion = (Button) this.laScene.lookup("#boutonConnexion");
-        boutonConnexion.setOnAction(new BoutonConnexionControleur(this, modeleConnexion));
+        this.boutonConnexion = (Button) this.laScene.lookup("#boutonConnexion");
+        this.boutonConnexion.setOnAction(new ControleurBoutonConnexion(this, modeleConnexion));
+        this.boutonConnexion.setDisable(true);
+
         Button boutonSwitch = (Button) this.laScene.lookup("#switchPage");
         boutonSwitch.setOnAction(new ControleurSwitchConnexion(this, modeleConnexion));
 
-        VBox conditionMDP = (VBox) this.laScene.lookup("#conditionMDP");
-        TextField motDePasse = (TextField) this.laScene.lookup("#textFieldMotDePasse");
-        motDePasse.focusedProperty().addListener(new ControleurMDP(this.modeleConnexion,motDePasse,conditionMDP));
-
-        VBox conditionMDPVerif = (VBox) this.laScene.lookup("#conditionMDPVerif");
-        TextField motDePasseVerif = (TextField) this.laScene.lookup("#textFieldVerifMDP");
-        motDePasseVerif.focusedProperty().addListener(new ControleurMDPVerif(this.modeleConnexion,motDePasseVerif,conditionMDPVerif));
+        VBox conditionIdentifiant = (VBox) this.laScene.lookup("#conditionPseudo");
+        TextField identifiant = (TextField) this.laScene.lookup("#textFieldPseudo");
+        identifiant.focusedProperty().addListener(new ControleurIdentifiant(this.modeleConnexion,this,identifiant,conditionIdentifiant));
 
         VBox conditionMail = (VBox) this.laScene.lookup("#conditionMail");
         TextField mail = (TextField) this.laScene.lookup("#textFieldMail");
-        mail.focusedProperty().addListener(new ControleurMail(this.modeleConnexion,mail,conditionMail));
+        mail.focusedProperty().addListener(new ControleurMail(this.modeleConnexion,this,mail,conditionMail));
 
-        VBox conditionIdentifiant = (VBox) this.laScene.lookup("#conditionPseudo");
-        TextField identifiant = (TextField) this.laScene.lookup("#textFieldPseudo");
-        identifiant.focusedProperty().addListener(new ControleurIdentifiant(this.modeleConnexion,identifiant,conditionIdentifiant));
+        VBox conditionMDP = (VBox) this.laScene.lookup("#conditionMDP");
+        TextField motDePasse = (TextField) this.laScene.lookup("#textFieldMotDePasse");
+        motDePasse.focusedProperty().addListener(new ControleurMDP(this.modeleConnexion,this,motDePasse,conditionMDP));
+
+        VBox conditionMDPVerif = (VBox) this.laScene.lookup("#conditionMDPVerif");
+        TextField motDePasseVerif = (TextField) this.laScene.lookup("#textFieldVerifMDP");
+        motDePasseVerif.focusedProperty().addListener(new ControleurMDPVerif(this.modeleConnexion,this,motDePasseVerif,conditionMDPVerif));
+        
+        motDePasse.focusedProperty().addListener(new ControleurMDPVerif(this.modeleConnexion,this,motDePasseVerif,conditionMDPVerif));
+    }
+
+    public void majBoutonCo(){
+        if(this.modeleConnexion.getEstConnexion()){
+
+        }
+        else{
+            if(this.modeleConnexion.peutSinscrire()){
+                this.boutonConnexion.setDisable(false);
+            }
+            else{
+                this.boutonConnexion.setDisable(true);
+            }
+        }
     }
 
     // MODE APPLI

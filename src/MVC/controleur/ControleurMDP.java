@@ -1,6 +1,7 @@
 package MVC.controleur;
 
 import MVC.modele.ModeleConnexion;
+import MVC.vues.AppliJO;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
@@ -15,17 +16,18 @@ public class ControleurMDP implements ChangeListener<Boolean>{
     ModeleConnexion modele;
     TextField motDePasse;
     VBox conditionBox;
+    AppliJO vue;
 
     HBox conditionNB;
     HBox conditionMajMin;
     HBox conditionChifre;
     HBox conditionSpecial;
 
-
-    public ControleurMDP(ModeleConnexion modele, TextField mdp, VBox condition){
+    public ControleurMDP(ModeleConnexion modele, AppliJO vue, TextField mdp, VBox condition){
         this.modele = modele;
         this.motDePasse = mdp;
         this.conditionBox = condition;
+        this.vue = vue;
 
         this.conditionChifre = new HBox();
         this.conditionNB = new HBox();
@@ -121,6 +123,7 @@ public class ControleurMDP implements ChangeListener<Boolean>{
                     this.conditionBox.getChildren().removeAll(this.conditionChifre,this.conditionMajMin,this.conditionNB,this.conditionSpecial);
                 }
             }
+        this.vue.majBoutonCo();
         }
     }
 }

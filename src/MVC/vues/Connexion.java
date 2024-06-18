@@ -3,7 +3,7 @@ package MVC.vues;
 import java.io.File;
 import java.net.URL;
 
-import MVC.controleur.BoutonConnexionControleur;
+import MVC.controleur.ControleurBoutonConnexion;
 import MVC.modele.ModeleConnexion;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;

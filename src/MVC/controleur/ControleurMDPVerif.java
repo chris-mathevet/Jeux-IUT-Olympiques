@@ -1,6 +1,7 @@
 package MVC.controleur;
 
 import MVC.modele.ModeleConnexion;
+import MVC.vues.AppliJO;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
@@ -15,13 +16,15 @@ public class ControleurMDPVerif implements ChangeListener<Boolean>{
     ModeleConnexion modele;
     TextField motDePasseVerif;
     VBox conditionBox;
+    AppliJO vue;
 
     HBox conditionVerif;
 
-    public ControleurMDPVerif(ModeleConnexion modele, TextField mdp, VBox condition){
+    public ControleurMDPVerif(ModeleConnexion modele, AppliJO vue, TextField mdp, VBox condition){
         this.modele = modele;
         this.motDePasseVerif = mdp;
         this.conditionBox = condition;
+        this.vue = vue;
 
         this.conditionVerif = new HBox();
 
@@ -64,6 +67,7 @@ public class ControleurMDPVerif implements ChangeListener<Boolean>{
                     this.conditionBox.getChildren().remove(this.conditionVerif);
                 }
             }
+        this.vue.majBoutonCo();
         }
     }
 }

@@ -1,6 +1,7 @@
 package MVC.controleur;
 
 import MVC.modele.ModeleConnexion;
+import MVC.vues.AppliJO;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
@@ -15,14 +16,16 @@ public class ControleurIdentifiant implements ChangeListener<Boolean>{
     ModeleConnexion modele;
     TextField identifiant;
     VBox conditionBox;
+    AppliJO vue;
 
     HBox conditionNonExist;
     HBox conditionIdentifiant;
 
-    public ControleurIdentifiant(ModeleConnexion modele, TextField mdp, VBox condition){
+    public ControleurIdentifiant(ModeleConnexion modele, AppliJO vue, TextField mdp, VBox condition){
         this.modele = modele;
         this.identifiant = mdp;
         this.conditionBox = condition;
+        this.vue = vue;
 
         this.conditionIdentifiant = new HBox();
         this.conditionNonExist = new HBox();
@@ -79,6 +82,7 @@ public class ControleurIdentifiant implements ChangeListener<Boolean>{
                     this.conditionBox.getChildren().removeAll(this.conditionIdentifiant,this.conditionNonExist);
                 }
             }
+        this.vue.majBoutonCo();
         }
     }
 }

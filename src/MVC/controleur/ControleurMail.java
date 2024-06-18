@@ -1,6 +1,7 @@
 package MVC.controleur;
 
 import MVC.modele.ModeleConnexion;
+import MVC.vues.AppliJO;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
@@ -15,14 +16,16 @@ public class ControleurMail implements ChangeListener<Boolean>{
     ModeleConnexion modele;
     TextField mail;
     VBox conditionBox;
+    AppliJO vue;
 
     HBox conditionNonExist;
     HBox conditionMail;
 
-    public ControleurMail(ModeleConnexion modele, TextField mdp, VBox condition){
+    public ControleurMail(ModeleConnexion modele, AppliJO vue, TextField mdp, VBox condition){
         this.modele = modele;
         this.mail = mdp;
         this.conditionBox = condition;
+        this.vue = vue;
 
         this.conditionMail = new HBox();
         this.conditionNonExist = new HBox();
@@ -79,6 +82,7 @@ public class ControleurMail implements ChangeListener<Boolean>{
                     this.conditionBox.getChildren().removeAll(this.conditionMail,this.conditionNonExist);
                 }
             }
+        this.vue.majBoutonCo();
         }
     }
 }
