@@ -8,7 +8,9 @@ import sports.*;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 public class Requete {
@@ -130,13 +132,49 @@ public class Requete {
 
     public String getUser(String pseudo, int mdp) throws SQLException{ 
         Statement s=laConnexion.createStatement();
-        ResultSet r=s.executeQuery("select idPseudo, mdp from USER where idPseudo="+pseudo+ "and mdp="+ mdp);
+        ResultSet r=s.executeQuery("select * from USER where idPseudo="+"\""+pseudo+"\""+ "and mdp="+ mdp);
         r.next();
         String res = r.getString("type"); 
         r.close();
         return res;    
     }
-    
+    public void selectAllUser() throws SQLException{
+
+		Statement s=laConnexion.createStatement();
+		ResultSet rs=s.executeQuery("SELECT * FROM USER");
+		while (rs.next()) {
+            System.out.println("user : " + rs.getString("idPseudo") + " " + rs.getString("mdp") +" "+ rs.getString("email")+" " + rs.getString("type"));
+		}
+		rs.close();
+    	
+	}
+    public Set<String> selectUser() throws SQLException{
+
+        Set<String> lesUsers = new HashSet<>();
+
+		Statement s=laConnexion.createStatement();
+		ResultSet rs=s.executeQuery("SELECT * FROM USER");
+		while (rs.next()) {
+            lesUsers.add( rs.getString("idPseudo"));
+
+		}
+		rs.close();
+    	return lesUsers ;
+	}
+
+    public Set<String> selectUserMail() throws SQLException{
+
+        Set<String> lesMailsUser = new HashSet<>();
+
+		Statement s=laConnexion.createStatement();
+		ResultSet rs=s.executeQuery("SELECT * FROM USER");
+		while (rs.next()) { 
+            lesMailsUser.add( rs.getString("email"));
+		}
+		rs.close();
+    	return lesMailsUser ;
+	}
+
     //---------------Insert---------------------\\
     public void insertPays(Pays p) throws  SQLException {
         PreparedStatement ps = laConnexion.prepareStatement("INSERT INTO PAYS (nomPays, nbMedailleOr, nbMedailleArgent,nbMedailleBronze) VALUES (?, ?, ?, ?)");
@@ -158,11 +196,13 @@ public class Requete {
 		ps.close();
     }
 
-    public void insertUser(String id,String mdp,String type)throws SQLException{
-        PreparedStatement ps = laConnexion.prepareStatement("INSERT INTO USER (idPseudo, mdp, type) VALUES (?, ?, ?)");
-        ps.setString(1, id);
-		ps.setString(2, mdp);
-		ps.setString(3, type);
+    public void insertUser(String pseudo,int mdp,String email,String type)throws SQLException{
+        PreparedStatement ps = laConnexion.prepareStatement("INSERT INTO USER (idPseudo, mdp, email, type) VALUES (?, ?, ?, ?)");
+        ps.setString(1, pseudo);
+		ps.setInt(2, mdp);
+        ps.setString(3, email);
+
+		ps.setString(4, type);
         ps.executeUpdate();
 		ps.close();
     }
