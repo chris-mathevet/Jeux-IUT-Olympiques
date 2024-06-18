@@ -86,21 +86,20 @@ public class AppliJO extends Application {
 
         VBox conditionIdentifiant = (VBox) this.laScene.lookup("#conditionPseudo");
         TextField identifiant = (TextField) this.laScene.lookup("#textFieldPseudo");
-        identifiant.focusedProperty().addListener(new ControleurIdentifiant(this.modeleConnexion,this,identifiant,conditionIdentifiant));
+        identifiant.textProperty().addListener(new ControleurIdentifiant(this.modeleConnexion,this,identifiant,conditionIdentifiant));
 
         VBox conditionMail = (VBox) this.laScene.lookup("#conditionMail");
         TextField mail = (TextField) this.laScene.lookup("#textFieldMail");
-        mail.focusedProperty().addListener(new ControleurMail(this.modeleConnexion,this,mail,conditionMail));
+        mail.textProperty().addListener(new ControleurMail(this.modeleConnexion,this,mail,conditionMail));
 
         VBox conditionMDP = (VBox) this.laScene.lookup("#conditionMDP");
         TextField motDePasse = (TextField) this.laScene.lookup("#textFieldMotDePasse");
-        motDePasse.focusedProperty().addListener(new ControleurMDP(this.modeleConnexion,this,motDePasse,conditionMDP));
+        motDePasse.textProperty().addListener(new ControleurMDP(this.modeleConnexion,this,motDePasse,conditionMDP));
 
         VBox conditionMDPVerif = (VBox) this.laScene.lookup("#conditionMDPVerif");
         TextField motDePasseVerif = (TextField) this.laScene.lookup("#textFieldVerifMDP");
-        motDePasseVerif.focusedProperty().addListener(new ControleurMDPVerif(this.modeleConnexion,this,motDePasseVerif,conditionMDPVerif));
-        
-        motDePasse.focusedProperty().addListener(new ControleurMDPVerif(this.modeleConnexion,this,motDePasseVerif,conditionMDPVerif));
+        motDePasseVerif.textProperty().addListener(new ControleurMDPVerif(this.modeleConnexion,this,motDePasseVerif,conditionMDPVerif));
+        motDePasse.textProperty().addListener(new ControleurMDPVerif(this.modeleConnexion,this,motDePasseVerif,conditionMDPVerif));
     }
 
     public void majBoutonCo(){

@@ -12,7 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class ControleurMDP implements ChangeListener<Boolean>{
+public class ControleurMDP implements ChangeListener<String>{
     ModeleConnexion modele;
     TextField motDePasse;
     VBox conditionBox;
@@ -73,8 +73,8 @@ public class ControleurMDP implements ChangeListener<Boolean>{
 
     
     @Override
-    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue){ 
-        if (!newValue) { // si on a perdu le focus
+    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue){ 
+        if (! newValue.equals(oldValue)) {
             this.modele.setMdp(this.motDePasse.getText());
             if (this.modele.getEstConnexion()){
 

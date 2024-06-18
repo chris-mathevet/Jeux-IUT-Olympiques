@@ -12,7 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class ControleurMail implements ChangeListener<Boolean>{
+public class ControleurMail implements ChangeListener<String>{
     ModeleConnexion modele;
     TextField mail;
     VBox conditionBox;
@@ -50,8 +50,8 @@ public class ControleurMail implements ChangeListener<Boolean>{
     }
 
     @Override
-    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue){ 
-        if (!newValue) { // si on a perdu le focus
+    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue){ 
+        if (! newValue.equals(oldValue)) {
             this.modele.setMail(this.mail.getText());
             if (this.modele.getEstConnexion()){
 
