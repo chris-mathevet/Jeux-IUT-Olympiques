@@ -86,7 +86,8 @@ public class AppliJO extends Application {
         this.stage.setScene(this.laScene);
 
         this.boutonConnexion = (Button) this.laScene.lookup("#boutonConnexion");
-        boutonConnexion.setOnAction(new ControleurBoutonConnexion(this, modeleConnexion));
+        VBox conditionConnexion = (VBox) this.laScene.lookup("#conditionConnexion");
+        boutonConnexion.setOnAction(new ControleurBoutonConnexion(this, modeleConnexion, conditionConnexion));
         this.boutonConnexion.setDisable(true);
 
         Button boutonSwitch = (Button) this.laScene.lookup("#switchPage");
@@ -113,7 +114,8 @@ public class AppliJO extends Application {
         this.stage.setScene(this.laScene);
 
         this.boutonConnexion = (Button) this.laScene.lookup("#boutonConnexion");
-        this.boutonConnexion.setOnAction(new ControleurBoutonConnexion(this, modeleConnexion));
+        VBox conditionInscrire = (VBox) this.laScene.lookup("#conditionInscrire");
+        this.boutonConnexion.setOnAction(new ControleurBoutonConnexion(this, modeleConnexion,conditionInscrire));
         this.boutonConnexion.setDisable(true);
 
         Button boutonSwitch = (Button) this.laScene.lookup("#switchPage");

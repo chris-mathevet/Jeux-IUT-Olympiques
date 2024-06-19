@@ -48,7 +48,6 @@ public class ControleurMail implements ChangeListener<String>{
         
         this.conditionNonExist.getChildren().addAll(new ImageView("erreur.png"), conditionNonExistText);
         this.conditionMail.getChildren().addAll(new ImageView("erreur.png"), conditionMailText);
-        System.out.println(this.conditionBox);
     }
 
     @Override
