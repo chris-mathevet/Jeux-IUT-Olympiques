@@ -35,8 +35,11 @@ public class AppliJO extends Application {
     private Button boutonEpreuve;
     private Button boutonParticipants;
     private Button boutonParametre;
+    private Button boutonAjouterEpreuve;
 
     private BorderPane modeleEpreuve;
+    private MenuButton menuSportEpreuve;
+    private MenuButton menuPaysEpreuve;
 
     @Override
     public void init(){
@@ -47,7 +50,11 @@ public class AppliJO extends Application {
         this.boutonEpreuve = new Button();
         this.boutonParametre = new Button();
         this.boutonParticipants = new Button();
+        this.boutonAjouterEpreuve = new Button();
         this.modeleEpreuve = new BorderPane();
+        
+        this.menuSportEpreuve = new MenuButton();
+        this.menuPaysEpreuve = new MenuButton();
     }
 
     @Override
@@ -165,6 +172,12 @@ public class AppliJO extends Application {
         this.boutonParametre = (Button) laScene.lookup("#boutonParametre");
         this.boutonParametre.setOnAction(new BoutonAppliControleur(this, modeleConnexion));
 
+        
+
+        this.menuSportEpreuve = (MenuButton) laScene.lookup("#menuSportEpreuve");
+        this.menuPaysEpreuve = (MenuButton) laScene.lookup("#menuPaysEpreuve");
+        
+
 
         this.modeClassement();
 
@@ -177,22 +190,34 @@ public class AppliJO extends Application {
         BorderPane centre = loader.load();
         BorderPane.setMargin(centre, new Insets(20));
         this.racineAppli.setCenter(centre);
+
         this.boutonClassement.setDisable(true);
         this.boutonEpreuve.setDisable(false);
         this.boutonParametre.setDisable(false);
         this.boutonParticipants.setDisable(false);
+
+        
     }
 
     public void modeEpreuve() throws Exception {
         URL url = new File("FXML/PageEpreuve.fxml").toURI().toURL();
         FXMLLoader loader = new FXMLLoader(url);
         ScrollPane centre = loader.load();
+   
         BorderPane.setMargin(centre, new Insets(20));
         this.racineAppli.setCenter(centre);
         this.boutonClassement.setDisable(false);
         this.boutonEpreuve.setDisable(true);
         this.boutonParametre.setDisable(false);
         this.boutonParticipants.setDisable(false);
+
+        VBox test = (VBox) laScene.lookup("#test");
+        System.out.println(test);
+
+
+        this.boutonAjouterEpreuve = (Button) laScene.lookup("#boutonAjouter");
+        System.out.println(this.boutonAjouterEpreuve);
+        this.boutonAjouterEpreuve.setOnAction(new ControleurAjouter(this, modeleConnexion));
     }
 
     public void modeParticipants() throws Exception {
@@ -219,11 +244,23 @@ public class AppliJO extends Application {
         this.boutonParticipants.setDisable(false);
     }
 
-public BorderPane creationEpreuve(Epreuve epreuve) {
-    URL url = new File("FXML/Epreuve.fxml").toURI().toURL();
-    FXMLLoader loader = new FXMLLoader(url);
-    BorderPane modeleEpreuve = loader.load();
-}
+    // public BorderPane modeleCreationEpreuve(Epreuve epreuve) {
+    //     URL url = new File("FXML/Epreuve.fxml").toURI().toURL();
+    //     FXMLLoader loader = new FXMLLoader(url);
+    //     BorderPane modeleEpreuve = loader.load();
+    //     return modeleEpreuve;
+    // }
+
+    public String getStringSport() {
+        System.out.println(this.menuSportEpreuve.getText());
+        return this.menuSportEpreuve.getText();
+    }
+
+    public String getStringPays() {
+        return this.menuSportEpreuve.getText();
+    }
+
+
 
     public static void main(String[] args) {
         launch(args);

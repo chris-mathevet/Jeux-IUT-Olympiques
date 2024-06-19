@@ -10,20 +10,20 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 
-public class ClassementControleur implements EventHandler<ActionEvent>{
+public class ControleurAjouter implements EventHandler<ActionEvent>{
     
     private AppliJO vue;
 
     private ModeleConnexion modele;
     
-    public ClassementControleur(AppliJO vue, ModeleConnexion modele) {
+    public ControleurAjouter(AppliJO vue, ModeleConnexion modele) {
         this.vue = vue;
         this.modele = modele;
     }
 
     @Override
     public void handle(ActionEvent actionEvent) {
-  
+        System.out.println("fioehfhi");
 
     }
 }
