@@ -46,6 +46,7 @@ public class ControleurMDPVerif implements ChangeListener<String>{
     @Override
     public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue){ 
         if (! newValue.equals(oldValue)) {
+            this.conditionBox.getChildren().remove(this.conditionVerif);
             this.modele.setMdpVerif(this.motDePasseVerif.getText());
             if (this.modele.getEstConnexion()){
 
@@ -58,13 +59,9 @@ public class ControleurMDPVerif implements ChangeListener<String>{
                             this.conditionBox.getChildren().add(this.conditionVerif);
                         }
                     }
-                    else{
-                        this.conditionBox.getChildren().remove(this.conditionVerif);
-                    }
                 }
                 else{
                     this.motDePasseVerif.setStyle("-fx-border-color: #3AD365");
-                    this.conditionBox.getChildren().remove(this.conditionVerif);
                 }
             }
         this.vue.majBoutonCo();

@@ -4,6 +4,7 @@ import MVC.modele.ModeleConnexion;
 import MVC.vues.AppliJO;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -47,11 +48,13 @@ public class ControleurMail implements ChangeListener<String>{
         
         this.conditionNonExist.getChildren().addAll(new ImageView("erreur.png"), conditionNonExistText);
         this.conditionMail.getChildren().addAll(new ImageView("erreur.png"), conditionMailText);
+        System.out.println(this.conditionBox);
     }
 
     @Override
     public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue){ 
         if (! newValue.equals(oldValue)) {
+            this.conditionBox.getChildren().removeAll(this.conditionNonExist,this.conditionMail);
             this.modele.setMail(this.mail.getText());
             if (this.modele.getEstConnexion()){
 
@@ -59,30 +62,25 @@ public class ControleurMail implements ChangeListener<String>{
             else{
                 if(! this.modele.mailCorecte()){
                     this.mail.setStyle("-fx-border-color: #EB5252");
+                    Node erreur = null;
                     if(!this.modele.mailNonExistant()){
                         if(! this.conditionBox.getChildren().contains(this.conditionNonExist)){
-                            this.conditionBox.getChildren().add(this.conditionNonExist);
+                            erreur = this.conditionNonExist;
                         }
-                    }
-                    else{
-                        this.conditionBox.getChildren().remove(this.conditionNonExist);
                     }
 
                     if(!this.modele.mailVerif()){
                         if(! this.conditionBox.getChildren().contains(this.conditionMail)){
-                            this.conditionBox.getChildren().add(this.conditionMail);
+                            erreur = this.conditionMail;
                         }
                     }
-                    else{
-                        this.conditionBox.getChildren().remove(this.conditionMail);
-                    }
+                    this.conditionBox.getChildren().add(erreur);
                 }
                 else{
                     this.mail.setStyle("-fx-border-color: #3AD365");
-                    this.conditionBox.getChildren().removeAll(this.conditionMail,this.conditionNonExist);
                 }
             }
-        this.vue.majBoutonCo();
         }
+        this.vue.majBoutonCo();
     }
 }

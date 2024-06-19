@@ -107,8 +107,9 @@ public class AppliJO extends Application {
 
         VBox conditionMDPVerif = (VBox) this.laScene.lookup("#conditionMDPVerif");
         TextField motDePasseVerif = (TextField) this.laScene.lookup("#textFieldVerifMDP");
-        motDePasseVerif.textProperty().addListener(new ControleurMDPVerif(this.modeleConnexion,this,motDePasseVerif,conditionMDPVerif));
-        motDePasse.textProperty().addListener(new ControleurMDPVerif(this.modeleConnexion,this,motDePasseVerif,conditionMDPVerif));
+        ControleurMDPVerif controleurMDPVerif = new ControleurMDPVerif(this.modeleConnexion,this,motDePasseVerif,conditionMDPVerif);
+        motDePasseVerif.textProperty().addListener(controleurMDPVerif);
+        motDePasse.textProperty().addListener(controleurMDPVerif);
     }
 
     public void majBoutonCo(){

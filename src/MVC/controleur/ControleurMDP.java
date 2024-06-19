@@ -1,6 +1,7 @@
 package MVC.controleur;
 
 import MVC.modele.ModeleConnexion;
+import MVC.vues.AppliJO;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
@@ -12,10 +13,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class ControleurMDP implements ChangeListener<Boolean>{
+public class ControleurMDP implements ChangeListener<String>{
     ModeleConnexion modele;
     TextField motDePasse;
     VBox conditionBox;
+    AppliJO vue;
 
     HBox conditionNB;
     HBox conditionMajMin;
@@ -23,10 +25,11 @@ public class ControleurMDP implements ChangeListener<Boolean>{
     HBox conditionSpecial;
 
 
-    public ControleurMDP(ModeleConnexion modele, TextField mdp, VBox condition){
+    public ControleurMDP(ModeleConnexion modele, AppliJO vue, TextField mdp, VBox condition){
         this.modele = modele;
         this.motDePasse = mdp;
         this.conditionBox = condition;
+        this.vue = vue;
 
         this.conditionChifre = new HBox();
         this.conditionNB = new HBox();
@@ -67,15 +70,12 @@ public class ControleurMDP implements ChangeListener<Boolean>{
         this.conditionNB.getChildren().addAll(new ImageView("erreur.png"), conditionNBTxt);
         this.conditionMajMin.getChildren().addAll(new ImageView("erreur.png"), conditionMajMinTxt);
         this.conditionSpecial.getChildren().addAll(new ImageView("erreur.png"), conditionSpecialTxt);
-        // this.motDePasse.textProperty().addListener(this);
     }
 
     
     @Override
-    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue){ 
-        System.out.println("mpd changed");
-        if (!newValue) { // si on a perdu le focus
-            System.out.println("mdp lose focus");
+    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue){ 
+        if (!newValue.equals(oldValue)) { 
             this.conditionBox.getChildren().removeAll(this.conditionChifre,this.conditionMajMin,this.conditionNB,this.conditionSpecial);
             this.modele.setMdp(this.motDePasse.getText());
             if (this.modele.getEstConnexion()){
@@ -85,11 +85,11 @@ public class ControleurMDP implements ChangeListener<Boolean>{
                 if(! this.modele.mdpCorecteInscription()){
                     this.motDePasse.setStyle("-fx-border-color: #EB5252");
                     Node erreur = null;
-                    if(!this.modele.mdpContient8()){
-                        if(! this.conditionBox.getChildren().contains(this.conditionNB)){
-                            erreur = this.conditionNB;
+                    if(!this.modele.mdpContientSpecial()){
+                        if(! this.conditionBox.getChildren().contains(this.conditionSpecial)){
+                            erreur = this.conditionSpecial;
                         }
-                    }
+                    }  
                     if(!this.modele.mdpContientChifre()){
                         if(! this.conditionBox.getChildren().contains(this.conditionChifre)){
                             erreur = this.conditionChifre;
@@ -100,11 +100,11 @@ public class ControleurMDP implements ChangeListener<Boolean>{
                             erreur = this.conditionMajMin;
                         }
                     }
-                    if(!this.modele.mdpContientSpecial()){
-                        if(! this.conditionBox.getChildren().contains(this.conditionSpecial)){
-                            erreur = this.conditionSpecial;
+                    if(!this.modele.mdpContient8()){
+                        if(! this.conditionBox.getChildren().contains(this.conditionNB)){
+                            erreur = this.conditionNB;
                         }
-                    }     
+                    }
                     this.conditionBox.getChildren().add(erreur);
                 }
                 else{
@@ -112,5 +112,6 @@ public class ControleurMDP implements ChangeListener<Boolean>{
                 }
             }
         }
+        this.vue.majBoutonCo();
     }
 }

@@ -4,6 +4,7 @@ import MVC.modele.ModeleConnexion;
 import MVC.vues.AppliJO;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -53,6 +54,7 @@ public class ControleurIdentifiant implements ChangeListener<String>{
     @Override
     public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue){ 
         if (! newValue.equals(oldValue)) {
+            this.conditionBox.getChildren().removeAll(this.conditionIdentifiant,this.conditionNonExist);
             this.modele.setIdentifiant(this.identifiant.getText());
             if (this.modele.getEstConnexion()){
                 if(!this.modele.identifiantNonExistant()){
@@ -69,29 +71,24 @@ public class ControleurIdentifiant implements ChangeListener<String>{
             }
             else{
                 if(! this.modele.identifiantCorect()){
+                    Node erreur = null;
                     this.identifiant.setStyle("-fx-border-color: #EB5252");
                     if(this.modele.identifiantNonExistant()){
                         if(! this.conditionBox.getChildren().contains(this.conditionNonExist)){
                             this.conditionNonExistText.setText("Cet identifiant est déjà attribué");
-                            this.conditionBox.getChildren().add(this.conditionNonExist);
+                            erreur = this.conditionNonExist;
                         }
-                    }
-                    else{
-                        this.conditionBox.getChildren().remove(this.conditionNonExist);
                     }
 
                     if(!this.modele.identifiantContient8()){
                         if(! this.conditionBox.getChildren().contains(this.conditionIdentifiant)){
-                            this.conditionBox.getChildren().add(this.conditionIdentifiant);
+                            erreur = this.conditionIdentifiant;
                         }
                     }
-                    else{
-                        this.conditionBox.getChildren().remove(this.conditionIdentifiant);
-                    }
+                    this.conditionBox.getChildren().add(erreur);
                 }
                 else{
                     this.identifiant.setStyle("-fx-border-color: #3AD365");
-                    this.conditionBox.getChildren().removeAll(this.conditionIdentifiant,this.conditionNonExist);
                 }
             }
         this.vue.majBoutonCo();
