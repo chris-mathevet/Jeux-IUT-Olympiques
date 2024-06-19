@@ -170,16 +170,16 @@ public class AppliJO extends Application {
         this.stage.show();
 
         this.boutonClassement = (Button) laScene.lookup("#boutonClassement");
-        this.boutonClassement.setOnAction(new BoutonAppliControleur(this, modeleConnexion));
+        this.boutonClassement.setOnAction(new ControleurBoutonAppli(this, modeleConnexion));
 
         this.boutonEpreuve = (Button) laScene.lookup("#boutonEpreuve");
-        this.boutonEpreuve.setOnAction(new BoutonAppliControleur(this, modeleConnexion));
+        this.boutonEpreuve.setOnAction(new ControleurBoutonAppli(this, modeleConnexion));
 
         this.boutonParticipants = (Button) laScene.lookup("#boutonParticipants");
-        this.boutonParticipants.setOnAction(new BoutonAppliControleur(this, modeleConnexion));
+        this.boutonParticipants.setOnAction(new ControleurBoutonAppli(this, modeleConnexion));
 
         this.boutonParametre = (Button) laScene.lookup("#boutonParametre");
-        this.boutonParametre.setOnAction(new BoutonAppliControleur(this, modeleConnexion));
+        this.boutonParametre.setOnAction(new ControleurBoutonAppli(this, modeleConnexion));
 
 
         this.modeClassement();
