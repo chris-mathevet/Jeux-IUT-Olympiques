@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import MVC.modele.*;
+import epreuves.Epreuve;
 import MVC.controleur.*;
 
 import javafx.application.Application;
@@ -35,6 +36,8 @@ public class AppliJO extends Application {
     private Button boutonParticipants;
     private Button boutonParametre;
 
+    private BorderPane modeleEpreuve;
+
     @Override
     public void init(){
         this.modele = new ModeleJO();
@@ -44,6 +47,7 @@ public class AppliJO extends Application {
         this.boutonEpreuve = new Button();
         this.boutonParametre = new Button();
         this.boutonParticipants = new Button();
+        this.modeleEpreuve = new BorderPane();
     }
 
     @Override
@@ -160,6 +164,8 @@ public class AppliJO extends Application {
 
         this.boutonParametre = (Button) laScene.lookup("#boutonParametre");
         this.boutonParametre.setOnAction(new BoutonAppliControleur(this, modeleConnexion));
+
+
         this.modeClassement();
 
     }
@@ -212,6 +218,12 @@ public class AppliJO extends Application {
         this.boutonParametre.setDisable(false);
         this.boutonParticipants.setDisable(false);
     }
+
+public BorderPane creationEpreuve(Epreuve epreuve) {
+    URL url = new File("FXML/Epreuve.fxml").toURI().toURL();
+    FXMLLoader loader = new FXMLLoader(url);
+    BorderPane modeleEpreuve = loader.load();
+}
 
     public static void main(String[] args) {
         launch(args);
