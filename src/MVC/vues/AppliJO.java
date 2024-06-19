@@ -38,7 +38,7 @@ public class AppliJO extends Application {
 
     private Button boutonConnexion;
 
-    private TableView<Pays> classement;
+    private TableView<PaysTableau> classement;
     private Button boutonClassement;
     private Button boutonEpreuve;
     private Button boutonParticipants;
@@ -47,7 +47,6 @@ public class AppliJO extends Application {
     private String utilisateur;
   
     private BorderPane modeleEpreuve;
-
 
     @Override
     public void init(){
@@ -209,22 +208,29 @@ public class AppliJO extends Application {
 
         ComboBox<String> filtre = (ComboBox<String>) laScene.lookup("#filtre");
         filtre.getItems().addAll("Médailles","Naturel","Total");
-        centre.setCenter(this.leClassement(Tris.MEDAILLES));
+        filtre.setValue("Médailles");
+        filtre.setOnAction(new ControleurFiltreClassement(this));
+
+        this.classement = new TableView<>();
+        this.leClassement(Tris.MEDAILLES);
+
+        centre.setCenter(this.classement);
     }
 
-    private void updateClassement(Tris tri){
+    public void updateClassement(Tris tri){
         this.classement.getItems().clear();
-       
+        List<Pays> lesPays2 = this.modele.getLesPays(tri);
+        for (Pays pays : lesPays2){
+            this.classement.getItems().add(new PaysTableau(lesPays2.indexOf(pays)+1, pays));
+        }
     }
 
-    private TableView<PaysTableau> leClassement(Tris tri){
-        TableView<PaysTableau> tableau = new TableView<>();
-        ObservableList<PaysTableau> lesPaysT = FXCollections.observableArrayList(); 
+    private void leClassement(Tris tri){
+        this.classement.getItems().clear();
         List<Pays> lesPays = this.modele.getLesPays(tri);
         for (Pays pays : lesPays){
-            lesPaysT.add(new PaysTableau(lesPays.indexOf(pays), pays));
+            this.classement.getItems().add(new PaysTableau(lesPays.indexOf(pays)+1, pays));
         }
-        tableau.setItems(lesPaysT);
 
         // Colones
 
@@ -249,12 +255,11 @@ public class AppliJO extends Application {
         TableColumn<PaysTableau,Integer> totalColumn = new TableColumn<>("Total");
         totalColumn.setCellValueFactory(new PropertyValueFactory("totalMedailles"));
 
-        tableau.getColumns().addAll(placeColumn,nomColumn,orColumn,argentColumn,bronzeColumn,totalColumn);
+        this.classement.getColumns().addAll(placeColumn,nomColumn,orColumn,argentColumn,bronzeColumn,totalColumn);
 
-        tableau.setOpacity(0.9);
+        this.classement.setOpacity(0.9);
 
-        tableau.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
-        return tableau;
+        this.classement.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
     }
 
     public void modeEpreuve() throws Exception {
