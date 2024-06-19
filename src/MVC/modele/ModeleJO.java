@@ -372,7 +372,7 @@ public class ModeleJO {
         return epreuve.getLesParticipants();
     }
 
-    public List<Manche<Participant>> lesMatchs(Epreuve<Participant> epreuve){
+    public List<Manche<Participant>> lesManches(Epreuve<Participant> epreuve){
         return epreuve.getLesManches();
     }
 

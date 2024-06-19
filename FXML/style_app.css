@@ -63,3 +63,9 @@
     -fx-border-width: 2px;
     -fx-border-radius: 2;
 }
+
+#borderPaneEpreuve{
+    -fx-border-color: #D4C47C;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10;
+}
