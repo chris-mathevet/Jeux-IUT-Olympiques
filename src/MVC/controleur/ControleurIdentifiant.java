@@ -26,39 +26,42 @@ public class ControleurIdentifiant implements ChangeListener<String>{
     public ControleurIdentifiant(ModeleConnexion modele, AppliJO vue, TextField mdp, VBox condition){
         this.modele = modele;
         this.identifiant = mdp;
-        this.conditionBox = condition;
         this.vue = vue;
+        if(! this.modele.getEstConnexion()){
+            this.conditionBox = condition;
 
-        this.conditionIdentifiant = new HBox();
-        this.conditionNonExist = new HBox();
+            this.conditionIdentifiant = new HBox();
+            this.conditionNonExist = new HBox();
 
-        this.conditionIdentifiant.setSpacing(4);
+            this.conditionIdentifiant.setSpacing(4);
 
-        Text conditionIdentifiantText = new Text("Au moins 8 caractères");
-        this.conditionNonExistText = new Text("Cet identifiant est déjà attribué");
+            Text conditionIdentifiantText = new Text("Au moins 8 caractères");
+            this.conditionNonExistText = new Text("Cet identifiant est déjà attribué");
 
-        ImageView imageErreur = new ImageView("erreur.png");
+            ImageView imageErreur = new ImageView("erreur.png");
 
-        conditionIdentifiantText.setWrappingWidth(conditionBox.getMaxWidth() - imageErreur.getFitWidth() - conditionBox.getSpacing());        
-        conditionIdentifiantText.setFill(Color.web("#EB5252"));        
-        conditionIdentifiantText.setFont(new Font("System", 8));    
+            conditionIdentifiantText.setWrappingWidth(conditionBox.getMaxWidth() - imageErreur.getFitWidth() - conditionBox.getSpacing());        
+            conditionIdentifiantText.setFill(Color.web("#EB5252"));        
+            conditionIdentifiantText.setFont(new Font("System", 8));    
 
-        conditionNonExistText.setWrappingWidth(conditionBox.getMaxWidth() - imageErreur.getFitWidth() - conditionBox.getSpacing());        
-        conditionNonExistText.setFill(Color.web("#EB5252"));        
-        conditionNonExistText.setFont(new Font("System", 8));    
-        
-        this.conditionNonExist.getChildren().addAll(new ImageView("erreur.png"), conditionNonExistText);
-        this.conditionIdentifiant.getChildren().addAll(new ImageView("erreur.png"), conditionIdentifiantText);
+            conditionNonExistText.setWrappingWidth(conditionBox.getMaxWidth() - imageErreur.getFitWidth() - conditionBox.getSpacing());        
+            conditionNonExistText.setFill(Color.web("#EB5252"));        
+            conditionNonExistText.setFont(new Font("System", 8));    
+            
+            this.conditionNonExist.getChildren().addAll(new ImageView("erreur.png"), conditionNonExistText);
+            this.conditionIdentifiant.getChildren().addAll(new ImageView("erreur.png"), conditionIdentifiantText);
+        }
     }
 
     @Override
     public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue){ 
         if (! newValue.equals(oldValue)) {
-            this.conditionBox.getChildren().removeAll(this.conditionIdentifiant,this.conditionNonExist);
             this.modele.setIdentifiant(this.identifiant.getText());
             if (this.modele.getEstConnexion()){
             }
             else{
+                this.conditionBox.getChildren().removeAll(this.conditionIdentifiant,this.conditionNonExist);
+
                 if(! this.modele.identifiantCorect()){
                     Node erreur = null;
                     this.identifiant.setStyle("-fx-border-color: #EB5252");
