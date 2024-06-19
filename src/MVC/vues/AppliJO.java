@@ -4,6 +4,9 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.text.html.ImageView;
+
 import MVC.modele.*;
 import epreuves.Epreuve;
 import MVC.controleur.*;
@@ -28,6 +31,7 @@ public class AppliJO extends Application {
     private StackPane racineConnexion;
     private BorderPane racineAppli;
     private Stage stage;
+    private VBox contenus;
 
     private Button boutonConnexion;
 
@@ -38,8 +42,14 @@ public class AppliJO extends Application {
     private Button boutonAjouterEpreuve;
 
     private BorderPane modeleEpreuve;
-    private MenuButton menuSportEpreuve;
-    private MenuButton menuPaysEpreuve;
+    private ComboBox menuSportEpreuve;
+    private ComboBox menuSexeEpreuve;
+    private TextField txtFieldDesc;
+
+    private Text txtNomModeleEpreuve;
+    private ImageView imgSexeModeleEpreuve;
+    private ImageView imgSportModeleEpreuve;
+    
 
     @Override
     public void init(){
@@ -52,9 +62,14 @@ public class AppliJO extends Application {
         this.boutonParticipants = new Button();
         this.boutonAjouterEpreuve = new Button();
         this.modeleEpreuve = new BorderPane();
+        this.contenus = new VBox();
         
-        this.menuSportEpreuve = new MenuButton();
-        this.menuPaysEpreuve = new MenuButton();
+        this.menuSportEpreuve = new ComboBox();
+        this.menuSexeEpreuve = new ComboBox();
+        this.txtFieldDesc = new TextField();
+        this.txtNomModeleEpreuve = new Text();
+        this.imgSexeModeleEpreuve = new ImageView(null);
+        this.imgSportModeleEpreuve = new ImageView(null);
     }
 
     @Override
@@ -172,13 +187,6 @@ public class AppliJO extends Application {
         this.boutonParametre = (Button) laScene.lookup("#boutonParametre");
         this.boutonParametre.setOnAction(new BoutonAppliControleur(this, modeleConnexion));
 
-        
-
-        this.menuSportEpreuve = (MenuButton) laScene.lookup("#menuSportEpreuve");
-        this.menuPaysEpreuve = (MenuButton) laScene.lookup("#menuPaysEpreuve");
-        
-
-
         this.modeClassement();
 
     }
@@ -203,21 +211,41 @@ public class AppliJO extends Application {
         URL url = new File("FXML/PageEpreuve.fxml").toURI().toURL();
         FXMLLoader loader = new FXMLLoader(url);
         ScrollPane centre = loader.load();
-   
-        BorderPane.setMargin(centre, new Insets(20));
+    
         this.racineAppli.setCenter(centre);
+        BorderPane.setMargin(centre, new Insets(20));
+
+        contenus = (VBox) centre.getContent();
+        System.out.println(contenus.getChildren());
+
         this.boutonClassement.setDisable(false);
         this.boutonEpreuve.setDisable(true);
         this.boutonParametre.setDisable(false);
         this.boutonParticipants.setDisable(false);
+        this.boutonAjouterEpreuve = (Button) contenus.lookup("#boutonAjouter");
+        this.boutonAjouterEpreuve.setOnAction(new ControleurAjouter(this, modele));
 
-        VBox test = (VBox) laScene.lookup("#test");
-        System.out.println(test);
+        this.menuSportEpreuve = (ComboBox) contenus.lookup("#menuSportEpreuve");
+        this.menuSexeEpreuve = (ComboBox) contenus.lookup("#menuPaysEpreuve");
+
+        this.menuSexeEpreuve.getItems().addAll("Homme", "Femme");
+        this.menuSportEpreuve.getItems().addAll("VolleyBall", "HandBall", "Athletisme", "Escrime", "Natation");
+        
 
 
-        this.boutonAjouterEpreuve = (Button) laScene.lookup("#boutonAjouter");
-        System.out.println(this.boutonAjouterEpreuve);
-        this.boutonAjouterEpreuve.setOnAction(new ControleurAjouter(this, modeleConnexion));
+
+      
+        this.txtFieldDesc = (TextField) contenus.lookup("#txtFieldDesc");
+
+       
+    }
+
+    public ComboBox getComboSexe() {
+        return this.menuSexeEpreuve;
+    }
+
+    public ComboBox getComboSport() {
+        return this.menuSportEpreuve;
     }
 
     public void modeParticipants() throws Exception {
@@ -244,22 +272,24 @@ public class AppliJO extends Application {
         this.boutonParticipants.setDisable(false);
     }
 
-    // public BorderPane modeleCreationEpreuve(Epreuve epreuve) {
-    //     URL url = new File("FXML/Epreuve.fxml").toURI().toURL();
-    //     FXMLLoader loader = new FXMLLoader(url);
-    //     BorderPane modeleEpreuve = loader.load();
-    //     return modeleEpreuve;
-    // }
-
-    public String getStringSport() {
-        System.out.println(this.menuSportEpreuve.getText());
-        return this.menuSportEpreuve.getText();
+    public void ajoutEpreuve(Epreuve epreuve) throws Exception{
+        BorderPane ep = modeleCreationEpreuve();
+        this.contenus.getChildren().addAll(ep);
+        this.txtNomModeleEpreuve = (Text) laScene.lookup("#modeleEpreuveNom");
+        System.out.println(this.txtNomModeleEpreuve);
     }
 
-    public String getStringPays() {
-        return this.menuSportEpreuve.getText();
-    }
+     public BorderPane modeleCreationEpreuve() throws Exception {
+         URL url = new File("FXML/Epreuve.fxml").toURI().toURL();
+         FXMLLoader loader = new FXMLLoader(url);
+         BorderPane modeleEpreuve = loader.load();
+         return modeleEpreuve;
+     }
 
+
+    public String getStringDescription() {
+        return this.txtFieldDesc.getText();
+    }
 
 
     public static void main(String[] args) {
