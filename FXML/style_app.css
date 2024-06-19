@@ -127,3 +127,10 @@
     -fx-font-weight: bold;
     -fx-text-alignment: center;
 }
+
+.lesBoutonsNav{
+    -fx-background-color: transparent;
+    -fx-font-family: System;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+}
