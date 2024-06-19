@@ -207,12 +207,15 @@ public class AppliJO extends Application {
 
         TextField fieldPays = (TextField) laScene.lookup("#fieldPays");
         Button boutonAjoutPays = (Button) laScene.lookup("#ajouterPays");
-        boutonAjoutPays.setOnAction(new ControleurAjoutPays(this, this.modele, fieldPays,filtre));
+        boutonAjoutPays.setDisable(true);
+
+        VBox boxErreur = (VBox) laScene.lookup("#boxErreur");
+        boutonAjoutPays.setOnAction(new ControleurAjoutPays(this, this.modele, fieldPays,filtre,boxErreur));
+        fieldPays.textProperty().addListener(new ControleurTFAjoutPays(this,fieldPays,boxErreur,boutonAjoutPays));
 
 
         this.classement = new TableView<>();
         this.classement.setId("tableauClassement");
-        System.out.println(this.classement);
         this.leClassement(Tris.MEDAILLES);
 
         centre.setCenter(this.classement);
