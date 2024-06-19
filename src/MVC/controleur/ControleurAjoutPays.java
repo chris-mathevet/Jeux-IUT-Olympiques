@@ -72,7 +72,7 @@ public class ControleurAjoutPays implements EventHandler<ActionEvent>{
             this.vue.updateClassement(tri);
         } catch (AlreadyExistException e) {
             this.boxErreur.getChildren().add(this.ereurExiste);
-            ((Button) arg0.getSource()).setDisable(true);
         }
+        ((Button) arg0.getSource()).setDisable(true);
     }
 }
