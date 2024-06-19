@@ -98,6 +98,8 @@ public class ControleurBoutonConnexion implements EventHandler<ActionEvent>{
                 }
             }
         }
-        this.conditionBox.getChildren().add(erreur);
+        if (erreur != null) {
+            this.conditionBox.getChildren().add(erreur);
+        }
     }
 }
