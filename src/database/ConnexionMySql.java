@@ -8,6 +8,10 @@ public class ConnexionMySql {
 		this.mysql = DriverManager.getConnection(
 					"jdbc:mysql://cigale1.lescigales.org:3310/s4a_julian","s4a_julian","VUpitdBD");
 	}
+	public ConnexionMySql(String leGens) throws SQLException{
+        this.mysql = DriverManager.getConnection(
+                    "jdbc:mysql://localhost/DB"+leGens,leGens,leGens);
+    } 
 
 
 	public void close() throws SQLException {
