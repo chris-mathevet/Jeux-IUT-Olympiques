@@ -46,6 +46,7 @@ public class ModeleJO {
         this.lesAthletes = new ArrayList<>();
         this.lesEquipes = new ArrayList<>();
         this.lesPays = new ArrayList<>();
+
         this.lesEpreuves = new ArrayList<>(Arrays.asList(
             new Epreuve<>("Natation 100 brasse",nat,'H'),
             new Epreuve<>("Natation 100 brasse",nat,'F'),

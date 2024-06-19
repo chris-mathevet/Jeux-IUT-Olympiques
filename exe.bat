@@ -11,6 +11,7 @@ javac -cp ./bin/ -d ./bin/ src/participants/*.java src/sports/*.java src/epreuve
 javac -cp ./bin/ -d ./bin/ src/comparateurs/*.java
 javac -d ./bin/ -cp ".\lib\mysql-connector-java-5.1.44.jar;./bin" src/database/*.java
 javac -d ./bin/ -cp ./bin/ src/executable/*.java
+javac -d ./bin/ -cp ./bin/ --module-path %chemin% --add-modules javafx.controls,javafx.fxml src/MVC/tableClass/*.java 
 javac -d ./bin/ -cp ./bin/ --module-path %chemin% --add-modules javafx.controls,javafx.fxml src/MVC/modele/*.java 
 javac -d ./bin/ -cp ./bin/ --module-path %chemin% --add-modules javafx.controls,javafx.fxml src/MVC/vues/*.java src/MVC/controleur/*.java
 
