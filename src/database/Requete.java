@@ -102,6 +102,7 @@ public class Requete {
         return lesEpreuves;
     }
 
+    
     public List<Athlete> rechercherAthletes(String nom , String prenom, String sexe, String nomPays) throws SQLException {
         List<Athlete> lesAthletes = new ArrayList<>();
 
@@ -182,6 +183,18 @@ public class Requete {
         r.close();
         return new Pays(res, or,argent,bronze);    
     }
+
+    public String getDrapeau(String nomPays) throws SQLException{
+            
+        Statement s=laConnexion.createStatement();
+        ResultSet r=s.executeQuery("select * from DRAPEAU where nomPays="+"\""+nomPays+"\""+";");
+        r.next();
+        String pathImg = r.getString("pathImg"); 
+
+        r.close();
+        return pathImg;    
+    }
+
     public Epreuve<?> getEpreuvebyDescpt(String descriptionEpreuve) throws SQLException{
             
         Statement s=laConnexion.createStatement();
