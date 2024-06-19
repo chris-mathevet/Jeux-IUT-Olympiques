@@ -35,6 +35,8 @@ public class AppliJO extends Application {
     private Button boutonParticipants;
     private Button boutonParametre;
 
+    private String utilisateur;
+
     @Override
     public void init(){
         this.modele = new ModeleJO();
@@ -51,6 +53,14 @@ public class AppliJO extends Application {
         this.stage = stage;
         this.modeAccueil();
         this.stage.show();
+    }
+
+    public void setUtilisateur(String utilisateur) {
+        this.utilisateur = utilisateur;
+    }
+
+    public String getUtilisateur() {
+        return this.utilisateur;
     }
 
     // MODE CONNEXION
@@ -82,6 +92,8 @@ public class AppliJO extends Application {
 
         VBox conditionMDP = (VBox) this.laScene.lookup("#conditionMDP");
         TextField motDePasse = (TextField) this.laScene.lookup("#textFieldMotDePasse");
+        motDePasse.textProperty().addListener(new ControleurMDP(this.modeleConnexion,this,motDePasse,conditionMDP));
+
     }
 
     public void modeInscription() throws Exception {
