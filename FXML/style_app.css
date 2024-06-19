@@ -29,19 +29,28 @@
     -fx-background-radius: 25;
 }
 
+/* Combobox */
 
-#filtre{
-    /* -fx-background-image : url("../img/logoFiltre.png"); */
+.lesComboBox{
     -fx-background-color : #aa9d63;
-    -fx-background-size: 100% 100%;
 }
 
-#filtre .list-cell{
+.lesComboBox .list-cell{
     -fx-background-color : #D4C47C;
 }
 
-#filtre .list-cell:filled:selected{
+.lesComboBox .list-cell:filled:selected{
     -fx-background-color : #aa9d63;
+}
+
+/* Boutons */
+
+.lesBoutons{
+    /* -fx-background-color : #d4b17c; */
+    -fx-background-color : #D4C47C;
+    -fx-border-color: #aa9d63;
+    -fx-border-width: 2px;
+    -fx-border-radius: 2;
 }
 
 #tableauClassement .column-header#medailleOr{
@@ -91,7 +100,9 @@
     -fx-font-weight: bold;
 }
 
-.textField{
+
+/* Textfield connexion */
+.lesFieldsConnexion{
     -fx-border-color: #73A2FF;
     -fx-border-width: 2px;
     -fx-border-radius: 2;

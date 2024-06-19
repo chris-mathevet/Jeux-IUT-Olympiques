@@ -44,7 +44,7 @@
                               <Font size="10.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="textFieldPseudo" promptText="Pseudonyme" styleClass="textField">
+                        <TextField fx:id="textFieldPseudo" promptText="Pseudonyme" styleClass="lesFieldsConnexion">
                            <VBox.margin>
                               <Insets bottom="5.0" />
                            </VBox.margin>
@@ -59,7 +59,7 @@
                               <Font size="10.0" />
                            </font>
                         </Text>
-                        <TextField fx:id="textFieldMail" maxHeight="-Infinity" maxWidth="-Infinity" promptText="Mail" styleClass="textField">
+                        <TextField fx:id="textFieldMail" maxHeight="-Infinity" maxWidth="-Infinity" promptText="Mail" styleClass="lesFieldsConnexion">
                            <VBox.margin>
                               <Insets bottom="5.0" />
                            </VBox.margin>
@@ -74,7 +74,7 @@
                               <Font size="10.0" />
                            </font>
                         </Text>
-                        <PasswordField fx:id="textFieldMotDePasse" promptText="Mot de passe" styleClass="textField">
+                        <PasswordField fx:id="textFieldMotDePasse" promptText="Mot de passe" styleClass="lesFieldsConnexion">
                            <VBox.margin>
                               <Insets bottom="5.0" />
                            </VBox.margin></PasswordField>
@@ -88,7 +88,7 @@
                               <Font size="10.0" />
                            </font>
                         </Text>
-                        <PasswordField fx:id="textFieldVerifMDP" promptText="Mot de passe" styleClass="textField">
+                        <PasswordField fx:id="textFieldVerifMDP" promptText="Mot de passe" styleClass="lesFieldsConnexion">
                            <VBox.margin>
                               <Insets bottom="5.0" />
                            </VBox.margin></PasswordField>

@@ -28,7 +28,7 @@
                         <Font size="10.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="textFieldPseudo" prefHeight="24.0" prefWidth="215.0" promptText="Pseudonyme" styleClass="textField" />
+                  <TextField fx:id="textFieldPseudo" prefHeight="24.0" prefWidth="215.0" promptText="Pseudonyme" styleClass="lesFieldsConnexion" />
                </children>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -41,7 +41,7 @@
                         <Font size="10.0" />
                      </font>
                   </Text>
-                  <PasswordField fx:id="textFieldMotDePasse" promptText="Mot de passe" styleClass="textField" />
+                  <PasswordField fx:id="textFieldMotDePasse" promptText="Mot de passe" styleClass="lesFieldsConnexion" />
                </children>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
