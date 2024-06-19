@@ -272,7 +272,7 @@ public class Requete {
 
     public void insertEpreuve(Epreuve<?> e) throws  SQLException {
         PreparedStatement ps = laConnexion.prepareStatement("INSERT INTO EPREUVE (descriptionEpreuve, sexe, typeEpreuve, nomSport) VALUES (?, ?, ?, ?)");
-        ps.setString(1,e.getDescription());
+        ps.setString(1, e.getDescription());
 		ps.setString(3, e.getDescription());
 		ps.setString(2, String.valueOf(e.getSexe()));
         ps.setString(4, e.getSport().getSport());

@@ -7,6 +7,7 @@ import java.util.Set;
 import database.ConnexionMySql;
 import database.Requete;
 
+
 public class ModeleConnexion {
     private String identifiant;
     private String mdp;
@@ -18,7 +19,6 @@ public class ModeleConnexion {
     ConnexionMySql co;
 
     Requete requete ;
-
 
     public ModeleConnexion(){
         this.identifiant = "";
@@ -35,6 +35,15 @@ public class ModeleConnexion {
         }
     }
 
+        try {
+            
+            this.co = new ConnexionMySql("meunier");
+            this.requete = new Requete(co);
+
+        } catch (SQLException e) {
+            System.err.println("probleme connexion base de donnée");
+        }
+    }
     public void setIdentifiant(String identifiant) {
         this.identifiant = identifiant;
     }
@@ -97,6 +106,7 @@ public class ModeleConnexion {
             System.err.println("Probleme lors de la recuperation des Emails ! \n l'Erreur :" + e);
         }
         return !(lesMails.contains(this.mail));
+
     }
 
     /** Renvoie si le mail est valide (toutes vérifications)
@@ -116,7 +126,6 @@ public class ModeleConnexion {
         Set<String> lesUsers = new HashSet<>();
         try {
             lesUsers = requete.selectUser();
-            System.out.println(lesUsers);
 
         } catch (SQLException e) {
             System.err.println("Probleme lors de la recuperation des Users ! \n l'Erreur :" + e);
