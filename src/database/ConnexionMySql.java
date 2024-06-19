@@ -10,7 +10,8 @@ public class ConnexionMySql {
 	}
 	public ConnexionMySql(String leGens) throws SQLException{
         this.mysql = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/DB"+leGens,leGens,leGens);
+                     "jdbc:mysql://servinfo-maria:3306/DB"+leGens,leGens,leGens);
+                    //"jdbc:mysql://servinfo-maria:3306/DBmarques","marques","marques");
 					// "jdbc:mysql://"+nomServeur+":3306/"+nomBase,nomLogin, motDePasse);
 
     } 
