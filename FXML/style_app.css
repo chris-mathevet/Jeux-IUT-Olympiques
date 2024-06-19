@@ -32,50 +32,62 @@
 
 #filtre{
     /* -fx-background-image : url("../img/logoFiltre.png"); */
-    -fx-background-color : #D4C47C;
+    -fx-background-color : #aa9d63;
     -fx-background-size: 100% 100%;
-
 }
 
-.column-header#medailleOr{
+#filtre .list-cell{
+    -fx-background-color : #D4C47C;
+}
+
+#filtre .list-cell:filled:selected{
+    -fx-background-color : #aa9d63;
+}
+
+#tableauClassement .column-header#medailleOr{
     -fx-background-image : url("../img/medailles/medailleOr.png");
     -fx-background-size: auto 100%;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
 
-.column-header#medailleArgent{
+#tableauClassement .column-header#medailleArgent{
     -fx-background-image : url("../img/medailles/medailleArgent.png");
     -fx-background-size: auto 100%;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
 
-.column-header#medailleBronze {
+#tableauClassement .column-header#medailleBronze {
     -fx-background-image : url("../img/medailles/medailleBronze.png");
     -fx-background-size: auto 100%;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
 
-.column-header{
+#borderClassement {
+    -fx-background-color : #D4C47C;
+    -fx-background-radius: 25;
+}
+
+#tableauClassement .column-header{
     -fx-font-weight: bold;
     -fx-font-size: 15;
 }
 
-.table-cell#medailleOr{
+#tableauClassement .table-cell#medailleOr{
     -fx-background-color: #ffd200ce;
 }
 
-.table-cell#medailleArgent{
+#tableauClassement .table-cell#medailleArgent{
     -fx-background-color: #c0c0c0ce;
 }
 
-.table-cell#medailleBronze{
+#tableauClassement .table-cell#medailleBronze{
     -fx-background-color: #cf792ece;
 }
 
-.table-cell{
+#tableauClassement .table-cell{
     -fx-font-weight: bold;
 }
 

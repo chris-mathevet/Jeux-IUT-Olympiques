@@ -206,6 +206,8 @@ public class AppliJO extends Application {
         filtre.setOnAction(new ControleurFiltreClassement(this));
 
         this.classement = new TableView<>();
+        this.classement.setId("tableauClassement");
+        System.out.println(this.classement);
         this.leClassement(Tris.MEDAILLES);
 
         centre.setCenter(this.classement);
