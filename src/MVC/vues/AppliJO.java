@@ -5,10 +5,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import MVC.modele.*;
+import MVC.modele.ModeleJO.Tris;
 import epreuves.Epreuve;
 import MVC.controleur.*;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -16,7 +19,10 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import participants.Participant;
+import participants.Pays;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.Node;
 
 
@@ -32,6 +38,7 @@ public class AppliJO extends Application {
 
     private Button boutonConnexion;
 
+    private TableView<Pays> classement;
     private Button boutonClassement;
     private Button boutonEpreuve;
     private Button boutonParticipants;
@@ -192,11 +199,62 @@ public class AppliJO extends Application {
         FXMLLoader loader = new FXMLLoader(url);
         BorderPane centre = loader.load();
         BorderPane.setMargin(centre, new Insets(20));
+
         this.racineAppli.setCenter(centre);
+
         this.boutonClassement.setDisable(true);
         this.boutonEpreuve.setDisable(false);
         this.boutonParametre.setDisable(false);
         this.boutonParticipants.setDisable(false);
+
+        ComboBox<String> filtre = (ComboBox<String>) laScene.lookup("#filtre");
+        filtre.getItems().addAll("Médailles","Naturel","Total");
+        centre.setCenter(this.leClassement(Tris.MEDAILLES));
+    }
+
+    private void updateClassement(Tris tri){
+        this.classement.getItems().clear();
+       
+    }
+
+    private TableView<PaysTableau> leClassement(Tris tri){
+        TableView<PaysTableau> tableau = new TableView<>();
+        ObservableList<PaysTableau> lesPaysT = FXCollections.observableArrayList(); 
+        List<Pays> lesPays = this.modele.getLesPays(tri);
+        for (Pays pays : lesPays){
+            lesPaysT.add(new PaysTableau(lesPays.indexOf(pays), pays));
+        }
+        tableau.setItems(lesPaysT);
+
+        // Colones
+
+        TableColumn<PaysTableau,Integer> placeColumn = new TableColumn<>("Place");
+        placeColumn.setCellValueFactory(new PropertyValueFactory("place"));
+
+        TableColumn<PaysTableau,String> nomColumn = new TableColumn<>("Pays");
+        nomColumn.setCellValueFactory(new PropertyValueFactory("nom"));
+
+        TableColumn<PaysTableau,Integer> orColumn = new TableColumn<>("");
+        orColumn.setCellValueFactory(new PropertyValueFactory("medailleOr"));
+        orColumn.setId("medailleOr");
+
+        TableColumn<PaysTableau,Integer> argentColumn = new TableColumn<>("");
+        argentColumn.setCellValueFactory(new PropertyValueFactory("medailleArgent"));
+        argentColumn.setId("medailleArgent");
+
+        TableColumn<PaysTableau,Integer> bronzeColumn = new TableColumn<>("");
+        bronzeColumn.setCellValueFactory(new PropertyValueFactory("medailleBronze"));
+        bronzeColumn.setId("medailleBronze");
+
+        TableColumn<PaysTableau,Integer> totalColumn = new TableColumn<>("Total");
+        totalColumn.setCellValueFactory(new PropertyValueFactory("totalMedailles"));
+
+        tableau.getColumns().addAll(placeColumn,nomColumn,orColumn,argentColumn,bronzeColumn,totalColumn);
+
+        tableau.setOpacity(0.9);
+
+        tableau.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
+        return tableau;
     }
 
     public void modeEpreuve() throws Exception {
