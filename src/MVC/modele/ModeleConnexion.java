@@ -1,5 +1,12 @@
 package MVC.modele;
 
+import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Set;
+
+
+import database.*;
+
 public class ModeleConnexion {
     private String identifiant;
     private String mdp;
@@ -8,14 +15,26 @@ public class ModeleConnexion {
     /**true si mode Connexion, sinon false (Inscription)*/
     private boolean estConnexion;
 
+    ConnexionMySql co;
+
+    Requete requete ;
+
     public ModeleConnexion(){
         this.identifiant = "";
         this.mdp = "";
         this.mdpVerif = "";
         this.mail = "";
         this.estConnexion = true;
-    }
 
+        try {
+            
+            this.co = new ConnexionMySql("meunier");
+            this.requete = new Requete(co);
+
+        } catch (SQLException e) {
+            System.err.println("probleme connexion base de donnée");
+        }
+    }
     public void setIdentifiant(String identifiant) {
         this.identifiant = identifiant;
     }
@@ -65,8 +84,17 @@ public class ModeleConnexion {
     /** Renvoie vrai si le mail n'existe pas dans la BD
      * @return boolean
      */
-    public boolean mailNonExistant(){
-        return true;
+
+     public boolean mailNonExistant(){
+        Set<String> lesMails = new HashSet<>();
+        try {
+            lesMails = requete.selectUserMail();
+
+        } catch (SQLException e) {
+            System.err.println("Probleme lors de la recuperation des Emails ! \n l'Erreur :" + e);
+        }
+        if(!(lesMails.contains(this.mail))){return true;}
+        return false;
     }
 
     /** Renvoie si le mail est valide (toutes vérifications)
@@ -82,7 +110,15 @@ public class ModeleConnexion {
      * @return
      */
     public boolean identifiantNonExistant(){
-        return true;
+        Set<String> lesUsers = new HashSet<>();
+        try {
+            lesUsers = requete.selectUser();
+
+        } catch (SQLException e) {
+            System.err.println("Probleme lors de la recuperation des Users ! \n l'Erreur :" + e);
+        }
+        if(!(lesUsers.contains(this.identifiant))){return true;}
+        return false;
     }
 
     /**
