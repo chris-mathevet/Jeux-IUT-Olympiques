@@ -88,7 +88,6 @@ public class Requete {
         while (resultSet.next()) {
             
             String descriptionEpreuve = resultSet.getString("descriptionEpreuve");
-            String typeEpreuve = resultSet.getString("typeEpreuve");
             String sexeString = resultSet.getString("sexe");
             char sexe = ' ';
             if (sexeString != null && !sexeString.isEmpty()) { // convertir le sexe de la base de donné qui est en Varchar (String) en un char 
@@ -189,7 +188,6 @@ public class Requete {
         ResultSet r=s.executeQuery("select * from EPREUVE where descriptionEpreuve="+"\""+descriptionEpreuve+"\""+";");
         r.next();
         String descripEpreuve = r.getString("descriptionEpreuve");
-        String typeEpreuve = r.getString("typeEpreuve");
         String sexeString = r.getString("sexe");
         char sexe = ' ';
         if (sexeString != null && !sexeString.isEmpty()) { // convertir le sexe de la base de donné qui est en Varchar (String) en un char 
@@ -270,11 +268,10 @@ public class Requete {
     }
 
     public void insertEpreuve(Epreuve<?> e) throws  SQLException {
-        PreparedStatement ps = laConnexion.prepareStatement("INSERT INTO EPREUVE (descriptionEpreuve, sexe, typeEpreuve, nomSport) VALUES (?, ?, ?, ?)");
+        PreparedStatement ps = laConnexion.prepareStatement("INSERT INTO EPREUVE (descriptionEpreuve, sexe, nomSport) VALUES (?, ?, ?)");
         ps.setString(1, e.getDescription());
-		ps.setString(3, e.getDescription());
 		ps.setString(2, String.valueOf(e.getSexe()));
-        ps.setString(4, e.getSport().getSport());
+        ps.setString(3, e.getSport().getSport());
         ps.executeUpdate();
 		ps.close();
     }
@@ -412,22 +409,18 @@ public class Requete {
         
         PreparedStatement ps;
         for (Epreuve<?> epreuve : lesEpreuves) {
-            ps = laConnexion.prepareStatement("INSERT INTO EPREUVE (descriptionEpreuve, sexe, typeEpreuve, nomSport) VALUES (?, ?, ?, ?)");
+            ps = laConnexion.prepareStatement("INSERT INTO EPREUVE (descriptionEpreuve, sexe, nomSport) VALUES (?, ?, ?)");
             System.out.println("epreuve :" + epreuve);
             ps.setString(1, epreuve.getDescription());
             ps.setString(2, String.valueOf(epreuve.getSexe()));
-            
-            String typeEpreuve = epreuve.getDescription().length() > 20 ? epreuve.getDescription().substring(0, 20) : epreuve.getDescription();
-
-            ps.setString(3, typeEpreuve);
-            ps.setString(4, epreuve.getSport().getSport());
+            ps.setString(3, epreuve.getSport().getSport());
 
             ps.executeUpdate();
             ps.close();
         }
     }
     
-    //---------------Modifieur------------------\\
+    //---------------Modifieur-------------------\\
     //---------------Delete----------------------\\
     public void effacerAthlete(Athlete a) throws  SQLException {
         PreparedStatement ps = laConnexion.prepareStatement("delete from PARTICIPER_ATHLETE where nom = ? and prenom = ? and sexe = ? and nomPays = ?");
