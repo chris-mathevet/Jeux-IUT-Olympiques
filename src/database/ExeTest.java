@@ -25,12 +25,12 @@ public class ExeTest {
             Requete r = new Requete(co);
             
 
-            try {
-                System.out.println("debut boucle");    
+            try {  
+                System.out.println("==========================================");
                 r.clearAll();
-                r.insertUser("Julian", 1323,"truc@gmail.com", "admin");
+                r.insertUser("Julian", 1323,"Julian@gmail.com", "admin");
                 r.insertUser("truc", 1323,"truc@gmail.com", "visiteur");
-                r.insertUser("michel", 1323, "truc@gmail.com", "organisateur");
+                r.insertUser("michel", 1323, "michel@gmail.com", "organisateur");
                 System.out.println(r.getUser("truc",1323));
                 System.out.println(r.getUser("michel",1323));
 
@@ -39,17 +39,16 @@ public class ExeTest {
                 for (String user : setUser) {
                     System.out.println("user : "+user);    
                 }
-                System.out.println("==========================================");
+                
                 setmail = r.selectUserMail();
                 for (String mail : setmail) {
                     System.out.println("mail : " + mail);    
                 }
-                System.out.println("==========================================");
+
                 setmail = r.selectUserMail();
                 for (String mail : setmail) {
                     System.out.println("mail : " + mail);    
                 }
-                System.out.println("==========================================");
                 System.out.println("tous les users");
                 r.selectAllUser();
             } catch (SQLException e) {
@@ -105,14 +104,14 @@ public class ExeTest {
                 for (Epreuve<?> epreuve : truc) {
                     System.out.println(epreuve);
                 }
-
+                System.out.println("--------------------------------------");
 
                 r.csvToBd("donnees.csv");
                 res = r.selectAthlete();
                 for(Athlete a:res){
                     System.out.println(a);
                 }
-
+                System.out.println("--------------------------------------");
             }
             catch(SQLException e){
                 System.err.println("Athlete");
