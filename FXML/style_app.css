@@ -108,8 +108,22 @@
     -fx-border-radius: 2;
 }
 
+/* Textfield Appli */
+.lesFieldsAppli{
+    -fx-border-color: #aa9d63;
+    -fx-border-width: 2px;
+    -fx-border-radius: 2;
+}
+
 #borderPaneEpreuve{
     -fx-border-color: #D4C47C;
     -fx-border-width: 2px;
     -fx-border-radius: 10;
+}
+
+.titre{
+    -fx-font-family: System;
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
 }

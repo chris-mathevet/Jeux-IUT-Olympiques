@@ -16,7 +16,7 @@
    <children>
       <VBox id="inscription" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="284.0" prefWidth="360.0" styleClass="groupeConnexion" StackPane.alignment="CENTER">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Inscription">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titre" text="Inscription">
                <font>
                   <Font size="18.0" />
                </font>
