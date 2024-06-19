@@ -10,13 +10,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 
-public class BoutonConnexionControleur implements EventHandler<ActionEvent>{
+public class ControleurBoutonConnexion implements EventHandler<ActionEvent>{
     
     private AppliJO vue;
 
     private ModeleConnexion modele;
     
-    public BoutonConnexionControleur(AppliJO vue, ModeleConnexion modele) {
+    public ControleurBoutonConnexion(AppliJO vue, ModeleConnexion modele) {
         this.vue = vue;
         this.modele = modele;
     }
@@ -28,6 +28,5 @@ public class BoutonConnexionControleur implements EventHandler<ActionEvent>{
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-
     }
 }

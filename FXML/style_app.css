@@ -13,8 +13,15 @@
     -fx-background-color: #EFD76B;
     -fx-border-color: #343232;
     -fx-border-radius: 5;
-    -fx-min-width: 150;
     -fx-max-height: 15;
+}
+
+#connexion .boutonConnexion{
+    -fx-min-width: 150;
+}
+
+#inscription .boutonConnexion{
+    -fx-min-width: 200;
 }
 
 .groupeConnexion{
@@ -49,6 +56,12 @@
     -fx-background-size: auto 100%;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
+}
+
+.textField{
+    -fx-border-color: #73A2FF;
+    -fx-border-width: 2px;
+    -fx-border-radius: 2;
 }
 
 #borderPaneEpreuve{
