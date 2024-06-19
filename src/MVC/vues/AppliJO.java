@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
 import javafx.scene.Node;
@@ -28,6 +29,8 @@ public class AppliJO extends Application {
     private BorderPane racineAppli;
     private Stage stage;
 
+    private Button boutonConnexion;
+
     private Button boutonClassement;
     private Button boutonEpreuve;
     private Button boutonParticipants;
@@ -38,6 +41,7 @@ public class AppliJO extends Application {
     @Override
     public void init(){
         this.modele = new ModeleJO();
+        this.modeleConnexion = new ModeleConnexion();
         this.laScene = new Scene(new Pane());
         this.boutonClassement = new Button();
         this.boutonEpreuve = new Button();
@@ -49,8 +53,14 @@ public class AppliJO extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         this.stage = stage;
+        this.modeAccueil();
+        this.stage.show();
+    }
+
+    // MODE CONNEXION
+
+    public void modeAccueil() throws Exception{
         this.modeConnexion();
-        //this.stage.show();
     }
 
     public void modeConnexion() throws Exception {
@@ -63,13 +73,78 @@ public class AppliJO extends Application {
         this.stage.setTitle("Jeux IUT'Olympiques");
         this.stage.setScene(this.laScene);
 
-        this.stage.show();
+        this.boutonConnexion = (Button) this.laScene.lookup("#boutonConnexion");
+        boutonConnexion.setOnAction(new ControleurBoutonConnexion(this, modeleConnexion));
+        this.boutonConnexion.setDisable(true);
 
-        Button boutonConnexion = (Button) laScene.lookup("#boutonConnexion");
-        boutonConnexion.setOnAction(new BoutonConnexionControleur(this, modeleConnexion));
+        Button boutonSwitch = (Button) this.laScene.lookup("#switchPage");
+        boutonSwitch.setOnAction(new ControleurSwitchConnexion(this, modeleConnexion));
 
-        
+        VBox conditionIdentifiant = (VBox) this.laScene.lookup("#conditionPseudo");
+        TextField identifiant = (TextField) this.laScene.lookup("#textFieldPseudo");
+        identifiant.textProperty().addListener(new ControleurIdentifiant(this.modeleConnexion,this,identifiant,conditionIdentifiant));
+
+        VBox conditionMDP = (VBox) this.laScene.lookup("#conditionMDP");
+        TextField motDePasse = (TextField) this.laScene.lookup("#textFieldMotDePasse");
     }
+
+    public void modeInscription() throws Exception {
+        // new Connexion(this.laScene);
+        URL url = new File("FXML/PageInscription.fxml").toURI().toURL();
+        FXMLLoader loader = new FXMLLoader(url);
+        this.racineConnexion = loader.load();
+        this.laScene.setRoot(this.racineConnexion);
+        
+        this.stage.setTitle("Jeux IUT'Olympiques");
+        this.stage.setScene(this.laScene);
+
+        this.boutonConnexion = (Button) this.laScene.lookup("#boutonConnexion");
+        this.boutonConnexion.setOnAction(new ControleurBoutonConnexion(this, modeleConnexion));
+        this.boutonConnexion.setDisable(true);
+
+        Button boutonSwitch = (Button) this.laScene.lookup("#switchPage");
+        boutonSwitch.setOnAction(new ControleurSwitchConnexion(this, modeleConnexion));
+
+        VBox conditionIdentifiant = (VBox) this.laScene.lookup("#conditionPseudo");
+        TextField identifiant = (TextField) this.laScene.lookup("#textFieldPseudo");
+        identifiant.textProperty().addListener(new ControleurIdentifiant(this.modeleConnexion,this,identifiant,conditionIdentifiant));
+
+        VBox conditionMail = (VBox) this.laScene.lookup("#conditionMail");
+        TextField mail = (TextField) this.laScene.lookup("#textFieldMail");
+        mail.textProperty().addListener(new ControleurMail(this.modeleConnexion,this,mail,conditionMail));
+
+        VBox conditionMDP = (VBox) this.laScene.lookup("#conditionMDP");
+        TextField motDePasse = (TextField) this.laScene.lookup("#textFieldMotDePasse");
+        motDePasse.textProperty().addListener(new ControleurMDP(this.modeleConnexion,this,motDePasse,conditionMDP));
+
+        VBox conditionMDPVerif = (VBox) this.laScene.lookup("#conditionMDPVerif");
+        TextField motDePasseVerif = (TextField) this.laScene.lookup("#textFieldVerifMDP");
+        ControleurMDPVerif controleurMDPVerif = new ControleurMDPVerif(this.modeleConnexion,this,motDePasseVerif,conditionMDPVerif);
+        motDePasseVerif.textProperty().addListener(controleurMDPVerif);
+        motDePasse.textProperty().addListener(controleurMDPVerif);
+
+    }
+
+    public void majBoutonCo(){
+        if(this.modeleConnexion.getEstConnexion()){
+            if(this.modeleConnexion.peutSeConnecter()){
+                this.boutonConnexion.setDisable(false);
+            }
+            else{
+                this.boutonConnexion.setDisable(true);
+            }
+        }
+        else{
+            if(this.modeleConnexion.peutSinscrire()){
+                this.boutonConnexion.setDisable(false);
+            }
+            else{
+                this.boutonConnexion.setDisable(true);
+            }
+        }
+    }
+
+    // MODE APPLI
 
     public void modeAppli() throws Exception {
         URL url = new File("FXML/PageAppli.fxml").toURI().toURL();
@@ -144,13 +219,11 @@ public class AppliJO extends Application {
         this.boutonParticipants.setDisable(false);
     }
 
-
 public BorderPane creationEpreuve(Epreuve epreuve) {
     URL url = new File("FXML/Epreuve.fxml").toURI().toURL();
     FXMLLoader loader = new FXMLLoader(url);
     BorderPane modeleEpreuve = loader.load();
 }
-
 
     public static void main(String[] args) {
         launch(args);

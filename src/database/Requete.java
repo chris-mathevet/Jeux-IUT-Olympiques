@@ -5,9 +5,11 @@ import exceptions.*;
 import participants.*;
 import sports.*;
 
-
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -49,14 +51,69 @@ public class Requete {
 
         return lesAthletes;
     }
+    private Sport convertNomVersSport(String s){
+        switch (s) {
+            case "Athletisme":
+                return new Athletisme();
+                
 
-    public List<Athlete> rechercherAthletes(String nomPays, String prenom, String nom) throws SQLException {
+            case "Escrime":
+                return new Escrime();
+                
+
+            case "Handball":
+                return new HandBall();
+                
+
+            case "Voley-Ball":
+            case "Voley":
+                return new VoleyBall();
+                
+
+            default:
+                return new Natation();  
+        }
+    }
+
+
+    public List<Epreuve<?>> selectEpreuves() throws SQLException{
+        List<Epreuve<?>> lesEpreuves= new ArrayList<>();
+        
+        
+        String sqlSelectionAthlete = "SELECT * FROM EPREUVE";
+        Statement s=laConnexion.createStatement();
+
+        ResultSet resultSet = s.executeQuery(sqlSelectionAthlete);
+
+        while (resultSet.next()) {
+            
+            String descriptionEpreuve = resultSet.getString("descriptionEpreuve");
+            String typeEpreuve = resultSet.getString("typeEpreuve");
+            String sexeString = resultSet.getString("sexe");
+            char sexe = ' ';
+            if (sexeString != null && !sexeString.isEmpty()) { // convertir le sexe de la base de donné qui est en Varchar (String) en un char 
+                sexe = sexeString.charAt(0);
+            }
+            String nomSport = resultSet.getString("nomSport");
+
+    
+            lesEpreuves.add(new Epreuve<>(descriptionEpreuve,convertNomVersSport(nomSport),sexe));
+        }
+
+        return lesEpreuves;
+    }
+
+    public List<Athlete> rechercherAthletes(String nom , String prenom, String sexe, String nomPays) throws SQLException {
         List<Athlete> lesAthletes = new ArrayList<>();
 
-        StringBuilder queryBuilder = new StringBuilder("SELECT * FROM ATHLETE WHERE ");
+        StringBuilder queryBuilder = new StringBuilder("SELECT * FROM ATHLETE");
         boolean firstCondition = true;
-        if (nomPays != null) {
-            queryBuilder.append("nomPays = ? ");
+        if (nom != null || prenom != null || sexe != null || nomPays != null) {
+            queryBuilder.append(" WHERE ");
+    
+        }
+        if (nom != null) {
+            queryBuilder.append("nomAthlete = ? ");
             firstCondition = false;
         }
         if (prenom != null) {
@@ -66,41 +123,52 @@ public class Requete {
             queryBuilder.append("prenomAthlete = ? ");
             firstCondition = false;
         }
-        if (nom != null) {
+        if ( sexe != null) {
             if (!firstCondition) {
                 queryBuilder.append("AND ");
             }
-            queryBuilder.append("nomAthlete = ? ");
+            queryBuilder.append("sexe = ? ");
         }
-
+        if (nomPays != null) {
+            if (!firstCondition) {
+                queryBuilder.append("AND ");
+            }
+            queryBuilder.append("nomPays = ? ");
+        }
+    
         PreparedStatement statement = laConnexion.prepareStatement(queryBuilder.toString());
         int index = 1;
-        if (nomPays != null) {
-            statement.setString(index++, nomPays);
+        if (nom != null) {
+            statement.setString(index++, nom);
         }
         if (prenom != null) {
             statement.setString(index++, prenom);
         }
-        if (nom != null) {
-            statement.setString(index++, nom);
+        if (sexe != null) {
+            statement.setString(index++,sexe );
         }
-
+    
+        if (nomPays != null) {
+            statement.setString(index++,nomPays);
+        }
+    
         ResultSet resultSet = statement.executeQuery();
+    
         while (resultSet.next()) {
             String nomAthlete = resultSet.getString("nomAthlete");
             String prenomAthlete = resultSet.getString("prenomAthlete");
-            String sexe = resultSet.getString("sexe");
-            char sexeCaract = sexe.charAt(0);
+            String sexe2 = resultSet.getString("sexe");
+            char sexeCaract = sexe2.charAt(0);
             int capaciteForce = resultSet.getInt("capaciteForce");
             int endurance = resultSet.getInt("endurance");
             int agilite = resultSet.getInt("agilite");
             String nomPays2 = resultSet.getString("nomPays");
-
+    
             lesAthletes.add(new Athlete(nomAthlete, prenomAthlete, sexeCaract, capaciteForce, agilite, endurance, getPaysbyNom(nomPays2)));
         }
         resultSet.close();
         statement.close();
-
+    
         return lesAthletes;
     }
     public Pays getPaysbyNom(String nomPays) throws SQLException{
@@ -115,7 +183,23 @@ public class Requete {
         r.close();
         return new Pays(res, or,argent,bronze);    
     }
+    public Epreuve<?> getEpreuvebyDescpt(String descriptionEpreuve) throws SQLException{
+            
+        Statement s=laConnexion.createStatement();
+        ResultSet r=s.executeQuery("select * from EPREUVE where descriptionEpreuve="+"\""+descriptionEpreuve+"\""+";");
+        r.next();
+        String descripEpreuve = r.getString("descriptionEpreuve");
+        String typeEpreuve = r.getString("typeEpreuve");
+        String sexeString = r.getString("sexe");
+        char sexe = ' ';
+        if (sexeString != null && !sexeString.isEmpty()) { // convertir le sexe de la base de donné qui est en Varchar (String) en un char 
+            sexe = sexeString.charAt(0);
+        }
+        String nomSport = r.getString("nomSport");
 
+
+        return new Epreuve<>(descripEpreuve,convertNomVersSport(nomSport),sexe); 
+    }
     public List<Pays> selectPays() throws SQLException{
 
         List<Pays> lesPays = new ArrayList<>();
@@ -187,9 +271,9 @@ public class Requete {
 
     public void insertEpreuve(Epreuve<?> e) throws  SQLException {
         PreparedStatement ps = laConnexion.prepareStatement("INSERT INTO EPREUVE (descriptionEpreuve, sexe, typeEpreuve, nomSport) VALUES (?, ?, ?, ?)");
-        ps.setString(1,e.getDescription());
-		ps.setString(2, e.getDescription());
-		ps.setString(3, String.valueOf(e.getSexe()));
+        ps.setString(1, e.getDescription());
+		ps.setString(3, e.getDescription());
+		ps.setString(2, String.valueOf(e.getSexe()));
         ps.setString(4, e.getSport().getSport());
         ps.executeUpdate();
 		ps.close();
@@ -306,7 +390,43 @@ public class Requete {
         }
     }
 
+    public void insertAllEpreuve() throws SQLException {
+        List<Epreuve<Participant>> lesEpreuves = new ArrayList<>(Arrays.asList(
+            new Epreuve<>("Natation 100 brasse", new Natation(), 'H'),
+            new Epreuve<>("Natation 100 brasse", new Natation(), 'F'),
+            new Epreuve<>("Natation relais libre", new Natation(), 'H'),
+            new Epreuve<>("Natation relais libre", new Natation(), 'F'),
+            new Epreuve<>("Handball", new HandBall(), 'H'),
+            new Epreuve<>("Handball", new HandBall(), 'F'),
+            new Epreuve<>("Volley-Ball", new VoleyBall(), 'H'),
+            new Epreuve<>("Volley-Ball", new VoleyBall(), 'F'),
+            new Epreuve<>("Escrime fleuret", new Escrime(), 'H'),
+            new Epreuve<>("Escrime fleuret", new Escrime(), 'F'),
+            new Epreuve<>("Escrime épée", new Escrime(), 'H'),
+            new Epreuve<>("Escrime épée", new Escrime(), 'F'),
+            new Epreuve<>("Athétisme 110 haies", new Athletisme(), 'H'),
+            new Epreuve<>("Athétisme 110 haies", new Athletisme(), 'F'),
+            new Epreuve<>("Athlétisme relais 400m", new Athletisme(), 'H'),
+            new Epreuve<>("Athlétisme relais 400m", new Athletisme(), 'F')
+        ));
+        
+        PreparedStatement ps;
+        for (Epreuve<?> epreuve : lesEpreuves) {
+            ps = laConnexion.prepareStatement("INSERT INTO EPREUVE (descriptionEpreuve, sexe, typeEpreuve, nomSport) VALUES (?, ?, ?, ?)");
+            System.out.println("epreuve :" + epreuve);
+            ps.setString(1, epreuve.getDescription());
+            ps.setString(2, String.valueOf(epreuve.getSexe()));
+            
+            String typeEpreuve = epreuve.getDescription().length() > 20 ? epreuve.getDescription().substring(0, 20) : epreuve.getDescription();
 
+            ps.setString(3, typeEpreuve);
+            ps.setString(4, epreuve.getSport().getSport());
+
+            ps.executeUpdate();
+            ps.close();
+        }
+    }
+    
     //---------------Modifieur------------------\\
     //---------------Delete----------------------\\
     public void effacerAthlete(Athlete a) throws  SQLException {
@@ -334,4 +454,95 @@ public class Requete {
 		ps.executeUpdate();
 		ps.close();
     }
+    public void clearAll() throws SQLException {
+        Statement s = laConnexion.createStatement();
+        s.executeUpdate("TRUNCATE `ATHLETE`;");
+        s.executeUpdate("TRUNCATE `EPREUVE`;");
+        s.executeUpdate("TRUNCATE `EQUIPE`;");
+        s.executeUpdate("TRUNCATE `EST_CONSTITUE`;");
+        s.executeUpdate("TRUNCATE `MANCHE`;");
+        s.executeUpdate("TRUNCATE `PARTICIPER_ATHLETE`;");
+        s.executeUpdate("TRUNCATE `PARTICIPER_EQUIPE`;");
+        s.executeUpdate("TRUNCATE `PAYS`;");
+        s.executeUpdate("TRUNCATE `USER`;");
+        s.close();
+    }
+
+
+    // --------------------------------IMPORT --------------------------------\\
+        public void csvToBd(String chemin){
+        String ligne;
+        String split =",";
+        String[] ligneElems;
+        Pays pays;
+        String nom;
+        String prenom;
+        char sexe;
+        String nomPays;
+        String sport;
+        String epreuve;
+        int force;
+        int endurance;
+        int agilite;
+        Athlete mich;
+        String nomEquipe;
+        Equipe equipe;
+        Set<Pays> lesPays= new HashSet<>();
+        
+        try (BufferedReader line = new BufferedReader(new FileReader(chemin))){
+            line.readLine();
+            while ((ligne = line.readLine())!= null) {
+                ligneElems = ligne.split(split);
+                if(ligneElems.length >=9){
+                    try {
+                        nom= ligneElems[0];
+                        prenom= ligneElems[1];
+                        sexe= ligneElems[2].charAt(0);
+                        nomPays = ligneElems[3];
+                        pays = new Pays(nomPays);
+
+                        try {
+                            insertPays(pays);
+
+                        } catch (Exception e) {
+                            System.out.println("Pays deja dans la base de donnée" + e);
+                        }
+
+                        sport = ligneElems[4];
+                        epreuve = ligneElems[5];
+                        try {
+                            force =  Integer.parseInt(ligneElems[6]);
+                            endurance = Integer.parseInt(ligneElems[7]);
+                            agilite =  Integer.parseInt(ligneElems[8]);
+                            mich = new Athlete(nom,prenom,sexe,force,endurance,agilite,pays);
+                            try {
+                                insertAthlete(mich);
+                                
+                            } catch (Exception e) {
+                                System.err.println("Athlete existe deja");
+                            }
+                            try {
+                                getEpreuvebyDescpt(epreuve);
+
+                            } 
+                            catch(Exception e){
+                                System.err.println("l'Epreuve existe deja");
+
+                            }
+                        } catch (NumberFormatException e) {
+                            System.err.println("Problème format nombre, ligne : " + ligne);
+                        }
+                        // si athlete pas creee le cree, sinon l'add a une epreuve
+                        // incrire()
+                        
+                    } catch (Exception e) {
+                        System.out.println("erreur format ligne : "+ligne);
+                    }
+                }
+            }
+        }catch (Exception e) {
+            e.printStackTrace();  
+        }
+    }
+
 }
