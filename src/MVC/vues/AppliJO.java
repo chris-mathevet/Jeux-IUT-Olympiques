@@ -255,6 +255,13 @@ public class AppliJO extends Application {
         TableColumn<PaysTableau,Integer> totalColumn = new TableColumn<>("Total");
         totalColumn.setCellValueFactory(new PropertyValueFactory("totalMedailles"));
 
+        placeColumn.setSortable(false);
+        nomColumn.setSortable(false);
+        orColumn.setSortable(false);
+        argentColumn.setSortable(false);
+        bronzeColumn.setSortable(false);
+        totalColumn.setSortable(false);
+
         this.classement.getColumns().addAll(placeColumn,nomColumn,orColumn,argentColumn,bronzeColumn,totalColumn);
 
         this.classement.setOpacity(0.9);
