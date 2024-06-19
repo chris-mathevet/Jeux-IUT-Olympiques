@@ -48,7 +48,6 @@ public class ControleurMail implements ChangeListener<String>{
         
         this.conditionNonExist.getChildren().addAll(new ImageView("erreur.png"), conditionNonExistText);
         this.conditionMail.getChildren().addAll(new ImageView("erreur.png"), conditionMailText);
-        System.out.println(this.conditionBox);
     }
 
     @Override
@@ -63,12 +62,6 @@ public class ControleurMail implements ChangeListener<String>{
                 if(! this.modele.mailCorecte()){
                     this.mail.setStyle("-fx-border-color: #EB5252");
                     Node erreur = null;
-                    if(!this.modele.mailNonExistant()){
-                        if(! this.conditionBox.getChildren().contains(this.conditionNonExist)){
-                            erreur = this.conditionNonExist;
-                        }
-                    }
-
                     if(!this.modele.mailVerif()){
                         if(! this.conditionBox.getChildren().contains(this.conditionMail)){
                             erreur = this.conditionMail;

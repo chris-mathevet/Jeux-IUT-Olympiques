@@ -88,7 +88,6 @@ public class Requete {
         while (resultSet.next()) {
             
             String descriptionEpreuve = resultSet.getString("descriptionEpreuve");
-            String typeEpreuve = resultSet.getString("typeEpreuve");
             String sexeString = resultSet.getString("sexe");
             char sexe = ' ';
             if (sexeString != null && !sexeString.isEmpty()) { // convertir le sexe de la base de donné qui est en Varchar (String) en un char 
@@ -202,7 +201,6 @@ public class Requete {
         ResultSet r=s.executeQuery("select * from EPREUVE where descriptionEpreuve="+"\""+descriptionEpreuve+"\""+";");
         r.next();
         String descripEpreuve = r.getString("descriptionEpreuve");
-        String typeEpreuve = r.getString("typeEpreuve");
         String sexeString = r.getString("sexe");
         char sexe = ' ';
         if (sexeString != null && !sexeString.isEmpty()) { // convertir le sexe de la base de donné qui est en Varchar (String) en un char 
@@ -234,6 +232,7 @@ public class Requete {
         r.close();
         return res;    
     }
+    
     public void selectAllUser() throws SQLException{
 
 		Statement s=laConnexion.createStatement();
@@ -271,6 +270,26 @@ public class Requete {
     	return lesMailsUser ;
 	}
 
+    public List<Equipe> selectEquipe() throws SQLException{
+        List<Equipe> res = new ArrayList<>();
+        Statement s=laConnexion.createStatement();
+        ResultSet rs=s.executeQuery("SELECT * FROM EQUIPE");
+        ResultSet rs2;
+        int cpt = 0;
+        while (rs.next()) { 
+            res.add(new Equipe(rs.getString("nomEquipe"))); 
+            rs2 =s.executeQuery("SELECT * FROM EQUIPE NATURAL JOIN ATHLETE WHERE nomEquipe="+"\""+rs.getString("nomEquipe")+"\""); 
+            while (rs2.next()) {
+                for(Athlete a:this.rechercherAthletes(rs2.getString("nomAthlete"),rs2.getString("prenomAthlete"),rs2.getString("sexe"),rs2.getString("nomPays"))){
+                    res.get(cpt).add(a);
+                }
+            }
+            cpt++;
+		}
+        return res;
+    }
+
+    
     //---------------Insert---------------------\\
     public void insertPays(Pays p) throws  SQLException {
         PreparedStatement ps = laConnexion.prepareStatement("INSERT INTO PAYS (nomPays, nbMedailleOr, nbMedailleArgent,nbMedailleBronze) VALUES (?, ?, ?, ?)");
@@ -283,11 +302,10 @@ public class Requete {
     }
 
     public void insertEpreuve(Epreuve<?> e) throws  SQLException {
-        PreparedStatement ps = laConnexion.prepareStatement("INSERT INTO EPREUVE (descriptionEpreuve, sexe, typeEpreuve, nomSport) VALUES (?, ?, ?, ?)");
+        PreparedStatement ps = laConnexion.prepareStatement("INSERT INTO EPREUVE (descriptionEpreuve, sexe, nomSport) VALUES (?, ?, ?)");
         ps.setString(1, e.getDescription());
-		ps.setString(3, e.getDescription());
 		ps.setString(2, String.valueOf(e.getSexe()));
-        ps.setString(4, e.getSport().getSport());
+        ps.setString(3, e.getSport().getSport());
         ps.executeUpdate();
 		ps.close();
     }
@@ -425,22 +443,18 @@ public class Requete {
         
         PreparedStatement ps;
         for (Epreuve<?> epreuve : lesEpreuves) {
-            ps = laConnexion.prepareStatement("INSERT INTO EPREUVE (descriptionEpreuve, sexe, typeEpreuve, nomSport) VALUES (?, ?, ?, ?)");
+            ps = laConnexion.prepareStatement("INSERT INTO EPREUVE (descriptionEpreuve, sexe, nomSport) VALUES (?, ?, ?)");
             System.out.println("epreuve :" + epreuve);
             ps.setString(1, epreuve.getDescription());
             ps.setString(2, String.valueOf(epreuve.getSexe()));
-            
-            String typeEpreuve = epreuve.getDescription().length() > 20 ? epreuve.getDescription().substring(0, 20) : epreuve.getDescription();
-
-            ps.setString(3, typeEpreuve);
-            ps.setString(4, epreuve.getSport().getSport());
+            ps.setString(3, epreuve.getSport().getSport());
 
             ps.executeUpdate();
             ps.close();
         }
     }
     
-    //---------------Modifieur------------------\\
+    //---------------Modifieur-------------------\\
     //---------------Delete----------------------\\
     public void effacerAthlete(Athlete a) throws  SQLException {
         PreparedStatement ps = laConnexion.prepareStatement("delete from PARTICIPER_ATHLETE where nom = ? and prenom = ? and sexe = ? and nomPays = ?");

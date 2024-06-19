@@ -18,6 +18,7 @@ public class ControleurSwitchConnexion implements EventHandler<ActionEvent>{
     @Override
     public void handle(ActionEvent actionEvent) {
         if(modele.getEstConnexion()){
+            this.modele.changementMode();
             try {
                 this.vue.modeInscription();
             } catch (Exception e) {
@@ -25,12 +26,13 @@ public class ControleurSwitchConnexion implements EventHandler<ActionEvent>{
             }
         }
         else{
+            this.modele.changementMode();
             try {                
                 this.vue.modeConnexion();
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             }
         }
-        this.modele.changementMode();
+
     }
 }

@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import MVC.modele.*;
+import epreuves.Epreuve;
 import MVC.controleur.*;
 
 import javafx.application.Application;
@@ -14,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import participants.Participant;
 import javafx.scene.control.*;
 import javafx.scene.Node;
 
@@ -35,6 +37,11 @@ public class AppliJO extends Application {
     private Button boutonParticipants;
     private Button boutonParametre;
 
+    private String utilisateur;
+  
+    private BorderPane modeleEpreuve;
+
+
     @Override
     public void init(){
         this.modele = new ModeleJO();
@@ -44,6 +51,7 @@ public class AppliJO extends Application {
         this.boutonEpreuve = new Button();
         this.boutonParametre = new Button();
         this.boutonParticipants = new Button();
+        this.modeleEpreuve = new BorderPane();
     }
 
     @Override
@@ -51,6 +59,14 @@ public class AppliJO extends Application {
         this.stage = stage;
         this.modeAccueil();
         this.stage.show();
+    }
+
+    public void setUtilisateur(String utilisateur) {
+        this.utilisateur = utilisateur;
+    }
+
+    public String getUtilisateur() {
+        return this.utilisateur;
     }
 
     // MODE CONNEXION
@@ -70,7 +86,8 @@ public class AppliJO extends Application {
         this.stage.setScene(this.laScene);
 
         this.boutonConnexion = (Button) this.laScene.lookup("#boutonConnexion");
-        boutonConnexion.setOnAction(new ControleurBoutonConnexion(this, modeleConnexion));
+        VBox conditionConnexion = (VBox) this.laScene.lookup("#conditionConnexion");
+        boutonConnexion.setOnAction(new ControleurBoutonConnexion(this, modeleConnexion, conditionConnexion));
         this.boutonConnexion.setDisable(true);
 
         Button boutonSwitch = (Button) this.laScene.lookup("#switchPage");
@@ -82,6 +99,8 @@ public class AppliJO extends Application {
 
         VBox conditionMDP = (VBox) this.laScene.lookup("#conditionMDP");
         TextField motDePasse = (TextField) this.laScene.lookup("#textFieldMotDePasse");
+        motDePasse.textProperty().addListener(new ControleurMDP(this.modeleConnexion,this,motDePasse,conditionMDP));
+
     }
 
     public void modeInscription() throws Exception {
@@ -95,7 +114,8 @@ public class AppliJO extends Application {
         this.stage.setScene(this.laScene);
 
         this.boutonConnexion = (Button) this.laScene.lookup("#boutonConnexion");
-        this.boutonConnexion.setOnAction(new ControleurBoutonConnexion(this, modeleConnexion));
+        VBox conditionInscrire = (VBox) this.laScene.lookup("#conditionInscrire");
+        this.boutonConnexion.setOnAction(new ControleurBoutonConnexion(this, modeleConnexion,conditionInscrire));
         this.boutonConnexion.setDisable(true);
 
         Button boutonSwitch = (Button) this.laScene.lookup("#switchPage");
@@ -160,6 +180,8 @@ public class AppliJO extends Application {
 
         this.boutonParametre = (Button) laScene.lookup("#boutonParametre");
         this.boutonParametre.setOnAction(new BoutonAppliControleur(this, modeleConnexion));
+
+
         this.modeClassement();
 
     }
@@ -211,6 +233,14 @@ public class AppliJO extends Application {
         this.boutonEpreuve.setDisable(false);
         this.boutonParametre.setDisable(false);
         this.boutonParticipants.setDisable(false);
+    }
+
+    public BorderPane creationEpreuve(Epreuve<Participant> epreuve) throws Exception{
+        URL url = new File("FXML/Epreuve.fxml").toURI().toURL();
+        FXMLLoader loader = new FXMLLoader(url);
+        BorderPane modeleEpreuve = loader.load();
+
+        return modeleEpreuve;
     }
 
     public static void main(String[] args) {

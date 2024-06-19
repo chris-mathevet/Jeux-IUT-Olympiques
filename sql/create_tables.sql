@@ -23,7 +23,6 @@ CREATE TABLE ATHLETE (
 
 CREATE TABLE EPREUVE (
     descriptionEpreuve VARCHAR(250),
-    typeEpreuve VARCHAR(20),
     nomSport VARCHAR(50), 
     sexe CHAR,
     PRIMARY KEY (descriptionEpreuve, sexe)
