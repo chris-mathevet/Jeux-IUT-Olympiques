@@ -201,7 +201,7 @@ public class AppliJO extends Application {
         this.boutonParticipants.setDisable(false);
 
         ComboBox<String> filtre = (ComboBox<String>) laScene.lookup("#filtre");
-        filtre.getItems().addAll("Médailles","Naturel","Total");
+        filtre.getItems().addAll("Médailles","Alphabétique","Total");
         filtre.setValue("Médailles");
         filtre.setOnAction(new ControleurFiltreClassement(this));
 
