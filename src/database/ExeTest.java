@@ -99,7 +99,7 @@ public class ExeTest {
                 }
                 System.out.println("--------------------------------------");
 
-                List<Epreuve<?>> truc = r.selectEpreuves();
+                List<Epreuve<Participant>> truc = r.selectEpreuves();
 
                 for (Epreuve<?> epreuve : truc) {
                     System.out.println(epreuve);

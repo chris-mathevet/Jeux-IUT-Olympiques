@@ -5,16 +5,20 @@ import exceptions.*;
 import participants.*;
 import sports.*;
 import comparateurs.*;
+import database.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Arrays; 
 import java.util.Collections;
 import java.util.List;
     
 import executable.LibCreation;
 import javax.xml.crypto.AlgorithmMethod;
+
+import MVC.vues.Connexion;
 
 public class ModeleJO {
     private List<Sport> lesSports;
@@ -30,9 +34,17 @@ public class ModeleJO {
     private Escrime escr;
     private Natation nat;
     private Athletisme athle;
+    private Requete requete;
 
     public ModeleJO(){
         this.init();
+        try {
+            ConnexionMySql co = new ConnexionMySql();
+            this.requete = new Requete(co);
+            
+        } catch (Exception e) {
+            System.out.println("ca marche passs");
+        }
     }
 
     public void init(){
@@ -41,34 +53,15 @@ public class ModeleJO {
         this.escr = new Escrime();
         this.nat = new Natation();
         this.athle = new Athletisme();
-
         this.lesSports = Arrays.asList(voley,hand,escr,nat,athle);
-        this.lesAthletes = new ArrayList<>();
-        this.lesEquipes = new ArrayList<>();
-        this.lesPays = new ArrayList<>();
-        this.lesEpreuves = new ArrayList<>(Arrays.asList(
-            new Epreuve<>("Natation 100 brasse",nat,'H'),
-            new Epreuve<>("Natation 100 brasse",nat,'F'),
-            new Epreuve<>("Natation relais libre",nat,'H'),
-            new Epreuve<>("Natation relais libre",nat,'F'),
-            new Epreuve<>("Handball",hand,'H'),
-            new Epreuve<>("Handball",hand,'F'),
-            new Epreuve<>("Volley-Ball",voley,'H'),
-            new Epreuve<>("Volley-Ball",voley,'F'),
-            new Epreuve<>("Escrime fleuret",escr,'H'),
-            new Epreuve<>("Escrime fleuret",escr,'F'),
-            new Epreuve<>("Escrime épée",escr,'H'),
-            new Epreuve<>("Escrime épée",escr,'F'),
-            new Epreuve<>("Athétisme 110 haies",athle,'H'),
-            new Epreuve<>("Athétisme 110 haies",athle,'F'),
-            new Epreuve<>("Athlétisme relais 400m",athle,'H'),
-            new Epreuve<>("Athlétisme relais 400m",athle,'F')
-        ));
+        try {
+            this.lesPays = requete.selectPays();
+            this.lesAthletes = requete.selectAthlete();
+            this.lesEquipes = requete.selectEquipe();
+            this.lesEpreuves = requete.selectEpreuves();
 
-        for (Epreuve<Participant> epreuve : this.lesEpreuves){
-            for (int i = 1; i<8; ++i){
-                new Manche<Participant>(i, "Manche ", epreuve); 
-            }
+        } catch (Exception e) {
+            // TODO: handle exception
         }
     }   
 
@@ -318,10 +311,23 @@ public class ModeleJO {
 
     // Demandes utilisateurs
 
-    public void creerAthlete(Athlete athlete)
+    public void creerAthlete(String nom, String prenom, String sexe,int force, int agilite, int endurance, String pays )
     throws AlreadyExistException{
+        Athlete athlete;
+        try {
+            athlete = new Athlete(nom, prenom, sexe.charAt(0), force, agilite, endurance, this.getPays(pays));
+        } catch (DoesntExistException e) {
+            e.printStackTrace();
+            athlete = null;
+        }
         if(!this.lesAthletes.contains(athlete)){
             this.lesAthletes.add(athlete);
+            try {
+                this.requete.insertAthlete(athlete);
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         else{
             throw new AlreadyExistException("Cet athlete existe déjà");
@@ -333,6 +339,11 @@ public class ModeleJO {
         Equipe equipe = new Equipe(nom);
         if(!this.lesEquipes.contains(equipe)){
             this.lesEquipes.add(equipe);
+            try {
+                this.requete.insertEquipe(equipe);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         else{
             throw new AlreadyExistException("Cette equipe existe déjà");
@@ -344,6 +355,11 @@ public class ModeleJO {
         Pays pays = new Pays(nom);
         if(!this.lesPays.contains(pays)){
             this.lesPays.add(pays);
+            try {
+                this.requete.insertPays(pays);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         else{
             throw new AlreadyExistException("Ce pays existe déjà");
@@ -354,6 +370,11 @@ public class ModeleJO {
     throws AlreadyExistException{
         if(!this.lesEpreuves.contains(uneEpreuve)){
             this.lesEpreuves.add(uneEpreuve);
+            try {
+                this.requete.insertEpreuve(uneEpreuve);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         else{
             throw new AlreadyExistException("Cette Epreuve existe déjà");
@@ -362,10 +383,16 @@ public class ModeleJO {
 
     public void ajoutAthleteEquipe(Equipe equipe, Athlete athlete) throws AlreadyInException, NotSameCountryException, NotSameGenderException{
         equipe.ajouter(athlete);
+        try {
+			this.requete.insertToEquipe(equipe, athlete);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}        
     }
 
     public void inscrireEpreuve(Participant participant, Epreuve<Participant> epreuve) throws AlreadyInException, CanNotRegisterException, NotSameGenderException{
         epreuve.inscrire(participant);
+        this.requete.insert
     }
 
     public List<Participant> lesInscrits(Epreuve<Participant> epreuve){
