@@ -255,18 +255,17 @@ public class AppliJO extends Application {
         TableColumn<PaysTableau,Integer> totalColumn = new TableColumn<>("Total");
         totalColumn.setCellValueFactory(new PropertyValueFactory("totalMedailles"));
 
-        placeColumn.setSortable(false);
-        nomColumn.setSortable(false);
-        orColumn.setSortable(false);
-        argentColumn.setSortable(false);
-        bronzeColumn.setSortable(false);
-        totalColumn.setSortable(false);
-
         this.classement.getColumns().addAll(placeColumn,nomColumn,orColumn,argentColumn,bronzeColumn,totalColumn);
 
         this.classement.setOpacity(0.9);
 
         this.classement.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
+
+        for(TableColumn<PaysTableau,?> col : this.classement.getColumns()){
+            col.setSortable(false);
+            col.setReorderable(false);
+            // col.setResizable(false);
+        }
     }
 
     public void modeEpreuve() throws Exception {
