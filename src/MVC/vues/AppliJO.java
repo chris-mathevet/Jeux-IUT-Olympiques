@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import participants.Participant;
 import javafx.scene.control.*;
 import javafx.scene.Node;
 
@@ -232,11 +233,13 @@ public class AppliJO extends Application {
         this.boutonParticipants.setDisable(false);
     }
 
-public BorderPane creationEpreuve(Epreuve epreuve) {
-    URL url = new File("FXML/Epreuve.fxml").toURI().toURL();
-    FXMLLoader loader = new FXMLLoader(url);
-    BorderPane modeleEpreuve = loader.load();
-}
+    public BorderPane creationEpreuve(Epreuve<Participant> epreuve) throws Exception{
+        URL url = new File("FXML/Epreuve.fxml").toURI().toURL();
+        FXMLLoader loader = new FXMLLoader(url);
+        BorderPane modeleEpreuve = loader.load();
+
+        return modeleEpreuve;
+    }
 
     public static void main(String[] args) {
         launch(args);
