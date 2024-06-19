@@ -57,28 +57,11 @@ public class ControleurIdentifiant implements ChangeListener<String>{
             this.conditionBox.getChildren().removeAll(this.conditionIdentifiant,this.conditionNonExist);
             this.modele.setIdentifiant(this.identifiant.getText());
             if (this.modele.getEstConnexion()){
-                if(!this.modele.identifiantNonExistant()){
-                    this.identifiant.setStyle("-fx-border-color: #EB5252");
-                    if(! this.conditionBox.getChildren().contains(this.conditionNonExist)){
-                        this.conditionNonExistText.setText("Cet identifiant n'est pas attribué");
-                        this.conditionBox.getChildren().add(this.conditionNonExist);
-                    }
-                }
-                else{
-                    this.identifiant.setStyle("-fx-border-color: #3AD365");
-                    this.conditionBox.getChildren().remove(this.conditionNonExist);
-                }
             }
             else{
                 if(! this.modele.identifiantCorect()){
                     Node erreur = null;
                     this.identifiant.setStyle("-fx-border-color: #EB5252");
-                    if(this.modele.identifiantNonExistant()){
-                        if(! this.conditionBox.getChildren().contains(this.conditionNonExist)){
-                            this.conditionNonExistText.setText("Cet identifiant est déjà attribué");
-                            erreur = this.conditionNonExist;
-                        }
-                    }
 
                     if(!this.modele.identifiantContient8()){
                         if(! this.conditionBox.getChildren().contains(this.conditionIdentifiant)){

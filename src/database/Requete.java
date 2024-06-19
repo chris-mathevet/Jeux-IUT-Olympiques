@@ -221,6 +221,7 @@ public class Requete {
         r.close();
         return res;    
     }
+    
     public void selectAllUser() throws SQLException{
 
 		Statement s=laConnexion.createStatement();

@@ -79,7 +79,7 @@ public class ControleurMDP implements ChangeListener<String>{
             this.conditionBox.getChildren().removeAll(this.conditionChifre,this.conditionMajMin,this.conditionNB,this.conditionSpecial);
             this.modele.setMdp(this.motDePasse.getText());
             if (this.modele.getEstConnexion()){
-
+                
             }
             else{
                 if(! this.modele.mdpCorecteInscription()){
