@@ -205,6 +205,11 @@ public class AppliJO extends Application {
         filtre.setValue("Médailles");
         filtre.setOnAction(new ControleurFiltreClassement(this));
 
+        TextField fieldPays = (TextField) laScene.lookup("#fieldPays");
+        Button boutonAjoutPays = (Button) laScene.lookup("#ajouterPays");
+        boutonAjoutPays.setOnAction(new ControleurAjoutPays(this, this.modele, fieldPays,filtre));
+
+
         this.classement = new TableView<>();
         this.classement.setId("tableauClassement");
         System.out.println(this.classement);

@@ -37,12 +37,12 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="43.0" prefWidth="452.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField prefHeight="20.0" prefWidth="85.0" promptText="Nom">
+            <TextField fx:id="fieldPays" prefHeight="20.0" prefWidth="85.0" promptText="Nom">
                <HBox.margin>
                   <Insets left="10.0" right="10.0" />
                </HBox.margin>
             </TextField>
-            <Button mnemonicParsing="false" prefHeight="24.0" prefWidth="78.0" text="Ajouter">
+            <Button fx:id="ajouterPays" mnemonicParsing="false" prefHeight="24.0" prefWidth="78.0" text="Ajouter">
                <HBox.margin>
                   <Insets right="10.0" />
                </HBox.margin>
