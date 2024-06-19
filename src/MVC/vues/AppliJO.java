@@ -2,29 +2,23 @@ package MVC.vues;
 
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import MVC.modele.*;
 import MVC.modele.ModeleJO.Tris;
+import MVC.tableClass.*;
 import epreuves.Epreuve;
 import MVC.controleur.*;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import participants.Participant;
 import participants.Pays;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
-import javafx.scene.Node;
-
 
 public class AppliJO extends Application {
 

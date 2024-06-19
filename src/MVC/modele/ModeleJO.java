@@ -49,7 +49,7 @@ public class ModeleJO {
             new Pays("france",3,4,2),
             new Pays("angletere",0,0,0),
             new Pays("baptiste",2,4,6)
-        ));
+            ));
 
         this.lesEpreuves = new ArrayList<>(Arrays.asList(
             new Epreuve<>("Natation 100 brasse",nat,'H'),
