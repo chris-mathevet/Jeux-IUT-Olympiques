@@ -256,6 +256,26 @@ public class Requete {
     	return lesMailsUser ;
 	}
 
+    public List<Equipe> selectEquipe() throws SQLException{
+        List<Equipe> res = new ArrayList<>();
+        Statement s=laConnexion.createStatement();
+        ResultSet rs=s.executeQuery("SELECT * FROM EQUIPE");
+        ResultSet rs2;
+        int cpt = 0;
+        while (rs.next()) { 
+            res.add(new Equipe(rs.getString("nomEquipe"))); 
+            rs2 =s.executeQuery("SELECT * FROM EQUIPE NATURAL JOIN ATHLETE WHERE nomEquipe="+"\""+rs.getString("nomEquipe")+"\""); 
+            while (rs2.next()) {
+                for(Athlete a:this.rechercherAthletes(rs2.getString("nomAthlete"),rs2.getString("prenomAthlete"),rs2.getString("sexe"),rs2.getString("nomPays"))){
+                    res.get(cpt).add(a);
+                }
+            }
+            cpt++;
+		}
+        return res;
+    }
+
+    
     //---------------Insert---------------------\\
     public void insertPays(Pays p) throws  SQLException {
         PreparedStatement ps = laConnexion.prepareStatement("INSERT INTO PAYS (nomPays, nbMedailleOr, nbMedailleArgent,nbMedailleBronze) VALUES (?, ?, ?, ?)");
