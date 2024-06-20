@@ -35,7 +35,8 @@ public class ModeleJO {
 
     public ModeleJO(){
         try {
-            ConnexionMySql co = new ConnexionMySql();
+            // ConnexionMySql co = new ConnexionMySql();
+            ConnexionMySql co = new ConnexionMySql("meunier");
             this.requete = new Requete(co);
             
         } catch (Exception e) {

@@ -15,12 +15,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <ScrollPane hbarPolicy="NEVER" prefHeight="285.0" prefWidth="538.0" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="541.0">
          <children>
-            <TitledPane alignment="TOP_LEFT" contentDisplay="CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="538.0" text="Athlètes">
+            <TitledPane alignment="TOP_LEFT" contentDisplay="CENTER" expanded="false" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="538.0" text="Athlètes">
                <content>
                   <BorderPane prefHeight="200.0" prefWidth="500.0" stylesheets="@style_app.css">
                      <top>
@@ -104,7 +103,7 @@
                   <Insets left="10.0" top="20.0" />
                </VBox.margin>
             </TitledPane>
-            <TitledPane alignment="TOP_LEFT" layoutX="10.0" layoutY="30.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="538.0" text="Equipes">
+            <TitledPane alignment="TOP_LEFT" expanded="false" layoutX="10.0" layoutY="30.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="538.0" text="Equipes">
                <content>
                   <BorderPane prefHeight="200.0" prefWidth="500.0" stylesheets="@style_app.css">
                      <top>

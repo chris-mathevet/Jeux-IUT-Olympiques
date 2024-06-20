@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import participants.Participant;
+import javafx.scene.text.*;
 
 import participants.Pays;
 
@@ -239,9 +240,9 @@ public class AppliJO extends Application {
         fieldPays.textProperty().addListener(new ControleurTFAjoutPays(this,fieldPays,boxErreur,boutonAjoutPays));
 
 
-        this.classement = new TableView<>();
-        this.classement.setId("tableauClassement");
-        this.leClassement(Tris.MEDAILLES);
+        // this.classement = new TableView<>();
+        // this.classement.setId("tableauClassement");
+        // this.leClassement(Tris.MEDAILLES);
 
         centre.setCenter(this.classement);
     }
@@ -254,60 +255,60 @@ public class AppliJO extends Application {
         }
     }
 
-    private void leClassement(Tris tri){
-        this.classement.getItems().clear();
-        List<Pays> lesPays = this.modele.getLesPays(tri);
-        for (Pays pays : lesPays){
-            this.classement.getItems().add(new PaysTableau(lesPays.indexOf(pays)+1, pays));
-        }
+    // private void leClassement(Tris tri){
+    //     this.classement.getItems().clear();
+    //     List<Pays> lesPays = this.modele.getLesPays(tri);
+    //     for (Pays pays : lesPays){
+    //         this.classement.getItems().add(new PaysTableau(lesPays.indexOf(pays)+1, pays));
+    //     }
 
-        // Colones
+    //     // Colones
 
-        TableColumn<PaysTableau,Integer> placeColumn = new TableColumn<>("Place");
-        placeColumn.setCellValueFactory(new PropertyValueFactory("place"));
+    //     TableColumn<PaysTableau,Integer> placeColumn = new TableColumn<>("Place");
+    //     placeColumn.setCellValueFactory(new PropertyValueFactory("place"));
 
-        TableColumn<PaysTableau,String> nomColumn = new TableColumn<>("Pays");
-        nomColumn.setCellValueFactory(new PropertyValueFactory("nom"));
+    //     TableColumn<PaysTableau,String> nomColumn = new TableColumn<>("Pays");
+    //     nomColumn.setCellValueFactory(new PropertyValueFactory("nom"));
 
-        TableColumn<PaysTableau,Integer> orColumn = new TableColumn<>("");
-        orColumn.setCellValueFactory(new PropertyValueFactory("medailleOr"));
-        orColumn.setId("medailleOr");
+    //     TableColumn<PaysTableau,Integer> orColumn = new TableColumn<>("");
+    //     orColumn.setCellValueFactory(new PropertyValueFactory("medailleOr"));
+    //     orColumn.setId("medailleOr");
 
-        TableColumn<PaysTableau,Integer> argentColumn = new TableColumn<>("");
-        argentColumn.setCellValueFactory(new PropertyValueFactory("medailleArgent"));
-        argentColumn.setId("medailleArgent");
+    //     TableColumn<PaysTableau,Integer> argentColumn = new TableColumn<>("");
+    //     argentColumn.setCellValueFactory(new PropertyValueFactory("medailleArgent"));
+    //     argentColumn.setId("medailleArgent");
 
-        TableColumn<PaysTableau,Integer> bronzeColumn = new TableColumn<>("");
-        bronzeColumn.setCellValueFactory(new PropertyValueFactory("medailleBronze"));
-        bronzeColumn.setId("medailleBronze");
+    //     TableColumn<PaysTableau,Integer> bronzeColumn = new TableColumn<>("");
+    //     bronzeColumn.setCellValueFactory(new PropertyValueFactory("medailleBronze"));
+    //     bronzeColumn.setId("medailleBronze");
 
-        TableColumn<PaysTableau,Integer> totalColumn = new TableColumn<>("Total");
-        totalColumn.setCellValueFactory(new PropertyValueFactory("totalMedailles"));
+    //     TableColumn<PaysTableau,Integer> totalColumn = new TableColumn<>("Total");
+    //     totalColumn.setCellValueFactory(new PropertyValueFactory("totalMedailles"));
 
-        this.classement.getColumns().addAll(placeColumn,nomColumn,orColumn,argentColumn,bronzeColumn,totalColumn);
+    //     this.classement.getColumns().addAll(placeColumn,nomColumn,orColumn,argentColumn,bronzeColumn,totalColumn);
 
-        this.classement.setOpacity(0.9);
+    //     this.classement.setOpacity(0.9);
 
 
-        double[] sceneWidth = {0.0};
+    //     double[] sceneWidth = {0.0};
 
-        classement.widthProperty().addListener((observable, oldValue, newValue) -> {
-                sceneWidth[0] = newValue.doubleValue(); 
+    //     classement.widthProperty().addListener((observable, oldValue, newValue) -> {
+    //             sceneWidth[0] = newValue.doubleValue(); 
         
             
-            int nbCol = classement.getColumns().size();
-            for(TableColumn<PaysTableau,?> col : this.classement.getColumns()){
+    //         int nbCol = classement.getColumns().size();
+    //         for(TableColumn<PaysTableau,?> col : this.classement.getColumns()){
 
-                col.setSortable(false);
-                col.setReorderable(false);
-                col.setResizable(false);
-                // col.setEditable(false);
-                sceneWidth[0]*=0.99; // prendre 99% de la largeur
-                col.setPrefWidth((sceneWidth[0]/nbCol));
-            }
-        });   
+    //             col.setSortable(false);
+    //             col.setReorderable(false);
+    //             col.setResizable(false);
+    //             // col.setEditable(false);
+    //             sceneWidth[0]*=0.99; // prendre 99% de la largeur
+    //             col.setPrefWidth((sceneWidth[0]/nbCol));
+    //         }
+    //     });   
 
-    }
+    // }
 
     public void modeEpreuve() throws Exception {
         URL url = new File("FXML/PageEpreuve.fxml").toURI().toURL();

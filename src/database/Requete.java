@@ -24,7 +24,7 @@ public class Requete {
     public Requete(ConnexionMySql co){
         this.laConnexion=co;
     }
-        public Requete(ConnexionMySql co, ModeleJO mo){
+    public Requete(ConnexionMySql co, ModeleJO mo){
         this.laConnexion=co;
         this.modele=mo;
     }

@@ -28,8 +28,8 @@ public class ModeleConnexion {
         this.estConnexion = true;
 
         try {
-            this.co = new ConnexionMySql();
-            // this.co = new ConnexionMySql("meunier");
+            // this.co = new ConnexionMySql();
+            this.co = new ConnexionMySql("meunier");
             this.requete = new Requete(co);
         } catch (SQLException e) {
             System.err.println("probleme connexion base de donnée");
