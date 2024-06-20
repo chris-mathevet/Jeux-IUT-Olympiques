@@ -55,7 +55,7 @@ public class ControleurAjoutPays implements EventHandler<ActionEvent>{
         String stringTri = this.combo.getValue();
         Tris tri;
         switch (stringTri) {
-            case "Naturel":
+            case "Alphabétique":
                 tri = Tris.NATUREL;
                 break;
             

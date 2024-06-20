@@ -25,7 +25,7 @@ public class PaysTableau{
         this.place.set(value); 
     }
 
-    public SimpleIntegerProperty placeProperty() { 
+    public SimpleIntegerProperty Properplacety() { 
         return this.place; 
     }
 
