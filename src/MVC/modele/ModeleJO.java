@@ -338,7 +338,6 @@ public class ModeleJO {
             try {
                 this.requete.insertAthlete(athlete);
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -426,6 +425,11 @@ public class ModeleJO {
 
     public void lancerEpreuve(Epreuve<Participant> epreuve){
         epreuve.getLeClassement();
+        try {
+            this.requete.insertResultat(epreuve);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }  
     }
 
     public void lancerToutEpreuves(){
