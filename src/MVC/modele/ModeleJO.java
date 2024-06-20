@@ -55,9 +55,7 @@ public class ModeleJO {
 
         try {
             this.lesPays = requete.selectPays();  
-            System.out.println(this.lesPays);             
         } catch (Exception e) {
-            System.out.println("fdp"+ e);
             this.lesPays = new ArrayList<>();
         }
         try {
