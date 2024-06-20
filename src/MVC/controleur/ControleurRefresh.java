@@ -5,6 +5,7 @@ import MVC.modele.ModeleJO.Tris;
 import MVC.vues.AppliJO;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 
 public class ControleurRefresh implements EventHandler<ActionEvent>{
     ModeleJO modele;
@@ -17,9 +18,11 @@ public class ControleurRefresh implements EventHandler<ActionEvent>{
 
     @Override
     public void handle(ActionEvent arg0) {
-        System.out.println("refresh");
+        Button bouton = (Button) arg0.getSource();
+        bouton.setDisable(true);
         this.modele.reload();
-        this.app.updateClassement(Tris.NATUREL);
-        System.out.println("fin refresh");
+        this.app.majAffichage();
+        bouton.setDisable(false);
+
     }
 }

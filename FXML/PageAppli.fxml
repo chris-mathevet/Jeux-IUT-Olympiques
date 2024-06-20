@@ -39,6 +39,9 @@
                         </Button>
                         <Button fx:id="boutonDeconnexion" mnemonicParsing="false" styleClass="lesBoutons" text="Déconnexion" />
                      </children>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
                   </HBox>
                </right>
             </BorderPane>

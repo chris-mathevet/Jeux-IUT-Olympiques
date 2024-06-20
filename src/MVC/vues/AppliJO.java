@@ -10,6 +10,7 @@ import epreuves.Epreuve;
 import MVC.controleur.*;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -39,9 +40,11 @@ public class AppliJO extends Application {
     private Button boutonEpreuve;
     private Button boutonParticipants;
     private Button boutonParametre;
+    private ComboBox<String> filtre;
 
     private String utilisateur;
     private Roles role;
+
   
     private BorderPane modeleEpreuve;
 
@@ -200,7 +203,7 @@ public class AppliJO extends Application {
 
         Button boutonRefresh = (Button) laScene.lookup("#refresh");
         ImageView imageRefresh = new ImageView("refresh.png");
-        imageRefresh.setFitHeight(20);
+        imageRefresh.setFitHeight(22);
         imageRefresh.setPreserveRatio(true);
         boutonRefresh.setOnAction(new ControleurRefresh(this.modele,this));
         boutonRefresh.setGraphic(imageRefresh);
@@ -213,6 +216,23 @@ public class AppliJO extends Application {
         this.modeClassement();
     }
 
+    public void majAffichage(){
+        Tris tri;
+        switch (this.filtre.getValue()) {
+            case "Alphabétique":
+                tri = Tris.NATUREL;
+                break;
+
+            case "Total":
+                tri = Tris.TOTAL;
+                break;
+        
+            default:
+                tri = Tris.MEDAILLES;
+                break;
+        }
+        this.updateClassement(tri);
+    }
 
     public void modeClassement() throws Exception {
         URL url = new File("FXML/PageClassement.fxml").toURI().toURL();
@@ -227,17 +247,17 @@ public class AppliJO extends Application {
         this.boutonParametre.setDisable(false);
         this.boutonParticipants.setDisable(false);
 
-        ComboBox<String> filtre = (ComboBox<String>) laScene.lookup("#filtre");
-        filtre.getItems().addAll("Médailles","Alphabétique","Total");
-        filtre.setValue("Médailles");
-        filtre.setOnAction(new ControleurFiltreClassement(this));
+        this.filtre = (ComboBox<String>) laScene.lookup("#filtre");
+        this.filtre.getItems().addAll("Médailles","Alphabétique","Total");
+        this.filtre.setValue("Médailles");
+        this.filtre.setOnAction(new ControleurFiltreClassement(this));
 
         TextField fieldPays = (TextField) laScene.lookup("#fieldPays");
         Button boutonAjoutPays = (Button) laScene.lookup("#ajouterPays");
         boutonAjoutPays.setDisable(true);
 
         VBox boxErreur = (VBox) laScene.lookup("#boxErreur");
-        boutonAjoutPays.setOnAction(new ControleurAjoutPays(this, this.modele, fieldPays,filtre,boxErreur));
+        boutonAjoutPays.setOnAction(new ControleurAjoutPays(this, this.modele, fieldPays,this.filtre,boxErreur));
         fieldPays.textProperty().addListener(new ControleurTFAjoutPays(this,fieldPays,boxErreur,boutonAjoutPays));
 
 
@@ -247,6 +267,8 @@ public class AppliJO extends Application {
 
         centre.setCenter(this.classement);
     }
+
+    
 
     public void updateClassement(Tris tri){
         this.classement.getItems().clear();
