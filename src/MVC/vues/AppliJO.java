@@ -272,11 +272,15 @@ public class AppliJO extends Application {
         this.boutonParticipants.setDisable(false);
     }
 
-    public void ajoutEpreuve(Epreuve epreuve) throws Exception{
+public void ajoutEpreuve(Epreuve epreuve) throws Exception {
         BorderPane ep = modeleCreationEpreuve();
-        this.contenus.getChildren().addAll(ep);
-        this.txtNomModeleEpreuve = (Text) laScene.lookup("#modeleEpreuveNom");
-        System.out.println(this.txtNomModeleEpreuve);
+        this.contenus.getChildren().add(ep);
+        
+        // Assurez-vous que l'ID du Label dans votre FXML est bien "modeleEpreuveNom"
+        Text test = (Text) ep.lookup("#modeleEpreuveNom");
+        if (test != null) {
+            test.setText(epreuve.getDescription());
+        }
     }
 
      public BorderPane modeleCreationEpreuve() throws Exception {
