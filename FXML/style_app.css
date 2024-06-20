@@ -163,7 +163,8 @@
 }
 
 .lesBoutonsNav{
-    -fx-font-size: 18;
+    -fx-padding: 3.3em 0 1em 0;
+    -fx-font-size: 1.6em;
     -fx-background-color: transparent;
     -fx-font-family: System;
     -fx-font-weight: bold;
@@ -171,7 +172,8 @@
 }
 
 .lesBoutonsNav:hover{
-    -fx-font-size: 20;
+    -fx-font-size: 1.7em;
+    -fx-padding: 3.1em 0 0.8em 0;
     -fx-underline: true;
 }
 
