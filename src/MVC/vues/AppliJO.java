@@ -20,6 +20,7 @@ import participants.Participant;
 import participants.Pays;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 
 public class AppliJO extends Application {
 
@@ -196,6 +197,13 @@ public class AppliJO extends Application {
 
         Button boutonDeco = (Button) laScene.lookup("#boutonDeconnexion");
         boutonDeco.setOnAction(new ControleurBoutonDeco(this));
+
+        Button boutonRefresh = (Button) laScene.lookup("#refresh");
+        ImageView imageRefresh = new ImageView("refresh.png");
+        imageRefresh.setFitHeight(20);
+        imageRefresh.setPreserveRatio(true);
+        boutonRefresh.setOnAction(new ControleurRefresh(this.modele,this));
+        boutonRefresh.setGraphic(imageRefresh);
 
         Text textUser = (Text) laScene.lookup("#userName");
         Text textRole = (Text) laScene.lookup("#role");
