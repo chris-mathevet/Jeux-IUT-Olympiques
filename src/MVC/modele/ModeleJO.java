@@ -405,6 +405,11 @@ public class ModeleJO {
 
     public void inscrireEpreuve(Participant participant, Epreuve<Participant> epreuve) throws AlreadyInException, CanNotRegisterException, NotSameGenderException{
         epreuve.inscrire(participant);
+        try {
+            this.requete.insertParticipantToEpreuve(participant, epreuve);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }  
     }
 
     public List<Participant> lesInscrits(Epreuve<Participant> epreuve){
