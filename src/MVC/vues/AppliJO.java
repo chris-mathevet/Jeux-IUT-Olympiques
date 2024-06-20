@@ -275,6 +275,7 @@ public class AppliJO extends Application {
                 col.setReorderable(false);
                 col.setResizable(false);
                 // col.setEditable(false);
+                sceneWidth[0]*=0.99; // prendre 99% de la largeur
                 col.setPrefWidth((sceneWidth[0]/nbCol));
             }
         });   
