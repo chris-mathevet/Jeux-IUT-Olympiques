@@ -4,8 +4,6 @@ import java.io.File;
 import java.net.URL;
 import java.util.List;
 
-import javax.swing.text.html.ImageView;
-
 import MVC.modele.*;
 import MVC.modele.ModeleJO.Tris;
 import MVC.tableClass.*;
@@ -82,8 +80,8 @@ public class AppliJO extends Application {
         this.menuSexeEpreuve = new ComboBox();
         this.txtFieldDesc = new TextField();
         this.txtNomModeleEpreuve = new Text();
-        this.imgSexeModeleEpreuve = new ImageView(null);
-        this.imgSportModeleEpreuve = new ImageView(null);
+        this.imgSexeModeleEpreuve = new ImageView("logoMale2.png");
+        this.imgSportModeleEpreuve = new ImageView("Athletisme.png");
     }
 
     @Override
@@ -203,7 +201,7 @@ public class AppliJO extends Application {
     // MODE APPLI
 
     public void modeAppli() throws Exception {
-        this.modele = new ModeleJO();
+        this.modele.reload();
         URL url = new File("FXML/PageAppli.fxml").toURI().toURL();
         FXMLLoader loader = new FXMLLoader(url);
         this.racineAppli = loader.load();
@@ -385,12 +383,8 @@ public class AppliJO extends Application {
         this.menuSportEpreuve.getItems().addAll("VolleyBall", "HandBall", "Athletisme", "Escrime", "Natation");
         
 
-
-
       
-        this.txtFieldDesc = (TextField) grosContenu.lookup("#txtFieldDesc");
-
-       
+        this.txtFieldDesc = (TextField) grosContenu.lookup("#txtFieldDesc");       
     }
 
     public ComboBox getComboSexe() {

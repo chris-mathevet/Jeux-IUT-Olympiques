@@ -110,7 +110,7 @@ public class ExeTest {
             //         System.out.println(epreuve);
             //     }
 
-
+                r.insertPays(new Pays("C'est mua"));
 
             //     r.csvToBd("donnees.csv");
             //     res = r.selectAthlete();

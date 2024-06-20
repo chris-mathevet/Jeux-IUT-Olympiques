@@ -23,8 +23,10 @@ public class Requete {
 
     public Requete(ConnexionMySql co){
         this.laConnexion=co;
+        this.modele = new ModeleJO();
     }
-        public Requete(ConnexionMySql co, ModeleJO mo){
+
+    public Requete(ConnexionMySql co, ModeleJO mo){
         this.laConnexion=co;
         this.modele=mo;
     }
@@ -135,7 +137,6 @@ public class Requete {
                     ps2.setString(1, descriptionEpreuve);
                     ps2.setString(2, sexeString);
                     res = ps2.executeQuery();
-                    ps2.close();
                     
                     while(res.next()){
                         try {
@@ -162,7 +163,8 @@ public class Requete {
                         } catch (Exception err) {
                             err.printStackTrace();
                         }
-                    }                
+                    }   
+                    ps2.close();
                 }
 
             } catch (Exception err) {
