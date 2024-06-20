@@ -18,7 +18,7 @@ javac -d ./bin/ -cp ./bin/ --module-path %chemin% --add-modules javafx.controls,
 
 @REM cls
 @REM java -cp ./bin/ executable.Executable
-java -cp "./bin/;./img/autre/;.\lib\mysql-connector-java-5.1.44.jar" --module-path %chemin% --add-modules javafx.controls,javafx.fxml MVC.vues.AppliJO
+java -cp "./bin/;./img/autre/;./img/pays/;./img/sexe/;./img/sports/;.\lib\mysql-connector-java-5.1.44.jar" --module-path %chemin% --add-modules javafx.controls,javafx.fxml MVC.vues.AppliJO
 @REM javac -cp "./lib/junit-4.13.2.jar;./bin/" -d ./bin/ src/tests/*.java
 @REM java -ea -cp "./lib/hamcrest-2.2.jar;./lib/junit-4.13.2.jar;./bin" org.junit.runner.JUnitCore tests.TestEquipe
 @REM java -ea -cp "./lib/hamcrest-2.2.jar;./lib/junit-4.13.2.jar;./bin" org.junit.runner.JUnitCore tests.TestEpreuveMatch
