@@ -93,7 +93,7 @@ public class Requete {
 
                 // requete savoir si nomEpreuve est dans ATHLETE OU EQUIPE
                 try {
-                    PreparedStatement ps2 = laConnexion.prepareStatement("select nom, prenom, sexe, nompays from PARTCIPER_ATHLETE where descriptionEpreuve = ? and sexe = ?");
+                    PreparedStatement ps2 = laConnexion.prepareStatement("select nom, prenom, sexe, nompays, resultat from PARTCIPER_ATHLETE where descriptionEpreuve = ? and sexe = ?");
                     ps2.setString(1, descriptionEpreuve);
                     ps2.setString(2, sexeString);
                     res = ps2.executeQuery();
@@ -103,24 +103,61 @@ public class Requete {
 
                     while(res.next()){
                         try {
+                            List<Double> listeRes;
                             epreuve.inscrire(this.modele.getAthlete(res.getString("nom"),res.getString("prenom"),res.getString("sexe").charAt(0),res.getString("nomPays")));
-                            
-                        } catch (DoesntExistException err) {
-                            // TODO: handle exception
-                            System.err.println("erreur : " +err);
+                            for(Manche<Participant> manche :epreuve.getLesManches()){
+                                try {
+                                    PreparedStatement ps3 = laConnexion.prepareStatement("select resultat from PARTCIPER_ATHLETE where nomManche = ? and descriptionEpreuve = ? and sexe = ?");
+                                    ps3.setString(1, manche.getNomDeTour());
+                                    ps3.setString(2, descriptionEpreuve);
+                                    ps3.setString(3, sexeString);
+                                    ResultSet res2 = ps3.executeQuery();
+                                    listeRes = new ArrayList<>();
+                                        while(res2.next()){
+                                            listeRes.add(res2.getDouble("resultat"));
+
+                                        }
+                                        manche.setResultat(listeRes);
+                                      
+                                } catch (Exception err) {
+                                    err.printStackTrace();
+                                }
+                              }   
+
+
+                        } catch (Exception err) {
+                            err.printStackTrace();
                         }
                     }
                     
                 } catch (Exception e) {
-                    PreparedStatement ps3 = laConnexion.prepareStatement("select nomEquipe from PARTICIPER_EQUIPE where descriptionEpreuve = ? and sexe = ?");  
-                    ps3.setString(1, descriptionEpreuve);
-                    ps3.setString(2, sexeString);
-                    res = ps3.executeQuery();
-                    ps3.close();
+                    PreparedStatement ps2 = laConnexion.prepareStatement("select nomEquipe from PARTICIPER_EQUIPE where descriptionEpreuve = ? and sexe = ?");  
+                    ps2.setString(1, descriptionEpreuve);
+                    ps2.setString(2, sexeString);
+                    res = ps2.executeQuery();
+                    ps2.close();
                     
                     while(res.next()){
                         try {
+                            List<Double> listeRes;
                             epreuve.inscrire(this.modele.getEquipe(res.getString("nomEquipe")));
+                            for(Manche<Participant> manche :epreuve.getLesManches()){
+                                try {
+                                    PreparedStatement ps3 = laConnexion.prepareStatement("select resultat from PARTICIPER_EQUIPE where nomManche = ? and descriptionEpreuve = ? and sexe = ?");
+                                    ps3.setString(1, manche.getNomDeTour());
+                                    ps3.setString(2, descriptionEpreuve);
+                                    ps3.setString(3, sexeString);
+                                    ResultSet res2 = ps3.executeQuery();
+                                    listeRes = new ArrayList<>();
+                                    while(res2.next()){
+                                        listeRes.add(res2.getDouble("resultat"));
+                                    }
+                                    manche.setResultat(listeRes);
+                                } catch (Exception err) {
+                                    err.printStackTrace();
+                                }
+                               
+                            }
                             
                         } catch (Exception err) {
                             err.printStackTrace();
@@ -329,12 +366,6 @@ public class Requete {
 
     //---------------Insert---------------------\\
     
-    public void insertMancheToEpreuve(){
-        PreparedStatement ps = laConnexion.prepareStatement("");
-        
-
-        
-    }
 
     public void insertPays(Pays p) throws  SQLException {
         PreparedStatement ps = laConnexion.prepareStatement("INSERT INTO PAYS (nomPays, nbMedailleOr, nbMedailleArgent,nbMedailleBronze) VALUES (?, ?, ?, ?)");

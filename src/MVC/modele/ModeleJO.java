@@ -392,7 +392,6 @@ public class ModeleJO {
 
     public void inscrireEpreuve(Participant participant, Epreuve<Participant> epreuve) throws AlreadyInException, CanNotRegisterException, NotSameGenderException{
         epreuve.inscrire(participant);
-        this.requete.insert
     }
 
     public List<Participant> lesInscrits(Epreuve<Participant> epreuve){
