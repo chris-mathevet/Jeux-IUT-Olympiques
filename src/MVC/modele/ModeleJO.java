@@ -37,7 +37,6 @@ public class ModeleJO {
     private Requete requete;
 
     public ModeleJO(){
-        this.init();
         try {
             ConnexionMySql co = new ConnexionMySql();
             this.requete = new Requete(co);
@@ -45,6 +44,8 @@ public class ModeleJO {
         } catch (Exception e) {
             System.out.println("ca marche passs");
         }
+        this.init();
+
     }
 
     public void init(){
@@ -56,8 +57,10 @@ public class ModeleJO {
         this.lesSports = Arrays.asList(voley,hand,escr,nat,athle);
 
         try {
-            this.lesPays = requete.selectPays();                
+            this.lesPays = requete.selectPays();  
+            System.out.println(this.lesPays);             
         } catch (Exception e) {
+            System.out.println("fdp"+ e);
             this.lesPays = new ArrayList<>();
         }
         try {

@@ -232,6 +232,7 @@ public class AppliJO extends Application {
         List<Pays> lesPays = this.modele.getLesPays(tri);
         for (Pays pays : lesPays){
             this.classement.getItems().add(new PaysTableau(lesPays.indexOf(pays)+1, pays));
+            System.out.println(pays);
         }
 
         // Colones
