@@ -27,11 +27,19 @@
                   </VBox>
                </left>
                <right>
-                  <Button fx:id="boutonDeconnexion" mnemonicParsing="false" styleClass="lesBoutons" text="Déconnexion" BorderPane.alignment="CENTER">
+                  <HBox BorderPane.alignment="CENTER">
                      <BorderPane.margin>
                         <Insets right="15.0" />
                      </BorderPane.margin>
-                  </Button>
+                     <children>
+                        <Button fx:id="refresh" mnemonicParsing="false">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="boutonDeconnexion" mnemonicParsing="false" styleClass="lesBoutons" text="Déconnexion" />
+                     </children>
+                  </HBox>
                </right>
             </BorderPane>
             <HBox alignment="TOP_CENTER">

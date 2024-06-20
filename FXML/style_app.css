@@ -185,3 +185,7 @@
 .boxUser{
     -fx-padding: 5 0 0 10;
 }
+
+#refresh{
+    -fx-background-color: transparent;
+}
