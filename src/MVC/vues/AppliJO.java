@@ -4,8 +4,12 @@ import java.io.File;
 import java.net.URL;
 import java.util.List;
 
+import javax.swing.table.TableColumn;
+import javax.swing.text.TableView;
+
 import javafx.util.Duration;
 
+import javafx.stage.FileChooser;
 
 import MVC.modele.*;
 import MVC.modele.ModeleJO.Tris;
@@ -466,6 +470,11 @@ public class AppliJO extends Application {
         return this.txtFieldDesc.getText();
     }
 
+    public void ouvertureCSV(){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        fileChooser.showOpenDialog(this.stage);
+    }
 
 
     public static void main(String[] args) {
