@@ -301,7 +301,7 @@ public class Requete {
 		Statement s=laConnexion.createStatement();
 		ResultSet rs=s.executeQuery("SELECT * FROM PAYS");
 		while (rs.next()) {
-            lesPays.add(new Pays(rs.getString("nomPays")));
+            lesPays.add(new Pays(rs.getString("nomPays"),rs.getInt("nbMedailleOr"),rs.getInt("nbMedailleArgent"),rs.getInt("nbMedaillebronze")));
 		}
 		rs.close();
     	return lesPays ;
