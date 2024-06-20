@@ -22,6 +22,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class AppliJO extends Application {
 
+    
+
     private ModeleJO modele;
     private ModeleConnexion modeleConnexion;
     private Scene laScene;
