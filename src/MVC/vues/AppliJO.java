@@ -393,8 +393,8 @@ public class AppliJO extends Application {
         this.boutonAjouterEpreuve = (Button) grosContenu.lookup("#boutonAjouter");
         this.boutonAjouterEpreuve.setOnAction(new ControleurAjouter(this, modele));
 
-        this.menuSportEpreuve = (ComboBox) grosContenu.lookup("#menuSportEpreuve");
-        this.menuSexeEpreuve = (ComboBox) grosContenu.lookup("#menuPaysEpreuve");
+        this.menuSportEpreuve = (ComboBox<?>) grosContenu.lookup("#menuSportEpreuve");
+        this.menuSexeEpreuve = (ComboBox<?>) grosContenu.lookup("#menuPaysEpreuve");
 
         this.menuSexeEpreuve.getItems().addAll("Homme", "Femme");
         this.menuSportEpreuve.getItems().addAll("VolleyBall", "HandBall", "Athletisme", "Escrime", "Natation");
@@ -402,7 +402,12 @@ public class AppliJO extends Application {
 
       
         this.txtFieldDesc = (TextField) grosContenu.lookup("#txtFieldDesc");   
-        
+        if(this.role == Roles.ADMIN){
+            this.txtFieldDesc.setVisible(true);
+            this.menuSportEpreuve.setVisible(true);
+            this.menuSexeEpreuve.setVisible(true);
+            this.boutonAjouterEpreuve.setVisible(true);
+        }
 
     }
 
