@@ -80,22 +80,56 @@ public class Requete {
             }
             String nomSport = resultSet.getString("nomSport");
             try {
-                Epreuve<Participant> e = new Epreuve<>(descriptionEpreuve,this.modele.getSport(nomSport),sexe);
-                lesEpreuves.add(e);                
+                Epreuve<Participant> epreuve = new Epreuve<>(descriptionEpreuve,this.modele.getSport(nomSport),sexe);
+                lesEpreuves.add(epreuve);                
                 PreparedStatement ps = laConnexion.prepareStatement("select nomManche,numeroManche from MANCHE where descriptionEpreuve = ? and sexe = ?");
                 ps.setString(1, descriptionEpreuve);
                 ps.setString(2, sexeString);
                 ResultSet res = ps.executeQuery();
                 while(res.next()){
-                    e.ajoutManche(new Manche<>(res.getInt("numeroManche"),res.getString("nomManche"), e));
+                    epreuve.ajoutManche(new Manche<>(res.getInt("numeroManche"),res.getString("nomManche"), epreuve));
                 }
                 ps.close();
 
-                
-                
+                // requete savoir si nomEpreuve est dans ATHLETE OU EQUIPE
+                try {
+                    PreparedStatement ps2 = laConnexion.prepareStatement("select nom, prenom, sexe, nompays from PARTCIPER_ATHLETE where descriptionEpreuve = ? and sexe = ?");
+                    ps2.setString(1, descriptionEpreuve);
+                    ps2.setString(2, sexeString);
+                    res = ps2.executeQuery();
+                    ps2.close();
 
-            } catch (DoesntExistException e) {
-                e.printStackTrace();
+        
+
+                    while(res.next()){
+                        try {
+                            epreuve.inscrire(this.modele.getAthlete(res.getString("nom"),res.getString("prenom"),res.getString("sexe").charAt(0),res.getString("nomPays")));
+                            
+                        } catch (DoesntExistException err) {
+                            // TODO: handle exception
+                            System.err.println("erreur : " +err);
+                        }
+                    }
+                    
+                } catch (Exception e) {
+                    PreparedStatement ps3 = laConnexion.prepareStatement("select nomEquipe from PARTICIPER_EQUIPE where descriptionEpreuve = ? and sexe = ?");  
+                    ps3.setString(1, descriptionEpreuve);
+                    ps3.setString(2, sexeString);
+                    res = ps3.executeQuery();
+                    ps3.close();
+                    
+                    while(res.next()){
+                        try {
+                            epreuve.inscrire(this.modele.getEquipe(res.getString("nomEquipe")));
+                            
+                        } catch (Exception err) {
+                            err.printStackTrace();
+                        }
+                    }                
+                }
+
+            } catch (Exception err) {
+                err.printStackTrace();
             }
         }
         return lesEpreuves;
@@ -297,7 +331,7 @@ public class Requete {
     
     public void insertMancheToEpreuve(){
         PreparedStatement ps = laConnexion.prepareStatement("");
-
+        
 
         
     }
