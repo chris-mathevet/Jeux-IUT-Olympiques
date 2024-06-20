@@ -4,8 +4,8 @@
 @REM Chris : "C:/localApps/openjfx/lib" // 
 @REM Julian : "C:\Julian\lib_java\javafx-sdk-22\lib" // 
 
-set chemin="C:/localApps/openjfx/lib" 
-@REM set chemin="C:\Julian\lib_java\javafx-sdk-22\lib"
+@REM set chemin="C:/localApps/openjfx/lib" 
+set chemin="C:\Julian\lib_java\javafx-sdk-22\lib"
 javac -d ./bin/ src/exceptions/*.java
 javac -cp ./bin/ -d ./bin/ src/participants/*.java src/sports/*.java src/epreuves/*.java
 javac -cp ./bin/ -d ./bin/ src/comparateurs/*.java

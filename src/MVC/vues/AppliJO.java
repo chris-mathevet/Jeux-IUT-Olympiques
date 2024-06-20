@@ -261,13 +261,23 @@ public class AppliJO extends Application {
 
         this.classement.setOpacity(0.9);
 
-        this.classement.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
 
-        for(TableColumn<PaysTableau,?> col : this.classement.getColumns()){
-            col.setSortable(false);
-            col.setReorderable(false);
-            // col.setResizable(false);
-        }
+        double[] sceneWidth = {0.0};
+
+        classement.widthProperty().addListener((observable, oldValue, newValue) -> {
+                sceneWidth[0] = newValue.doubleValue(); 
+        
+            
+            int nbCol = classement.getColumns().size();
+            for(TableColumn<PaysTableau,?> col : this.classement.getColumns()){
+
+                col.setSortable(false);
+                col.setReorderable(false);
+                col.setResizable(false);
+                // col.setEditable(false);
+                col.setPrefWidth((sceneWidth[0]/nbCol));
+            }
+        });   
     }
 
     public void modeEpreuve() throws Exception {
