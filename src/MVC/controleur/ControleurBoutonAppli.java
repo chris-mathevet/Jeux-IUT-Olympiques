@@ -10,13 +10,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 
-public class BoutonAppliControleur implements EventHandler<ActionEvent>{
+public class ControleurBoutonAppli implements EventHandler<ActionEvent>{
     
     private AppliJO vue;
 
     private ModeleConnexion modele;
     
-    public BoutonAppliControleur(AppliJO vue, ModeleConnexion modele) {
+    public ControleurBoutonAppli(AppliJO vue, ModeleConnexion modele) {
         this.vue = vue;
         this.modele = modele;
     }

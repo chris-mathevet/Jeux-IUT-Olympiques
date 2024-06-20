@@ -16,19 +16,19 @@
          <center>
             <HBox alignment="CENTER" prefHeight="39.0" prefWidth="600.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Classement">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titre" text="Classement">
                      <HBox.margin>
                         <Insets left="175.0" right="170.0" />
                      </HBox.margin>
                      <font>
-                        <Font name="System Bold" size="24.0" />
+                        <Font name="System Bold" size="22.0" />
                      </font>
                   </Text>
                </children>
             </HBox>
          </center>
          <bottom>
-            <ComboBox fx:id="filtre" prefWidth="150.0" BorderPane.alignment="TOP_LEFT" />
+            <ComboBox fx:id="filtre" prefWidth="150.0" styleClass="lesComboBox" BorderPane.alignment="TOP_LEFT" />
          </bottom>
          <BorderPane.margin>
             <Insets bottom="5.0" />
@@ -45,12 +45,12 @@
             </VBox>
             <HBox alignment="CENTER" prefHeight="43.0" prefWidth="452.0">
                <children>
-                  <TextField fx:id="fieldPays" prefHeight="20.0" prefWidth="85.0" promptText="Nom du pays">
+                  <TextField fx:id="fieldPays" prefHeight="20.0" prefWidth="85.0" promptText="Nom du pays" styleClass="lesFieldsAppli">
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
                   </TextField>
-                  <Button fx:id="ajouterPays" mnemonicParsing="false" prefHeight="24.0" prefWidth="78.0" text="Ajouter">
+                  <Button fx:id="ajouterPays" mnemonicParsing="false" prefHeight="24.0" prefWidth="78.0" styleClass="lesBoutons" text="Ajouter">
                      <HBox.margin>
                         <Insets right="10.0" />
                      </HBox.margin>

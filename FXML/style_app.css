@@ -9,6 +9,41 @@
     -fx-background-size: 100% 100%;
 }
 
+
+/* Tableaux */
+
+.table-view .column-header{
+    -fx-background-color: #8b856c;
+    -fx-border-color: #0000008a;
+    -fx-border-width: 1;
+}
+
+.table-view{
+    -fx-background-color: transparent;
+}
+
+.table-view .table-cell{
+    -fx-border-color: #0000008a;
+    -fx-border-width: 0.5;
+    -fx-padding: 2 0 2 10px;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #ffd000;
+    -fx-text-background-color: white;
+}
+
+.table-row-cell:odd{
+    -fx-background-color: #dbd1a3;
+    -fx-background-insets: 0, 0 0 1 0;
+}
+
+.table-row-cell:even{
+    -fx-background-color: #d6c495;
+    -fx-background-insets: 0, 0 0 1 0;
+}
+
+
 .boutonConnexion{
     -fx-background-color: #EFD76B;
     -fx-border-color: #343232;
@@ -29,19 +64,28 @@
     -fx-background-radius: 25;
 }
 
+/* Combobox */
 
-#filtre{
-    /* -fx-background-image : url("../img/logoFiltre.png"); */
+.lesComboBox{
     -fx-background-color : #aa9d63;
-    -fx-background-size: 100% 100%;
 }
 
-#filtre .list-cell{
+.lesComboBox .list-cell{
     -fx-background-color : #D4C47C;
 }
 
-#filtre .list-cell:filled:selected{
+.lesComboBox .list-cell:filled:selected{
     -fx-background-color : #aa9d63;
+}
+
+/* Boutons */
+
+.lesBoutons{
+    /* -fx-background-color : #d4b17c; */
+    -fx-background-color : #D4C47C;
+    -fx-border-color: #aa9d63;
+    -fx-border-width: 2px;
+    -fx-border-radius: 2;
 }
 
 #tableauClassement .column-header#medailleOr{
@@ -91,8 +135,17 @@
     -fx-font-weight: bold;
 }
 
-.textField{
+
+/* Textfield connexion */
+.lesFieldsConnexion{
     -fx-border-color: #73A2FF;
+    -fx-border-width: 2px;
+    -fx-border-radius: 2;
+}
+
+/* Textfield Appli */
+.lesFieldsAppli{
+    -fx-border-color: #aa9d63;
     -fx-border-width: 2px;
     -fx-border-radius: 2;
 }
@@ -102,3 +155,26 @@
     -fx-border-width: 2px;
     -fx-border-radius: 10;
 }
+
+.titre{
+    -fx-font-family: System;
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+}
+
+.lesBoutonsNav{
+    -fx-padding: 3.3em 0 1em 0;
+    -fx-font-size: 1.6em;
+    -fx-background-color: transparent;
+    -fx-font-family: System;
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+}
+
+.lesBoutonsNav:hover{
+    -fx-font-size: 1.7em;
+    -fx-padding: 3.1em 0 0.8em 0;
+    -fx-underline: true;
+}
+

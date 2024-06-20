@@ -17,7 +17,7 @@ public class ControleurFiltreClassement implements EventHandler<ActionEvent>{
     public void handle(ActionEvent event) {
         ComboBox<String> combo = (ComboBox<String>) event.getSource();
         switch (combo.getValue()) {
-            case "Naturel":
+            case "Alphabétique":
                 this.vue.updateClassement(Tris.NATUREL);
                 break;
 
