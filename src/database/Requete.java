@@ -556,7 +556,7 @@ public class Requete {
         for(Manche<Participant> manche : epreuve.getLesManches()){
             if(participant instanceof Athlete){
                 Athlete a = (Athlete) participant;
-                laConnexion.prepareStatement("INSERT INTO PARTICIPER_ATHLETE (nomManche, descriptionEpreuve, sexeEpreuve, nom, prenom, sexe,nomPays) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                ps = laConnexion.prepareStatement("INSERT INTO PARTICIPER_ATHLETE (nomManche, descriptionEpreuve, sexeEpreuve, nom, prenom, sexe,nomPays) VALUES (?, ?, ?, ?, ?, ?, ?)");
                 ps.setString(1, manche.getNomDeTour());
                 ps.setString(2, manche.getEpreuve().getDescription());
                 ps.setString(3, String.valueOf(epreuve.getSexe()));
@@ -570,25 +570,25 @@ public class Requete {
             else{
                 Equipe e = (Equipe) participant;
                 ps = laConnexion.prepareStatement("INSERT INTO PARTICIPER_EQUIPE (nomManche, descriptionEpreuve, sexeEpreuve, nomEquipe) VALUES (?, ?, ?, ?)");
-                ps.setString(1, m.getNomDeTour());
-                ps.setString(2, m.getEpreuve().getDescription());
-                ps.setString(3, String.valueOf(m.getEpreuve().getSexe()));
-                ps.setString(4, equipe.getNom());
+                ps.setString(1, manche.getNomDeTour());
+                ps.setString(2, manche.getEpreuve().getDescription());
+                ps.setString(3, String.valueOf(manche.getEpreuve().getSexe()));
+                ps.setString(4, e.getNom());
                 ps.executeUpdate();
                 ps.close();
             }
         }
     }
 
-    public void insertResultat(Epreuve<Participant> e){
+    public void insertResultat(Epreuve<Participant> epreuve) throws SQLException{
         PreparedStatement ps;
         for(Manche<Participant> manche : epreuve.getLesManches()){
-            for(int i;i<epreuve.getLesParticipants().size(); i++){
+            for(int i=0;i<epreuve.getLesParticipants().size(); i++){
                 Participant participant = epreuve.getLesParticipants().get(i);
                 if(participant instanceof Athlete){
                     Athlete a = (Athlete) participant;
                     ps = laConnexion.prepareStatement("UPTDATE PARTICIPER_ATHLETE SET resultat = ? WHERE nom = ? and prenom = ? and sexe = ? and nomPays = ? and nomManche = ? and descriptionEpreuve = ? and sexeEpreuve = ?");
-                    ps.setString(1, manche.getResultats().get(i));
+                    ps.setDouble(1, manche.getResultats().get(i));
                     ps.setString(2, a.getNom());
                     ps.setString(3, a.getPrenom());
                     ps.setString(4, String.valueOf(a.getSexe()));
@@ -602,7 +602,7 @@ public class Requete {
                 else{
                     Equipe e = (Equipe) participant;
                     ps = laConnexion.prepareStatement("UPTDATE PARTICIPER_ATHLETE SET resultat = ? WHERE nomEquipe = ? and nomManche = ? and descriptionEpreuve = ? and sexeEpreuve = ?");
-                    ps.setString(1, manche.getResultats().get(i));
+                    ps.setDouble(1, manche.getResultats().get(i));
                     ps.setString(2, e.getNom());
                     ps.setString(3, manche.getNomDeTour());
                     ps.setString(4, manche.getEpreuve().getDescription());
