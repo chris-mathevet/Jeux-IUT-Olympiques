@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import participants.Participant;
 import participants.Pays;
@@ -21,8 +22,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class AppliJO extends Application {
-
-    
 
     private ModeleJO modele;
     private ModeleConnexion modeleConnexion;
@@ -41,6 +40,7 @@ public class AppliJO extends Application {
     private Button boutonParametre;
 
     private String utilisateur;
+    private Roles role;
   
     private BorderPane modeleEpreuve;
 
@@ -54,6 +54,8 @@ public class AppliJO extends Application {
         this.boutonParametre = new Button();
         this.boutonParticipants = new Button();
         this.modeleEpreuve = new BorderPane();
+        this.utilisateur = "User";
+        this.role = Roles.VISITEUR;
     }
 
     @Override
@@ -65,6 +67,14 @@ public class AppliJO extends Application {
 
     public void setUtilisateur(String utilisateur) {
         this.utilisateur = utilisateur;
+    }
+
+    public void setRole(Roles role) {
+        this.role = role;
+    }
+
+    public Roles getRole() {
+        return this.role;
     }
 
     public String getUtilisateur() {
@@ -182,6 +192,11 @@ public class AppliJO extends Application {
 
         this.boutonParametre = (Button) laScene.lookup("#boutonParametre");
         this.boutonParametre.setOnAction(new ControleurBoutonAppli(this, modeleConnexion));
+
+        Text textUser = (Text) laScene.lookup("#userName");
+        Text textRole = (Text) laScene.lookup("#role");
+        textRole.setText(this.role.getRoleStr());
+        textUser.setText(this.utilisateur);
 
         this.modeClassement();
     }

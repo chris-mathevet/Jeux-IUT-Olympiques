@@ -268,21 +268,20 @@ public class ModeleConnexion {
      * Renvoie le nom d'utilisateur si la connexion a réussi
      * @return
      */
-    public int connexion(){
-        int user = 0;
+    public String connexion(){
+        String role = "";
         if(this.estConnexion){
             if(this.identifiantNonExistant()){
-                user = -1; // Identifiant n'existe pas
+                role = "-1"; // Identifiant n'existe pas
             }
             else{
                 try {
-                    this.requete.getUser(this.identifiant, this.cryptage());
-                    user = 10;
+                    role = this.requete.getUser(this.identifiant, this.cryptage());
                 } catch (SQLException e) {
-                    user = -2; // Non trouvé 
+                    role = "-2"; // Non trouvé 
                 }
             }
         }
-        return user;
+        return role;
     }
 }
