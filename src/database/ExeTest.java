@@ -10,6 +10,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.text.html.ParagraphView;
+
 import epreuves.Epreuve;
 
 
@@ -105,7 +107,7 @@ public class ExeTest {
 
 
                 List<Epreuve<Participant>> truc = r.selectEpreuves();
-
+                // r.insertPays(new Pays("salutd"));
             //     for (Epreuve<?> epreuve : truc) {
             //         System.out.println(epreuve);
             //     }

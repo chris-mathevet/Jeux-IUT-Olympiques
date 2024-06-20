@@ -3,15 +3,14 @@ package MVC.vues;
 import java.io.File;
 import java.net.URL;
 import java.util.List;
-
-import javax.swing.text.html.ImageView;
+import javafx.util.Duration;
 
 import MVC.modele.*;
 import MVC.modele.ModeleJO.Tris;
 import MVC.tableClass.*;
 import epreuves.Epreuve;
 import MVC.controleur.*;
-
+import javafx.animation.RotateTransition;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -82,8 +81,8 @@ public class AppliJO extends Application {
         this.menuSexeEpreuve = new ComboBox();
         this.txtFieldDesc = new TextField();
         this.txtNomModeleEpreuve = new Text();
-        this.imgSexeModeleEpreuve = new ImageView(null);
-        this.imgSportModeleEpreuve = new ImageView(null);
+        // this.imgSexeModeleEpreuve = new ImageView(null);
+        // this.imgSportModeleEpreuve = new ImageView(null);
     }
 
     @Override
@@ -232,6 +231,9 @@ public class AppliJO extends Application {
         imageRefresh.setFitHeight(22);
         imageRefresh.setPreserveRatio(true);
         boutonRefresh.setOnAction(new ControleurRefresh(this.modele,this));
+        // boutonRefresh.setOnAction(event -> {
+            
+        // });
         boutonRefresh.setGraphic(imageRefresh);
 
         Text textUser = (Text) laScene.lookup("#userName");
