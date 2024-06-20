@@ -24,6 +24,7 @@ import participants.Pays;
 
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class AppliJO extends Application {
@@ -139,6 +140,8 @@ public class AppliJO extends Application {
         VBox conditionMDP = (VBox) this.laScene.lookup("#conditionMDP");
         TextField motDePasse = (TextField) this.laScene.lookup("#textFieldMotDePasse");
         motDePasse.textProperty().addListener(new ControleurMDP(this.modeleConnexion,this,motDePasse,conditionMDP));
+
+        // Roles
     }
 
     public void modeInscription() throws Exception {
@@ -292,8 +295,6 @@ public class AppliJO extends Application {
         centre.setCenter(this.classement);
     }
 
-    
-
     public void updateClassement(Tris tri){
         this.classement.getItems().clear();
         List<Pays> lesPays2 = this.modele.getLesPays(tri);
@@ -423,13 +424,52 @@ public class AppliJO extends Application {
     public void ajoutEpreuve(Epreuve epreuve) throws Exception {
         BorderPane ep = modeleCreationEpreuve();
         this.contenus.getChildren().add(ep);
+    
+        ImageView imageSport = (ImageView) ep.lookup("#imageSport");
+        Image imageSportTemp;
+        ImageView imageSexe = (ImageView) ep.lookup("#imageSexe");
+        Image imageSexeTemp;
+
+        switch (epreuve.getSport().getSport()) {
+            case "Athletisme":
+                imageSportTemp = new Image("Athletisme.png");
+                break;
+            
+            case "Escrime":
+                imageSportTemp = new Image("Escrime.png");
+                break;
+
+            case "Handball":
+                imageSportTemp = new Image("HandBall.png");
+                break;
+
+            case "Natation":
+                imageSportTemp =new Image("Natation.png");
+                break;
         
-        // Assurez-vous que l'ID du Label dans votre FXML est bien "modeleEpreuveNom"
+            default:
+                imageSportTemp = new Image("VoleyBall.png");
+                break;
+        }
+        imageSport.setImage(imageSportTemp);
+        imageSport.setFitHeight(30);
+        imageSport.setPreserveRatio(true);
+
+        if(epreuve.getSexe() == 'H'){
+            imageSexeTemp = new Image("logoMale2.png");
+        }
+        else{
+            imageSexeTemp = new Image("logoFemale2.png");
+        }
+
+        imageSexe.setImage(imageSexeTemp);
+        imageSexe.setFitHeight(30);
+        imageSexe.setPreserveRatio(true);
+        
         Text test = (Text) ep.lookup("#modeleEpreuveNom");
         if (test != null) {
             test.setText(epreuve.getDescription());
         }
-
     }
 
     public void majEpreuve(List<Epreuve<Participant>> lesEpreuves) throws Exception{
