@@ -42,7 +42,6 @@ public class ModeleJO {
             System.out.println("ca marche passs");
         }
         this.init();
-
     }
 
     public void init(){

@@ -84,6 +84,7 @@ public class AppliJO extends Application {
     // MODE CONNEXION
 
     public void modeAccueil() throws Exception{
+        this.modeleConnexion = new ModeleConnexion();
         this.modeConnexion();
     }
 
@@ -112,7 +113,6 @@ public class AppliJO extends Application {
         VBox conditionMDP = (VBox) this.laScene.lookup("#conditionMDP");
         TextField motDePasse = (TextField) this.laScene.lookup("#textFieldMotDePasse");
         motDePasse.textProperty().addListener(new ControleurMDP(this.modeleConnexion,this,motDePasse,conditionMDP));
-
     }
 
     public void modeInscription() throws Exception {
@@ -175,6 +175,7 @@ public class AppliJO extends Application {
     // MODE APPLI
 
     public void modeAppli() throws Exception {
+        this.modele = new ModeleJO();
         URL url = new File("FXML/PageAppli.fxml").toURI().toURL();
         FXMLLoader loader = new FXMLLoader(url);
         this.racineAppli = loader.load();
@@ -192,6 +193,9 @@ public class AppliJO extends Application {
 
         this.boutonParametre = (Button) laScene.lookup("#boutonParametre");
         this.boutonParametre.setOnAction(new ControleurBoutonAppli(this, modeleConnexion));
+
+        Button boutonDeco = (Button) laScene.lookup("#boutonDeconnexion");
+        boutonDeco.setOnAction(new ControleurBoutonDeco(this));
 
         Text textUser = (Text) laScene.lookup("#userName");
         Text textRole = (Text) laScene.lookup("#role");

@@ -27,7 +27,11 @@
                   </VBox>
                </left>
                <right>
-                  <Button mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER" />
+                  <Button fx:id="boutonDeconnexion" mnemonicParsing="false" styleClass="lesBoutons" text="Déconnexion" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets right="15.0" />
+                     </BorderPane.margin>
+                  </Button>
                </right>
             </BorderPane>
             <HBox alignment="TOP_CENTER">
