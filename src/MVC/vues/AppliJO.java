@@ -18,6 +18,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import participants.Athlete;
 import participants.Participant;
 import javafx.scene.text.*;
 
@@ -43,6 +44,7 @@ public class AppliJO extends Application {
     private Button boutonConnexion;
 
     private TableView<PaysTableau> classement;
+    private TableView<AthletesTableau> ath;
     private Button boutonClassement;
     private Button boutonEpreuve;
     private Button boutonParticipants;
@@ -278,6 +280,14 @@ public class AppliJO extends Application {
         }
     }
 
+    public void updateAthlete(){
+        this.ath.getItems().clear();
+        List<Athlete> lesAthletes2 = this.modele.getLesAthletes();
+        for (Athlete athletess : lesAthletes2){
+            this.ath.getItems().add(new AthletesTableau(athletess));
+        }
+    }
+
     private void leClassement(Tris tri){
         this.classement.getItems().clear();
         List<Pays> lesPays = this.modele.getLesPays(tri);
@@ -409,11 +419,77 @@ public class AppliJO extends Application {
         this.txtFieldSexeAthlete.getItems().addAll("Homme", "Femme");
 
         System.out.println(this.txtFieldSexeAthlete);
+
+        this.ath = new TableView<>();
+        this.ath.setId("tableauAthlete");
+        this.lesAthletes();
+
+        enfantParticipants1.setCenter(this.ath);
     }
 
     public ComboBox getComboSexeAthlete() {
         return this.txtFieldSexeAthlete;
     }
+
+    private void lesAthletes(){
+        this.ath.getItems().clear();
+        List<Athlete> lesParticipants = this.modele.getLesAthletes();
+        for (Athlete athlet : lesParticipants){
+            this.ath.getItems().add(new AthletesTableau(athlet));
+        }
+
+        // Colones
+
+        TableColumn<AthletesTableau,Integer> nomColumn = new TableColumn<>("Nom");
+        nomColumn.setCellValueFactory(new PropertyValueFactory("nom"));
+
+        TableColumn<AthletesTableau,String> prenomColumn = new TableColumn<>("Prenom");
+        prenomColumn.setCellValueFactory(new PropertyValueFactory("prenom"));
+
+        TableColumn<AthletesTableau,String> sexeColumn = new TableColumn<>("Sexe");
+        sexeColumn.setCellValueFactory(new PropertyValueFactory("sexe"));
+
+
+        TableColumn<AthletesTableau,Integer> forceColumn = new TableColumn<>("Force");
+        forceColumn.setCellValueFactory(new PropertyValueFactory("force"));
+
+
+        TableColumn<AthletesTableau,Integer> enduranceColumn = new TableColumn<>("Endurance");
+        enduranceColumn.setCellValueFactory(new PropertyValueFactory("endurance"));
+
+
+        TableColumn<AthletesTableau,Integer> agiliteColumn = new TableColumn<>("Agilite");
+        agiliteColumn.setCellValueFactory(new PropertyValueFactory("agilite"));
+
+        TableColumn<AthletesTableau,String> paysColumn = new TableColumn<>("Pays");
+        paysColumn.setCellValueFactory(new PropertyValueFactory("pays"));
+
+        this.ath.getColumns().addAll(nomColumn,prenomColumn,sexeColumn,forceColumn,enduranceColumn,agiliteColumn, paysColumn);
+
+        this.ath.setOpacity(0.9);
+
+
+        double[] sceneWidth = {0.0};
+
+        ath.widthProperty().addListener((observable, oldValue, newValue) -> {
+                sceneWidth[0] = newValue.doubleValue(); 
+        
+            
+            int nbCol = ath.getColumns().size();
+            for(TableColumn<AthletesTableau,?> col : this.ath.getColumns()){
+
+                col.setSortable(false);
+                col.setReorderable(false);
+                col.setResizable(false);
+                // col.setEditable(false);
+                sceneWidth[0]*=0.99; // prendre 99% de la largeur
+                col.setPrefWidth((sceneWidth[0]/nbCol));
+            }
+        });   
+
+    }
+
+
 
     public void modeParametre() throws Exception {
         URL url = new File("FXML/PageClassement.fxml").toURI().toURL();

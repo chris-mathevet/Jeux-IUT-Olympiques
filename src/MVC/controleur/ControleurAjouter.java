@@ -91,6 +91,7 @@ public class ControleurAjouter implements EventHandler<ActionEvent> {
                 if (this.modele.getLesPays().contains(new Pays(paysAthlete))) {
                     try {
                         this.modele.creerAthlete(nomAthlete, prenomAthlete,comboSexeAthlete, forceAthlete, enduranceAthlete, agiliteAthlete, paysAthlete);
+                        this.vue.updateAthlete();
                     } catch (AlreadyExistException e) {
                         System.err.println(e.getMessage());
                     }

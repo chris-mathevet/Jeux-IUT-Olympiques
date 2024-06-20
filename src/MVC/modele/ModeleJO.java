@@ -32,18 +32,28 @@ public class ModeleJO {
     private Natation nat;
     private Athletisme athle;
     private Requete requete;
+    private ConnexionMySql co;
 
     public ModeleJO(){
         try {
-             ConnexionMySql co = new ConnexionMySql();
-            //ConnexionMySql co = new ConnexionMySql("meunier");
-            this.requete = new Requete(co);
+            this.co = new ConnexionMySql();
+            this.requete = new Requete(this.co,this);
             
         } catch (Exception e) {
-            System.out.println("ca marche passs");
+            System.out.println("ca marche passs" + e);
         }
         this.init();
+    }
 
+    public void reload(){
+        try {
+            this.co.close();
+            this.co = new ConnexionMySql();
+            this.requete = new Requete(this.co,this);
+        } catch (Exception e) {
+            System.out.println("ca marche passs" + e);
+        }
+        this.init();
     }
 
     public void init(){
@@ -56,9 +66,7 @@ public class ModeleJO {
 
         try {
             this.lesPays = requete.selectPays();  
-            System.out.println(this.lesPays);             
         } catch (Exception e) {
-            System.out.println("fdp"+ e);
             this.lesPays = new ArrayList<>();
         }
         try {
@@ -76,7 +84,6 @@ public class ModeleJO {
         } catch (Exception e) {
             this.lesEpreuves = new ArrayList<>();
         }
-        this.lesPays.add(new Pays("France"));
 
     }   
 
@@ -340,7 +347,6 @@ public class ModeleJO {
             try {
                 this.requete.insertAthlete(athlete);
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -407,6 +413,11 @@ public class ModeleJO {
 
     public void inscrireEpreuve(Participant participant, Epreuve<Participant> epreuve) throws AlreadyInException, CanNotRegisterException, NotSameGenderException{
         epreuve.inscrire(participant);
+        try {
+            this.requete.insertParticipantToEpreuve(participant, epreuve);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }  
     }
 
     public List<Participant> lesInscrits(Epreuve<Participant> epreuve){
@@ -419,15 +430,30 @@ public class ModeleJO {
 
     public List<Participant> leClassement(Epreuve<Participant> epreuve){
         return epreuve.getLeClassement();
+        // try {
+        //     this.requete.insertResultat(epreuve);
+        // } catch (SQLException e) {
+        //     e.printStackTrace();
+        // } 
     }
 
     public void lancerEpreuve(Epreuve<Participant> epreuve){
         epreuve.getLeClassement();
+        try {
+            this.requete.insertResultat(epreuve);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }  
     }
 
     public void lancerToutEpreuves(){
-        for (Epreuve<? extends Participant> epreuve : this.lesEpreuves){
+        for (Epreuve< Participant> epreuve : this.lesEpreuves){
             epreuve.getLeClassement();
+            try {
+                this.requete.insertResultat(epreuve);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } 
         }
     }
 }
