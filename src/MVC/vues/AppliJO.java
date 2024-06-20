@@ -17,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import participants.Participant;
 
@@ -195,16 +196,16 @@ public class AppliJO extends Application {
 
         this.boutonClassement = (Button) laScene.lookup("#boutonClassement");
 
-        this.boutonClassement.setOnAction(new BoutonAppliControleur(this, modele));
+        this.boutonClassement.setOnAction(new ControleurBoutonAppli(this, modele));
 
         this.boutonEpreuve = (Button) laScene.lookup("#boutonEpreuve");
-        this.boutonEpreuve.setOnAction(new BoutonAppliControleur(this, modele));
+        this.boutonEpreuve.setOnAction(new ControleurBoutonAppli(this, modele));
 
         this.boutonParticipants = (Button) laScene.lookup("#boutonParticipants");
-        this.boutonParticipants.setOnAction(new BoutonAppliControleur(this, modele));
+        this.boutonParticipants.setOnAction(new ControleurBoutonAppli(this, modele));
 
         this.boutonParametre = (Button) laScene.lookup("#boutonParametre");
-        this.boutonParametre.setOnAction(new BoutonAppliControleur(this, modele));
+        this.boutonParametre.setOnAction(new ControleurBoutonAppli(this, modele));
 
 
         this.modeClassement();
