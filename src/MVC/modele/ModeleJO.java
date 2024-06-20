@@ -421,28 +421,28 @@ public class ModeleJO {
 
     public List<Participant> leClassement(Epreuve<Participant> epreuve){
         return epreuve.getLeClassement();
-        try {
-            this.requete.insertResultat(epreuve);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } 
+        // try {
+        //     this.requete.insertResultat(epreuve);
+        // } catch (SQLException e) {
+        //     e.printStackTrace();
+        // } 
     }
 
     public void lancerEpreuve(Epreuve<Participant> epreuve){
         epreuve.getLeClassement();
         try {
             this.requete.insertResultat(epreuve);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }  
     }
 
     public void lancerToutEpreuves(){
-        for (Epreuve<? extends Participant> epreuve : this.lesEpreuves){
+        for (Epreuve< Participant> epreuve : this.lesEpreuves){
             epreuve.getLeClassement();
             try {
                 this.requete.insertResultat(epreuve);
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             } 
         }
