@@ -19,7 +19,7 @@
                <children>
                   <TextField fx:id="txtFieldDesc" promptText="Description" />
                   <ComboBox fx:id="menuSportEpreuve" prefWidth="150.0" promptText="Sport" />
-                  <ComboBox fx:id="menuPaysEpreuve" prefWidth="150.0" promptText="Pays" />
+                  <ComboBox fx:id="menuPaysEpreuve" prefWidth="150.0" promptText="Sexe" />
                   <Button fx:id="boutonAjouter" mnemonicParsing="false" prefHeight="24.0" prefWidth="56.0" text="Ajouter">
                      <HBox.margin>
                         <Insets left="85.0" />

@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -75,20 +76,17 @@
                      <bottom>
                         <HBox alignment="CENTER" prefHeight="43.0" prefWidth="452.0" spacing="10.0" BorderPane.alignment="CENTER">
                            <children>
-                              <TextField prefHeight="20.0" prefWidth="85.0" promptText="Nom">
+                              <TextField fx:id="txtFldNomAthlete" prefHeight="20.0" prefWidth="85.0" promptText="Nom">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
                               </TextField>
-                              <TextField layoutX="146.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Prénom" />
-                              <TextField layoutX="104.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Force" />
-                              <TextField layoutX="241.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Endurance" />
-                              <TextField layoutX="198.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Agilité" />
-                              <MenuButton mnemonicParsing="false" prefHeight="24.0" prefWidth="71.0" text="Pays">
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin>
-                              </MenuButton>
+                              <TextField fx:id="txtFldPrenomAthlete" layoutX="146.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Prénom" />
+                              <ComboBox fx:id="comboBoxSexeAthlete" prefWidth="150.0" promptText="Sexe" />
+                              <TextField fx:id="txtFldForceAthlete" layoutX="104.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Force" />
+                              <TextField fx:id="txtFldEnduranceAthlete" layoutX="241.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Endurance" />
+                              <TextField fx:id="txtFldAgiliteAthlete" layoutX="198.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Agilité" />
+                              <TextField fx:id="txtFldPaysAthlete" layoutX="350.0" layoutY="19.0" prefHeight="20.0" prefWidth="85.0" promptText="Agilité" />
                               <Button fx:id="boutonAjouterParticipants" mnemonicParsing="false" prefHeight="24.0" prefWidth="100.0" text="Ajouter">
                                  <HBox.margin>
                                     <Insets right="10.0" />

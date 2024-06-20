@@ -56,6 +56,13 @@ public class AppliJO extends Application {
     private ComboBox menuSportEpreuve;
     private ComboBox menuSexeEpreuve;
     private TextField txtFieldDesc;
+    private TextField txtFieldNomAthlete;
+    private TextField txtFieldPrenomAthlete;
+    private TextField txtFieldForceAthlete;
+    private TextField txtFieldEnduranceAthlete;
+    private TextField txtFieldAgiliteAthlete;
+    private TextField txtFieldPaysAthlete;
+    private ComboBox txtFieldSexeAthlete;
 
     private Text txtNomModeleEpreuve;
     private ImageView imgSexeModeleEpreuve;
@@ -80,6 +87,14 @@ public class AppliJO extends Application {
         this.menuSexeEpreuve = new ComboBox();
         this.txtFieldDesc = new TextField();
         this.txtNomModeleEpreuve = new Text();
+        this.txtFieldNomAthlete = new TextField();
+        this.txtFieldPrenomAthlete = new TextField();
+        this.txtFieldForceAthlete = new TextField();
+        this.txtFieldEnduranceAthlete = new TextField();
+        this.txtFieldAgiliteAthlete = new TextField();
+        this.txtFieldPaysAthlete = new TextField();
+        this.txtFieldSexeAthlete = new ComboBox();
+        
         this.imgSexeModeleEpreuve = new ImageView(null);
         this.imgSportModeleEpreuve = new ImageView(null);
         this.boutonAjouterAthlete = new Button();
@@ -382,7 +397,22 @@ public class AppliJO extends Application {
         
         this.boutonAjouterAthlete = (Button) enfantParticipants1.lookup("#boutonAjouterParticipants");
         this.boutonAjouterAthlete.setOnAction(new ControleurAjouter(this, modele));
-        System.out.println(this.boutonAjouterAthlete);
+        
+        this.txtFieldNomAthlete = (TextField) enfantParticipants1.lookup("#txtFldNomAthlete");
+        this.txtFieldPrenomAthlete = (TextField) enfantParticipants1.lookup("#txtFldPrenomAthlete");
+        this.txtFieldForceAthlete = (TextField) enfantParticipants1.lookup("#txtFldForceAthlete");
+        this.txtFieldEnduranceAthlete = (TextField) enfantParticipants1.lookup("#txtFldEnduranceAthlete");
+        this.txtFieldAgiliteAthlete = (TextField) enfantParticipants1.lookup("#txtFldAgiliteAthlete");
+        this.txtFieldPaysAthlete = (TextField) enfantParticipants1.lookup("#txtFldPaysAthlete");
+        this.txtFieldSexeAthlete = (ComboBox) enfantParticipants1.lookup("#comboBoxSexeAthlete");
+
+        this.txtFieldSexeAthlete.getItems().addAll("Homme", "Femme");
+
+        System.out.println(this.txtFieldSexeAthlete);
+    }
+
+    public ComboBox getComboSexeAthlete() {
+        return this.txtFieldSexeAthlete;
     }
 
     public void modeParametre() throws Exception {
@@ -435,6 +465,49 @@ public class AppliJO extends Application {
 
     public String getStringDescription() {
         return this.txtFieldDesc.getText();
+    }
+
+    public String getStringNomAthlete() {
+        return this.txtFieldNomAthlete.getText();
+    }
+
+    public String getStringPrenomAthlete() {
+        return this.txtFieldPrenomAthlete.getText();
+    }
+
+
+    public int getIntForceAthlete() {
+        try {
+            int valeur = Integer.parseInt(this.txtFieldForceAthlete.getText());
+            return valeur;
+        } catch (Exception e) {
+           System.err.println(e.getMessage());
+        }
+        return 0;
+    }
+
+    public int getIntEnduranceAthlete() {
+        try {
+            int valeur = Integer.parseInt(this.txtFieldEnduranceAthlete.getText());
+            return valeur;
+        } catch (Exception e) {
+           System.err.println(e.getMessage());
+        }
+        return 0;
+    }
+
+    public int getIntAgiliteAthlete() {
+        try {
+            int valeur = Integer.parseInt(this.txtFieldAgiliteAthlete.getText());
+            return valeur;
+        } catch (Exception e) {
+           System.err.println(e.getMessage());
+        }
+        return 0;
+    }
+
+    public String getStringPaysAthlete() {
+        return this.txtFieldPaysAthlete.getText();
     }
 
 
