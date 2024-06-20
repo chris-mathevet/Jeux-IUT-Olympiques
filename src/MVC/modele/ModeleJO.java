@@ -16,9 +16,6 @@ import java.util.Collections;
 import java.util.List;
     
 import executable.LibCreation;
-import javax.xml.crypto.AlgorithmMethod;
-
-import MVC.vues.Connexion;
 
 public class ModeleJO {
     private List<Sport> lesSports;
