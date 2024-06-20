@@ -23,7 +23,6 @@ CREATE TABLE ATHLETE (
 
 CREATE TABLE EPREUVE (
     descriptionEpreuve VARCHAR(250),
-    typeEpreuve VARCHAR(20),
     nomSport VARCHAR(50), 
     sexe CHAR,
     PRIMARY KEY (descriptionEpreuve, sexe)
@@ -127,3 +126,9 @@ create table USER(
     email VARCHAR(250),
     type ENUM('visiteur', 'admin', 'organisateur') NOT NULL
 );
+
+    create table DRAPEAU(
+        nomPays VARCHAR(50) PRIMARY KEY,
+        pathImg varchar(255) DEFAULT 'img/autre/erreur.png'
+    );
+

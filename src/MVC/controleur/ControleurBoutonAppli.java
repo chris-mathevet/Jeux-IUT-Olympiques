@@ -14,9 +14,11 @@ public class ControleurBoutonAppli implements EventHandler<ActionEvent>{
     
     private AppliJO vue;
 
+
     private ModeleJO modele;
     
     public ControleurBoutonAppli(AppliJO vue, ModeleJO modele) {
+
         this.vue = vue;
         this.modele = modele;
     }
@@ -38,11 +40,13 @@ public class ControleurBoutonAppli implements EventHandler<ActionEvent>{
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             }
+
             try {
                 this.vue.majEpreuve(this.modele.getLesEpreuves());
             } catch (Exception e) {
                 // TODO: handle exception
             }
+
         }
         else if (lettre.equals("Participants")) {
             try {

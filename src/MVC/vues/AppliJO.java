@@ -2,12 +2,13 @@ package MVC.vues;
 
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.text.html.ImageView;
 
 import MVC.modele.*;
+import MVC.modele.ModeleJO.Tris;
+import MVC.tableClass.*;
 import epreuves.Epreuve;
 import MVC.controleur.*;
 
@@ -16,12 +17,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import participants.Participant;
-import javafx.scene.control.*;
-import javafx.scene.Node;
 
+import participants.Pays;
+
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class AppliJO extends Application {
 
@@ -36,12 +38,15 @@ public class AppliJO extends Application {
 
     private Button boutonConnexion;
 
+    private TableView<PaysTableau> classement;
     private Button boutonClassement;
     private Button boutonEpreuve;
     private Button boutonParticipants;
     private Button boutonParametre;
     private Button boutonAjouterEpreuve;
 
+    private String utilisateur;
+  
     private BorderPane modeleEpreuve;
     private ComboBox menuSportEpreuve;
     private ComboBox menuSexeEpreuve;
@@ -80,6 +85,14 @@ public class AppliJO extends Application {
         this.stage.show();
     }
 
+    public void setUtilisateur(String utilisateur) {
+        this.utilisateur = utilisateur;
+    }
+
+    public String getUtilisateur() {
+        return this.utilisateur;
+    }
+
     // MODE CONNEXION
 
     public void modeAccueil() throws Exception{
@@ -97,7 +110,8 @@ public class AppliJO extends Application {
         this.stage.setScene(this.laScene);
 
         this.boutonConnexion = (Button) this.laScene.lookup("#boutonConnexion");
-        boutonConnexion.setOnAction(new ControleurBoutonConnexion(this, modeleConnexion));
+        VBox conditionConnexion = (VBox) this.laScene.lookup("#conditionConnexion");
+        boutonConnexion.setOnAction(new ControleurBoutonConnexion(this, modeleConnexion, conditionConnexion));
         this.boutonConnexion.setDisable(true);
 
         Button boutonSwitch = (Button) this.laScene.lookup("#switchPage");
@@ -109,6 +123,8 @@ public class AppliJO extends Application {
 
         VBox conditionMDP = (VBox) this.laScene.lookup("#conditionMDP");
         TextField motDePasse = (TextField) this.laScene.lookup("#textFieldMotDePasse");
+        motDePasse.textProperty().addListener(new ControleurMDP(this.modeleConnexion,this,motDePasse,conditionMDP));
+
     }
 
     public void modeInscription() throws Exception {
@@ -122,7 +138,8 @@ public class AppliJO extends Application {
         this.stage.setScene(this.laScene);
 
         this.boutonConnexion = (Button) this.laScene.lookup("#boutonConnexion");
-        this.boutonConnexion.setOnAction(new ControleurBoutonConnexion(this, modeleConnexion));
+        VBox conditionInscrire = (VBox) this.laScene.lookup("#conditionInscrire");
+        this.boutonConnexion.setOnAction(new ControleurBoutonConnexion(this, modeleConnexion,conditionInscrire));
         this.boutonConnexion.setDisable(true);
 
         Button boutonSwitch = (Button) this.laScene.lookup("#switchPage");
@@ -177,6 +194,7 @@ public class AppliJO extends Application {
         this.stage.show();
 
         this.boutonClassement = (Button) laScene.lookup("#boutonClassement");
+
         this.boutonClassement.setOnAction(new BoutonAppliControleur(this, modele));
 
         this.boutonEpreuve = (Button) laScene.lookup("#boutonEpreuve");
@@ -188,8 +206,8 @@ public class AppliJO extends Application {
         this.boutonParametre = (Button) laScene.lookup("#boutonParametre");
         this.boutonParametre.setOnAction(new BoutonAppliControleur(this, modele));
 
-        this.modeClassement();
 
+        this.modeClassement();
     }
 
 
@@ -198,6 +216,7 @@ public class AppliJO extends Application {
         FXMLLoader loader = new FXMLLoader(url);
         BorderPane centre = loader.load();
         BorderPane.setMargin(centre, new Insets(20));
+
         this.racineAppli.setCenter(centre);
 
         this.boutonClassement.setDisable(true);
@@ -205,7 +224,89 @@ public class AppliJO extends Application {
         this.boutonParametre.setDisable(false);
         this.boutonParticipants.setDisable(false);
 
+
+        ComboBox<String> filtre = (ComboBox<String>) laScene.lookup("#filtre");
+        filtre.getItems().addAll("Médailles","Alphabétique","Total");
+        filtre.setValue("Médailles");
+        filtre.setOnAction(new ControleurFiltreClassement(this));
+
+        TextField fieldPays = (TextField) laScene.lookup("#fieldPays");
+        Button boutonAjoutPays = (Button) laScene.lookup("#ajouterPays");
+        boutonAjoutPays.setDisable(true);
+
+        VBox boxErreur = (VBox) laScene.lookup("#boxErreur");
+        boutonAjoutPays.setOnAction(new ControleurAjoutPays(this, this.modele, fieldPays,filtre,boxErreur));
+        fieldPays.textProperty().addListener(new ControleurTFAjoutPays(this,fieldPays,boxErreur,boutonAjoutPays));
+
+
+        this.classement = new TableView<>();
+        this.classement.setId("tableauClassement");
+        this.leClassement(Tris.MEDAILLES);
+
+        centre.setCenter(this.classement);
+    }
+
+    public void updateClassement(Tris tri){
+        this.classement.getItems().clear();
+        List<Pays> lesPays2 = this.modele.getLesPays(tri);
+        for (Pays pays : lesPays2){
+            this.classement.getItems().add(new PaysTableau(lesPays2.indexOf(pays)+1, pays));
+        }
+    }
+
+    private void leClassement(Tris tri){
+        this.classement.getItems().clear();
+        List<Pays> lesPays = this.modele.getLesPays(tri);
+        for (Pays pays : lesPays){
+            this.classement.getItems().add(new PaysTableau(lesPays.indexOf(pays)+1, pays));
+        }
+
+        // Colones
+
+        TableColumn<PaysTableau,Integer> placeColumn = new TableColumn<>("Place");
+        placeColumn.setCellValueFactory(new PropertyValueFactory("place"));
+
+        TableColumn<PaysTableau,String> nomColumn = new TableColumn<>("Pays");
+        nomColumn.setCellValueFactory(new PropertyValueFactory("nom"));
+
+        TableColumn<PaysTableau,Integer> orColumn = new TableColumn<>("");
+        orColumn.setCellValueFactory(new PropertyValueFactory("medailleOr"));
+        orColumn.setId("medailleOr");
+
+        TableColumn<PaysTableau,Integer> argentColumn = new TableColumn<>("");
+        argentColumn.setCellValueFactory(new PropertyValueFactory("medailleArgent"));
+        argentColumn.setId("medailleArgent");
+
+        TableColumn<PaysTableau,Integer> bronzeColumn = new TableColumn<>("");
+        bronzeColumn.setCellValueFactory(new PropertyValueFactory("medailleBronze"));
+        bronzeColumn.setId("medailleBronze");
+
+        TableColumn<PaysTableau,Integer> totalColumn = new TableColumn<>("Total");
+        totalColumn.setCellValueFactory(new PropertyValueFactory("totalMedailles"));
+
+        this.classement.getColumns().addAll(placeColumn,nomColumn,orColumn,argentColumn,bronzeColumn,totalColumn);
+
+        this.classement.setOpacity(0.9);
+
+
+        double[] sceneWidth = {0.0};
+
+        classement.widthProperty().addListener((observable, oldValue, newValue) -> {
+                sceneWidth[0] = newValue.doubleValue(); 
         
+            
+            int nbCol = classement.getColumns().size();
+            for(TableColumn<PaysTableau,?> col : this.classement.getColumns()){
+
+                col.setSortable(false);
+                col.setReorderable(false);
+                col.setResizable(false);
+                // col.setEditable(false);
+                sceneWidth[0]*=0.99; // prendre 99% de la largeur
+                col.setPrefWidth((sceneWidth[0]/nbCol));
+            }
+        });   
+
     }
 
     public void modeEpreuve() throws Exception {
@@ -274,6 +375,7 @@ public class AppliJO extends Application {
         this.boutonParticipants.setDisable(false);
     }
 
+
     public void ajoutEpreuve(Epreuve epreuve) throws Exception {
         BorderPane ep = modeleCreationEpreuve();
         this.contenus.getChildren().add(ep);
@@ -312,6 +414,7 @@ public class AppliJO extends Application {
     public String getStringDescription() {
         return this.txtFieldDesc.getText();
     }
+
 
 
     public static void main(String[] args) {

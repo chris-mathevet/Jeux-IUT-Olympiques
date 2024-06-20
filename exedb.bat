@@ -10,5 +10,5 @@ javac -cp ./bin/ -d ./bin/ src/participants/*.java src/sports/*.java src/epreuve
 javac -cp ./bin/ -d ./bin/ src/comparateurs/*.java
 javac -d ./bin/ -cp ./bin/ src/executable/*.java
 javac -d ./bin/ -cp ".\lib\mysql-connector-java-5.1.44.jar;./bin" src/database/*.java
-
+cls
 java -classpath ".\lib\mysql-connector-java-5.1.44.jar;./bin" database.ExeTest

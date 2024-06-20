@@ -11,9 +11,9 @@
 
 <StackPane id="accueil" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@style_app.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox id="connexion" alignment="CENTER" maxHeight="200.0" maxWidth="225.0" prefHeight="284.0" prefWidth="360.0" styleClass="groupeConnexion" StackPane.alignment="CENTER">
+      <VBox id="connexion" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="284.0" prefWidth="360.0" styleClass="groupeConnexion" StackPane.alignment="CENTER">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Connexion">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titre" text="Connexion">
                <font>
                   <Font size="18.0" />
                </font>
@@ -21,40 +21,43 @@
                   <Insets bottom="15.0" top="15.0" />
                </VBox.margin>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pseudonyme*">
+            <VBox>
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pseudonyme*">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Text>
+                  <TextField fx:id="textFieldPseudo" prefHeight="24.0" prefWidth="215.0" promptText="Pseudonyme" styleClass="lesFieldsConnexion" />
+               </children>
                <VBox.margin>
-                  <Insets right="95.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
-               <font>
-                  <Font size="10.0" />
-               </font>
-            </Text>
-            <TextField fx:id="textFieldPseudo" prefHeight="24.0" prefWidth="215.0" promptText="Pseudonyme" styleClass="textField">
+            </VBox>
+            <VBox>
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mot de Passe*">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Text>
+                  <PasswordField fx:id="textFieldMotDePasse" promptText="Mot de passe" styleClass="lesFieldsConnexion" />
+               </children>
                <VBox.margin>
-                  <Insets bottom="15.0" left="30.0" right="30.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
-            </TextField>
-            <VBox fx:id="conditionPseudo" maxWidth="100.0" spacing="4.0" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mot de Passe*">
-               <font>
-                  <Font size="10.0" />
-               </font>
+            </VBox>
+            <VBox fx:id="conditionConnexion" maxWidth="100.0" spacing="4.0">
                <VBox.margin>
-                  <Insets left="30.0" right="120.0" />
+                  <Insets top="40.0" />
                </VBox.margin>
-            </Text>
-            <PasswordField fx:id="textFieldMotDePasse" promptText="Mot de passe" styleClass="textField">
-               <VBox.margin>
-                  <Insets left="30.0" right="30.0" />
-               </VBox.margin>
-            </PasswordField>
-            <VBox fx:id="conditionMDP" maxWidth="100.0" spacing="4.0" />
+            </VBox>
             <Button fx:id="boutonConnexion" alignment="CENTER" mnemonicParsing="false" styleClass="boutonConnexion" text="SE CONNECTER" textAlignment="CENTER">
                <VBox.margin>
-                  <Insets top="10.0" />
+                  <Insets left="10.0" right="10.0" top="20.0" />
                </VBox.margin>
                <font>
-                  <Font size="9.0" />
+                  <Font size="10.0" />
                </font>
             </Button>
             <Button fx:id="switchPage" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Pas encore inscrit ? Rejoignez-nous !">
