@@ -181,9 +181,7 @@ public class AppliJO extends Application {
         this.boutonParametre = (Button) laScene.lookup("#boutonParametre");
         this.boutonParametre.setOnAction(new ControleurBoutonAppli(this, modeleConnexion));
 
-
         this.modeClassement();
-
     }
 
 

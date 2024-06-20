@@ -9,6 +9,40 @@
     -fx-background-size: 100% 100%;
 }
 
+
+/* Tableaux */
+
+.table-view .column-header{
+    -fx-background-color: #8b856c;
+    -fx-border-color: #0000008a;
+    -fx-border-width: 1;
+}
+
+.table-view{
+    -fx-background-color: transparent;
+}
+
+.table-view .table-cell{
+    -fx-border-color: #0000008a;
+    -fx-padding: 2 0 2 10px;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #ffd000;
+    -fx-text-background-color: white;
+}
+
+.table-row-cell:odd{
+    -fx-background-color: #dbd1a3;
+    -fx-background-insets: 0, 0 0 1 0;
+}
+
+.table-row-cell:even{
+    -fx-background-color: #d6c495;
+    -fx-background-insets: 0, 0 0 1 0;
+}
+
+
 .boutonConnexion{
     -fx-background-color: #EFD76B;
     -fx-border-color: #343232;
@@ -129,8 +163,15 @@
 }
 
 .lesBoutonsNav{
+    -fx-font-size: 18;
     -fx-background-color: transparent;
     -fx-font-family: System;
     -fx-font-weight: bold;
     -fx-text-alignment: center;
 }
+
+.lesBoutonsNav:hover{
+    -fx-font-size: 20;
+    -fx-underline: true;
+}
+
