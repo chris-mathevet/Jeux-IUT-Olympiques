@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import participants.Participant;
 import javafx.scene.control.*;
 import javafx.scene.Node;
 
@@ -176,16 +177,16 @@ public class AppliJO extends Application {
         this.stage.show();
 
         this.boutonClassement = (Button) laScene.lookup("#boutonClassement");
-        this.boutonClassement.setOnAction(new BoutonAppliControleur(this, modeleConnexion));
+        this.boutonClassement.setOnAction(new BoutonAppliControleur(this, modele));
 
         this.boutonEpreuve = (Button) laScene.lookup("#boutonEpreuve");
-        this.boutonEpreuve.setOnAction(new BoutonAppliControleur(this, modeleConnexion));
+        this.boutonEpreuve.setOnAction(new BoutonAppliControleur(this, modele));
 
         this.boutonParticipants = (Button) laScene.lookup("#boutonParticipants");
-        this.boutonParticipants.setOnAction(new BoutonAppliControleur(this, modeleConnexion));
+        this.boutonParticipants.setOnAction(new BoutonAppliControleur(this, modele));
 
         this.boutonParametre = (Button) laScene.lookup("#boutonParametre");
-        this.boutonParametre.setOnAction(new BoutonAppliControleur(this, modeleConnexion));
+        this.boutonParametre.setOnAction(new BoutonAppliControleur(this, modele));
 
         this.modeClassement();
 
@@ -214,19 +215,20 @@ public class AppliJO extends Application {
     
         this.racineAppli.setCenter(centre);
         BorderPane.setMargin(centre, new Insets(20));
+        VBox grosContenu = (VBox) centre.getContent();
 
-        contenus = (VBox) centre.getContent();
+        contenus = (VBox) grosContenu.lookup("#vboxEpreuve");
         System.out.println(contenus.getChildren());
 
         this.boutonClassement.setDisable(false);
         this.boutonEpreuve.setDisable(true);
         this.boutonParametre.setDisable(false);
         this.boutonParticipants.setDisable(false);
-        this.boutonAjouterEpreuve = (Button) contenus.lookup("#boutonAjouter");
+        this.boutonAjouterEpreuve = (Button) grosContenu.lookup("#boutonAjouter");
         this.boutonAjouterEpreuve.setOnAction(new ControleurAjouter(this, modele));
 
-        this.menuSportEpreuve = (ComboBox) contenus.lookup("#menuSportEpreuve");
-        this.menuSexeEpreuve = (ComboBox) contenus.lookup("#menuPaysEpreuve");
+        this.menuSportEpreuve = (ComboBox) grosContenu.lookup("#menuSportEpreuve");
+        this.menuSexeEpreuve = (ComboBox) grosContenu.lookup("#menuPaysEpreuve");
 
         this.menuSexeEpreuve.getItems().addAll("Homme", "Femme");
         this.menuSportEpreuve.getItems().addAll("VolleyBall", "HandBall", "Athletisme", "Escrime", "Natation");
@@ -235,7 +237,7 @@ public class AppliJO extends Application {
 
 
       
-        this.txtFieldDesc = (TextField) contenus.lookup("#txtFieldDesc");
+        this.txtFieldDesc = (TextField) grosContenu.lookup("#txtFieldDesc");
 
        
     }
@@ -272,7 +274,7 @@ public class AppliJO extends Application {
         this.boutonParticipants.setDisable(false);
     }
 
-public void ajoutEpreuve(Epreuve epreuve) throws Exception {
+    public void ajoutEpreuve(Epreuve epreuve) throws Exception {
         BorderPane ep = modeleCreationEpreuve();
         this.contenus.getChildren().add(ep);
         
@@ -281,6 +283,22 @@ public void ajoutEpreuve(Epreuve epreuve) throws Exception {
         if (test != null) {
             test.setText(epreuve.getDescription());
         }
+
+    }
+
+    public void majEpreuve(List<Epreuve<Participant>> lesEpreuves) throws Exception{
+        if (!(lesEpreuves.isEmpty())) {
+            this.contenus.getChildren().clear();
+            for (Epreuve ep : lesEpreuves) {
+                try {
+                    ajoutEpreuve(ep);
+                } catch (Exception e) {
+                    System.err.println(e.getMessage());
+                }
+            }
+        }
+        System.out.println(lesEpreuves);
+
     }
 
      public BorderPane modeleCreationEpreuve() throws Exception {

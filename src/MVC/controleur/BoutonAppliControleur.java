@@ -14,9 +14,9 @@ public class BoutonAppliControleur implements EventHandler<ActionEvent>{
     
     private AppliJO vue;
 
-    private ModeleConnexion modele;
+    private ModeleJO modele;
     
-    public BoutonAppliControleur(AppliJO vue, ModeleConnexion modele) {
+    public BoutonAppliControleur(AppliJO vue, ModeleJO modele) {
         this.vue = vue;
         this.modele = modele;
     }
@@ -37,6 +37,11 @@ public class BoutonAppliControleur implements EventHandler<ActionEvent>{
                 this.vue.modeEpreuve();
             } catch (Exception e) {
                 System.err.println(e.getMessage());
+            }
+            try {
+                this.vue.majEpreuve(this.modele.getLesEpreuves());
+            } catch (Exception e) {
+                // TODO: handle exception
             }
         }
         else if (lettre.equals("Participants")) {

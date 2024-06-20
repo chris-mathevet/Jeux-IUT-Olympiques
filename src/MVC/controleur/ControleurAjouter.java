@@ -60,7 +60,7 @@ public class ControleurAjouter implements EventHandler<ActionEvent> {
             System.out.println("Veuillez sélectionner un sport et un sexe");
         }
         try {
-            this.vue.ajoutEpreuve(ep);
+            this.vue.majEpreuve(this.modele.getLesEpreuves());
         } catch (Exception e) {
             // TODO: handle exception
         }

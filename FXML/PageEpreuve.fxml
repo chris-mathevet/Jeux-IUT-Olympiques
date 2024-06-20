@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
 <ScrollPane hbarPolicy="NEVER" prefHeight="281.0" prefWidth="537.0" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <VBox fx:id="test" alignment="CENTER" opacity="0.9" prefHeight="280.0" prefWidth="534.0" spacing="20.0">
@@ -16,7 +15,6 @@
             <Insets left="45.0" />
          </padding>
          <children>
-            <VBox prefHeight="200.0" prefWidth="100.0" />
             <HBox alignment="CENTER" prefHeight="43.0" prefWidth="450.0" spacing="10.0">
                <children>
                   <TextField fx:id="txtFieldDesc" promptText="Description" />
@@ -29,6 +27,7 @@
                   </Button>
                </children>
             </HBox>
+            <VBox fx:id="vboxEpreuve" prefHeight="200.0" prefWidth="100.0" />
          </children>
       </VBox>
    </content>
