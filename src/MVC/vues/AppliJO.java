@@ -68,6 +68,20 @@ public class AppliJO extends Application {
     private TextField fieldPrenomEpreuve;
     private Button boutonAddEpreuve;
 
+
+    private TextField fieldnomDansParticipants;
+    private TextField fieldPrenomParticipants;
+    private TextField fieldForceParticipants;
+    private TextField fieldEnduranceParticipants;
+    private TextField fieldagiliteParticipants;
+    private Button boutonAddParticipants;
+    
+    private TextField fieldnomEquipeDansParticipants;
+    private Button boutonAddEquipeParticipants;
+    private TitledPane contenusParticipantsEquipe;
+    private TitledPane contenusParticipantsAthlete;
+
+
     @Override
     public void init(){
         this.modele = new ModeleJO();
@@ -419,18 +433,6 @@ public class AppliJO extends Application {
         return this.menuSportEpreuve;
     }
 
-    private TextField fieldnomDansParticipants;
-    private TextField fieldPrenomParticipants;
-    private TextField fieldForceParticipants;
-    private TextField fieldEnduranceParticipants;
-    private TextField fieldagiliteParticipants;
-    private Button boutonAddParticipants;
-    
-    private TextField fieldnomEquipeDansParticipants;
-    private Button boutonAddEquipeParticipants;
-    private TitledPane contenusParticipantsEquipe;
-    private TitledPane contenusParticipantsAthlete;
-    private Button boutonAjouterAthlete;
 
     public void modeParticipants() throws Exception {
         URL url = new File("FXML/PageParticipants.fxml").toURI().toURL();
