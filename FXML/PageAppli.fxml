@@ -13,9 +13,9 @@
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <HBox styleClass="boxUser">
-               <children>
-                  <VBox>
+            <BorderPane>
+               <left>
+                  <VBox styleClass="boxUser" BorderPane.alignment="CENTER">
                      <children>
                         <Text fx:id="userName" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="userRole" text="Username">
                            <font>
@@ -24,15 +24,12 @@
                         </Text>
                         <Text fx:id="role" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="userRole" text="Role" />
                      </children>
-                     <HBox.margin>
-                        <Insets top="3.0" />
-                     </HBox.margin>
                   </VBox>
-               </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </HBox>
+               </left>
+               <right>
+                  <Button mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER" />
+               </right>
+            </BorderPane>
             <HBox alignment="TOP_CENTER">
                <children>
                   <Button fx:id="boutonClassement" graphicTextGap="0.0" maxWidth="-Infinity" mnemonicParsing="false" prefWidth="150.0" styleClass="lesBoutonsNav" text="Classement">
