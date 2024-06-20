@@ -103,9 +103,13 @@ public class ExeTest {
 
             //     List<Epreuve<?>> truc = r.selectEpreuves();
 
+
+                List<Epreuve<Participant>> truc = r.selectEpreuves();
+
             //     for (Epreuve<?> epreuve : truc) {
             //         System.out.println(epreuve);
             //     }
+
 
 
             //     r.csvToBd("donnees.csv");

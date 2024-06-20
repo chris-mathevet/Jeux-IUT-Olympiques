@@ -88,6 +88,13 @@ public class Manche<T extends Participant> {
 	}
 
 	/**
+	 * set les resultats 
+	 */
+	public void setResultat(List<Double> listeRes) {
+		this.resultats = listeRes;		
+	}
+
+	/**
 	 * Transforme (ou non) la liste de points en temps (en s)
 	 * @return List<Double> La liste transformé ou non
 	 */

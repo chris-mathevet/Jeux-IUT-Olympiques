@@ -14,12 +14,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import MVC.modele.ModeleJO;
+
 
 public class Requete {
     private ConnexionMySql laConnexion;
+    private ModeleJO modele;
 
     public Requete(ConnexionMySql co){
         this.laConnexion=co;
+    }
+        public Requete(ConnexionMySql co, ModeleJO mo){
+        this.laConnexion=co;
+        this.modele=mo;
     }
 
     //---------------Select---------------------\\
@@ -46,44 +53,22 @@ public class Requete {
             int endurance = resultSet.getInt("endurance");
             int agilite = resultSet.getInt("agilite");
             String nomPays = resultSet.getString("nomPays");
-            lesAthletes.add(new Athlete(nomAthlete, prenomAthlete, sexe, force, agilite, endurance, getPaysbyNom(nomPays)));
-        }
+            try {
+                lesAthletes.add(new Athlete(nomAthlete, prenomAthlete, sexe, force, agilite, endurance, this.modele.getPays(nomPays)));
+                
+            } catch (DoesntExistException e) {
+                System.out.println("pays n'existe pas");
+            }        }
 
         return lesAthletes;
     }
-    private Sport convertNomVersSport(String s){
-        switch (s) {
-            case "Athletisme":
-                return new Athletisme();
-                
 
-            case "Escrime":
-                return new Escrime();
-                
-
-            case "Handball":
-                return new HandBall();
-                
-
-            case "Voley-Ball":
-            case "Voley":
-                return new VoleyBall();
-                
-
-            default:
-                return new Natation();  
-        }
-    }
-
-
-    public List<Epreuve<?>> selectEpreuves() throws SQLException{
-        List<Epreuve<?>> lesEpreuves= new ArrayList<>();
+    public List<Epreuve<Participant>> selectEpreuves() throws SQLException{
+        List<Epreuve<Participant>> lesEpreuves= new ArrayList<>();
         
-        
-        String sqlSelectionAthlete = "SELECT * FROM EPREUVE";
         Statement s=laConnexion.createStatement();
 
-        ResultSet resultSet = s.executeQuery(sqlSelectionAthlete);
+        ResultSet resultSet = s.executeQuery("SELECT * FROM EPREUVE");
 
         while (resultSet.next()) {
             
@@ -94,11 +79,96 @@ public class Requete {
                 sexe = sexeString.charAt(0);
             }
             String nomSport = resultSet.getString("nomSport");
+            try {
+                Epreuve<Participant> epreuve = new Epreuve<>(descriptionEpreuve,this.modele.getSport(nomSport),sexe);
+                lesEpreuves.add(epreuve);                
+                PreparedStatement ps = laConnexion.prepareStatement("select nomManche,numeroManche from MANCHE where descriptionEpreuve = ? and sexe = ?");
+                ps.setString(1, descriptionEpreuve);
+                ps.setString(2, sexeString);
+                ResultSet res = ps.executeQuery();
+                while(res.next()){
+                    epreuve.ajoutManche(new Manche<>(res.getInt("numeroManche"),res.getString("nomManche"), epreuve));
+                }
+                ps.close();
 
-    
-            lesEpreuves.add(new Epreuve<>(descriptionEpreuve,convertNomVersSport(nomSport),sexe));
+                // requete savoir si nomEpreuve est dans ATHLETE OU EQUIPE
+                try {
+                    PreparedStatement ps2 = laConnexion.prepareStatement("select nom, prenom, sexe, nompays, resultat from PARTCIPER_ATHLETE where descriptionEpreuve = ? and sexe = ?");
+                    ps2.setString(1, descriptionEpreuve);
+                    ps2.setString(2, sexeString);
+                    res = ps2.executeQuery();
+                    ps2.close();
+
+        
+
+                    while(res.next()){
+                        try {
+                            List<Double> listeRes;
+                            epreuve.inscrire(this.modele.getAthlete(res.getString("nom"),res.getString("prenom"),res.getString("sexe").charAt(0),res.getString("nomPays")));
+                            for(Manche<Participant> manche :epreuve.getLesManches()){
+                                try {
+                                    PreparedStatement ps3 = laConnexion.prepareStatement("select resultat from PARTCIPER_ATHLETE where nomManche = ? and descriptionEpreuve = ? and sexe = ?");
+                                    ps3.setString(1, manche.getNomDeTour());
+                                    ps3.setString(2, descriptionEpreuve);
+                                    ps3.setString(3, sexeString);
+                                    ResultSet res2 = ps3.executeQuery();
+                                    listeRes = new ArrayList<>();
+                                        while(res2.next()){
+                                            listeRes.add(res2.getDouble("resultat"));
+
+                                        }
+                                        manche.setResultat(listeRes);
+                                      
+                                } catch (Exception err) {
+                                    err.printStackTrace();
+                                }
+                              }   
+
+
+                        } catch (Exception err) {
+                            err.printStackTrace();
+                        }
+                    }
+                    
+                } catch (Exception e) {
+                    PreparedStatement ps2 = laConnexion.prepareStatement("select nomEquipe from PARTICIPER_EQUIPE where descriptionEpreuve = ? and sexe = ?");  
+                    ps2.setString(1, descriptionEpreuve);
+                    ps2.setString(2, sexeString);
+                    res = ps2.executeQuery();
+                    ps2.close();
+                    
+                    while(res.next()){
+                        try {
+                            List<Double> listeRes;
+                            epreuve.inscrire(this.modele.getEquipe(res.getString("nomEquipe")));
+                            for(Manche<Participant> manche :epreuve.getLesManches()){
+                                try {
+                                    PreparedStatement ps3 = laConnexion.prepareStatement("select resultat from PARTICIPER_EQUIPE where nomManche = ? and descriptionEpreuve = ? and sexe = ?");
+                                    ps3.setString(1, manche.getNomDeTour());
+                                    ps3.setString(2, descriptionEpreuve);
+                                    ps3.setString(3, sexeString);
+                                    ResultSet res2 = ps3.executeQuery();
+                                    listeRes = new ArrayList<>();
+                                    while(res2.next()){
+                                        listeRes.add(res2.getDouble("resultat"));
+                                    }
+                                    manche.setResultat(listeRes);
+                                } catch (Exception err) {
+                                    err.printStackTrace();
+                                }
+                               
+                            }
+                            
+                        } catch (Exception err) {
+                            err.printStackTrace();
+                        }
+                    }                
+                }
+
+            } catch (Exception err) {
+                err.printStackTrace();
+            }
         }
-
         return lesEpreuves;
     }
 
@@ -163,15 +233,19 @@ public class Requete {
             int endurance = resultSet.getInt("endurance");
             int agilite = resultSet.getInt("agilite");
             String nomPays2 = resultSet.getString("nomPays");
-    
-            lesAthletes.add(new Athlete(nomAthlete, prenomAthlete, sexeCaract, capaciteForce, agilite, endurance, getPaysbyNom(nomPays2)));
+            try {
+                lesAthletes.add(new Athlete(nomAthlete, prenomAthlete, sexeCaract, capaciteForce, agilite, endurance, this.modele.getPays(nomPays2)));
+                
+            } catch (DoesntExistException e) {
+                System.out.println("pays n'existe pas");
+            }
         }
         resultSet.close();
         statement.close();
     
         return lesAthletes;
     }
-    public Pays getPaysbyNom(String nomPays) throws SQLException{
+    public Pays getPaysbyNom(String nomPays, ModeleJO model) throws SQLException{
             
         Statement s=laConnexion.createStatement();
         ResultSet r=s.executeQuery("select * from PAYS where nomPays="+"\""+nomPays+"\""+";");
@@ -184,6 +258,7 @@ public class Requete {
         return new Pays(res, or,argent,bronze);    
     }
 
+
     public String getDrapeau(String nomPays) throws SQLException{
             
         Statement s=laConnexion.createStatement();
@@ -194,6 +269,7 @@ public class Requete {
         r.close();
         return pathImg;    
     }
+
 
     public Epreuve<?> getEpreuvebyDescpt(String descriptionEpreuve) throws SQLException{
             
@@ -209,8 +285,15 @@ public class Requete {
         String nomSport = r.getString("nomSport");
 
 
-        return new Epreuve<>(descripEpreuve,convertNomVersSport(nomSport),sexe); 
+        try {
+            return new Epreuve<>(descripEpreuve,this.modele.getSport(nomSport),sexe);
+        } catch (DoesntExistException e) {
+            e.printStackTrace();
+        } 
+        return null;
     }
+
+
     public List<Pays> selectPays() throws SQLException{
 
         List<Pays> lesPays = new ArrayList<>();
@@ -280,8 +363,10 @@ public class Requete {
             res.add(new Equipe(rs.getString("nomEquipe"))); 
             rs2 =s.executeQuery("SELECT * FROM EQUIPE NATURAL JOIN ATHLETE WHERE nomEquipe="+"\""+rs.getString("nomEquipe")+"\""); 
             while (rs2.next()) {
-                for(Athlete a:this.rechercherAthletes(rs2.getString("nomAthlete"),rs2.getString("prenomAthlete"),rs2.getString("sexe"),rs2.getString("nomPays"))){
-                    res.get(cpt).add(a);
+                try {
+                    res.get(cpt).add(modele.getAthlete(rs2.getString("nomAthlete"),rs2.getString("prenomAthlete"),rs2.getString("sexe").charAt(0),rs2.getString("nomPays")));
+                } catch (DoesntExistException e) {
+                    e.printStackTrace();
                 }
             }
             cpt++;
@@ -290,7 +375,10 @@ public class Requete {
     }
 
     
+
     //---------------Insert---------------------\\
+    
+
     public void insertPays(Pays p) throws  SQLException {
         PreparedStatement ps = laConnexion.prepareStatement("INSERT INTO PAYS (nomPays, nbMedailleOr, nbMedailleArgent,nbMedailleBronze) VALUES (?, ?, ?, ?)");
         ps.setString(1, p.getNomPays());
@@ -301,7 +389,7 @@ public class Requete {
 		ps.close();
     }
 
-    public void insertEpreuve(Epreuve<?> e) throws  SQLException {
+    public <T extends Participant> void insertEpreuve(Epreuve<T> e) throws  SQLException {
         PreparedStatement ps = laConnexion.prepareStatement("INSERT INTO EPREUVE (descriptionEpreuve, sexe, nomSport) VALUES (?, ?, ?)");
         ps.setString(1, e.getDescription());
 		ps.setString(2, String.valueOf(e.getSexe()));
@@ -325,16 +413,17 @@ public class Requete {
         ps.setString(1, e.getNom());
         ps.executeUpdate();
 		ps.close();
-        for(Athlete a : e){
-            ps = laConnexion.prepareStatement("INSERT INTO EST_CONSTITUE (nomEquipe,nom,prenom,sexe,nomPays) VALUES (?, ?, ?, ?, ?)");
-            ps.setString(1, e.getNom());
-            ps.setString(2, a.getNom());
-            ps.setString(3, a.getPrenom());
-            ps.setString(4, String.valueOf(a.getSexe()));
-            ps.setString(5, a.getPays().getNomPays());
-            ps.executeUpdate();
-            ps.close();
-        }
+    }
+
+    public void insertToEquipe(Equipe e, Athlete a) throws  SQLException {
+        PreparedStatement ps = laConnexion.prepareStatement("INSERT INTO EST_CONSTITUE (nomEquipe,nom,prenom,sexe,nomPays) VALUES (?, ?, ?, ?, ?)");
+        ps.setString(1, e.getNom());
+        ps.setString(2, a.getNom());
+        ps.setString(3, a.getPrenom());
+        ps.setString(4, String.valueOf(a.getSexe()));
+        ps.setString(5, a.getPays().getNomPays());
+        ps.executeUpdate();
+        ps.close();
     }
 
     public void insertAthlete(Athlete a) throws  SQLException {
@@ -422,37 +511,47 @@ public class Requete {
     }
 
     public void insertAllEpreuve() throws SQLException {
+        Sport voley = new VoleyBall();
+        Sport hand = new HandBall();
+        Sport escr = new Escrime();
+        Sport nat = new Natation();
+        Sport athle = new Athletisme();
         List<Epreuve<Participant>> lesEpreuves = new ArrayList<>(Arrays.asList(
-            new Epreuve<>("Natation 100 brasse", new Natation(), 'H'),
-            new Epreuve<>("Natation 100 brasse", new Natation(), 'F'),
-            new Epreuve<>("Natation relais libre", new Natation(), 'H'),
-            new Epreuve<>("Natation relais libre", new Natation(), 'F'),
-            new Epreuve<>("Handball", new HandBall(), 'H'),
-            new Epreuve<>("Handball", new HandBall(), 'F'),
-            new Epreuve<>("Volley-Ball", new VoleyBall(), 'H'),
-            new Epreuve<>("Volley-Ball", new VoleyBall(), 'F'),
-            new Epreuve<>("Escrime fleuret", new Escrime(), 'H'),
-            new Epreuve<>("Escrime fleuret", new Escrime(), 'F'),
-            new Epreuve<>("Escrime épée", new Escrime(), 'H'),
-            new Epreuve<>("Escrime épée", new Escrime(), 'F'),
-            new Epreuve<>("Athétisme 110 haies", new Athletisme(), 'H'),
-            new Epreuve<>("Athétisme 110 haies", new Athletisme(), 'F'),
-            new Epreuve<>("Athlétisme relais 400m", new Athletisme(), 'H'),
-            new Epreuve<>("Athlétisme relais 400m", new Athletisme(), 'F')
+            new Epreuve<>("Natation 100 brasse", nat, 'H'),
+            new Epreuve<>("Natation 100 brasse", nat, 'F'),
+            new Epreuve<>("Natation relais libre", nat, 'H'),
+            new Epreuve<>("Natation relais libre", nat, 'F'),
+            new Epreuve<>("Handball", hand, 'H'),
+            new Epreuve<>("Handball", hand, 'F'),
+            new Epreuve<>("Volley-Ball", voley, 'H'),
+            new Epreuve<>("Volley-Ball", voley, 'F'),
+            new Epreuve<>("Escrime fleuret", escr, 'H'),
+            new Epreuve<>("Escrime fleuret", escr, 'F'),
+            new Epreuve<>("Escrime épée", escr, 'H'),
+            new Epreuve<>("Escrime épée", escr, 'F'),
+            new Epreuve<>("Athétisme 110 haies", athle, 'H'),
+            new Epreuve<>("Athétisme 110 haies", athle, 'F'),
+            new Epreuve<>("Athlétisme relais 400m", athle, 'H'),
+            new Epreuve<>("Athlétisme relais 400m", athle, 'F')
         ));
-        
-        PreparedStatement ps;
-        for (Epreuve<?> epreuve : lesEpreuves) {
-            ps = laConnexion.prepareStatement("INSERT INTO EPREUVE (descriptionEpreuve, sexe, nomSport) VALUES (?, ?, ?)");
-            System.out.println("epreuve :" + epreuve);
-            ps.setString(1, epreuve.getDescription());
-            ps.setString(2, String.valueOf(epreuve.getSexe()));
-            ps.setString(3, epreuve.getSport().getSport());
-
-            ps.executeUpdate();
-            ps.close();
+        for (Epreuve<Participant> epreuve : lesEpreuves) {
+            insertEpreuve(epreuve);
+            
         }
+        // PreparedStatement ps;
+        // for (Epreuve<Participant> epreuve : lesEpreuves) {
+        //     ps = laConnexion.prepareStatement("INSERT INTO EPREUVE (descriptionEpreuve, sexe, nomSport) VALUES (?, ?, ?)");
+        //     System.out.println("epreuve :" + epreuve);
+        //     ps.setString(1, epreuve.getDescription());
+        //     ps.setString(2, String.valueOf(epreuve.getSexe()));
+        //     ps.setString(3, epreuve.getSport().getSport());
+
+        //     ps.executeUpdate();
+        //     ps.close();
+        // }
     }
+
+
     
     //---------------Modifieur-------------------\\
     //---------------Delete----------------------\\
