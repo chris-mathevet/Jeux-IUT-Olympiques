@@ -347,7 +347,6 @@ public class ModeleJO {
             try {
                 this.requete.insertAthlete(athlete);
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -414,6 +413,11 @@ public class ModeleJO {
 
     public void inscrireEpreuve(Participant participant, Epreuve<Participant> epreuve) throws AlreadyInException, CanNotRegisterException, NotSameGenderException{
         epreuve.inscrire(participant);
+        try {
+            this.requete.insertParticipantToEpreuve(participant, epreuve);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }  
     }
 
     public List<Participant> lesInscrits(Epreuve<Participant> epreuve){
@@ -426,15 +430,30 @@ public class ModeleJO {
 
     public List<Participant> leClassement(Epreuve<Participant> epreuve){
         return epreuve.getLeClassement();
+        // try {
+        //     this.requete.insertResultat(epreuve);
+        // } catch (SQLException e) {
+        //     e.printStackTrace();
+        // } 
     }
 
     public void lancerEpreuve(Epreuve<Participant> epreuve){
         epreuve.getLeClassement();
+        try {
+            this.requete.insertResultat(epreuve);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }  
     }
 
     public void lancerToutEpreuves(){
-        for (Epreuve<? extends Participant> epreuve : this.lesEpreuves){
+        for (Epreuve< Participant> epreuve : this.lesEpreuves){
             epreuve.getLeClassement();
+            try {
+                this.requete.insertResultat(epreuve);
+            } catch (Exception e) {
+                e.printStackTrace();
+            } 
         }
     }
 }
