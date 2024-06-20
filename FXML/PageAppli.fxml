@@ -13,16 +13,16 @@
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="TOP_RIGHT">
+            <HBox styleClass="boxUser">
                <children>
                   <VBox>
                      <children>
-                        <Text fx:id="userName" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+                        <Text fx:id="userName" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="userRole" text="Username">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                         </Text>
-                        <Text fx:id="role" strokeType="OUTSIDE" strokeWidth="0.0" text="Role" />
+                        <Text fx:id="role" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="userRole" text="Role" />
                      </children>
                      <HBox.margin>
                         <Insets top="3.0" />
@@ -30,7 +30,7 @@
                   </VBox>
                </children>
                <VBox.margin>
-                  <Insets right="70.0" />
+                  <Insets />
                </VBox.margin>
             </HBox>
             <HBox alignment="TOP_CENTER">
