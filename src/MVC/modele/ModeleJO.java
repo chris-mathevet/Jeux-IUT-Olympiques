@@ -37,7 +37,7 @@ public class ModeleJO {
     public ModeleJO(){
         try {
             this.co = new ConnexionMySql();
-            this.requete = new Requete(this.co);
+            this.requete = new Requete(this.co,this);
             
         } catch (Exception e) {
             System.out.println("ca marche passs" + e);
@@ -49,7 +49,7 @@ public class ModeleJO {
         try {
             this.co.close();
             this.co = new ConnexionMySql();
-            this.requete = new Requete(this.co);
+            this.requete = new Requete(this.co,this);
         } catch (Exception e) {
             System.out.println("ca marche passs" + e);
         }
