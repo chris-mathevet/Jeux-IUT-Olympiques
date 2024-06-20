@@ -3,6 +3,7 @@ package MVC.controleur;
 
 import MVC.vues.AppliJO;
 import MVC.vues.Connexion;
+import MVC.vues.Roles;
 import MVC.modele.ModeleConnexion;
 import MVC.modele.ModeleJO;
 
@@ -49,22 +50,24 @@ public class ControleurBoutonConnexion implements EventHandler<ActionEvent>{
     public void handle(ActionEvent actionEvent) {
         Button bouton = (Button) actionEvent.getSource();
         int req = 0;
+        String roleCo = "";
         this.conditionBox.getChildren().remove(this.boxErreur);
         Node erreur = null;
         if(this.modele.getEstConnexion()){
-            req = this.modele.connexion();
-            if(req == -1){ // Identifiant n'existe pas
+            roleCo = this.modele.connexion();
+            if(roleCo == "-1"){ // Identifiant n'existe pas
                 this.erreurText.setText("Ce nom d'utilisateur n'existe pas");
                 erreur = this.boxErreur;
                 bouton.setDisable(true);
             }
-            else if(req == -2){  // Problème connexion
+            else if(roleCo == "-2"){  // Problème connexion
                 this.erreurText.setText("Problème de connexion");
                 erreur = this.boxErreur;
                 bouton.setDisable(true);
             }
             else{ // Connexion réussi
                 this.vue.setUtilisateur(this.modele.getIdentifiant());
+                this.vue.setRole(Roles.getRole(roleCo));
                 try {
                     this.vue.modeAppli();
                 } catch (Exception e) {
@@ -91,6 +94,7 @@ public class ControleurBoutonConnexion implements EventHandler<ActionEvent>{
             }
             else{ // Connexion réussi
                 this.vue.setUtilisateur(this.modele.getIdentifiant());
+                this.vue.setRole(Roles.getRole("visiteur"));
                 try {
                     this.vue.modeAppli();
                 } catch (Exception e) {

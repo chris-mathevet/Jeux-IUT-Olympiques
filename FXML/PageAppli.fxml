@@ -5,46 +5,84 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <BorderPane id="application" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@style_app.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <top>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <VBox BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="boutonClassement" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" styleClass="lesBoutonsNav" text="Classement">
-               <HBox.margin>
-                  <Insets right="5.0" />
-               </HBox.margin>
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Button>
-            <Button id="boutonEpreuve" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="125.0" styleClass="lesBoutonsNav" text="Epreuves">
-               <HBox.margin>
-                  <Insets right="2.5" />
-               </HBox.margin>
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Button>
-            <Button id="boutonParticipants" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" styleClass="lesBoutonsNav" text="Participants">
-               <HBox.margin>
-                  <Insets left="2.5" />
-               </HBox.margin>
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Button>
-            <Button id="boutonParametre" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" styleClass="lesBoutonsNav" text="Paramètres">
-               <HBox.margin>
-                  <Insets left="5.0" />
-               </HBox.margin>
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Button>
+            <BorderPane>
+               <left>
+                  <VBox styleClass="boxUser" BorderPane.alignment="CENTER">
+                     <children>
+                        <Text fx:id="userName" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="userRole" text="Username">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="role" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="userRole" text="Role" />
+                     </children>
+                  </VBox>
+               </left>
+               <right>
+                  <HBox BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets right="15.0" />
+                     </BorderPane.margin>
+                     <children>
+                        <Button fx:id="refresh" mnemonicParsing="false">
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button fx:id="boutonDeconnexion" mnemonicParsing="false" styleClass="lesBoutons" text="Déconnexion" />
+                     </children>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </HBox>
+               </right>
+            </BorderPane>
+            <HBox alignment="TOP_CENTER">
+               <children>
+                  <Button fx:id="boutonClassement" graphicTextGap="0.0" maxWidth="-Infinity" mnemonicParsing="false" prefWidth="150.0" styleClass="lesBoutonsNav" text="Classement">
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Button id="boutonEpreuve" maxWidth="-Infinity" mnemonicParsing="false" prefWidth="125.0" styleClass="lesBoutonsNav" text="Epreuves">
+                     <HBox.margin>
+                        <Insets right="2.5" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Button id="boutonParticipants" maxWidth="-Infinity" mnemonicParsing="false" prefWidth="150.0" styleClass="lesBoutonsNav" text="Participants">
+                     <HBox.margin>
+                        <Insets left="2.5" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Button id="boutonParametre" maxWidth="-Infinity" mnemonicParsing="false" prefWidth="150.0" styleClass="lesBoutonsNav" text="Paramètres">
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
          </children>
-      </HBox>
+      </VBox>
    </top>
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">

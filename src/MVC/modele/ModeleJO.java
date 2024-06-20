@@ -32,17 +32,28 @@ public class ModeleJO {
     private Natation nat;
     private Athletisme athle;
     private Requete requete;
+    private ConnexionMySql co;
 
     public ModeleJO(){
         try {
-            ConnexionMySql co = new ConnexionMySql();
-            this.requete = new Requete(co);
+            this.co = new ConnexionMySql();
+            this.requete = new Requete(this.co);
             
         } catch (Exception e) {
-            System.out.println("ca marche passs");
+            System.out.println("ca marche passs" + e);
         }
         this.init();
+    }
 
+    public void reload(){
+        try {
+            this.co.close();
+            this.co = new ConnexionMySql();
+            this.requete = new Requete(this.co);
+        } catch (Exception e) {
+            System.out.println("ca marche passs" + e);
+        }
+        this.init();
     }
 
     public void init(){
@@ -55,9 +66,7 @@ public class ModeleJO {
 
         try {
             this.lesPays = requete.selectPays();  
-            System.out.println(this.lesPays);             
         } catch (Exception e) {
-            System.out.println("fdp"+ e);
             this.lesPays = new ArrayList<>();
         }
         try {
