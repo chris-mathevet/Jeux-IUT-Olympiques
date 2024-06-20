@@ -1,5 +1,13 @@
 package MVC.modele;
 
+import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Set;
+
+import database.ConnexionMySql;
+import database.Requete;
+
+
 public class ModeleConnexion {
     private String identifiant;
     private String mdp;
@@ -8,14 +16,25 @@ public class ModeleConnexion {
     /**true si mode Connexion, sinon false (Inscription)*/
     private boolean estConnexion;
 
+    ConnexionMySql co;
+
+    Requete requete ;
+
     public ModeleConnexion(){
         this.identifiant = "";
         this.mdp = "";
         this.mdpVerif = "";
         this.mail = "";
         this.estConnexion = true;
-    }
 
+        try {
+            this.co = new ConnexionMySql();
+            // this.co = new ConnexionMySql("meunier");
+            this.requete = new Requete(co);
+        } catch (SQLException e) {
+            System.err.println("probleme connexion base de donnée");
+        }
+    }
     public void setIdentifiant(String identifiant) {
         this.identifiant = identifiant;
     }
@@ -34,6 +53,10 @@ public class ModeleConnexion {
 
     public void changementMode() {
         this.estConnexion = ! this.estConnexion;
+    }
+
+    public String getIdentifiant() {
+        return this.identifiant;
     }
 
     public boolean getEstConnexion(){
@@ -66,14 +89,23 @@ public class ModeleConnexion {
      * @return boolean
      */
     public boolean mailNonExistant(){
-        return true;
+        Set<String> lesMails = new HashSet<>();
+        try {
+            lesMails = requete.selectUserMail();
+
+        } catch (SQLException e) {
+            System.err.println("Probleme lors de la recuperation des Emails ! \n l'Erreur :" + e);
+        }
+        return !(lesMails.contains(this.mail));
+
     }
 
     /** Renvoie si le mail est valide (toutes vérifications)
      * @return boolean
      */
     public boolean mailCorecte(){
-        return this.mailVerif() && this.mailNonExistant();
+        return this.mailVerif();
+        // return this.mailVerif() && this.mailNonExistant();
     }
 
     // Partie verif IDENTIFIANT __________________________________________________________
@@ -82,7 +114,14 @@ public class ModeleConnexion {
      * @return
      */
     public boolean identifiantNonExistant(){
-        return true;
+        Set<String> lesUsers = new HashSet<>();
+        try {
+            lesUsers = requete.selectUser();
+
+        } catch (SQLException e) {
+            System.err.println("Probleme lors de la recuperation des Users ! \n l'Erreur :" + e);
+        }
+        return !(lesUsers.contains(this.identifiant));
     }
 
     /**
@@ -97,7 +136,8 @@ public class ModeleConnexion {
      * @return boolean
      */
     public boolean identifiantCorect(){
-        return this.identifiantNonExistant() && this.identifiantContient8();
+        return this.identifiantContient8();
+        // return this.identifiantNonExistant() && this.identifiantContient8();
     }
 
     // Partie verif MDP __________________________________________________________
@@ -187,13 +227,28 @@ public class ModeleConnexion {
     }
 
     /**
-     * Renvoie le mdp hashé si on peut s'iscrire, sinon 0
+     * Renvoie le mdp hashé si on peut s'iscrire, 0 si on ne peut pas s'inscrire, -1 si l'id existe déjà et -2 si le mail existe déjà
      * @return
      */
     public int inscrire(){
         int mdp = 0;
         if(this.peutSinscrire()){
-            mdp = this.cryptage();
+            if(! this.identifiantNonExistant()){
+                mdp = -1;
+            }
+            else if(! this.mailNonExistant()){
+                mdp = -2;
+            }
+            else{
+                mdp = this.cryptage();
+                try{
+                    this.requete.insertUser(this.identifiant, mdp, this.mail, "visiteur");
+                }
+                catch(SQLException e){
+                    System.err.println(e.getMessage());
+                    mdp = -3;
+                }
+            }
         }
         return mdp;
     }
@@ -204,17 +259,30 @@ public class ModeleConnexion {
      */
     public boolean peutSeConnecter(){
         if(this.estConnexion){
-            if(! this.identifiantNonExistant()){return false;}
-            return true;
+            return (!(this.identifiant.equals("")) && !(this.mdp.equals("")));
         }
         return false;
     }
 
     /**
-     * Renvoie vrai si la connexion s'est efféctué
+     * Renvoie le nom d'utilisateur si la connexion a réussi
      * @return
      */
-    public boolean connexion(){
-        return true;
+    public int connexion(){
+        int user = 0;
+        if(this.estConnexion){
+            if(this.identifiantNonExistant()){
+                user = -1; // Identifiant n'existe pas
+            }
+            else{
+                try {
+                    this.requete.getUser(this.identifiant, this.cryptage());
+                    user = 10;
+                } catch (SQLException e) {
+                    user = -2; // Non trouvé 
+                }
+            }
+        }
+        return user;
     }
 }

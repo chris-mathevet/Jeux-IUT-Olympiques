@@ -8,6 +8,13 @@ public class ConnexionMySql {
 		this.mysql = DriverManager.getConnection(
 					"jdbc:mysql://cigale1.lescigales.org:3310/s4a_julian","s4a_julian","VUpitdBD");
 	}
+	public ConnexionMySql(String leGens) throws SQLException{
+        this.mysql = DriverManager.getConnection(
+                     "jdbc:mysql://servinfo-maria:3306/DB"+leGens,leGens,leGens);
+                    //"jdbc:mysql://servinfo-maria:3306/DBmarques","marques","marques");
+					// "jdbc:mysql://"+nomServeur+":3306/"+nomBase,nomLogin, motDePasse);
+
+    } 
 
 
 	public void close() throws SQLException {
