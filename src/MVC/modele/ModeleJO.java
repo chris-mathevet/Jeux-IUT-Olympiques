@@ -76,6 +76,7 @@ public class ModeleJO {
         } catch (Exception e) {
             this.lesEpreuves = new ArrayList<>();
         }
+        this.lesPays.add(new Pays("France"));
 
     }   
 
