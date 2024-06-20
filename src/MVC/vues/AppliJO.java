@@ -53,13 +53,11 @@ public class AppliJO extends Application {
 
   
     private BorderPane modeleEpreuve;
-    private ComboBox menuSportEpreuve;
-    private ComboBox menuSexeEpreuve;
+    private ComboBox<String> menuSportEpreuve;
+    private ComboBox<String> menuSexeEpreuve;
     private TextField txtFieldDesc;
 
     private Text txtNomModeleEpreuve;
-    private ImageView imgSexeModeleEpreuve;
-    private ImageView imgSportModeleEpreuve;
     
 
     @Override
@@ -77,12 +75,10 @@ public class AppliJO extends Application {
         this.role = Roles.VISITEUR;
         this.contenus = new VBox();
         
-        this.menuSportEpreuve = new ComboBox();
-        this.menuSexeEpreuve = new ComboBox();
+        this.menuSportEpreuve = new ComboBox<>();
+        this.menuSexeEpreuve = new ComboBox<>();
         this.txtFieldDesc = new TextField();
         this.txtNomModeleEpreuve = new Text();
-        this.imgSexeModeleEpreuve = new ImageView("logoMale2.png");
-        this.imgSportModeleEpreuve = new ImageView("Athletisme.png");
     }
 
     @Override
@@ -368,7 +364,6 @@ public class AppliJO extends Application {
         VBox grosContenu = (VBox) centre.getContent();
 
         contenus = (VBox) grosContenu.lookup("#vboxEpreuve");
-        System.out.println(contenus.getChildren());
 
         this.boutonClassement.setDisable(false);
         this.boutonEpreuve.setDisable(true);
@@ -377,22 +372,20 @@ public class AppliJO extends Application {
         this.boutonAjouterEpreuve = (Button) grosContenu.lookup("#boutonAjouter");
         this.boutonAjouterEpreuve.setOnAction(new ControleurAjouter(this, modele));
 
-        this.menuSportEpreuve = (ComboBox) grosContenu.lookup("#menuSportEpreuve");
-        this.menuSexeEpreuve = (ComboBox) grosContenu.lookup("#menuPaysEpreuve");
+        this.menuSportEpreuve = (ComboBox<String>) grosContenu.lookup("#menuSportEpreuve");
+        this.menuSexeEpreuve = (ComboBox<String>) grosContenu.lookup("#menuPaysEpreuve");
 
         this.menuSexeEpreuve.getItems().addAll("Homme", "Femme");
         this.menuSportEpreuve.getItems().addAll("VolleyBall", "HandBall", "Athletisme", "Escrime", "Natation");
         
-
-      
-        this.txtFieldDesc = (TextField) grosContenu.lookup("#txtFieldDesc");       
+        this.txtFieldDesc = (TextField) grosContenu.lookup("#txtFieldDesc");
     }
 
-    public ComboBox getComboSexe() {
+    public ComboBox<String> getComboSexe() {
         return this.menuSexeEpreuve;
     }
 
-    public ComboBox getComboSport() {
+    public ComboBox<String> getComboSport() {
         return this.menuSportEpreuve;
     }
 
@@ -421,9 +414,9 @@ public class AppliJO extends Application {
     }
 
 
-    public void ajoutEpreuve(Epreuve epreuve) throws Exception {
+    public void ajoutEpreuve(Epreuve<Participant> epreuve) throws Exception {
         BorderPane ep = modeleCreationEpreuve();
-        this.contenus.getChildren().add(ep);
+        this.contenus.getChildren().add(ep);     
     
         ImageView imageSport = (ImageView) ep.lookup("#imageSport");
         Image imageSportTemp;
@@ -455,6 +448,7 @@ public class AppliJO extends Application {
         imageSport.setFitHeight(30);
         imageSport.setPreserveRatio(true);
 
+        System.out.println(epreuve.getSexe());
         if(epreuve.getSexe() == 'H'){
             imageSexeTemp = new Image("logoMale2.png");
         }
@@ -475,16 +469,15 @@ public class AppliJO extends Application {
     public void majEpreuve(List<Epreuve<Participant>> lesEpreuves) throws Exception{
         if (!(lesEpreuves.isEmpty())) {
             this.contenus.getChildren().clear();
-            for (Epreuve ep : lesEpreuves) {
+            for (Epreuve<Participant> ep : lesEpreuves) {
                 try {
                     ajoutEpreuve(ep);
+   
                 } catch (Exception e) {
                     System.err.println(e.getMessage());
                 }
             }
         }
-        System.out.println(lesEpreuves);
-
     }
 
      public BorderPane modeleCreationEpreuve() throws Exception {
