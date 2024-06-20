@@ -24,6 +24,7 @@
 
 .table-view .table-cell{
     -fx-border-color: #0000008a;
+    -fx-border-width: 0.5;
     -fx-padding: 2 0 2 10px;
 }
 
