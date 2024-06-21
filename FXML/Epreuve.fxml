@@ -9,11 +9,12 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane fx:id="borderPaneEpreuve" prefHeight="174.0" prefWidth="456.0" stylesheets="@style_app.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <TableView id="tableView" opacity="0.9" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView id="tableView" opacity="0.9" BorderPane.alignment="CENTER">
          <columns>
             <TableColumn editable="false" text="Place" />
             <TableColumn editable="false" resizable="false" text="Pays" />
@@ -21,31 +22,57 @@
             <TableColumn editable="false" resizable="false" text="Prénom" />
             <TableColumn editable="false" resizable="false" text="Total" />
          </columns>
-         <padding>
-            <Insets left="10.0" right="10.0" />
-         </padding>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
+         <BorderPane.margin>
+            <Insets left="10.0" right="10.0" />
+         </BorderPane.margin>
       </TableView>
    </center>
    <top>
-      <HBox alignment="TOP_CENTER" opacity="0.9" prefHeight="39.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button mnemonicParsing="false" styleClass="lesBoutons" text="+" />
-            <ImageView fx:id="imageSport" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-               <HBox.margin>
-                  <Insets right="30.0" />
-               </HBox.margin>
-            </ImageView>
-            <Text fx:id="modeleEpreuveNom" strokeType="OUTSIDE" strokeWidth="0.0" text="Epreuve">
-               <HBox.margin>
-                  <Insets left="100.0" right="175.0" />
-               </HBox.margin>
-            </Text>
-            <ImageView fx:id="imageSexe" fitHeight="25.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
-         </children>
-      </HBox>
+      <BorderPane styleClass="hearderEpreuve" BorderPane.alignment="CENTER">
+         <left>
+            <Button mnemonicParsing="false" styleClass="lesBoutons" text="+" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </BorderPane.margin>
+            </Button>
+         </left>
+         <right>
+            <HBox alignment="CENTER" opacity="0.9" spacing="20.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox styleClass="imageEpreuve">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                     <children>
+                        <ImageView fx:id="imageSport" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" styleClass="imageEpreuve" />
+                     </children>
+                  </HBox>
+                  <HBox styleClass="imageEpreuve">
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                     <children>
+                        <ImageView fx:id="imageSexe" fitHeight="25.0" fitWidth="32.0" pickOnBounds="true" styleClass="imageEpreuve" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+         </right>
+         <center>
+            <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+               <children>
+                  <Text fx:id="modeleEpreuveNom" strokeType="OUTSIDE" strokeWidth="0.0" text="Epreuve">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+         </center>
+      </BorderPane>
    </top>
    <bottom>
       <HBox alignment="CENTER" prefHeight="43.0" prefWidth="452.0" BorderPane.alignment="BOTTOM_CENTER">
