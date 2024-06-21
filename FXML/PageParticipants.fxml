@@ -15,12 +15,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<ScrollPane hbarPolicy="NEVER" prefHeight="285.0" prefWidth="538.0" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane hbarPolicy="NEVER" prefHeight="285.0" prefWidth="538.0" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="541.0">
          <children>
-            <TitledPane alignment="TOP_LEFT" contentDisplay="CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="538.0" text="Athlètes">
+            <TitledPane fx:id="titledAthlete" alignment="TOP_LEFT" contentDisplay="CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="538.0" text="Athlètes">
                <content>
                   <BorderPane prefHeight="200.0" prefWidth="500.0" stylesheets="@style_app.css">
                      <top>
@@ -76,21 +75,21 @@
                      <bottom>
                         <HBox alignment="CENTER" prefHeight="43.0" prefWidth="452.0" spacing="10.0" BorderPane.alignment="CENTER">
                            <children>
-                              <TextField prefHeight="20.0" prefWidth="85.0" promptText="Nom">
+                              <TextField fx:id="fieldnomDansParticipants" prefHeight="20.0" prefWidth="85.0" promptText="Nom" visible="false">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
                               </TextField>
-                              <TextField layoutX="146.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Prénom" />
-                              <TextField layoutX="104.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Force" />
-                              <TextField layoutX="241.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Endurance" />
-                              <TextField layoutX="198.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Agilité" />
+                              <TextField fx:id="fieldPrenomParticipants" layoutX="146.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Prénom" visible="false" />
+                              <TextField fx:id="fieldForceParticipants" layoutX="104.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Force" visible="false" />
+                              <TextField fx:id="fieldEnduranceParticipants" layoutX="241.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Endurance" visible="false" />
+                              <TextField fx:id="fieldagiliteParticipants" layoutX="198.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Agilité" visible="false" />
                               <MenuButton mnemonicParsing="false" prefHeight="24.0" prefWidth="71.0" text="Pays">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </MenuButton>
-                              <Button mnemonicParsing="false" prefHeight="24.0" prefWidth="100.0" text="Ajouter">
+                              <Button fx:id="boutonAddParticipants" mnemonicParsing="false" prefHeight="24.0" prefWidth="100.0" text="Ajouter" visible="false">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
@@ -104,7 +103,7 @@
                   <Insets left="10.0" top="20.0" />
                </VBox.margin>
             </TitledPane>
-            <TitledPane alignment="TOP_LEFT" layoutX="10.0" layoutY="30.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="538.0" text="Equipes">
+            <TitledPane fx:id="titledEquipe" alignment="TOP_LEFT" layoutX="10.0" layoutY="30.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="538.0" text="Equipes">
                <content>
                   <BorderPane prefHeight="200.0" prefWidth="500.0" stylesheets="@style_app.css">
                      <top>
@@ -160,7 +159,7 @@
                      <bottom>
                         <HBox alignment="CENTER" prefHeight="43.0" prefWidth="452.0" BorderPane.alignment="CENTER">
                            <children>
-                              <TextField prefHeight="20.0" prefWidth="85.0" promptText="Nom">
+                              <TextField fx:id="fieldnomEquipeDansParticipants" prefHeight="20.0" prefWidth="85.0" promptText="Nom" visible="false">
                                  <HBox.margin>
                                     <Insets left="10.0" right="10.0" />
                                  </HBox.margin>
@@ -170,7 +169,7 @@
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </MenuButton>
-                              <Button mnemonicParsing="false" prefHeight="24.0" prefWidth="78.0" text="Ajouter">
+                              <Button fx:id="boutonAddEquipeParticipants" mnemonicParsing="false" prefHeight="24.0" prefWidth="78.0" text="Ajouter" visible="false">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
