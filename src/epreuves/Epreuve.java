@@ -18,6 +18,7 @@ public class Epreuve<T extends Participant> {
 	private T premier; 
 	private T second; 
 	private T troisieme; 
+	private List<Double> lesResultats;
 	private List<T> leClassement;
 
 	/**
@@ -38,6 +39,7 @@ public class Epreuve<T extends Participant> {
 		this.second = null;
 		this.troisieme = null;
 		this.leClassement = new ArrayList<>();
+		this.lesResultats = new ArrayList<>();
 	}
 
 	public List<T> getLesParticipants() {
@@ -73,9 +75,13 @@ public class Epreuve<T extends Participant> {
 	}
 
 	public List<T> getLeClassement() {
-		if(this.leClassement.isEmpty()){this.classement();}
-		this.majMedailles();
-		return this.leClassement;
+		if((this.lesParticipants.size()>2)){
+			if(this.leClassement.isEmpty()){this.classement();}
+			this.majMedailles();
+			return this.leClassement;
+		}
+
+		return null;
 	}
 
 	private void setPremier(T premier) {
@@ -164,9 +170,9 @@ public class Epreuve<T extends Participant> {
 				for(int i = 0; i<resultats.size();++i){
 					resultats.set(i, resultats.get(i) + resultatManche.get(i));
 				}
-				
 			}
 		}
+		System.out.println(resultats);
 		return resultats;
 	}
 
@@ -189,7 +195,9 @@ public class Epreuve<T extends Participant> {
 	 * @return List<T> Le classement pour une épreuve
 	 */
 	private void classement() {
-		List<Double> resultats = this.moyResultats();
+		this.lesResultats = this.moyResultats();
+		System.out.println("Les res");
+		System.out.println(this.lesResultats);
 		this.leClassement = new ArrayList<>(this.lesParticipants);
 		int indMinMax = 0;
 		Double tmp = null;
@@ -198,23 +206,23 @@ public class Epreuve<T extends Participant> {
 		// si il est en temps, le résultat est calculé selon la méthode du minimum (plus petit temps en premier)
 		// sinon le résultat est calculé selon la méthode du maximum (plus grand nombre de points en premier)
 		if(this.getSport().getEstTemps()){
-			for (int i = 0; i<resultats.size();++i){
-				indMinMax = Manche.indiemeMin(resultats, i); // Indice du min
+			for (int i = 0; i<this.lesResultats.size();++i){
+				indMinMax = Manche.indiemeMin(this.lesResultats, i); // Indice du min
 				// Permutation du min et de l'actuel
-				tmp = resultats.get(i);
-                resultats.set(i, resultats.get(indMinMax));
-                resultats.set(indMinMax,tmp);
+				tmp = this.lesResultats.get(i);
+                this.lesResultats.set(i, this.lesResultats.get(indMinMax));
+                this.lesResultats.set(indMinMax,tmp);
 				// MAJ du classement
 				this.leClassement.set(i, this.lesParticipants.get(indMinMax));
 			}
 		}
 		else{
-			for (int i = 0; i<resultats.size();++i){
-				indMinMax = Manche.indiemeMax(resultats, i); // Indice du max
+			for (int i = 0; i<this.lesResultats.size();++i){
+				indMinMax = Manche.indiemeMax(this.lesResultats, i); // Indice du max
 				// Permutation du max et de l'actuel
-				tmp = resultats.get(i);
-                resultats.set(i, resultats.get(indMinMax));
-                resultats.set(indMinMax,tmp);
+				tmp = this.lesResultats.get(i);
+                this.lesResultats.set(i, this.lesResultats.get(indMinMax));
+                this.lesResultats.set(indMinMax,tmp);
 				// MAJ du classement
 				this.leClassement.set(i, this.lesParticipants.get(indMinMax));
 			}
@@ -245,15 +253,9 @@ public class Epreuve<T extends Participant> {
 			if(this.premier == null || this.second == null || this.troisieme == null){
 				this.majPodium();
 				try{
-					System.out.println(this.premier);
-					System.out.println(this.second);
-					System.out.println(this.troisieme);
 					this.premier.getPays().addMedailleOr(1);
 					this.second.getPays().addMedailleArgent(1);
 					this.troisieme.getPays().addMedailleBronze(1);
-					System.out.println(this.premier.getPays());
-					System.out.println(this.second.getPays());
-					System.out.println(this.troisieme.getPays());
 
 				} catch(Exception e){
 					System.err.println("Probleme maj médailles, pas accès de participant pour cet épreuve");
@@ -262,7 +264,6 @@ public class Epreuve<T extends Participant> {
 			}
 			else{
 				try{
-					System.out.println("oui");
 					this.premier.getPays().addMedailleOr(-1);
 					this.second.getPays().addMedailleArgent(-1);
 					this.troisieme.getPays().addMedailleBronze(-1);
@@ -270,9 +271,6 @@ public class Epreuve<T extends Participant> {
 					this.premier.getPays().addMedailleOr(1);
 					this.second.getPays().addMedailleArgent(1);
 					this.troisieme.getPays().addMedailleBronze(1);
-					System.out.println(this.premier.getPays());
-					System.out.println(this.second.getPays());
-					System.out.println(this.troisieme.getPays());
 				} catch(Exception e){
 					System.err.println("Probleme maj médailles, pas accès de participant pour cet épreuve");
 					System.err.println(e.getMessage());
@@ -280,6 +278,13 @@ public class Epreuve<T extends Participant> {
 			}
 		}
 		System.out.println();
+	}
+
+	public Double getResultatParticipant(T participant){
+		if(this.getLeClassement() != null){
+			return this.lesResultats.get(this.leClassement.indexOf(participant));
+		}
+		return null;
 	}
 
 	@Override

@@ -94,7 +94,34 @@ public class ModeleJO {
             this.lesEpreuves = new ArrayList<>();
         }
 
+        this.creerTest();
+
     }   
+
+    private void creerTest(){
+        try {
+            // this.creerPays("France");
+            // this.creerAthlete("Mathevet", "Chris", "H", 10, 15, 16, "France");
+            // this.creerAthlete("Meunier", "Chris", "H", 10, 15, 16, "France");
+            // this.creerAthlete("Julian", "Chris", "H", 10, 15, 16, "France");
+            // this.creerAthlete("Baptiste", "Chris", "H", 10, 15, 16, "France");
+            // this.creerEpreuve((new Epreuve<Participant>("TestEPREUVE", athle, 'H')));
+            Epreuve<Participant> epreuve = this.getEpreuve("TestEPREUVE", 'H');
+            this.inscrireEpreuve(this.getAthlete("Mathevet", "Chris", 'H', "France"), epreuve);
+            this.inscrireEpreuve(this.getAthlete("Meunier", "Chris", 'H', "France"), epreuve);
+            this.inscrireEpreuve(this.getAthlete("Julian", "Chris", 'H', "France"), epreuve);
+            this.inscrireEpreuve(this.getAthlete("Baptiste", "Chris", 'H', "France"), epreuve);
+            Manche<Participant> manche = new Manche<>(1, "tour", epreuve);
+            System.out.println(epreuve);
+            System.out.println(epreuve.getLesParticipants());
+            
+
+        } catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+        System.out.println(this.getLesEpreuves());
+      
+    }
 
     // Geteurs 
 
@@ -154,9 +181,9 @@ public class ModeleJO {
         throw new DoesntExistException("Cet athlete n'existe pas");
     }
 
-    public Epreuve<? extends Participant> getEpreuve(String epreuve, char sexe) throws DoesntExistException{
+    public Epreuve<Participant> getEpreuve(String epreuve, char sexe) throws DoesntExistException{
         
-        for (Epreuve<? extends Participant> epreuve2: this.lesEpreuves){
+        for (Epreuve<Participant> epreuve2: this.lesEpreuves){
             if(epreuve2.getDescription().equals(epreuve) && epreuve2.getSexe() == sexe){
                 return epreuve2;
             }
@@ -194,8 +221,8 @@ public class ModeleJO {
     public void csvToListe(String chemin){
         String ligne;
         String split =",";
-        Epreuve<Athlete> vraiEpreuve;
-        Epreuve<Equipe> vraiEpreuveEquipe;
+        Epreuve<Participant> vraiEpreuve;
+        Epreuve<Participant> vraiEpreuveEquipe;
         String[] ligneElems;
         Pays pays;
         String nom;
@@ -238,11 +265,11 @@ public class ModeleJO {
                             try {
                                 LibCreation.creerAthlete(this.lesAthletes, mich);
                                 try {
-                                    vraiEpreuve = (Epreuve<Athlete>) this.getEpreuve(epreuve, mich.getSexe());
+                                    vraiEpreuve = this.getEpreuve(epreuve, mich.getSexe());
                                     vraiEpreuve.inscrire(mich);    
                     
                                 } catch (DoesntExistException doesntExistException) {
-                                    System.err.println("\n" + doesntExistException.getMessage() +"epreuve: "+ ((Epreuve<Athlete>) this.getEpreuve(epreuve, mich.getSexe())).getDescription() + "\n");
+                                    System.err.println("\n" + doesntExistException.getMessage() +"epreuve: "+ (this.getEpreuve(epreuve, mich.getSexe())).getDescription() + "\n");
                                 } catch (CanNotRegisterException canNotRegisterException) {
                                     nomEquipe = pays.getNomPays() + epreuve + mich.getSexe();
                                     try {
@@ -253,7 +280,7 @@ public class ModeleJO {
                                     }
                                     try {
                                         equipe.ajouter(mich);
-                                        vraiEpreuveEquipe = (Epreuve<Equipe>) this.getEpreuve(epreuve, equipe.getSexe());
+                                        vraiEpreuveEquipe = this.getEpreuve(epreuve, equipe.getSexe());
                                         vraiEpreuveEquipe.inscrire(equipe);    
                                     } catch (AlreadyInException e2) {
                                         System.err.println("N'est pas censé s'afficher.");
@@ -275,11 +302,11 @@ public class ModeleJO {
                                 } 
                             } catch (AlreadyExistException e) {
                                 try {
-                                    vraiEpreuve = (Epreuve<Athlete>) this.getEpreuve(epreuve, mich.getSexe());
+                                    vraiEpreuve = this.getEpreuve(epreuve, mich.getSexe());
                                     vraiEpreuve.inscrire(mich);    
                     
                                 } catch (DoesntExistException doesntExistException) {
-                                    System.err.println("\n" + doesntExistException.getMessage() +"epreuve: "+ ((Epreuve<Athlete>) this.getEpreuve(epreuve, mich.getSexe())).getDescription() + "\n");
+                                    System.err.println("\n" + doesntExistException.getMessage() +"epreuve: "+ (this.getEpreuve(epreuve, mich.getSexe())).getDescription() + "\n");
                                 } catch (CanNotRegisterException canNotRegisterException) {
                                     nomEquipe = pays.getNomPays() + epreuve + mich.getSexe();
                                     try {
@@ -290,7 +317,7 @@ public class ModeleJO {
                                     }
                                     try {
                                         equipe.ajouter(mich);
-                                        vraiEpreuveEquipe = (Epreuve<Equipe>) this.getEpreuve(epreuve, equipe.getSexe());
+                                        vraiEpreuveEquipe = this.getEpreuve(epreuve, equipe.getSexe());
                                         vraiEpreuveEquipe.inscrire(equipe);    
                                     } catch (AlreadyInException e2) {
                                         System.err.println("N'est pas censé s'afficher.");

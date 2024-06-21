@@ -1,10 +1,10 @@
 package MVC.tableClass;
+
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import participants.Athlete;
-import participants.Pays;
 
-public class AthletesTableau{
+public class ParticipantTableau {
     private SimpleStringProperty nom;
     private SimpleStringProperty prenom;
     private SimpleStringProperty sexe;
@@ -13,7 +13,7 @@ public class AthletesTableau{
     private SimpleIntegerProperty agilite;
     private SimpleStringProperty pays;
 
-    public AthletesTableau(Athlete athlete) {
+    public ParticipantTableau(Athlete athlete) {
         this.nom = new SimpleStringProperty(athlete.getNom());
         this.prenom = new SimpleStringProperty(athlete.getPrenom());
         this.sexe = new SimpleStringProperty(Character.toString(athlete.getSexe()));

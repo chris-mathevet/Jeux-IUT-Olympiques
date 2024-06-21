@@ -2,7 +2,6 @@ package MVC.controleur;
 import javafx.stage.FileChooser;
 import javafx.scene.control.*;
 import MVC.vues.AppliJO;
-import MVC.vues.Connexion;
 import MVC.modele.ModeleConnexion;
 import MVC.modele.ModeleJO;
 
