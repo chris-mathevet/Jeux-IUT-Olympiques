@@ -3,6 +3,7 @@ package MVC.vues;
 import java.io.File;
 import java.net.URL;
 import java.net.http.HttpResponse.BodyHandler;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -337,6 +338,8 @@ public class AppliJO extends Application {
                 break;
         }
         this.updateClassement(tri);
+        this.updateAthlete();
+        this.updateEquipe();
         try {
             this.majEpreuve();
         } catch (Exception e) {
@@ -418,7 +421,6 @@ public class AppliJO extends Application {
     private void leClassement(Tris tri){
         this.classement.getItems().clear();
         List<Pays> lesPays = this.modele.getLesPays(tri);
-        System.out.println(lesPays);
         for (Pays pays : lesPays){
             this.classement.getItems().add(new PaysTableau(lesPays.indexOf(pays)+1, pays));
         }
@@ -547,8 +549,6 @@ public class AppliJO extends Application {
 
         this.comboBoxSexeAthlete.getItems().addAll("Homme", "Femme");
 
-        System.out.println(this.comboBoxSexeAthlete);
-
         this.ath = new TableView<>();
         this.ath.setId("tableauAthlete");
         this.lesAthletes();
@@ -562,16 +562,12 @@ public class AppliJO extends Application {
 
         this.boutonAjouterEquipe = (Button) enfantParticipants2.lookup("#boutonAjouterParticipants2 ");
         this.boutonAjouterEquipe.setOnAction(new ControleurAjouter(this, modele));
-        System.out.println(this.boutonAjouterEquipe);
         
         this.txtFieldNomEquipe = (TextField) enfantParticipants2.lookup("#txtFldNomEquipe");
         this.txtFieldPaysEquipe = (TextField) enfantParticipants2.lookup("#txtFldPaysEquipe");
         this.comboBoxSexeEquipe = (ComboBox<String>) enfantParticipants2.lookup("#comboBoxSexeEquipe");
 
-
         this.comboBoxSexeEquipe.getItems().addAll("Homme", "Femme");
-
-        System.out.println(this.comboBoxSexeAthlete);
 
         this.equ = new TableView<>();
         this.equ.setId("tableauEquipe");
@@ -596,11 +592,11 @@ public class AppliJO extends Application {
         }
     }
 
-    public ComboBox<?> getComboSexeAthlete() {
+    public ComboBox<String> getComboSexeAthlete() {
         return this.comboBoxSexeAthlete;
     }
 
-    public ComboBox<?> getComboSexeEquipe() {
+    public ComboBox<String> getComboSexeEquipe() {
         return this.comboBoxSexeEquipe;
     }
 
@@ -641,12 +637,10 @@ public class AppliJO extends Application {
 
         this.ath.setOpacity(0.9);
 
-
         double[] sceneWidth = {0.0};
 
         ath.widthProperty().addListener((observable, oldValue, newValue) -> {
                 sceneWidth[0] = newValue.doubleValue(); 
-        
             
             int nbCol = ath.getColumns().size();
             for(TableColumn<AthletesTableau,?> col : this.ath.getColumns()){
@@ -910,8 +904,16 @@ public class AppliJO extends Application {
         }
     }
 
+    public List<Epreuve<Participant>> reversed(List<Epreuve<Participant>> l){
+        List<Epreuve<Participant>> res = new ArrayList<>();
+        for(int i=l.size()-1;i>=0;i++){
+            res.add(l.get(i));
+        }
+        return res;
+    }
+
     public void majEpreuve() throws Exception{
-        List<Epreuve<Participant>> lesEpreuves = this.modele.getLesEpreuves().reversed();
+        List<Epreuve<Participant>> lesEpreuves = reversed(this.modele.getLesEpreuves());
         if (!(lesEpreuves.isEmpty())) {
             this.contenus.getChildren().clear();
             for (Epreuve<Participant> ep : lesEpreuves) {
