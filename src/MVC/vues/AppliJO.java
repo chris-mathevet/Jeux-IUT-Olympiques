@@ -63,9 +63,6 @@ public class AppliJO extends Application {
 
     private String utilisateur;
     private Roles role;
-
-  
-    private BorderPane modeleEpreuve;
     private ComboBox<String> menuSportEpreuve;
     private ComboBox<String> menuSexeEpreuve;
     private TextField txtFieldDesc;
@@ -75,34 +72,16 @@ public class AppliJO extends Application {
     private TextField txtFieldEnduranceAthlete;
     private TextField txtFieldAgiliteAthlete;
     private TextField txtFieldPaysAthlete;
-    private ComboBox txtFieldSexeAthlete;
+    private ComboBox<String> comboBoxSexeAthlete;
 
     private TextField txtFieldNomEquipe;
     private TextField txtFieldPaysEquipe;
-    private ComboBox comboBoxSexeEquipe;
-
-    private Text txtNomModeleEpreuve;
-    private ImageView imgSexeModeleEpreuve;
-    private ImageView imgSportModeleEpreuve;
+    private ComboBox<String> comboBoxSexeEquipe;
 
 
     private TextField fieldnomDansEpreuve;
     private TextField fieldPrenomEpreuve;
     private Button boutonAddEpreuve;
-
-
-    private TextField fieldnomDansParticipants;
-    private TextField fieldPrenomParticipants;
-    private TextField fieldForceParticipants;
-    private TextField fieldEnduranceParticipants;
-    private TextField fieldagiliteParticipants;
-    private Button boutonAddParticipants;
-    
-    private TextField fieldnomEquipeDansParticipants;
-    private Button boutonAddEquipeParticipants;
-    private TitledPane contenusParticipantsEquipe;
-    private TitledPane contenusParticipantsAthlete;
-
 
     @Override
     public void init(){
@@ -114,7 +93,6 @@ public class AppliJO extends Application {
         this.boutonParametre = new Button();
         this.boutonParticipants = new Button();
         this.boutonAjouterEpreuve = new Button();
-        this.modeleEpreuve = new BorderPane();
         this.utilisateur = "User";
         this.role = Roles.VISITEUR;
         this.contenus = new VBox();
@@ -123,27 +101,21 @@ public class AppliJO extends Application {
         this.menuSportEpreuve = new ComboBox<>();
         this.menuSexeEpreuve = new ComboBox<>();
         this.txtFieldDesc = new TextField();
-        this.txtNomModeleEpreuve = new Text();
         this.txtFieldNomAthlete = new TextField();
         this.txtFieldPrenomAthlete = new TextField();
         this.txtFieldForceAthlete = new TextField();
         this.txtFieldEnduranceAthlete = new TextField();
         this.txtFieldAgiliteAthlete = new TextField();
         this.txtFieldPaysAthlete = new TextField();
-        this.txtFieldSexeAthlete = new ComboBox();
+        this.comboBoxSexeAthlete = new ComboBox<>();
         this.txtFieldNomEquipe = new TextField();
         this.txtFieldPaysEquipe = new TextField();
-        this.comboBoxSexeEquipe = new ComboBox();
+        this.comboBoxSexeEquipe = new ComboBox<>();
         
-        this.imgSexeModeleEpreuve = new ImageView(null);
-        this.imgSportModeleEpreuve = new ImageView(null);
         this.boutonAjouterAthlete = new Button();
         this.boutonAjouterEquipe = new Button();
         this.contenusParticipantsEquipe2 = new TitledPane();
         this.contenusParticipantsEquipe1 = new TitledPane();
-
-        this.imgSexeModeleEpreuve = new ImageView("logoMale2.png");
-        this.imgSportModeleEpreuve = new ImageView("Athletisme.png");
     }
 
     @Override
@@ -518,11 +490,11 @@ public class AppliJO extends Application {
         this.txtFieldEnduranceAthlete = (TextField) enfantParticipants1.lookup("#txtFldEnduranceAthlete");
         this.txtFieldAgiliteAthlete = (TextField) enfantParticipants1.lookup("#txtFldAgiliteAthlete");
         this.txtFieldPaysAthlete = (TextField) enfantParticipants1.lookup("#txtFldPaysAthlete");
-        this.txtFieldSexeAthlete = (ComboBox) enfantParticipants1.lookup("#comboBoxSexeAthlete");
+        this.comboBoxSexeAthlete = (ComboBox<String>) enfantParticipants1.lookup("#comboBoxSexeAthlete");
 
-        this.txtFieldSexeAthlete.getItems().addAll("Homme", "Femme");
+        this.comboBoxSexeAthlete.getItems().addAll("Homme", "Femme");
 
-        System.out.println(this.txtFieldSexeAthlete);
+        System.out.println(this.comboBoxSexeAthlete);
 
         this.ath = new TableView<>();
         this.ath.setId("tableauAthlete");
@@ -541,12 +513,12 @@ public class AppliJO extends Application {
         
         this.txtFieldNomEquipe = (TextField) enfantParticipants2.lookup("#txtFldNomEquipe");
         this.txtFieldPaysEquipe = (TextField) enfantParticipants2.lookup("#txtFldPaysEquipe");
-        this.comboBoxSexeEquipe = (ComboBox) enfantParticipants2.lookup("#comboBoxSexeEquipe");
+        this.comboBoxSexeEquipe = (ComboBox<String>) enfantParticipants2.lookup("#comboBoxSexeEquipe");
 
 
         this.comboBoxSexeEquipe.getItems().addAll("Homme", "Femme");
 
-        System.out.println(this.txtFieldSexeAthlete);
+        System.out.println(this.comboBoxSexeAthlete);
 
         this.equ = new TableView<>();
         this.equ.setId("tableauEquipe");
@@ -555,59 +527,28 @@ public class AppliJO extends Application {
         enfantParticipants2.setCenter(this.equ);
       
         if(this.role == Roles.ADMIN){
-              fieldnomDansParticipants.setVisible(true);
-              fieldPrenomParticipants.setVisible(true);
-              fieldForceParticipants.setVisible(true);
-              fieldEnduranceParticipants.setVisible(true);
-              fieldagiliteParticipants.setVisible(true);
-              boutonAddParticipants.setVisible(true);
-
-              fieldnomEquipeDansParticipants.setVisible(true);
-              boutonAddEquipeParticipants.setVisible(true);
-          }
+            this.boutonAjouterAthlete.setVisible(true);
+            this.txtFieldNomAthlete.setVisible(true);
+            this.txtFieldPrenomAthlete.setVisible(true);
+            this.txtFieldForceAthlete.setVisible(true);
+            this.txtFieldEnduranceAthlete.setVisible(true);
+            this.txtFieldAgiliteAthlete.setVisible(true);
+            this.txtFieldPaysAthlete.setVisible(true);
+            this.comboBoxSexeAthlete.setVisible(true);
+            
+            this.boutonAjouterEquipe.setVisible(true);
+            this.txtFieldNomEquipe.setVisible(true);
+            this.txtFieldPaysEquipe.setVisible(true);
+            this.comboBoxSexeEquipe.setVisible(true);
+        }
     }
 
     public ComboBox getComboSexeAthlete() {
-        return this.txtFieldSexeAthlete;
+        return this.comboBoxSexeAthlete;
     }
 
     public ComboBox getComboSexeEquipe() {
         return this.comboBoxSexeEquipe;
-        this.contenusParticipantsAthlete = (TitledPane) parentParticipants.lookup("#titledAthlete");
-        // System.out.println(this.contenusParticipantsEquipe);
-        this.contenusParticipantsEquipe = (TitledPane) parentParticipants.lookup("#titledEquipe");
-        // System.out.println(this.contenusParticipantsEquipe);
-        BorderPane enfantParticipantsAthlete = (BorderPane) this.contenusParticipantsAthlete.getContent();
-        BorderPane enfantParticipantsEquipe = (BorderPane) this.contenusParticipantsEquipe.getContent();
-
-        
-        // this.boutonAjouterAthlete = (Button) enfantParticipants1.lookup("#boutonAjouterParticipants");
-        // this.boutonAjouterAthlete.setOnAction(new ControleurAjouter(this, modele));
-        // System.out.println(this.boutonAjouterAthlete);
-
-
-
-        this.fieldnomDansParticipants= (TextField) enfantParticipantsAthlete.lookup("#fieldnomDansParticipants");
-        this.fieldPrenomParticipants= (TextField) enfantParticipantsAthlete.lookup("#fieldPrenomParticipants");
-        this.fieldForceParticipants= (TextField) enfantParticipantsAthlete.lookup("#fieldForceParticipants");
-        this.fieldEnduranceParticipants= (TextField) enfantParticipantsAthlete.lookup("#fieldEnduranceParticipants");
-        this.fieldagiliteParticipants= (TextField) enfantParticipantsAthlete.lookup("#fieldagiliteParticipants");
-        this.boutonAddParticipants= (Button) enfantParticipantsAthlete.lookup("#boutonAddParticipants");
-
-        this.fieldnomEquipeDansParticipants= (TextField) enfantParticipantsEquipe.lookup("#fieldnomEquipeDansParticipants");
-        this.boutonAddEquipeParticipants= (Button) enfantParticipantsEquipe.lookup("#boutonAddEquipeParticipants");
-
-        if(this.role == Roles.ADMIN){
-            fieldnomDansParticipants.setVisible(true);
-            fieldPrenomParticipants.setVisible(true);
-            fieldForceParticipants.setVisible(true);
-            fieldEnduranceParticipants.setVisible(true);
-            fieldagiliteParticipants.setVisible(true);
-            boutonAddParticipants.setVisible(true);
-
-            fieldnomEquipeDansParticipants.setVisible(true);
-            boutonAddEquipeParticipants.setVisible(true);
-        }
     }
 
     private void lesAthletes(){
@@ -804,10 +745,10 @@ public class AppliJO extends Application {
     }
 
      public BorderPane modeleCreationEpreuve() throws Exception {
-         URL url = new File("FXML/Epreuve.fxml").toURI().toURL();
-         FXMLLoader loader = new FXMLLoader(url);
-         BorderPane modeleEpreuve = loader.load();
-         return modeleEpreuve;
+        URL url = new File("FXML/Epreuve.fxml").toURI().toURL();
+        FXMLLoader loader = new FXMLLoader(url);
+        BorderPane modeleEpreuve = loader.load();
+        return modeleEpreuve;
      }
 
 

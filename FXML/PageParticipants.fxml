@@ -6,44 +6,32 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<ScrollPane hbarPolicy="NEVER" prefHeight="285.0" prefWidth="538.0" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane hbarPolicy="NEVER" prefHeight="285.0" prefWidth="538.0" stylesheets="@style_app.css" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <VBox fx:id="vboxParticipants" alignment="TOP_CENTER" prefHeight="400.0" prefWidth="541.0">
          <children>
-            <TitledPane fx:id="titledAthlete" alignment="TOP_LEFT" contentDisplay="CENTER" expanded="false" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="538.0" text="Athlètes">
+            <TitledPane fx:id="titledPane1" alignment="TOP_LEFT" contentDisplay="CENTER" expanded="false" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="538.0" text="Athlètes">
                <content>
                   <BorderPane prefHeight="200.0" prefWidth="500.0" stylesheets="@style_app.css">
                      <top>
-                        <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="39.0" prefWidth="500.0" BorderPane.alignment="CENTER">
-                           <children>
-                              <Button id="filtre" mnemonicParsing="false" prefHeight="24.0" prefWidth="22.0">
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </Button>
-                              <ImageView fitHeight="25.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Athlètes">
-                                 <HBox.margin>
-                                    <Insets left="140.0" right="130.0" />
-                                 </HBox.margin>
+                        <BorderPane>
+                           <left>
+                              <Button id="filtre" mnemonicParsing="false" prefHeight="24.0" prefWidth="22.0" styleClass="lesBoutons" BorderPane.alignment="CENTER" />
+                           </left>
+                           <center>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Athlètes" BorderPane.alignment="CENTER">
                                  <font>
-                                    <Font size="24.0" />
+                                    <Font name="System Bold" size="24.0" />
                                  </font>
                               </Text>
-                              <ImageView fitHeight="25.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
-                           </children>
-                           <BorderPane.margin>
-                              <Insets top="20.0" />
-                           </BorderPane.margin>
-                        </HBox>
+                           </center>
+                        </BorderPane>
                      </top>
                      <padding>
                         <Insets left="5.0" right="5.0" />
@@ -51,18 +39,18 @@
                      <bottom>
                         <HBox alignment="CENTER" prefHeight="43.0" prefWidth="452.0" spacing="10.0" BorderPane.alignment="CENTER">
                            <children>
-                              <TextField fx:id="fieldnomDansParticipants" prefHeight="20.0" prefWidth="85.0" promptText="Nom" visible="false">
+                              <TextField fx:id="txtFldNomAthlete" prefHeight="20.0" prefWidth="85.0" promptText="Nom" visible="false">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
                               </TextField>
-                              <TextField fx:id="txtFldPrenomAthlete" layoutX="146.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Prénom" />
-                              <ComboBox fx:id="comboBoxSexeAthlete" prefWidth="150.0" promptText="Sexe" />
-                              <TextField fx:id="txtFldForceAthlete" layoutX="104.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Force" />
-                              <TextField fx:id="txtFldEnduranceAthlete" layoutX="241.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Endurance" />
-                              <TextField fx:id="txtFldAgiliteAthlete" layoutX="198.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Agilité" />
-                              <TextField fx:id="txtFldPaysAthlete" layoutX="350.0" layoutY="19.0" prefHeight="20.0" prefWidth="85.0" promptText="Agilité" />
-                              <Button fx:id="boutonAjouterParticipants" mnemonicParsing="false" prefHeight="24.0" prefWidth="100.0" text="Ajouter">
+                              <TextField fx:id="txtFldPrenomAthlete" layoutX="146.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Prénom" visible="false" />
+                              <ComboBox fx:id="comboBoxSexeAthlete" prefWidth="150.0" promptText="Sexe" visible="false" />
+                              <TextField fx:id="txtFldForceAthlete" layoutX="104.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Force" visible="false" />
+                              <TextField fx:id="txtFldEnduranceAthlete" layoutX="241.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Endurance" visible="false" />
+                              <TextField fx:id="txtFldAgiliteAthlete" layoutX="198.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Agilité" visible="false" />
+                              <TextField fx:id="txtFldPaysAthlete" layoutX="350.0" layoutY="19.0" prefHeight="20.0" prefWidth="85.0" promptText="Agilité" visible="false" />
+                              <Button fx:id="boutonAjouterParticipants" mnemonicParsing="false" prefHeight="24.0" prefWidth="100.0" text="Ajouter" visible="false">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
@@ -76,48 +64,23 @@
                   <Insets left="10.0" top="20.0" />
                </VBox.margin>
             </TitledPane>
-            <TitledPane fx:id="titledEquipe" alignment="TOP_LEFT" expanded="false" layoutX="10.0" layoutY="30.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="538.0" text="Equipes">
+            <TitledPane fx:id="titledPane2" alignment="TOP_LEFT" layoutX="10.0" layoutY="30.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="538.0" text="Equipes">
                <content>
                   <BorderPane prefHeight="200.0" prefWidth="500.0" stylesheets="@style_app.css">
-                     <top>
-                        <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="39.0" prefWidth="500.0" BorderPane.alignment="CENTER">
-                           <children>
-                              <Button id="filtre" mnemonicParsing="false" prefHeight="24.0" prefWidth="22.0">
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </Button>
-                              <ImageView fitHeight="25.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Equipes">
-                                 <HBox.margin>
-                                    <Insets left="140.0" right="130.0" />
-                                 </HBox.margin>
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                              </Text>
-                              <ImageView fitHeight="25.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
-                           </children>
-                           <BorderPane.margin>
-                              <Insets top="20.0" />
-                           </BorderPane.margin>
-                        </HBox>
-                     </top>
                      <padding>
                         <Insets left="5.0" right="5.0" />
                      </padding>
                      <bottom>
                         <HBox alignment="CENTER" prefHeight="43.0" prefWidth="452.0" spacing="10.0" BorderPane.alignment="CENTER">
                            <children>
-                              <TextField fx:id="fieldnomEquipeDansParticipants" prefHeight="20.0" prefWidth="85.0" promptText="Nom" visible="false">
+                              <TextField fx:id="txtFldNomEquipe" prefHeight="20.0" prefWidth="85.0" promptText="Nom" styleClass="lesFieldsAppli" visible="false">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
                               </TextField>
-                              <TextField fx:id="txtFldPaysEquipe" layoutX="146.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Prénom" />
-                              <ComboBox fx:id="comboBoxSexeEquipe" prefWidth="150.0" promptText="Sexe" />
-                              <Button fx:id="boutonAjouterParticipants2" mnemonicParsing="false" prefHeight="24.0" prefWidth="100.0" text
+                              <TextField fx:id="txtFldPaysEquipe" layoutX="146.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Prénom" styleClass="lesFieldsAppli" visible="false" />
+                              <ComboBox fx:id="comboBoxSexeEquipe" prefWidth="150.0" promptText="Sexe" styleClass="lesComboBox" visible="false" />
+                              <Button fx:id="boutonAjouterParticipants2" mnemonicParsing="false" prefHeight="24.0" prefWidth="100.0" styleClass="lesBoutons" text="Ajouter" visible="false">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
@@ -125,6 +88,20 @@
                            </children>
                         </HBox>
                      </bottom>
+                     <top>
+                        <BorderPane>
+                           <left>
+                              <Button mnemonicParsing="false" styleClass="lesBoutons" BorderPane.alignment="CENTER" />
+                           </left>
+                           <center>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Equipes" BorderPane.alignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="24.0" />
+                                 </font>
+                              </Text>
+                           </center>
+                        </BorderPane>
+                     </top>
                   </BorderPane>
                </content>
                <VBox.margin>
