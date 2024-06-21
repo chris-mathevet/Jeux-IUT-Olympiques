@@ -659,6 +659,7 @@ public class AppliJO extends Application {
     private void lesEquipes(){
         this.equ.getItems().clear();
         List<Equipe> lesParticipants = this.modele.getLesEquipes();
+        System.out.println(lesParticipants);
         for (Equipe equipes : lesParticipants){
             this.equ.getItems().add(new EquipeTableau(equipes));
         }
@@ -906,7 +907,7 @@ public class AppliJO extends Application {
 
     public List<Epreuve<Participant>> reversed(List<Epreuve<Participant>> l){
         List<Epreuve<Participant>> res = new ArrayList<>();
-        for(int i=l.size()-1;i>=0;i++){
+        for(int i=l.size()-1;i>=0;i--){
             res.add(l.get(i));
         }
         return res;
