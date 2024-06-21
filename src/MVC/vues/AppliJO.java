@@ -403,7 +403,6 @@ public class AppliJO extends Application {
     private void leClassement(Tris tri){
         this.classement.getItems().clear();
         List<Pays> lesPays = this.modele.getLesPays(tri);
-        System.out.println(lesPays);
         for (Pays pays : lesPays){
             this.classement.getItems().add(new PaysTableau(lesPays.indexOf(pays)+1, pays));
         }
@@ -531,8 +530,6 @@ public class AppliJO extends Application {
         this.comboBoxSexeAthlete = (ComboBox<String>) enfantParticipants1.lookup("#comboBoxSexeAthlete");
 
         this.comboBoxSexeAthlete.getItems().addAll("Homme", "Femme");
-
-        System.out.println(this.comboBoxSexeAthlete);
 
         this.ath = new TableView<>();
         this.ath.setId("tableauAthlete");
