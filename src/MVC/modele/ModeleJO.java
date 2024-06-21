@@ -103,12 +103,12 @@ public class ModeleJO {
 
     private void creerTest(){
         try {
-            this.creerPays("France");
-            this.creerAthlete("Mathevet", "Chris", "H", 10, 15, 16, "France");
-            this.creerAthlete("Meunier", "Chris", "H", 10, 15, 16, "France");
-            this.creerAthlete("Julian", "Chris", "H", 10, 15, 16, "France");
-            this.creerAthlete("Baptiste", "Chris", "H", 10, 15, 16, "France");
-            this.creerEpreuve((new Epreuve<Participant>("TestEPREUVE", athle, 'H')));
+            // this.creerPays("France");
+            // this.creerAthlete("Mathevet", "Chris", "H", 10, 15, 16, "France");
+            // this.creerAthlete("Meunier", "Chris", "H", 10, 15, 16, "France");
+            // this.creerAthlete("Julian", "Chris", "H", 10, 15, 16, "France");
+            // this.creerAthlete("Baptiste", "Chris", "H", 10, 15, 16, "France");
+            // this.creerEpreuve((new Epreuve<Participant>("TestEPREUVE", athle, 'H')));
             Epreuve<Participant> epreuve = this.getEpreuve("TestEPREUVE", 'H');
             this.inscrireEpreuve(this.getAthlete("Mathevet", "Chris", 'H', "France"), epreuve);
             this.inscrireEpreuve(this.getAthlete("Meunier", "Chris", 'H', "France"), epreuve);
