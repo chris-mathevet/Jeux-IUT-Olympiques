@@ -103,7 +103,36 @@ public class ControleurAjouter implements EventHandler<ActionEvent> {
                 
                 System.out.println(this.modele.getLesAthletes());
                 break;
+
+                case "boutonAjouterParticipants2":
+                
+                System.out.println("fzsf");
+                String nomEquipe = this.vue.getStringNomEquipe();
+                String paysEquipe = this.vue.getStringPaysEquipe();
+                String comboSexeEquipe = (String) this.vue.getComboSexeEquipe().getValue();
+
+                System.out.println(nomEquipe);
+                System.out.println(paysEquipe);
+                System.out.println(comboSexeEquipe);
+
+                if (this.modele.getLesPays().contains(new Pays(paysEquipe))) {
+                    try {
+                        this.modele.creerEquipe(nomEquipe);
+                        this.vue.updateEquipe();
+                    } catch (AlreadyExistException e) {
+                        System.err.println(e.getMessage());
+                    }
+                }
+                else {
+                    System.out.println("Veuillez selectionner ou créer un pays existant");
+                }
+
+                
+               
+                break;
         }
+        
+        
         
         
     }

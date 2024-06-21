@@ -358,21 +358,26 @@ public class Requete {
     public List<Equipe> selectEquipe() throws SQLException{
         List<Equipe> res = new ArrayList<>();
         Statement s=laConnexion.createStatement();
+        Statement s2=laConnexion.createStatement();
         ResultSet rs=s.executeQuery("SELECT * FROM EQUIPE");
         ResultSet rs2;
         int cpt = 0;
         while (rs.next()) { 
             res.add(new Equipe(rs.getString("nomEquipe"))); 
-            rs2 =s.executeQuery("SELECT * FROM EQUIPE NATURAL JOIN ATHLETE WHERE nomEquipe="+"\""+rs.getString("nomEquipe")+"\""); 
+            rs2 =s2.executeQuery("SELECT * FROM EQUIPE NATURAL JOIN ATHLETE WHERE nomEquipe="+"\""+rs.getString("nomEquipe")+"\""); 
             while (rs2.next()) {
                 try {
                     res.get(cpt).add(modele.getAthlete(rs2.getString("nomAthlete"),rs2.getString("prenomAthlete"),rs2.getString("sexe").charAt(0),rs2.getString("nomPays")));
                 } catch (DoesntExistException e) {
+                    
                     e.printStackTrace();
                 }
             }
+            rs2.close();
             cpt++;
-		}
+        }
+        rs.close();
+        s.close();
         return res;
     }
 

@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import participants.Athlete;
+import participants.Equipe;
 import participants.Participant;
 import javafx.scene.text.*;
 
@@ -38,19 +39,21 @@ public class AppliJO extends Application {
     private Stage stage;
     private VBox contenus;
     private VBox contenusParticipants;
-    private TitledPane contenusParticipantsAthlete;
-    private TitledPane contenusParticipantsEquipe;
+    private TitledPane contenusParticipantsEquipe2;
+    private TitledPane contenusParticipantsEquipe1;
 
     private Button boutonConnexion;
 
     private TableView<PaysTableau> classement;
     private TableView<AthletesTableau> ath;
+    private TableView<EquipeTableau> equ;
     private Button boutonClassement;
     private Button boutonEpreuve;
     private Button boutonParticipants;
     private Button boutonParametre;
     private Button boutonAjouterEpreuve;
     private Button boutonAjouterAthlete;
+    private Button boutonAjouterEquipe;
 
     private String utilisateur;
   
@@ -65,6 +68,10 @@ public class AppliJO extends Application {
     private TextField txtFieldAgiliteAthlete;
     private TextField txtFieldPaysAthlete;
     private ComboBox txtFieldSexeAthlete;
+
+    private TextField txtFieldNomEquipe;
+    private TextField txtFieldPaysEquipe;
+    private ComboBox comboBoxSexeEquipe;
 
     private Text txtNomModeleEpreuve;
     private ImageView imgSexeModeleEpreuve;
@@ -96,12 +103,16 @@ public class AppliJO extends Application {
         this.txtFieldAgiliteAthlete = new TextField();
         this.txtFieldPaysAthlete = new TextField();
         this.txtFieldSexeAthlete = new ComboBox();
+        this.txtFieldNomEquipe = new TextField();
+        this.txtFieldPaysEquipe = new TextField();
+        this.comboBoxSexeEquipe = new ComboBox();
         
         this.imgSexeModeleEpreuve = new ImageView(null);
         this.imgSportModeleEpreuve = new ImageView(null);
         this.boutonAjouterAthlete = new Button();
-        this.contenusParticipantsAthlete = new TitledPane();
-        this.contenusParticipantsEquipe = new TitledPane();
+        this.boutonAjouterEquipe = new Button();
+        this.contenusParticipantsEquipe2 = new TitledPane();
+        this.contenusParticipantsEquipe1 = new TitledPane();
     }
 
     @Override
@@ -288,6 +299,14 @@ public class AppliJO extends Application {
         }
     }
 
+    public void updateEquipe(){
+        this.equ.getItems().clear();
+        List<Equipe> lesEquipes2 = this.modele.getLesEquipes();
+        for (Equipe equipesss : lesEquipes2){
+            this.equ.getItems().add(new EquipeTableau(equipesss));
+        }
+    }
+
     private void leClassement(Tris tri){
         this.classement.getItems().clear();
         List<Pays> lesPays = this.modele.getLesPays(tri);
@@ -399,10 +418,10 @@ public class AppliJO extends Application {
         VBox parentParticipants = (VBox) centre.getContent();
 
   
-        this.contenusParticipantsEquipe = (TitledPane) parentParticipants.lookup("#titledPane1");
-        System.out.println(this.contenusParticipantsEquipe);
+        this.contenusParticipantsEquipe1 = (TitledPane) parentParticipants.lookup("#titledPane1");
 
-        BorderPane enfantParticipants1 = (BorderPane) this.contenusParticipantsEquipe.getContent();
+
+        BorderPane enfantParticipants1 = (BorderPane) this.contenusParticipantsEquipe1.getContent();
 
         
         this.boutonAjouterAthlete = (Button) enfantParticipants1.lookup("#boutonAjouterParticipants");
@@ -425,10 +444,38 @@ public class AppliJO extends Application {
         this.lesAthletes();
 
         enfantParticipants1.setCenter(this.ath);
+
+
+        this.contenusParticipantsEquipe2 = (TitledPane) parentParticipants.lookup("#titledPane2");
+
+        BorderPane enfantParticipants2 = (BorderPane) this.contenusParticipantsEquipe2.getContent();
+
+        this.boutonAjouterEquipe = (Button) enfantParticipants2.lookup("#boutonAjouterParticipants2 ");
+        this.boutonAjouterEquipe.setOnAction(new ControleurAjouter(this, modele));
+        System.out.println(this.boutonAjouterEquipe);
+        
+        this.txtFieldNomEquipe = (TextField) enfantParticipants2.lookup("#txtFldNomEquipe");
+        this.txtFieldPaysEquipe = (TextField) enfantParticipants2.lookup("#txtFldPaysEquipe");
+        this.comboBoxSexeEquipe = (ComboBox) enfantParticipants2.lookup("#comboBoxSexeEquipe");
+
+
+        this.comboBoxSexeEquipe.getItems().addAll("Homme", "Femme");
+
+        System.out.println(this.txtFieldSexeAthlete);
+
+        this.equ = new TableView<>();
+        this.equ.setId("tableauEquipe");
+        this.lesEquipes();
+
+        enfantParticipants2.setCenter(this.equ);
     }
 
     public ComboBox getComboSexeAthlete() {
         return this.txtFieldSexeAthlete;
+    }
+
+    public ComboBox getComboSexeEquipe() {
+        return this.comboBoxSexeEquipe;
     }
 
     private void lesAthletes(){
@@ -477,6 +524,50 @@ public class AppliJO extends Application {
             
             int nbCol = ath.getColumns().size();
             for(TableColumn<AthletesTableau,?> col : this.ath.getColumns()){
+
+                col.setSortable(false);
+                col.setReorderable(false);
+                col.setResizable(false);
+                // col.setEditable(false);
+                sceneWidth[0]*=0.99; // prendre 99% de la largeur
+                col.setPrefWidth((sceneWidth[0]/nbCol));
+            }
+        });   
+
+    }
+
+    private void lesEquipes(){
+        this.equ.getItems().clear();
+        List<Equipe> lesParticipants = this.modele.getLesEquipes();
+        for (Equipe equipes : lesParticipants){
+            this.equ.getItems().add(new EquipeTableau(equipes));
+        }
+
+        // Colones
+
+        TableColumn<EquipeTableau,String> nomColumn = new TableColumn<>("Nom");
+        nomColumn.setCellValueFactory(new PropertyValueFactory("nom"));
+
+        TableColumn<EquipeTableau,String> sexeColumn = new TableColumn<>("Sexe");
+        sexeColumn.setCellValueFactory(new PropertyValueFactory("sexe"));
+
+        TableColumn<EquipeTableau,String> paysColumn = new TableColumn<>("Pays");
+        paysColumn.setCellValueFactory(new PropertyValueFactory("pays"));
+
+
+        this.equ.getColumns().addAll(nomColumn,sexeColumn, paysColumn);
+
+        this.equ.setOpacity(0.9);
+
+
+        double[] sceneWidth = {0.0};
+
+        equ.widthProperty().addListener((observable, oldValue, newValue) -> {
+                sceneWidth[0] = newValue.doubleValue(); 
+        
+            
+            int nbCol = equ.getColumns().size();
+            for(TableColumn<EquipeTableau,?> col : this.equ.getColumns()){
 
                 col.setSortable(false);
                 col.setReorderable(false);
@@ -584,6 +675,14 @@ public class AppliJO extends Application {
 
     public String getStringPaysAthlete() {
         return this.txtFieldPaysAthlete.getText();
+    }
+
+    public String getStringNomEquipe() {
+        return this.txtFieldNomEquipe.getText();
+    }
+
+    public String getStringPaysEquipe() {
+        return this.txtFieldPaysEquipe.getText();
     }
 
 
