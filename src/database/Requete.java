@@ -393,7 +393,7 @@ public class Requete {
         int cpt = 0;
         while (rs.next()) { 
             res.add(new Equipe(rs.getString("nomEquipe"))); 
-            rs2 =s2.executeQuery("SELECT * FROM EQUIPE NATURAL JOIN ATHLETE WHERE nomEquipe="+"\""+rs.getString("nomEquipe")+"\""); 
+            rs2 =s2.executeQuery("SELECT * FROM EQUIPE NATURAL JOIN EST_CONSTITUE WHERE nomEquipe="+"\""+rs.getString("nomEquipe")+"\""); 
             while (rs2.next()) {
                 try {
                     res.get(cpt).add(modele.getAthlete(rs2.getString("nomAthlete"),rs2.getString("prenomAthlete"),rs2.getString("sexe").charAt(0),rs2.getString("nomPays")));
@@ -452,7 +452,7 @@ public class Requete {
     }
 
     public void insertToEquipe(Equipe e, Athlete a) throws  SQLException {
-        PreparedStatement ps = laConnexion.prepareStatement("INSERT INTO EST_CONSTITUE (nomEquipe,nom,prenom,sexe,nomPays) VALUES (?, ?, ?, ?, ?)");
+        PreparedStatement ps = laConnexion.prepareStatement("INSERT INTO EST_CONSTITUE (nomEquipe,nomAthlete,prenomAthlete,sexe,nomPays) VALUES (?, ?, ?, ?, ?)");
         ps.setString(1, e.getNom());
         ps.setString(2, a.getNom());
         ps.setString(3, a.getPrenom());

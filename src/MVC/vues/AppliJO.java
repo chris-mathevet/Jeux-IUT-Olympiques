@@ -808,7 +808,7 @@ public class AppliJO extends Application {
             int nbCol = tableUser.getColumns().size();
             for(TableColumn<UserTableau,?> col : this.tableUser.getColumns()){
 
-                col.setSortable(false);
+                // col.setSortable(false);
                 col.setReorderable(false);
                 col.setResizable(false);
                 // col.setEditable(false);
