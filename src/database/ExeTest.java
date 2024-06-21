@@ -130,6 +130,23 @@ public class ExeTest {
             // for (Equipe equipe : lesEquipes) {
             //     System.out.println("l'equipe : :" + equipe);
             // }
+
+            // List<Athlete> truuuuc1 = r.rechercherAthletes(null, null, "F", null);
+
+            List<Equipe> truuuuc = r.selectEquipe();
+            for (Equipe equipe : truuuuc) {
+                System.out.println("equipe" + equipe);
+
+                // for (Athlete athlete : truuuuc1) {
+                //     r.insertToEquipe(equipe,athlete);                
+                // }
+            }
+
+            List<Athlete> truuuuc2 = r.selectAthlete();
+            for (Athlete athe : truuuuc2) {
+                System.out.println("equipe" + athe);
+            }
+
                 System.out.println(r.getDrapeau("France"));
                 System.out.println(r.getDrapeau("Italy"));
                 System.out.println(r.getDrapeau("Italie"));
