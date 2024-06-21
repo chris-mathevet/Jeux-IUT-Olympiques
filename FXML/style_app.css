@@ -184,6 +184,9 @@
     -fx-background-color: transparent;
 }
 
+.scroll-bar:horizontal .increment-button .increment-arrow, .scroll-bar:horizontal .decrement-button .decrement-arrow{
+    -fx-background-color: transparent;
+}
 /* .lesScrollPane{
     -fx-background-radius: 45;
     -fx-background-color: #D4C47C;
@@ -242,3 +245,4 @@
     -fx-border-radius: 5;
     -fx-border-width: 5;
 }
+

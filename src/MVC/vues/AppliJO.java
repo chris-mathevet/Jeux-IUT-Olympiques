@@ -2,14 +2,19 @@ package MVC.vues;
 
 import java.io.File;
 import java.net.URL;
+import java.net.http.HttpResponse.BodyHandler;
 import java.util.List;
+
+
 
 import javafx.util.Duration;
 
+import javafx.stage.FileChooser;
 
 import MVC.modele.*;
 import MVC.modele.ModeleJO.Tris;
 import MVC.tableClass.*;
+import MVC.user.User;
 import epreuves.Epreuve;
 import MVC.controleur.*;
 import javafx.animation.RotateTransition;
@@ -63,6 +68,12 @@ public class AppliJO extends Application {
 
     private String utilisateur;
     private Roles role;
+
+    private String mailUser;
+
+  
+    private BorderPane modeleEpreuve;
+
     private ComboBox<String> menuSportEpreuve;
     private ComboBox<String> menuSexeEpreuve;
     private TextField txtFieldDesc;
@@ -83,6 +94,16 @@ public class AppliJO extends Application {
     private TextField fieldPrenomEpreuve;
     private Button boutonAddEpreuve;
 
+  
+    private Text labelPseudoParam;
+    private Text labelPseudoRole;
+    private Text labelPseudoMail;
+    private Button boutonDeconnecterParametre;
+    private Button boutonSaveParametre;
+    private Button boutonFileChooserParametre;
+    private HBox dragAndDropCsv;
+    private TableView<UserTableau> tableUser;
+  
     @Override
     public void init(){
         this.modele = new ModeleJO();
@@ -94,6 +115,7 @@ public class AppliJO extends Application {
         this.boutonParticipants = new Button();
         this.boutonAjouterEpreuve = new Button();
         this.utilisateur = "User";
+        this.mailUser = "Mail";
         this.role = Roles.VISITEUR;
         this.contenus = new VBox();
         this.contenusParticipants = new VBox();
@@ -133,12 +155,23 @@ public class AppliJO extends Application {
         this.role = role;
     }
 
+    public void setMail(String m) {
+        this.mailUser= m;
+    }
+
     public Roles getRole() {
         return this.role;
+    }
+    public String getMail() {
+        return this.mailUser;
     }
 
     public String getUtilisateur() {
         return this.utilisateur;
+    }
+
+    public Stage getStage(){
+        return this.stage;
     }
 
     // MODE CONNEXION
@@ -368,6 +401,7 @@ public class AppliJO extends Application {
     private void leClassement(Tris tri){
         this.classement.getItems().clear();
         List<Pays> lesPays = this.modele.getLesPays(tri);
+        System.out.println(lesPays);
         for (Pays pays : lesPays){
             this.classement.getItems().add(new PaysTableau(lesPays.indexOf(pays)+1, pays));
         }
@@ -453,11 +487,13 @@ public class AppliJO extends Application {
         }
     }
 
+
     public ComboBox<String> getComboSexe() {
         return this.menuSexeEpreuve;
     }
 
     public ComboBox<String> getComboSport() {
+
         return this.menuSportEpreuve;
     }
 
@@ -655,16 +691,85 @@ public class AppliJO extends Application {
 
 
 
+
     public void modeParametre() throws Exception {
-        URL url = new File("FXML/PageClassement.fxml").toURI().toURL();
+        URL url = new File("FXML/PageParametre.fxml").toURI().toURL();
         FXMLLoader loader = new FXMLLoader(url);
         BorderPane centre = loader.load();
-        BorderPane.setMargin(centre, new Insets(20));
         this.racineAppli.setCenter(centre);
-        this.boutonClassement.setDisable(true);
+        BorderPane.setMargin(centre, new Insets(20));
+     
+        this.boutonClassement.setDisable(false);
         this.boutonEpreuve.setDisable(false);
-        this.boutonParametre.setDisable(false);
+        this.boutonParametre.setDisable(true);
         this.boutonParticipants.setDisable(false);
+
+
+        this.labelPseudoParam = (Text)laScene.lookup("#LabelPseudoParam");
+        this.labelPseudoMail = (Text)laScene.lookup("#LabelPseudoMail");
+        this.labelPseudoRole = (Text)laScene.lookup("#LabelPseudoRole");
+        this.boutonDeconnecterParametre = (Button)laScene.lookup("#BoutonDeconnecterParametre");
+        this.boutonSaveParametre = (Button)laScene.lookup("#BoutonSaveParametre");
+        this.boutonFileChooserParametre = (Button)laScene.lookup("#FileChooser");
+        this.dragAndDropCsv = (HBox)laScene.lookup("#dragAndDropCsv");
+
+        this.labelPseudoParam.setText(this.getUtilisateur());
+        this.labelPseudoMail.setText(this.getMail());
+        this.labelPseudoRole.setText(this.getRole().getRoleStr());
+        
+        this.boutonDeconnecterParametre.setOnAction(new ControleurBoutonDeco(this));
+        this.boutonSaveParametre.setOnAction(new ControleurSaveParam(this)); // pour l'instant marche pas et se deco mdr
+    
+    
+        File initialDirectory = new File("./");
+        this.boutonFileChooserParametre.setOnAction(new ControleurFileChooser(this,this.modeleConnexion.getReq(),initialDirectory));
+        this.tableUser = new TableView<>();        
+        lesUsers();
+    }
+
+
+
+    public void lesUsers(){
+        BorderPane PourTableauUser = (BorderPane)laScene.lookup("#BorderPaneParamTableau");
+        List<User> lesUsersList = this.modele.getLesUsers();
+        for (User u : lesUsersList) {
+            this.tableUser.getItems().add(new UserTableau(u.getPseudo(),u.getMail(),u.getRole()));
+        }
+
+
+        TableColumn<UserTableau,String> nomColumn = new TableColumn<>("Pseudo");
+        nomColumn.setCellValueFactory(new PropertyValueFactory("pseudo"));
+
+        TableColumn<UserTableau,String> mailColumn = new TableColumn<>("Pseudo");
+        mailColumn.setCellValueFactory(new PropertyValueFactory("mail"));
+
+        TableColumn<UserTableau,String> roleColumn = new TableColumn<>("Pseudo");
+        roleColumn.setCellValueFactory(new PropertyValueFactory("role"));
+
+        this.tableUser.getColumns().addAll(nomColumn,mailColumn,roleColumn);
+
+
+        
+
+        double[] sceneWidth = {0.0};
+
+        tableUser.widthProperty().addListener((observable, oldValue, newValue) -> {
+                sceneWidth[0] = newValue.doubleValue(); 
+        
+            
+            int nbCol = tableUser.getColumns().size();
+            for(TableColumn<UserTableau,?> col : this.tableUser.getColumns()){
+
+                col.setSortable(false);
+                col.setReorderable(false);
+                col.setResizable(false);
+                // col.setEditable(false);
+                sceneWidth[0]*=0.99; // prendre 99% de la largeur
+                col.setPrefWidth((sceneWidth[0]/nbCol));
+            }
+        });
+        PourTableauUser.setCenter(this.tableUser);
+
     }
 
 
@@ -806,7 +911,6 @@ public class AppliJO extends Application {
     public String getStringPaysEquipe() {
         return this.txtFieldPaysEquipe.getText();
     }
-
 
 
     public static void main(String[] args) {

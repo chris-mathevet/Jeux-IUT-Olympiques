@@ -4,6 +4,9 @@ package MVC.controleur;
 import MVC.vues.AppliJO;
 import MVC.vues.Connexion;
 import MVC.vues.Roles;
+
+import java.sql.SQLException;
+
 import MVC.modele.ModeleConnexion;
 import MVC.modele.ModeleJO;
 
@@ -68,6 +71,12 @@ public class ControleurBoutonConnexion implements EventHandler<ActionEvent>{
             else{ // Connexion réussi
                 this.vue.setUtilisateur(this.modele.getIdentifiant());
                 this.vue.setRole(Roles.getRole(roleCo));
+                try {
+                    this.vue.setMail(this.modele.getReq().getMailUser(this.modele.getIdentifiant()));
+                    
+                } catch (SQLException e) {
+                    System.err.println(e.getMessage());
+                }
                 try {
                     this.vue.modeAppli();
                 } catch (Exception e) {
