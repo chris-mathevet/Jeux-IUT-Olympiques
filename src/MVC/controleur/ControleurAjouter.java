@@ -87,8 +87,6 @@ public class ControleurAjouter implements EventHandler<ActionEvent> {
                 int enduranceAthlete = this.vue.getIntEnduranceAthlete();
                 int agiliteAthlete = this.vue.getIntAgiliteAthlete();
                 String paysAthlete = this.vue.getStringPaysAthlete();
-                System.out.println(paysAthlete);
-                System.out.println(this.modele.getLesAthletes());
                 if (this.modele.getLesPays().contains(new Pays(paysAthlete))) {
                     try {
                         this.modele.creerAthlete(nomAthlete, prenomAthlete,comboSexeAthlete, forceAthlete, enduranceAthlete, agiliteAthlete, paysAthlete);
@@ -101,20 +99,13 @@ public class ControleurAjouter implements EventHandler<ActionEvent> {
                     System.out.println("Veuillez selectionner ou créer un pays existant");
                 }
 
-                
-                System.out.println(this.modele.getLesAthletes());
                 break;
 
                 case "boutonAjouterParticipants2":
                 
-                System.out.println("fzsf");
                 String nomEquipe = this.vue.getStringNomEquipe();
                 String paysEquipe = this.vue.getStringPaysEquipe();
                 String comboSexeEquipe = (String) this.vue.getComboSexeEquipe().getValue();
-
-                System.out.println(nomEquipe);
-                System.out.println(paysEquipe);
-                System.out.println(comboSexeEquipe);
 
                 if (this.modele.getLesPays().contains(new Pays(paysEquipe))) {
                     try {
