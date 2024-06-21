@@ -594,7 +594,7 @@ public class Requete {
         for(Manche<Participant> manche : epreuve.getLesManches()){
             if(participant instanceof Athlete){
                 Athlete a = (Athlete) participant;
-                ps = laConnexion.prepareStatement("INSERT INTO PARTICIPER_ATHLETE (nomManche, descriptionEpreuve, sexeEpreuve, nom, prenom, sexe,nomPays) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                ps = laConnexion.prepareStatement("INSERT INTO PARTICIPER_ATHLETE (nomManche, descriptionEpreuve, sexeEpreuve, nomAthlete, prenomAthlete, sexe,nomPays) VALUES (?, ?, ?, ?, ?, ?, ?)");
                 ps.setString(1, manche.getNomDeTour());
                 ps.setString(2, manche.getEpreuve().getDescription());
                 ps.setString(3, String.valueOf(epreuve.getSexe()));
