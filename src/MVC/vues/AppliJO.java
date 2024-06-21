@@ -103,7 +103,8 @@ public class AppliJO extends Application {
     private Button boutonFileChooserParametre;
     private HBox dragAndDropCsv;
     private TableView<UserTableau> tableUser;
-  
+    private BorderPane PourTableauUser;
+
     @Override
     public void init(){
         this.modele = new ModeleJO();
@@ -645,7 +646,7 @@ public class AppliJO extends Application {
 
     }
 
-    private void lesEquipes(){
+            private void lesEquipes(){
         this.equ.getItems().clear();
         List<Equipe> lesParticipants = this.modele.getLesEquipes();
         for (Equipe equipes : lesParticipants){
@@ -692,7 +693,7 @@ public class AppliJO extends Application {
 
 
 
-    public void modeParametre() throws Exception {
+    public void modeParametre() throws Exception { // RAISE
         URL url = new File("FXML/PageParametre.fxml").toURI().toURL();
         FXMLLoader loader = new FXMLLoader(url);
         BorderPane centre = loader.load();
@@ -724,13 +725,22 @@ public class AppliJO extends Application {
         File initialDirectory = new File("./");
         this.boutonFileChooserParametre.setOnAction(new ControleurFileChooser(this,this.modeleConnexion.getReq(),initialDirectory));
         this.tableUser = new TableView<>();        
-        lesUsers();
+        
+
+        if(this.role == Roles.ADMIN){
+            boutonSaveParametre.setVisible(true);
+            dragAndDropCsv.setVisible(true);
+            boutonFileChooserParametre.setVisible(true);
+            
+            // this.PourTableauUser.setVisible(true);
+            lesUsers();
+        }
+
     }
 
 
-
     public void lesUsers(){
-        BorderPane PourTableauUser = (BorderPane)laScene.lookup("#BorderPaneParamTableau");
+        this.PourTableauUser = (BorderPane)laScene.lookup("#BorderPaneParamTableau");
         List<User> lesUsersList = this.modele.getLesUsers();
         for (User u : lesUsersList) {
             this.tableUser.getItems().add(new UserTableau(u.getPseudo(),u.getMail(),u.getRole()));
