@@ -189,3 +189,21 @@
 #refresh{
     -fx-background-color: transparent;
 }
+
+
+.scroll-bar:horizontal{
+    -fx-background-color: transparent;
+
+}
+
+.scroll-bar:horizontal .increment-button .increment-arrow, .scroll-bar:horizontal .decrement-button .decrement-arrow{
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:horizontal .increment-button , .scroll-bar:horizontal .decrement-button{
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:horizontal .thumb{
+    -fx-background-color: transparent;
+}

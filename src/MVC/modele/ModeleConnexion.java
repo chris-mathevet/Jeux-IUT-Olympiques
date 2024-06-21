@@ -35,6 +35,10 @@ public class ModeleConnexion {
             System.err.println("probleme connexion base de donnée");
         }
     }
+
+    public Requete getReq(){
+        return this.requete;
+    }
     public void setIdentifiant(String identifiant) {
         this.identifiant = identifiant;
     }
