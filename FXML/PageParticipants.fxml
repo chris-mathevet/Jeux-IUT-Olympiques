@@ -17,7 +17,7 @@
    <content>
       <VBox fx:id="vboxParticipants" alignment="TOP_CENTER" prefHeight="400.0" prefWidth="541.0">
          <children>
-            <TitledPane fx:id="titledPane1" alignment="TOP_LEFT" contentDisplay="CENTER" expanded="false" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="538.0" text="Athlètes">
+            <TitledPane fx:id="titledAthlete" alignment="TOP_LEFT" contentDisplay="CENTER" expanded="false" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="538.0" text="Athlètes">
                <content>
                   <BorderPane prefHeight="200.0" prefWidth="500.0" stylesheets="@style_app.css">
                      <top>
@@ -51,7 +51,7 @@
                      <bottom>
                         <HBox alignment="CENTER" prefHeight="43.0" prefWidth="452.0" spacing="10.0" BorderPane.alignment="CENTER">
                            <children>
-                              <TextField fx:id="txtFldNomAthlete" prefHeight="20.0" prefWidth="85.0" promptText="Nom">
+                              <TextField fx:id="fieldnomDansParticipants" prefHeight="20.0" prefWidth="85.0" promptText="Nom" visible="false">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
@@ -76,7 +76,7 @@
                   <Insets left="10.0" top="20.0" />
                </VBox.margin>
             </TitledPane>
-            <TitledPane fx:id="titledPane2" alignment="TOP_LEFT" expanded="false" layoutX="10.0" layoutY="30.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="538.0" text="Equipes">
+            <TitledPane fx:id="titledEquipe" alignment="TOP_LEFT" expanded="false" layoutX="10.0" layoutY="30.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="538.0" text="Equipes">
                <content>
                   <BorderPane prefHeight="200.0" prefWidth="500.0" stylesheets="@style_app.css">
                      <top>
@@ -110,14 +110,14 @@
                      <bottom>
                         <HBox alignment="CENTER" prefHeight="43.0" prefWidth="452.0" spacing="10.0" BorderPane.alignment="CENTER">
                            <children>
-                              <TextField fx:id="txtFldNomEquipe" prefHeight="20.0" prefWidth="85.0" promptText="Nom">
+                              <TextField fx:id="fieldnomEquipeDansParticipants" prefHeight="20.0" prefWidth="85.0" promptText="Nom" visible="false">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>
                               </TextField>
                               <TextField fx:id="txtFldPaysEquipe" layoutX="146.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Prénom" />
                               <ComboBox fx:id="comboBoxSexeEquipe" prefWidth="150.0" promptText="Sexe" />
-                              <Button fx:id="boutonAjouterParticipants2" mnemonicParsing="false" prefHeight="24.0" prefWidth="100.0" text="Ajouter">
+                              <Button fx:id="boutonAjouterParticipants2" mnemonicParsing="false" prefHeight="24.0" prefWidth="100.0" text
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>

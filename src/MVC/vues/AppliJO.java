@@ -4,19 +4,22 @@ import java.io.File;
 import java.net.URL;
 import java.util.List;
 
-import javax.swing.text.html.ImageView;
+import javafx.util.Duration;
+
 
 import MVC.modele.*;
 import MVC.modele.ModeleJO.Tris;
 import MVC.tableClass.*;
 import epreuves.Epreuve;
 import MVC.controleur.*;
-
+import javafx.animation.RotateTransition;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import participants.Athlete;
 import participants.Equipe;
@@ -27,6 +30,8 @@ import participants.Pays;
 
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class AppliJO extends Application {
 
@@ -51,15 +56,18 @@ public class AppliJO extends Application {
     private Button boutonEpreuve;
     private Button boutonParticipants;
     private Button boutonParametre;
+    private ComboBox<String> filtre;
     private Button boutonAjouterEpreuve;
     private Button boutonAjouterAthlete;
     private Button boutonAjouterEquipe;
 
     private String utilisateur;
+    private Roles role;
+
   
     private BorderPane modeleEpreuve;
-    private ComboBox menuSportEpreuve;
-    private ComboBox menuSexeEpreuve;
+    private ComboBox<String> menuSportEpreuve;
+    private ComboBox<String> menuSexeEpreuve;
     private TextField txtFieldDesc;
     private TextField txtFieldNomAthlete;
     private TextField txtFieldPrenomAthlete;
@@ -76,7 +84,25 @@ public class AppliJO extends Application {
     private Text txtNomModeleEpreuve;
     private ImageView imgSexeModeleEpreuve;
     private ImageView imgSportModeleEpreuve;
+
+
+    private TextField fieldnomDansEpreuve;
+    private TextField fieldPrenomEpreuve;
+    private Button boutonAddEpreuve;
+
+
+    private TextField fieldnomDansParticipants;
+    private TextField fieldPrenomParticipants;
+    private TextField fieldForceParticipants;
+    private TextField fieldEnduranceParticipants;
+    private TextField fieldagiliteParticipants;
+    private Button boutonAddParticipants;
     
+    private TextField fieldnomEquipeDansParticipants;
+    private Button boutonAddEquipeParticipants;
+    private TitledPane contenusParticipantsEquipe;
+    private TitledPane contenusParticipantsAthlete;
+
 
     @Override
     public void init(){
@@ -89,11 +115,13 @@ public class AppliJO extends Application {
         this.boutonParticipants = new Button();
         this.boutonAjouterEpreuve = new Button();
         this.modeleEpreuve = new BorderPane();
+        this.utilisateur = "User";
+        this.role = Roles.VISITEUR;
         this.contenus = new VBox();
         this.contenusParticipants = new VBox();
         
-        this.menuSportEpreuve = new ComboBox();
-        this.menuSexeEpreuve = new ComboBox();
+        this.menuSportEpreuve = new ComboBox<>();
+        this.menuSexeEpreuve = new ComboBox<>();
         this.txtFieldDesc = new TextField();
         this.txtNomModeleEpreuve = new Text();
         this.txtFieldNomAthlete = new TextField();
@@ -113,6 +141,9 @@ public class AppliJO extends Application {
         this.boutonAjouterEquipe = new Button();
         this.contenusParticipantsEquipe2 = new TitledPane();
         this.contenusParticipantsEquipe1 = new TitledPane();
+
+        this.imgSexeModeleEpreuve = new ImageView("logoMale2.png");
+        this.imgSportModeleEpreuve = new ImageView("Athletisme.png");
     }
 
     @Override
@@ -126,6 +157,14 @@ public class AppliJO extends Application {
         this.utilisateur = utilisateur;
     }
 
+    public void setRole(Roles role) {
+        this.role = role;
+    }
+
+    public Roles getRole() {
+        return this.role;
+    }
+
     public String getUtilisateur() {
         return this.utilisateur;
     }
@@ -133,6 +172,7 @@ public class AppliJO extends Application {
     // MODE CONNEXION
 
     public void modeAccueil() throws Exception{
+        this.modeleConnexion = new ModeleConnexion();
         this.modeConnexion();
     }
 
@@ -162,6 +202,7 @@ public class AppliJO extends Application {
         TextField motDePasse = (TextField) this.laScene.lookup("#textFieldMotDePasse");
         motDePasse.textProperty().addListener(new ControleurMDP(this.modeleConnexion,this,motDePasse,conditionMDP));
 
+        // Roles
     }
 
     public void modeInscription() throws Exception {
@@ -224,6 +265,7 @@ public class AppliJO extends Application {
     // MODE APPLI
 
     public void modeAppli() throws Exception {
+        this.modele.reload();
         URL url = new File("FXML/PageAppli.fxml").toURI().toURL();
         FXMLLoader loader = new FXMLLoader(url);
         this.racineAppli = loader.load();
@@ -243,10 +285,50 @@ public class AppliJO extends Application {
         this.boutonParametre = (Button) laScene.lookup("#boutonParametre");
         this.boutonParametre.setOnAction(new ControleurBoutonAppli(this, modele));
 
+        Button boutonDeco = (Button) laScene.lookup("#boutonDeconnexion");
+        boutonDeco.setOnAction(new ControleurBoutonDeco(this));
+
+        Button boutonRefresh = (Button) laScene.lookup("#refresh");
+        ImageView imageRefresh = new ImageView("refresh.png");
+        imageRefresh.setFitHeight(22);
+        imageRefresh.setPreserveRatio(true);
+        boutonRefresh.setOnAction(new ControleurRefresh(this.modele,this));
+        // boutonRefresh.setOnAction(event -> {
+            
+        // });
+        boutonRefresh.setGraphic(imageRefresh);
+
+        Text textUser = (Text) laScene.lookup("#userName");
+        Text textRole = (Text) laScene.lookup("#role");
+        textRole.setText(this.role.getRoleStr());
+        textUser.setText(this.utilisateur);
 
         this.modeClassement();
+
     }
 
+    public void majAffichage(){
+        Tris tri;
+        switch (this.filtre.getValue()) {
+            case "Alphabétique":
+                tri = Tris.NATUREL;
+                break;
+
+            case "Total":
+                tri = Tris.TOTAL;
+                break;
+        
+            default:
+                tri = Tris.MEDAILLES;
+                break;
+        }
+        this.updateClassement(tri);
+        try {
+            this.majEpreuve();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+    }
 
     public void modeClassement() throws Exception {
         URL url = new File("FXML/PageClassement.fxml").toURI().toURL();
@@ -261,18 +343,17 @@ public class AppliJO extends Application {
         this.boutonParametre.setDisable(false);
         this.boutonParticipants.setDisable(false);
 
-
-        ComboBox<String> filtre = (ComboBox<String>) laScene.lookup("#filtre");
-        filtre.getItems().addAll("Médailles","Alphabétique","Total");
-        filtre.setValue("Médailles");
-        filtre.setOnAction(new ControleurFiltreClassement(this));
+        this.filtre = (ComboBox<String>) laScene.lookup("#filtre");
+        this.filtre.getItems().addAll("Médailles","Alphabétique","Total");
+        this.filtre.setValue("Médailles");
+        this.filtre.setOnAction(new ControleurFiltreClassement(this));
 
         TextField fieldPays = (TextField) laScene.lookup("#fieldPays");
         Button boutonAjoutPays = (Button) laScene.lookup("#ajouterPays");
         boutonAjoutPays.setDisable(true);
 
         VBox boxErreur = (VBox) laScene.lookup("#boxErreur");
-        boutonAjoutPays.setOnAction(new ControleurAjoutPays(this, this.modele, fieldPays,filtre,boxErreur));
+        boutonAjoutPays.setOnAction(new ControleurAjoutPays(this, this.modele, fieldPays,this.filtre,boxErreur));
         fieldPays.textProperty().addListener(new ControleurTFAjoutPays(this,fieldPays,boxErreur,boutonAjoutPays));
 
 
@@ -281,6 +362,11 @@ public class AppliJO extends Application {
         this.leClassement(Tris.MEDAILLES);
 
         centre.setCenter(this.classement);
+        
+        if(this.role == Roles.ADMIN){
+            boutonAjoutPays.setVisible(true);
+            fieldPays.setVisible(true);
+        }
     }
 
     public void updateClassement(Tris tri){
@@ -371,8 +457,7 @@ public class AppliJO extends Application {
         BorderPane.setMargin(centre, new Insets(20));
         VBox grosContenu = (VBox) centre.getContent();
 
-        contenus = (VBox) grosContenu.lookup("#vboxEpreuve");
-        System.out.println(contenus.getChildren());
+        this.contenus = (VBox) grosContenu.lookup("#vboxEpreuve");
 
         this.boutonClassement.setDisable(false);
         this.boutonEpreuve.setDisable(true);
@@ -381,28 +466,29 @@ public class AppliJO extends Application {
         this.boutonAjouterEpreuve = (Button) grosContenu.lookup("#boutonAjouter");
         this.boutonAjouterEpreuve.setOnAction(new ControleurAjouter(this, modele));
 
-        this.menuSportEpreuve = (ComboBox) grosContenu.lookup("#menuSportEpreuve");
-        this.menuSexeEpreuve = (ComboBox) grosContenu.lookup("#menuPaysEpreuve");
+        this.menuSportEpreuve = (ComboBox<String>) grosContenu.lookup("#menuSportEpreuve");
+        this.menuSexeEpreuve = (ComboBox<String>) grosContenu.lookup("#menuPaysEpreuve");
 
         this.menuSexeEpreuve.getItems().addAll("Homme", "Femme");
         this.menuSportEpreuve.getItems().addAll("VolleyBall", "HandBall", "Athletisme", "Escrime", "Natation");
-        
-
-
-
-      
-        this.txtFieldDesc = (TextField) grosContenu.lookup("#txtFieldDesc");
-
-       
+              
+        this.txtFieldDesc = (TextField) grosContenu.lookup("#txtFieldDesc");   
+        if(this.role == Roles.ADMIN){
+            this.txtFieldDesc.setVisible(true);
+            this.menuSportEpreuve.setVisible(true);
+            this.menuSexeEpreuve.setVisible(true);
+            this.boutonAjouterEpreuve.setVisible(true);
+        }
     }
 
-    public ComboBox getComboSexe() {
+    public ComboBox<String> getComboSexe() {
         return this.menuSexeEpreuve;
     }
 
-    public ComboBox getComboSport() {
+    public ComboBox<String> getComboSport() {
         return this.menuSportEpreuve;
     }
+
 
     public void modeParticipants() throws Exception {
         URL url = new File("FXML/PageParticipants.fxml").toURI().toURL();
@@ -417,7 +503,6 @@ public class AppliJO extends Application {
 
         VBox parentParticipants = (VBox) centre.getContent();
 
-  
         this.contenusParticipantsEquipe1 = (TitledPane) parentParticipants.lookup("#titledPane1");
 
 
@@ -468,6 +553,18 @@ public class AppliJO extends Application {
         this.lesEquipes();
 
         enfantParticipants2.setCenter(this.equ);
+      
+        if(this.role == Roles.ADMIN){
+              fieldnomDansParticipants.setVisible(true);
+              fieldPrenomParticipants.setVisible(true);
+              fieldForceParticipants.setVisible(true);
+              fieldEnduranceParticipants.setVisible(true);
+              fieldagiliteParticipants.setVisible(true);
+              boutonAddParticipants.setVisible(true);
+
+              fieldnomEquipeDansParticipants.setVisible(true);
+              boutonAddEquipeParticipants.setVisible(true);
+          }
     }
 
     public ComboBox getComboSexeAthlete() {
@@ -476,6 +573,41 @@ public class AppliJO extends Application {
 
     public ComboBox getComboSexeEquipe() {
         return this.comboBoxSexeEquipe;
+        this.contenusParticipantsAthlete = (TitledPane) parentParticipants.lookup("#titledAthlete");
+        // System.out.println(this.contenusParticipantsEquipe);
+        this.contenusParticipantsEquipe = (TitledPane) parentParticipants.lookup("#titledEquipe");
+        // System.out.println(this.contenusParticipantsEquipe);
+        BorderPane enfantParticipantsAthlete = (BorderPane) this.contenusParticipantsAthlete.getContent();
+        BorderPane enfantParticipantsEquipe = (BorderPane) this.contenusParticipantsEquipe.getContent();
+
+        
+        // this.boutonAjouterAthlete = (Button) enfantParticipants1.lookup("#boutonAjouterParticipants");
+        // this.boutonAjouterAthlete.setOnAction(new ControleurAjouter(this, modele));
+        // System.out.println(this.boutonAjouterAthlete);
+
+
+
+        this.fieldnomDansParticipants= (TextField) enfantParticipantsAthlete.lookup("#fieldnomDansParticipants");
+        this.fieldPrenomParticipants= (TextField) enfantParticipantsAthlete.lookup("#fieldPrenomParticipants");
+        this.fieldForceParticipants= (TextField) enfantParticipantsAthlete.lookup("#fieldForceParticipants");
+        this.fieldEnduranceParticipants= (TextField) enfantParticipantsAthlete.lookup("#fieldEnduranceParticipants");
+        this.fieldagiliteParticipants= (TextField) enfantParticipantsAthlete.lookup("#fieldagiliteParticipants");
+        this.boutonAddParticipants= (Button) enfantParticipantsAthlete.lookup("#boutonAddParticipants");
+
+        this.fieldnomEquipeDansParticipants= (TextField) enfantParticipantsEquipe.lookup("#fieldnomEquipeDansParticipants");
+        this.boutonAddEquipeParticipants= (Button) enfantParticipantsEquipe.lookup("#boutonAddEquipeParticipants");
+
+        if(this.role == Roles.ADMIN){
+            fieldnomDansParticipants.setVisible(true);
+            fieldPrenomParticipants.setVisible(true);
+            fieldForceParticipants.setVisible(true);
+            fieldEnduranceParticipants.setVisible(true);
+            fieldagiliteParticipants.setVisible(true);
+            boutonAddParticipants.setVisible(true);
+
+            fieldnomEquipeDansParticipants.setVisible(true);
+            boutonAddEquipeParticipants.setVisible(true);
+        }
     }
 
     private void lesAthletes(){
@@ -595,31 +727,80 @@ public class AppliJO extends Application {
     }
 
 
-    public void ajoutEpreuve(Epreuve epreuve) throws Exception {
+    public void ajoutEpreuve(Epreuve<Participant> epreuve) throws Exception {
         BorderPane ep = modeleCreationEpreuve();
-        this.contenus.getChildren().add(ep);
+        this.contenus.getChildren().add(ep);     
+    
+        ImageView imageSport = (ImageView) ep.lookup("#imageSport");
+        Image imageSportTemp;
+        ImageView imageSexe = (ImageView) ep.lookup("#imageSexe");
+        Image imageSexeTemp;
+
+        switch (epreuve.getSport().getSport()) {
+            case "Athletisme":
+                imageSportTemp = new Image("Athletisme.png");
+                break;
+            
+            case "Escrime":
+                imageSportTemp = new Image("Escrime.png");
+                break;
+
+            case "Handball":
+                imageSportTemp = new Image("HandBall.png");
+                break;
+
+            case "Natation":
+                imageSportTemp =new Image("Natation.png");
+                break;
         
-        // Assurez-vous que l'ID du Label dans votre FXML est bien "modeleEpreuveNom"
+            default:
+                imageSportTemp = new Image("VoleyBall.png");
+                break;
+        }
+        imageSport.setImage(imageSportTemp);
+        imageSport.setFitHeight(30);
+        imageSport.setPreserveRatio(true);
+
+        if(epreuve.getSexe() == 'H'){
+            imageSexeTemp = new Image("logoMale2.png");
+        }
+        else{
+            imageSexeTemp = new Image("logoFemale2.png");
+        }
+
+        imageSexe.setImage(imageSexeTemp);
+        imageSexe.setFitHeight(30);
+        imageSexe.setFitWidth(30);
+        
         Text test = (Text) ep.lookup("#modeleEpreuveNom");
         if (test != null) {
             test.setText(epreuve.getDescription());
         }
+        this.fieldnomDansEpreuve = (TextField) ep.lookup("#fieldnomEpreuve");   
+        this.fieldPrenomEpreuve = (TextField) ep.lookup("#fieldPrenomEpreuve");   
+        this.boutonAddEpreuve = (Button) ep.lookup("#BoutonAddEpreuve");   
 
+        if(this.role == Roles.ADMIN){
+            boutonAddEpreuve.setVisible(true);
+            fieldPrenomEpreuve.setVisible(true);
+            // truc.setVisible(true); // a changer pour le menu bouton 
+            fieldnomDansEpreuve.setVisible(true);
+        }
     }
 
-    public void majEpreuve(List<Epreuve<Participant>> lesEpreuves) throws Exception{
+    public void majEpreuve() throws Exception{
+        List<Epreuve<Participant>> lesEpreuves = this.modele.getLesEpreuves().reversed();
         if (!(lesEpreuves.isEmpty())) {
             this.contenus.getChildren().clear();
-            for (Epreuve ep : lesEpreuves) {
+            for (Epreuve<Participant> ep : lesEpreuves) {
                 try {
                     ajoutEpreuve(ep);
+   
                 } catch (Exception e) {
                     System.err.println(e.getMessage());
                 }
             }
         }
-        System.out.println(lesEpreuves);
-
     }
 
      public BorderPane modeleCreationEpreuve() throws Exception {

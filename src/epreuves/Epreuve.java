@@ -288,7 +288,7 @@ public class Epreuve<T extends Participant> {
 		if(obj == this){return true;}
 		if (!(obj instanceof Epreuve)){return false;}
 		Epreuve epreuve = (Epreuve) obj;
-		return epreuve.getDescription().equals(this.getDescription()) && epreuve.getSexe() == this.getSexe() && this.getSport().equals(epreuve.getSport());
+		return epreuve.getDescription().equals(this.getDescription()) && epreuve.getSexe() == this.getSexe();
 	}
 
 	@Override

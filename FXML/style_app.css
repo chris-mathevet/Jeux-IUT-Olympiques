@@ -25,7 +25,7 @@
 .table-view .table-cell{
     -fx-border-color: #0000008a;
     -fx-border-width: 0.5;
-    -fx-padding: 2 0 2 0;
+    -fx-padding: 2 0 2 4px;
 }
 
 .table-row-cell:hover {
@@ -150,12 +150,6 @@
     -fx-border-radius: 2;
 }
 
-#borderPaneEpreuve{
-    -fx-border-color: #D4C47C;
-    -fx-border-width: 2px;
-    -fx-border-radius: 10;
-}
-
 .titre{
     -fx-font-family: System;
     -fx-font-size: 24;
@@ -164,7 +158,7 @@
 }
 
 .lesBoutonsNav{
-    -fx-padding: 3.3em 0 1em 0;
+    -fx-padding: 1.1em 0 1em 0;
     -fx-font-size: 1.6em;
     -fx-background-color: transparent;
     -fx-font-family: System;
@@ -174,7 +168,77 @@
 
 .lesBoutonsNav:hover{
     -fx-font-size: 1.7em;
-    -fx-padding: 3.1em 0 0.8em 0;
+    -fx-padding: 1em 0 0.8em 0;
     -fx-underline: true;
 }
 
+.userRole{
+    -fx-font-size: 1.2em;
+}
+
+.boxUser{
+    -fx-padding: 5 0 0 10;
+}
+
+#refresh{
+    -fx-background-color: transparent;
+}
+
+/* .lesScrollPane{
+    -fx-background-radius: 45;
+    -fx-background-color: #D4C47C;
+    -fx-border-color: #aa9d63;
+    -fx-border-width: 5;
+    -fx-border-radius: 40;
+} */
+
+#borderPaneEpreuve{
+    -fx-background-radius: 15;
+    -fx-background-color: White;
+    -fx-border-color: #aa9d63;
+    -fx-border-width: 5;
+    -fx-border-radius: 10;
+}
+
+.hearderEpreuve{
+    -fx-background-radius: 8 8 0 0;
+    -fx-background-color: #8b856c;
+    -fx-border-width: 5;
+    -fx-border-radius: 10;
+}
+
+.scroll-pane > .viewport{
+    -fx-background-radius: 45 0 0 45;
+    -fx-background-color: #D4C47C;
+    -fx-border-color: #aa9d63;
+    -fx-border-width: 5 0 5 5;
+    -fx-border-radius: 40 0 0 40;
+}
+
+.scroll-pane{
+    -fx-background-color: transparent;
+}
+
+.scroll-bar{
+    -fx-background-color: #aa9d63;
+}
+
+.scroll-bar .increment-button .increment-arrow, .scroll-bar .decrement-button .decrement-arrow{
+    -fx-background-color: #867d52;
+}
+
+.scroll-bar .increment-button , .scroll-bar .decrement-button {
+    -fx-background-color: #8b856c;
+}
+
+.scroll-bar .thumb{
+    -fx-background-color: #D4C47C;
+}
+
+.imageEpreuve{
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: white;
+    -fx-border-radius: 5;
+    -fx-border-width: 5;
+}

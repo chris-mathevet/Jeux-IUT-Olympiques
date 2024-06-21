@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import participants.Participant;
 
 public class ControleurAjouter implements EventHandler<ActionEvent> {
 
@@ -34,46 +35,46 @@ public class ControleurAjouter implements EventHandler<ActionEvent> {
                 String combo1 = (String) this.vue.getComboSexe().getValue();
         String combo2 = (String) this.vue.getComboSport().getValue();
         char sexe = 'F';
-        Sport sport = null;
-        Epreuve ep = null;
+        Sport sport;
         String desc = this.vue.getStringDescription();
-        System.out.println(combo2);
 
-        if (combo1 != null && combo2 != null) {
-            if (combo1.equals("Male")) {
+        if (combo1 != null && combo2 != null  & !(desc.equals(""))) {
+            if (combo1.equals("Homme")) {
                 sexe = 'M';
             }
+            
+            switch (combo2) {
+                case "VolleyBall":
+                    sport = new VoleyBall();
+                    break;
 
-            if (combo2.equals("VolleyBall")) {
-                sport = new VoleyBall();
-                System.out.println(true);
-            } else if (combo2.equals("HandBall")) {
-                sport = new HandBall();
-            } else if (combo2.equals("Natation")) {
-                sport = new Natation();
-            } else if (combo2.equals("Escrime")) {
-                sport = new Escrime();
-            } else if (combo2.equals("Athletisme")) {
-                sport = new Athletisme();
+                case "HandBall":
+                    sport = new HandBall();
+                    break;
+
+                case "Natation":
+                    sport = new Natation();
+                    break;
+
+                case "Escrime":
+                    sport = new Escrime();
+                    break;
+            
+                default:
+                    sport = new Athletisme();
+                    break;
             }
 
             try {
                 if (sport != null) {
-                    ep = new Epreuve(desc, sport, sexe);
-                    this.modele.creerEpreuve(ep);
-                } else {
-                    System.out.println("Veuillez sélectionner un sport valide");
+                    this.modele.creerEpreuve(new Epreuve<Participant>(desc, sport, sexe));
+                    this.vue.majEpreuve();
                 }
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             }
         } else {
             System.out.println("Veuillez sélectionner un sport et un sexe");
-        }
-        try {
-            this.vue.majEpreuve(this.modele.getLesEpreuves());
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
         }
                 break;
         
@@ -131,9 +132,5 @@ public class ControleurAjouter implements EventHandler<ActionEvent> {
                
                 break;
         }
-        
-        
-        
-        
     }
 }
