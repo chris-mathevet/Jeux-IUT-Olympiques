@@ -4,6 +4,11 @@ import MVC.vues.AppliJO;
 import MVC.modele.ModeleJO;
 import epreuves.Epreuve;
 import sports.*;
+import participants.*;
+import exceptions.*;
+
+import javafx.scene.control.*;
+
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,7 +26,13 @@ public class ControleurAjouter implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        String combo1 = (String) this.vue.getComboSexe().getValue();
+
+        Button current = (Button) actionEvent.getSource();
+        String id = current.getId();
+
+        switch (id) {
+            case "boutonAjouter":
+                String combo1 = (String) this.vue.getComboSexe().getValue();
         String combo2 = (String) this.vue.getComboSport().getValue();
         char sexe = 'F';
         Sport sport;
@@ -64,6 +75,62 @@ public class ControleurAjouter implements EventHandler<ActionEvent> {
             }
         } else {
             System.out.println("Veuillez sélectionner un sport et un sexe");
+        }
+                break;
+        
+            case "boutonAjouterParticipants":
+            
+                String nomAthlete = this.vue.getStringNomAthlete();
+                String prenomAthlete = this.vue.getStringPrenomAthlete();
+                String comboSexeAthlete = (String) this.vue.getComboSexeAthlete().getValue();
+                int forceAthlete = this.vue.getIntForceAthlete();
+                int enduranceAthlete = this.vue.getIntEnduranceAthlete();
+                int agiliteAthlete = this.vue.getIntAgiliteAthlete();
+                String paysAthlete = this.vue.getStringPaysAthlete();
+                System.out.println(paysAthlete);
+                System.out.println(this.modele.getLesAthletes());
+                if (this.modele.getLesPays().contains(new Pays(paysAthlete))) {
+                    try {
+                        this.modele.creerAthlete(nomAthlete, prenomAthlete,comboSexeAthlete, forceAthlete, enduranceAthlete, agiliteAthlete, paysAthlete);
+                        this.vue.updateAthlete();
+                    } catch (AlreadyExistException e) {
+                        System.err.println(e.getMessage());
+                    }
+                }
+                else {
+                    System.out.println("Veuillez selectionner ou créer un pays existant");
+                }
+
+                
+                System.out.println(this.modele.getLesAthletes());
+                break;
+
+                case "boutonAjouterParticipants2":
+                
+                System.out.println("fzsf");
+                String nomEquipe = this.vue.getStringNomEquipe();
+                String paysEquipe = this.vue.getStringPaysEquipe();
+                String comboSexeEquipe = (String) this.vue.getComboSexeEquipe().getValue();
+
+                System.out.println(nomEquipe);
+                System.out.println(paysEquipe);
+                System.out.println(comboSexeEquipe);
+
+                if (this.modele.getLesPays().contains(new Pays(paysEquipe))) {
+                    try {
+                        this.modele.creerEquipe(nomEquipe);
+                        this.vue.updateEquipe();
+                    } catch (AlreadyExistException e) {
+                        System.err.println(e.getMessage());
+                    }
+                }
+                else {
+                    System.out.println("Veuillez selectionner ou créer un pays existant");
+                }
+
+                
+               
+                break;
         }
     }
 }

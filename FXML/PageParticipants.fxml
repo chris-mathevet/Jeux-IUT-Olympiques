@@ -2,10 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.image.ImageView?>
@@ -15,11 +13,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<ScrollPane hbarPolicy="NEVER" prefHeight="285.0" prefWidth="538.0" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane hbarPolicy="NEVER" prefHeight="285.0" prefWidth="538.0" vbarPolicy="NEVER" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <content>
-      <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="541.0">
+      <VBox fx:id="vboxParticipants" alignment="TOP_CENTER" prefHeight="400.0" prefWidth="541.0">
          <children>
-            <TitledPane fx:id="titledAthlete" alignment="TOP_LEFT" contentDisplay="CENTER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="538.0" text="Athlètes">
+            <TitledPane fx:id="titledAthlete" alignment="TOP_LEFT" contentDisplay="CENTER" expanded="false" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="538.0" text="Athlètes">
                <content>
                   <BorderPane prefHeight="200.0" prefWidth="500.0" stylesheets="@style_app.css">
                      <top>
@@ -47,28 +45,6 @@
                            </BorderPane.margin>
                         </HBox>
                      </top>
-                     <center>
-                        <TableView id="tableView" opacity="0.9" prefHeight="200.0" prefWidth="535.0" BorderPane.alignment="CENTER">
-                           <columns>
-                              <TableColumn editable="false" prefWidth="47.0" text="Pays" />
-                              <TableColumn editable="false" prefWidth="76.0" resizable="false" text="Athlète" />
-                              <TableColumn editable="false" prefWidth="70.0" text="Force" />
-                              <TableColumn editable="false" prefWidth="90.0" resizable="false" text="Endurance" />
-                              <TableColumn editable="false" prefWidth="88.0" text="Agilité" />
-                              <TableColumn editable="false" prefWidth="59.0" resizable="false" text="Equipe" />
-                              <TableColumn editable="false" prefWidth="64.0" text="Epreuve" />
-                           </columns>
-                           <padding>
-                              <Insets left="10.0" right="10.0" />
-                           </padding>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                           <BorderPane.margin>
-                              <Insets bottom="10.0" />
-                           </BorderPane.margin>
-                        </TableView>
-                     </center>
                      <padding>
                         <Insets left="5.0" right="5.0" />
                      </padding>
@@ -80,16 +56,13 @@
                                     <Insets />
                                  </HBox.margin>
                               </TextField>
-                              <TextField fx:id="fieldPrenomParticipants" layoutX="146.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Prénom" visible="false" />
-                              <TextField fx:id="fieldForceParticipants" layoutX="104.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Force" visible="false" />
-                              <TextField fx:id="fieldEnduranceParticipants" layoutX="241.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Endurance" visible="false" />
-                              <TextField fx:id="fieldagiliteParticipants" layoutX="198.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Agilité" visible="false" />
-                              <MenuButton mnemonicParsing="false" prefHeight="24.0" prefWidth="71.0" text="Pays">
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin>
-                              </MenuButton>
-                              <Button fx:id="boutonAddParticipants" mnemonicParsing="false" prefHeight="24.0" prefWidth="100.0" text="Ajouter" visible="false">
+                              <TextField fx:id="txtFldPrenomAthlete" layoutX="146.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Prénom" />
+                              <ComboBox fx:id="comboBoxSexeAthlete" prefWidth="150.0" promptText="Sexe" />
+                              <TextField fx:id="txtFldForceAthlete" layoutX="104.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Force" />
+                              <TextField fx:id="txtFldEnduranceAthlete" layoutX="241.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Endurance" />
+                              <TextField fx:id="txtFldAgiliteAthlete" layoutX="198.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Agilité" />
+                              <TextField fx:id="txtFldPaysAthlete" layoutX="350.0" layoutY="19.0" prefHeight="20.0" prefWidth="85.0" promptText="Agilité" />
+                              <Button fx:id="boutonAjouterParticipants" mnemonicParsing="false" prefHeight="24.0" prefWidth="100.0" text="Ajouter">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
@@ -103,7 +76,7 @@
                   <Insets left="10.0" top="20.0" />
                </VBox.margin>
             </TitledPane>
-            <TitledPane fx:id="titledEquipe" alignment="TOP_LEFT" layoutX="10.0" layoutY="30.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="538.0" text="Equipes">
+            <TitledPane fx:id="titledEquipe" alignment="TOP_LEFT" expanded="false" layoutX="10.0" layoutY="30.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="538.0" text="Equipes">
                <content>
                   <BorderPane prefHeight="200.0" prefWidth="500.0" stylesheets="@style_app.css">
                      <top>
@@ -131,45 +104,20 @@
                            </BorderPane.margin>
                         </HBox>
                      </top>
-                     <center>
-                        <TableView id="tableView" opacity="0.9" prefHeight="200.0" prefWidth="535.0" BorderPane.alignment="CENTER">
-                           <columns>
-                              <TableColumn editable="false" prefWidth="47.0" text="Pays" />
-                              <TableColumn editable="false" prefWidth="76.0" resizable="false" text="Athlète" />
-                              <TableColumn editable="false" prefWidth="70.0" text="Force" />
-                              <TableColumn editable="false" prefWidth="90.0" resizable="false" text="Endurance" />
-                              <TableColumn editable="false" prefWidth="88.0" text="Agilité" />
-                              <TableColumn editable="false" prefWidth="59.0" resizable="false" text="Equipe" />
-                              <TableColumn editable="false" prefWidth="64.0" text="Epreuve" />
-                           </columns>
-                           <padding>
-                              <Insets left="10.0" right="10.0" />
-                           </padding>
-                           <columnResizePolicy>
-                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                           </columnResizePolicy>
-                           <BorderPane.margin>
-                              <Insets bottom="10.0" />
-                           </BorderPane.margin>
-                        </TableView>
-                     </center>
                      <padding>
                         <Insets left="5.0" right="5.0" />
                      </padding>
                      <bottom>
-                        <HBox alignment="CENTER" prefHeight="43.0" prefWidth="452.0" BorderPane.alignment="CENTER">
+                        <HBox alignment="CENTER" prefHeight="43.0" prefWidth="452.0" spacing="10.0" BorderPane.alignment="CENTER">
                            <children>
                               <TextField fx:id="fieldnomEquipeDansParticipants" prefHeight="20.0" prefWidth="85.0" promptText="Nom" visible="false">
                                  <HBox.margin>
-                                    <Insets left="10.0" right="10.0" />
+                                    <Insets />
                                  </HBox.margin>
                               </TextField>
-                              <MenuButton mnemonicParsing="false" prefHeight="24.0" prefWidth="71.0" text="Pays">
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin>
-                              </MenuButton>
-                              <Button fx:id="boutonAddEquipeParticipants" mnemonicParsing="false" prefHeight="24.0" prefWidth="78.0" text="Ajouter" visible="false">
+                              <TextField fx:id="txtFldPaysEquipe" layoutX="146.0" layoutY="20.0" prefHeight="20.0" prefWidth="85.0" promptText="Prénom" />
+                              <ComboBox fx:id="comboBoxSexeEquipe" prefWidth="150.0" promptText="Sexe" />
+                              <Button fx:id="boutonAjouterParticipants2" mnemonicParsing="false" prefHeight="24.0" prefWidth="100.0" text
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
