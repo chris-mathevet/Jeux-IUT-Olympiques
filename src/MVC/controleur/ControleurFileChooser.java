@@ -2,7 +2,6 @@ package MVC.controleur;
 
 
 import MVC.vues.AppliJO;
-import MVC.vues.Connexion;
 import MVC.vues.Roles;
 import database.Requete;
 

@@ -58,7 +58,7 @@ public class AppliJO extends Application {
     private Button boutonConnexion;
 
     private TableView<PaysTableau> classement;
-    private TableView<AthletesTableau> ath;
+    private TableView<ParticipantTableau> ath;
     private TableView<EquipeTableau> equ;
     private Button boutonClassement;
     private Button boutonEpreuve;
@@ -406,7 +406,7 @@ public class AppliJO extends Application {
         this.ath.getItems().clear();
         List<Athlete> lesAthletes2 = this.modele.getLesAthletes();
         for (Athlete athletess : lesAthletes2){
-            this.ath.getItems().add(new AthletesTableau(athletess));
+            this.ath.getItems().add(new ParticipantTableau(athletess));
         }
     }
 
@@ -604,33 +604,33 @@ public class AppliJO extends Application {
         this.ath.getItems().clear();
         List<Athlete> lesParticipants = this.modele.getLesAthletes();
         for (Athlete athlet : lesParticipants){
-            this.ath.getItems().add(new AthletesTableau(athlet));
+            this.ath.getItems().add(new ParticipantTableau(athlet));
         }
 
         // Colones
 
-        TableColumn<AthletesTableau,Integer> nomColumn = new TableColumn<>("Nom");
+        TableColumn<ParticipantTableau,Integer> nomColumn = new TableColumn<>("Nom");
         nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
 
-        TableColumn<AthletesTableau,String> prenomColumn = new TableColumn<>("Prenom");
+        TableColumn<ParticipantTableau,String> prenomColumn = new TableColumn<>("Prenom");
         prenomColumn.setCellValueFactory(new PropertyValueFactory<>("prenom"));
 
-        TableColumn<AthletesTableau,String> sexeColumn = new TableColumn<>("Sexe");
+        TableColumn<ParticipantTableau,String> sexeColumn = new TableColumn<>("Sexe");
         sexeColumn.setCellValueFactory(new PropertyValueFactory<>("sexe"));
 
 
-        TableColumn<AthletesTableau,Integer> forceColumn = new TableColumn<>("Force");
+        TableColumn<ParticipantTableau,Integer> forceColumn = new TableColumn<>("Force");
         forceColumn.setCellValueFactory(new PropertyValueFactory<>("force"));
 
 
-        TableColumn<AthletesTableau,Integer> enduranceColumn = new TableColumn<>("Endurance");
+        TableColumn<ParticipantTableau,Integer> enduranceColumn = new TableColumn<>("Endurance");
         enduranceColumn.setCellValueFactory(new PropertyValueFactory<>("endurance"));
 
 
-        TableColumn<AthletesTableau,Integer> agiliteColumn = new TableColumn<>("Agilite");
+        TableColumn<ParticipantTableau,Integer> agiliteColumn = new TableColumn<>("Agilite");
         agiliteColumn.setCellValueFactory(new PropertyValueFactory<>("agilite"));
 
-        TableColumn<AthletesTableau,String> paysColumn = new TableColumn<>("Pays");
+        TableColumn<ParticipantTableau,String> paysColumn = new TableColumn<>("Pays");
         paysColumn.setCellValueFactory(new PropertyValueFactory<>("pays"));
 
         this.ath.getColumns().addAll(nomColumn,prenomColumn,sexeColumn,forceColumn,enduranceColumn,agiliteColumn, paysColumn);
@@ -643,7 +643,7 @@ public class AppliJO extends Application {
                 sceneWidth[0] = newValue.doubleValue(); 
             
             int nbCol = ath.getColumns().size();
-            for(TableColumn<AthletesTableau,?> col : this.ath.getColumns()){
+            for(TableColumn<ParticipantTableau,?> col : this.ath.getColumns()){
 
                 col.setSortable(false);
                 col.setReorderable(false);
@@ -852,6 +852,7 @@ public class AppliJO extends Application {
         Image imageSportTemp;
         ImageView imageSexe = (ImageView) ep.lookup("#imageSexe");
         Image imageSexeTemp;
+        System.out.println(epreuve);
 
         switch (epreuve.getSport().getSport()) {
             case "Athletisme":
@@ -903,6 +904,72 @@ public class AppliJO extends Application {
             // truc.setVisible(true); // a changer pour le menu bouton 
             fieldnomDansEpreuve.setVisible(true);
         }
+
+        
+        Button lancerEpreuve = (Button) ep.lookup("#boutonLancer"); 
+        System.out.println(epreuve);
+        System.out.println(lancerEpreuve);
+        TableView<AthleteTabClassement> tab = this.getClassementEpreuve(epreuve);
+        lancerEpreuve.setOnAction(new ControleurLancerEpreuve(epreuve, this, tab));
+        
+        ep.setCenter(tab);
+    }
+
+    public TableView<AthleteTabClassement> getClassementEpreuve(Epreuve<Participant> epreuve){
+        TableView<AthleteTabClassement> tableau = new TableView<>();
+        List<Participant> lesParticipants = epreuve.getLeClassement();
+        System.out.println(lesParticipants);
+        int cpt = 0;
+        if(lesParticipants != null){
+            for (Participant part : lesParticipants){
+                System.out.println(part);
+                tableau.getItems().add(new AthleteTabClassement(part, epreuve, ++cpt));
+            }
+
+            TableColumn<AthleteTabClassement,Integer> placeCol = new TableColumn<>("Place");
+            placeCol.setCellValueFactory(new PropertyValueFactory<>("place"));
+
+            TableColumn<AthleteTabClassement,String> paysColumn = new TableColumn<>("Pays");
+            paysColumn.setCellValueFactory(new PropertyValueFactory<>("pays"));
+
+            TableColumn<AthleteTabClassement,String> nomColumn = new TableColumn<>("Nom");
+            nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
+
+            TableColumn<AthleteTabClassement,Double> pointColumn = new TableColumn<>("Points");
+            pointColumn.setCellValueFactory(new PropertyValueFactory<>("point"));
+            
+            if(epreuve.getSport().getNbParEquipe()==1){
+                TableColumn<AthleteTabClassement,String> prenomColumn = new TableColumn<>("Prénom");
+                prenomColumn.setCellValueFactory(new PropertyValueFactory<>("prenom"));
+                tableau.getColumns().addAll(placeCol,paysColumn,nomColumn,prenomColumn,pointColumn);
+            }
+            else{
+                tableau.getColumns().addAll(placeCol,paysColumn,nomColumn,pointColumn);
+            }
+
+
+            double[] sceneWidth = {0.0};
+
+            tableau.widthProperty().addListener((observable, oldValue, newValue) -> {
+                    sceneWidth[0] = newValue.doubleValue(); 
+            
+                
+                int nbCol = tableau.getColumns().size();
+                for(TableColumn<AthleteTabClassement,?> col : tableau.getColumns()){
+
+                    col.setSortable(false);
+                    col.setReorderable(false);
+                    col.setResizable(false);
+                    // col.setEditable(false);
+                    sceneWidth[0]*=0.99; // prendre 99% de la largeur
+                    col.setPrefWidth((sceneWidth[0]/nbCol));
+                }
+            });
+            tableau.setMinHeight(200);
+            return tableau;
+        }
+        return new TableView<>();
+
     }
 
     public List<Epreuve<Participant>> reversed(List<Epreuve<Participant>> l){
@@ -926,6 +993,22 @@ public class AppliJO extends Application {
                 }
             }
         }
+    }
+    
+    public void majClassementEpreuve(Epreuve<Participant> epreuve, TableView<AthleteTabClassement> tab){
+        tab.getItems().clear();
+        List<Participant> lesParticipants = epreuve.getLeClassement();
+        System.out.println("maj");
+        int cpt=0;
+        if(lesParticipants != null){
+            
+            for(Participant part : lesParticipants){
+                System.out.println(part);
+                System.out.println("dans maj");
+                tab.getItems().add(new AthleteTabClassement(part, epreuve, ++cpt));
+            }
+        }
+
     }
 
      public BorderPane modeleCreationEpreuve() throws Exception {
