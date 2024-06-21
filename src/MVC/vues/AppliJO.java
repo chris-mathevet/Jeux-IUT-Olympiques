@@ -3,6 +3,7 @@ package MVC.vues;
 import java.io.File;
 import java.net.URL;
 import java.net.http.HttpResponse.BodyHandler;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -827,8 +828,16 @@ public class AppliJO extends Application {
         }
     }
 
+    public List<Epreuve<Participant>> reversed(List<Epreuve<Participant>> l){
+        List<Epreuve<Participant>> res = new ArrayList<>();
+        for(int i=l.size()-1;i>=0;i++){
+            res.add(l.get(i));
+        }
+        return res;
+    }
+
     public void majEpreuve() throws Exception{
-        List<Epreuve<Participant>> lesEpreuves = this.modele.getLesEpreuves().reversed();
+        List<Epreuve<Participant>> lesEpreuves = reversed(this.modele.getLesEpreuves());
         if (!(lesEpreuves.isEmpty())) {
             this.contenus.getChildren().clear();
             for (Epreuve<Participant> ep : lesEpreuves) {
