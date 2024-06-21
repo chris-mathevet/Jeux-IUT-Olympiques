@@ -14,7 +14,8 @@ import java.util.ArrayList;
 import java.util.Arrays; 
 import java.util.Collections;
 import java.util.List;
-    
+
+import MVC.user.User;
 import executable.LibCreation;
 
 public class ModeleJO {
@@ -23,6 +24,7 @@ public class ModeleJO {
     private List<Equipe> lesEquipes;
     private List<Epreuve<Participant>> lesEpreuves;
     private List<Pays> lesPays;
+    private List<User> lesUsers;
 
     public enum Tris{NATUREL, MEDAILLES, TOTAL}
 
@@ -70,6 +72,11 @@ public class ModeleJO {
             this.lesPays = new ArrayList<>();
         }
         try {
+            this.lesUsers = requete.selectUsers();  
+        } catch (Exception e) {
+            this.lesUsers = new ArrayList<>();
+        }
+        try {
             this.lesAthletes = requete.selectAthlete();             
         } catch (Exception e) {
             this.lesAthletes = new ArrayList<>();
@@ -107,6 +114,9 @@ public class ModeleJO {
 
     public List<Pays> getLesPays() {
         return this.lesPays;
+    }
+    public List<User> getLesUsers() {
+        return this.lesUsers;
     }
 
     public List<Pays> getLesPays(Tris tri) {

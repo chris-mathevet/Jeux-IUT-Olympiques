@@ -3,6 +3,7 @@ import participants.Athlete;
 import participants.Equipe;
 import participants.Participant;
 import participants.Pays;
+import sports.VoleyBall;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class ExeTest {
 
             try {
                 System.out.println("debut boucle");    
-            //     r.clearAll();
+                r.clearAll();
             //     r.insertUser("i_am_julian", "Salut@1aaa".hashCode()*97,"marquesjulian26@gmail.com", "admin");
             //     r.insertUser("Slyjack999", "Salut@1aaa".hashCode()*97,"slyjack999@gmail.com", "visiteur");
             //     r.insertUser("Axel1234", "Salut@1aaa".hashCode()*97, "hacksel002@gmail.com", "visiteur");
@@ -106,19 +107,26 @@ public class ExeTest {
             //     List<Epreuve<?>> truc = r.selectEpreuves();
 
 
-                List<Epreuve<Participant>> truc = r.selectEpreuves();
+                // List<Epreuve<Participant>> truc = r.selectEpreuves();
                 // r.insertPays(new Pays("salutd"));
             //     for (Epreuve<?> epreuve : truc) {
             //         System.out.println(epreuve);
             //     }
 
-                r.insertPays(new Pays("C'est mua"));
+                // r.insertPays(new Pays("C'est mua"));
 
             //     r.csvToBd("donnees.csv");
             //     res = r.selectAthlete();
             //     for(Athlete a:res){
             //         System.out.println(a);
             //     }
+
+            // r.insertEpreuve(new Epreuve<>("mama la truc",new VoleyBall(), 'F'));
+            // List<Equipe> lesEquipes = r.selectEquipe();
+
+            // for (Equipe equipe : lesEquipes) {
+            //     System.out.println("l'equipe : :" + equipe);
+            // }
                 System.out.println(r.getDrapeau("France"));
                 System.out.println(r.getDrapeau("Italy"));
                 System.out.println(r.getDrapeau("Italie"));

@@ -1,5 +1,5 @@
 package MVC.controleur;
-
+import javafx.stage.FileChooser;
 import javafx.scene.control.*;
 import MVC.vues.AppliJO;
 import MVC.vues.Connexion;
@@ -56,7 +56,14 @@ public class ControleurBoutonAppli implements EventHandler<ActionEvent>{
             }
         }
         else if (lettre.equals("Paramètres")) {
-            System.out.println("d");
+            // this.vue.ouvertureCSV();
+            // System.out.println("d");
+            try {
+                this.vue.modeParametre();
+                
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
         }
 }
 }

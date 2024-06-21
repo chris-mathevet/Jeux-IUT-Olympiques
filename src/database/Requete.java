@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 import MVC.modele.ModeleJO;
+import MVC.user.User;
 
 
 public class Requete {
@@ -261,6 +262,18 @@ public class Requete {
     }
 
 
+    public String getMailUser(String pseudo) throws SQLException{
+            
+        Statement s=laConnexion.createStatement();
+        ResultSet r=s.executeQuery("select * from USER where idPseudo="+"\""+pseudo+"\""+";");
+        r.next();
+        String res = r.getString("email"); 
+
+        r.close();
+        return res;    
+    }
+
+
     public String getDrapeau(String nomPays) throws SQLException{
             
         Statement s=laConnexion.createStatement();
@@ -308,6 +321,21 @@ public class Requete {
 		rs.close();
     	return lesPays ;
 	}
+
+    public List<User> selectUsers() throws SQLException{
+
+        List<User> lesUsers = new ArrayList<>();
+
+		Statement s=laConnexion.createStatement();
+		ResultSet rs=s.executeQuery("SELECT * FROM USER");
+		while (rs.next()) {
+            lesUsers.add(new User(rs.getString("idPseudo"),rs.getString("email"),rs.getString("type")));
+		}
+		rs.close();
+    	return lesUsers ;
+	}
+
+    
 
     public String getUser(String pseudo, int mdp) throws SQLException{ 
         Statement s=laConnexion.createStatement();
@@ -375,7 +403,7 @@ public class Requete {
             }
             rs2.close();
             cpt++;
-        }
+		}
         rs.close();
         s.close();
         return res;
@@ -415,7 +443,7 @@ public class Requete {
 		ps.close();
     }
 
-    public void insertEquipe(Equipe e) throws  SQLException {
+    public void insertEquipe(Equipe e) throws SQLException {
         PreparedStatement ps = laConnexion.prepareStatement("INSERT INTO EQUIPE (nomEquipe) VALUES (?)");
         ps.setString(1, e.getNom());
         ps.executeUpdate();
@@ -666,7 +694,8 @@ public class Requete {
 
 
     // --------------------------------IMPORT --------------------------------\\
-        public void csvToBd(String chemin){
+        public void csvToBd(String chemin) throws SQLException{
+        System.out.println("l'Import du CSV");
         String ligne;
         String split =",";
         String[] ligneElems;
@@ -695,14 +724,20 @@ public class Requete {
                         prenom= ligneElems[1];
                         sexe= ligneElems[2].charAt(0);
                         nomPays = ligneElems[3];
-                        pays = new Pays(nomPays);
-
                         try {
-                            insertPays(pays);
-
-                        } catch (Exception e) {
-                            System.out.println("Pays deja dans la base de donnée" + e);
+                            pays = modele.getPays(nomPays);
+                            
+                        } catch (DoesntExistException e) {
+                            pays = new Pays(nomPays);
+                            try {
+                                insertPays(pays);
+    
+                            } catch (Exception err) {
+                                System.out.println("Pays deja dans la base de donnée" + err);
+                            }
                         }
+
+
 
                         sport = ligneElems[4];
                         epreuve = ligneElems[5];
@@ -723,7 +758,6 @@ public class Requete {
                             } 
                             catch(Exception e){
                                 System.err.println("l'Epreuve existe deja");
-
                             }
                         } catch (NumberFormatException e) {
                             System.err.println("Problème format nombre, ligne : " + ligne);
