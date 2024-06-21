@@ -363,7 +363,7 @@ public class AppliJO extends Application {
         BorderPane.setMargin(centre, new Insets(20));
         VBox grosContenu = (VBox) centre.getContent();
 
-        contenus = (VBox) grosContenu.lookup("#vboxEpreuve");
+        this.contenus = (VBox) grosContenu.lookup("#vboxEpreuve");
 
         this.boutonClassement.setDisable(false);
         this.boutonEpreuve.setDisable(true);
@@ -448,7 +448,6 @@ public class AppliJO extends Application {
         imageSport.setFitHeight(30);
         imageSport.setPreserveRatio(true);
 
-        System.out.println(epreuve.getSexe());
         if(epreuve.getSexe() == 'H'){
             imageSexeTemp = new Image("logoMale2.png");
         }
@@ -458,7 +457,7 @@ public class AppliJO extends Application {
 
         imageSexe.setImage(imageSexeTemp);
         imageSexe.setFitHeight(30);
-        imageSexe.setPreserveRatio(true);
+        imageSexe.setFitWidth(30);
         
         Text test = (Text) ep.lookup("#modeleEpreuveNom");
         if (test != null) {
@@ -466,7 +465,8 @@ public class AppliJO extends Application {
         }
     }
 
-    public void majEpreuve(List<Epreuve<Participant>> lesEpreuves) throws Exception{
+    public void majEpreuve() throws Exception{
+        List<Epreuve<Participant>> lesEpreuves = this.modele.getLesEpreuves().reversed();
         if (!(lesEpreuves.isEmpty())) {
             this.contenus.getChildren().clear();
             for (Epreuve<Participant> ep : lesEpreuves) {
