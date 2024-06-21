@@ -19,6 +19,8 @@ import epreuves.Epreuve;
 import MVC.controleur.*;
 import javafx.animation.RotateTransition;
 import javafx.application.Application;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -103,6 +105,9 @@ public class AppliJO extends Application {
     private Button boutonFileChooserParametre;
     private HBox dragAndDropCsv;
     private TableView<UserTableau> tableUser;
+
+
+
     private BorderPane PourTableauUser;
 
     @Override
@@ -120,6 +125,7 @@ public class AppliJO extends Application {
         this.role = Roles.VISITEUR;
         this.contenus = new VBox();
         this.contenusParticipants = new VBox();
+        this.tableUser = new TableView<>();
         
         this.menuSportEpreuve = new ComboBox<>();
         this.menuSexeEpreuve = new ComboBox<>();
@@ -174,7 +180,9 @@ public class AppliJO extends Application {
     public Stage getStage(){
         return this.stage;
     }
-
+    public TableView<UserTableau> getTableUser() {
+        return tableUser;
+    }
     // MODE CONNEXION
 
     public void modeAccueil() throws Exception{
@@ -334,6 +342,14 @@ public class AppliJO extends Application {
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
+        if(this.role == Roles.ADMIN){
+            try {
+                this.majUser();
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
     }
 
     public void modeClassement() throws Exception {
@@ -410,25 +426,25 @@ public class AppliJO extends Application {
         // Colones
 
         TableColumn<PaysTableau,Integer> placeColumn = new TableColumn<>("Place");
-        placeColumn.setCellValueFactory(new PropertyValueFactory("place"));
+        placeColumn.setCellValueFactory(new PropertyValueFactory<>("place"));
 
         TableColumn<PaysTableau,String> nomColumn = new TableColumn<>("Pays");
-        nomColumn.setCellValueFactory(new PropertyValueFactory("nom"));
+        nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
 
         TableColumn<PaysTableau,Integer> orColumn = new TableColumn<>("");
-        orColumn.setCellValueFactory(new PropertyValueFactory("medailleOr"));
+        orColumn.setCellValueFactory(new PropertyValueFactory<>("medailleOr"));
         orColumn.setId("medailleOr");
 
         TableColumn<PaysTableau,Integer> argentColumn = new TableColumn<>("");
-        argentColumn.setCellValueFactory(new PropertyValueFactory("medailleArgent"));
+        argentColumn.setCellValueFactory(new PropertyValueFactory<>("medailleArgent"));
         argentColumn.setId("medailleArgent");
 
         TableColumn<PaysTableau,Integer> bronzeColumn = new TableColumn<>("");
-        bronzeColumn.setCellValueFactory(new PropertyValueFactory("medailleBronze"));
+        bronzeColumn.setCellValueFactory(new PropertyValueFactory<>("medailleBronze"));
         bronzeColumn.setId("medailleBronze");
 
         TableColumn<PaysTableau,Integer> totalColumn = new TableColumn<>("Total");
-        totalColumn.setCellValueFactory(new PropertyValueFactory("totalMedailles"));
+        totalColumn.setCellValueFactory(new PropertyValueFactory<>("totalMedailles"));
 
         this.classement.getColumns().addAll(placeColumn,nomColumn,orColumn,argentColumn,bronzeColumn,totalColumn);
 
@@ -580,11 +596,11 @@ public class AppliJO extends Application {
         }
     }
 
-    public ComboBox getComboSexeAthlete() {
+    public ComboBox<?> getComboSexeAthlete() {
         return this.comboBoxSexeAthlete;
     }
 
-    public ComboBox getComboSexeEquipe() {
+    public ComboBox<?> getComboSexeEquipe() {
         return this.comboBoxSexeEquipe;
     }
 
@@ -598,28 +614,28 @@ public class AppliJO extends Application {
         // Colones
 
         TableColumn<AthletesTableau,Integer> nomColumn = new TableColumn<>("Nom");
-        nomColumn.setCellValueFactory(new PropertyValueFactory("nom"));
+        nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
 
         TableColumn<AthletesTableau,String> prenomColumn = new TableColumn<>("Prenom");
-        prenomColumn.setCellValueFactory(new PropertyValueFactory("prenom"));
+        prenomColumn.setCellValueFactory(new PropertyValueFactory<>("prenom"));
 
         TableColumn<AthletesTableau,String> sexeColumn = new TableColumn<>("Sexe");
-        sexeColumn.setCellValueFactory(new PropertyValueFactory("sexe"));
+        sexeColumn.setCellValueFactory(new PropertyValueFactory<>("sexe"));
 
 
         TableColumn<AthletesTableau,Integer> forceColumn = new TableColumn<>("Force");
-        forceColumn.setCellValueFactory(new PropertyValueFactory("force"));
+        forceColumn.setCellValueFactory(new PropertyValueFactory<>("force"));
 
 
         TableColumn<AthletesTableau,Integer> enduranceColumn = new TableColumn<>("Endurance");
-        enduranceColumn.setCellValueFactory(new PropertyValueFactory("endurance"));
+        enduranceColumn.setCellValueFactory(new PropertyValueFactory<>("endurance"));
 
 
         TableColumn<AthletesTableau,Integer> agiliteColumn = new TableColumn<>("Agilite");
-        agiliteColumn.setCellValueFactory(new PropertyValueFactory("agilite"));
+        agiliteColumn.setCellValueFactory(new PropertyValueFactory<>("agilite"));
 
         TableColumn<AthletesTableau,String> paysColumn = new TableColumn<>("Pays");
-        paysColumn.setCellValueFactory(new PropertyValueFactory("pays"));
+        paysColumn.setCellValueFactory(new PropertyValueFactory<>("pays"));
 
         this.ath.getColumns().addAll(nomColumn,prenomColumn,sexeColumn,forceColumn,enduranceColumn,agiliteColumn, paysColumn);
 
@@ -646,7 +662,7 @@ public class AppliJO extends Application {
 
     }
 
-            private void lesEquipes(){
+    private void lesEquipes(){
         this.equ.getItems().clear();
         List<Equipe> lesParticipants = this.modele.getLesEquipes();
         for (Equipe equipes : lesParticipants){
@@ -656,13 +672,13 @@ public class AppliJO extends Application {
         // Colones
 
         TableColumn<EquipeTableau,String> nomColumn = new TableColumn<>("Nom");
-        nomColumn.setCellValueFactory(new PropertyValueFactory("nom"));
+        nomColumn.setCellValueFactory(new PropertyValueFactory<>("nom"));
 
         TableColumn<EquipeTableau,String> sexeColumn = new TableColumn<>("Sexe");
-        sexeColumn.setCellValueFactory(new PropertyValueFactory("sexe"));
+        sexeColumn.setCellValueFactory(new PropertyValueFactory<>("sexe"));
 
         TableColumn<EquipeTableau,String> paysColumn = new TableColumn<>("Pays");
-        paysColumn.setCellValueFactory(new PropertyValueFactory("pays"));
+        paysColumn.setCellValueFactory(new PropertyValueFactory<>("pays"));
 
 
         this.equ.getColumns().addAll(nomColumn,sexeColumn, paysColumn);
@@ -719,11 +735,11 @@ public class AppliJO extends Application {
         this.labelPseudoRole.setText(this.getRole().getRoleStr());
         
         this.boutonDeconnecterParametre.setOnAction(new ControleurBoutonDeco(this));
-        this.boutonSaveParametre.setOnAction(new ControleurSaveParam(this)); // pour l'instant marche pas et se deco mdr
+        this.boutonSaveParametre.setOnAction(new ControleurSaveParam(this, this.modele)); // pour l'instant marche pas et se deco mdr
     
     
         File initialDirectory = new File("./");
-        this.boutonFileChooserParametre.setOnAction(new ControleurFileChooser(this,this.modeleConnexion.getReq(),initialDirectory));
+        this.boutonFileChooserParametre.setOnAction(new ControleurFileChooser(this,this.modele,initialDirectory));
         this.tableUser = new TableView<>();        
         
 
@@ -737,10 +753,13 @@ public class AppliJO extends Application {
         }
 
     }
+    private UserTableau user404;  
+    TableColumn<UserTableau,ComboBox<?>> colonneComBoxUser;
 
 
     public void lesUsers(){
         this.PourTableauUser = (BorderPane)laScene.lookup("#BorderPaneParamTableau");
+        this.tableUser.getItems().clear();
         List<User> lesUsersList = this.modele.getLesUsers();
         for (User u : lesUsersList) {
             this.tableUser.getItems().add(new UserTableau(u.getPseudo(),u.getMail(),u.getRole()));
@@ -748,18 +767,37 @@ public class AppliJO extends Application {
 
 
         TableColumn<UserTableau,String> nomColumn = new TableColumn<>("Pseudo");
-        nomColumn.setCellValueFactory(new PropertyValueFactory("pseudo"));
+        nomColumn.setCellValueFactory(new PropertyValueFactory<>("pseudo"));
 
-        TableColumn<UserTableau,String> mailColumn = new TableColumn<>("Pseudo");
-        mailColumn.setCellValueFactory(new PropertyValueFactory("mail"));
+        TableColumn<UserTableau,String> mailColumn = new TableColumn<>("Mail");
+        mailColumn.setCellValueFactory(new PropertyValueFactory<>("mail"));
 
-        TableColumn<UserTableau,String> roleColumn = new TableColumn<>("Pseudo");
-        roleColumn.setCellValueFactory(new PropertyValueFactory("role"));
+        TableColumn<UserTableau,String> roleColumn = new TableColumn<>("Role");
+        roleColumn.setCellValueFactory(new PropertyValueFactory<>("role"));
 
-        this.tableUser.getColumns().addAll(nomColumn,mailColumn,roleColumn);
-
-
+        this.colonneComBoxUser = new TableColumn<>("Role");
+        // test.setCellValueFactory(new PropertyValueFactory<>("boxRole"));
         
+        // this.tableUser.getColumns().addAll(nomColumn,mailColumn,roleColumn,test);
+        colonneComBoxUser.setCellValueFactory(cellData -> {
+            user404 = cellData.getValue();
+            return new SimpleObjectProperty<>(user404.boxRoleProperty());
+        });
+        colonneComBoxUser.setCellFactory(col -> new TableCell<UserTableau, ComboBox<?>>() {
+            @Override
+            protected void updateItem(ComboBox<?> item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    item.getStyleClass().add("lesComboBox");
+                    setGraphic(item);
+                }
+            }
+        });
+
+        this.tableUser.getColumns().addAll(nomColumn, mailColumn, roleColumn, colonneComBoxUser);
 
         double[] sceneWidth = {0.0};
 
@@ -780,6 +818,34 @@ public class AppliJO extends Application {
         });
         PourTableauUser.setCenter(this.tableUser);
 
+    }
+
+
+    public void majUser() throws Exception{
+        this.tableUser.getItems().clear();
+        List<User> lesUsers = this.modele.getLesUsers();
+        if (!(lesUsers.isEmpty())) {
+            for (User user : lesUsers) {
+                this.tableUser.getItems().add(new UserTableau(user.getPseudo(),user.getMail(),user.getRole()));
+            }
+        }
+        colonneComBoxUser.setCellValueFactory(cellData -> {
+            user404 = cellData.getValue();
+            return new SimpleObjectProperty<>(user404.boxRoleProperty());
+        });
+        colonneComBoxUser.setCellFactory(col -> new TableCell<UserTableau, ComboBox<?>>() {
+            @Override
+            protected void updateItem(ComboBox<?> item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    item.getStyleClass().add("lesComboBox");
+                    setGraphic(item);
+                }
+            }
+        });
     }
 
 
