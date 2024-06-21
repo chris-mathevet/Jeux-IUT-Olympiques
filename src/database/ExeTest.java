@@ -30,17 +30,22 @@ public class ExeTest {
 
             try {
                 System.out.println("debut boucle");    
-                // r.clearAll();
-            //     r.insertUser("i_am_julian", "Salut@1aaa".hashCode()*97,"marquesjulian26@gmail.com", "admin");
-            //     r.insertUser("Slyjack999", "Salut@1aaa".hashCode()*97,"slyjack999@gmail.com", "visiteur");
-            //     r.insertUser("Axel1234", "Salut@1aaa".hashCode()*97, "hacksel002@gmail.com", "visiteur");
-            //     r.insertUser("trucmoihaha", "Salut@1aaa".hashCode()*97, "truc@gmail.com", "organisateur");
-            //     System.out.println(r.getUser("truc",1323));
-            //     System.out.println(r.getUser("michel",1323));
+                r.clearAll();
+                r.insertUser("i_am_julian", "Salut@1aaa".hashCode()*97,"marquesjulian26@gmail.com", "admin");
+                r.insertUser("Slyjack999", "Salut@1aaa".hashCode()*97,"slyjack999@gmail.com", "visiteur");
+                r.insertUser("Axel1234", "Salut@1aaa".hashCode()*97, "hacksel002@gmail.com", "visiteur");
+                r.insertUser("trucmoihaha", "Salut@1aaa".hashCode()*97, "truc@gmail.com", "organisateur");
 
-                r.selectAllUser();
-                r.updateUser("a", "admin");
-                r.selectAllUser();
+                
+                r.insertUser("a", "a".hashCode()*97,"slyjack999@gmail.com", "admin");
+                r.insertUser("b", "b".hashCode()*97, "hacksel002@gmail.com", "visiteur");
+                r.insertUser("x", "x".hashCode()*97, "truc@gmail.com", "organisateur");
+                // System.out.println(r.getUser("truc",1323));
+                // System.out.println(r.getUser("michel",1323));
+
+                // r.selectAllUser();
+                // r.updateUser("a", "admin");
+                // r.selectAllUser();
                 
                 // setUser = r.selectUser();
                 // for (String user : setUser) {
