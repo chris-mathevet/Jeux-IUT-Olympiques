@@ -90,6 +90,7 @@ public class Requete {
                 ps.setString(1, descriptionEpreuve);
                 ps.setString(2, sexeString);
                 ResultSet res = ps.executeQuery();
+                
                 while(res.next()){
                     epreuve.ajoutManche(new Manche<>(res.getInt("numeroManche"),res.getString("nomManche"), epreuve));
                 }
@@ -97,28 +98,26 @@ public class Requete {
 
                 // requete savoir si nomEpreuve est dans ATHLETE OU EQUIPE
                 try {
-                    PreparedStatement ps2 = laConnexion.prepareStatement("select nomAthlete, prenomAthlete, sexe, nomPays, resultat from PARTCIPER_ATHLETE where descriptionEpreuve = ? and sexe = ?");
+                    PreparedStatement ps2 = laConnexion.prepareStatement("select nomAthlete, prenomAthlete, sexe, nomPays, resultat from PARTICIPER_ATHLETE where descriptionEpreuve = ? and sexe = ?");
                     ps2.setString(1, descriptionEpreuve);
                     ps2.setString(2, sexeString);
                     res = ps2.executeQuery();
-                    ps2.close();
-
-        
-
+                    
                     while(res.next()){
                         try {
+                            System.out.println("insc");
                             List<Double> listeRes;
-                            epreuve.inscrire(this.modele.getAthlete(res.getString("nom"),res.getString("prenom"),res.getString("sexe").charAt(0),res.getString("nomPays")));
+                            epreuve.inscrire(this.modele.getAthlete(res.getString("nomAthlete"),res.getString("prenomAthlete"),res.getString("sexe").charAt(0),res.getString("nomPays")));
                             for(Manche<Participant> manche :epreuve.getLesManches()){
                                 try {
                                     PreparedStatement ps3 = laConnexion.prepareStatement("select resultat from PARTCIPER_ATHLETE where nomManche = ? and descriptionEpreuve = ? and sexe = ?");
                                     ps3.setString(1, manche.getNomDeTour());
                                     ps3.setString(2, descriptionEpreuve);
                                     ps3.setString(3, sexeString);
-                                    ResultSet res2 = ps3.executeQuery();
+                                    ResultSet res3 = ps3.executeQuery();
                                     listeRes = new ArrayList<>();
-                                        while(res2.next()){
-                                            listeRes.add(res2.getDouble("resultat"));
+                                        while(res3.next()){
+                                            listeRes.add(res3.getDouble("resultat"));
 
                                         }
                                         manche.setResultat(listeRes);
@@ -133,6 +132,7 @@ public class Requete {
                             err.printStackTrace();
                         }
                     }
+                    ps2.close();
                     
                 } catch (Exception e) {
                     PreparedStatement ps2 = laConnexion.prepareStatement("select nomEquipe from PARTICIPER_EQUIPE where descriptionEpreuve = ? and sexeEpreuve = ?");  

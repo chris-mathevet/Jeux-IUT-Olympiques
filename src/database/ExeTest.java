@@ -29,8 +29,21 @@ public class ExeTest {
             
 
             try {
-                System.out.println("debut boucle");    
+                System.out.println("debut boucle");  
+                
+                
+                List<Athlete> truuuuc2 = r.selectAthlete();
+                for (Athlete athe : truuuuc2) {
+                    
+                    System.out.println("equipe" + athe);
+                }
                 r.clearAll();
+
+                
+                List<Athlete> truuuuc3 = r.selectAthlete();
+                for (Athlete athe : truuuuc3) {
+                    System.out.println("equipe" + athe);
+                }
                 r.insertUser("i_am_julian", "Salut@1aaa".hashCode()*97,"marquesjulian26@gmail.com", "admin");
                 r.insertUser("Slyjack999", "Salut@1aaa".hashCode()*97,"slyjack999@gmail.com", "visiteur");
                 r.insertUser("Axel1234", "Salut@1aaa".hashCode()*97, "hacksel002@gmail.com", "visiteur");
@@ -40,6 +53,8 @@ public class ExeTest {
                 r.insertUser("a", "a".hashCode()*97,"slyjack999@gmail.com", "admin");
                 r.insertUser("b", "b".hashCode()*97, "hacksel002@gmail.com", "visiteur");
                 r.insertUser("x", "x".hashCode()*97, "truc@gmail.com", "organisateur");
+
+
                 // System.out.println(r.getUser("truc",1323));
                 // System.out.println(r.getUser("michel",1323));
 
@@ -71,12 +86,24 @@ public class ExeTest {
             // try {
             //     System.out.println("==========================================");
 
-            //     Pays france = new Pays("France");
-            //     Pays russie = new Pays("Russie");
-            //     Pays italie = new Pays("Italie");
-            //     r.insertPays(france);
-            //     r.insertPays(russie);
-            //     r.insertPays(italie);
+                Pays france = new Pays("Espagne",12,5,6);
+                Pays russie = new Pays("Russie",4,2,6);
+                Pays italie = new Pays("Italie",5,9,2);
+                Pays allemagne = new Pays("Allemagne", 14, 3, 7);
+                Pays japon = new Pays("Japon", 9, 15, 2);
+                Pays brésil = new Pays("Brésil", 6, 8, 13);
+                Pays canada = new Pays("Canada", 11, 5, 4);
+
+                r.insertPays(france);
+                r.insertPays(russie);
+                r.insertPays(italie);
+
+                r.insertPays(allemagne);
+                r.insertPays(japon);
+                r.insertPays(brésil);
+                r.insertPays(canada);
+
+
                 
             //     Athlete raphael  = new Athlete("Raphael", "Nadal", 'H', 9, 8, 5, france);
             //     Athlete sophie  = new Athlete("Sophie", "Duke", 'F', 9, 8, 5, russie);
@@ -147,10 +174,10 @@ public class ExeTest {
                 // }
             }
 
-            List<Athlete> truuuuc2 = r.selectAthlete();
-            for (Athlete athe : truuuuc2) {
-                System.out.println("equipe" + athe);
-            }
+            // List<Athlete> truuuuc2 = r.selectAthlete();
+            // for (Athlete athe : truuuuc2) {
+            //     System.out.println("equipe" + athe);
+            // }
 
                 System.out.println(r.getDrapeau("France"));
                 System.out.println(r.getDrapeau("Italy"));

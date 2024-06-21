@@ -98,28 +98,28 @@ public class ModeleJO {
                 new Manche<Participant>(i, "Manche ", epreuve); 
             }
         }
-        this.creerTest();
+        // this.creerTest();
     }   
 
     private void creerTest(){
         try {
             // this.creerPays("France");
             // this.creerAthlete("Mathevet", "Chris", "H", 10, 15, 16, "France");
-            // this.creerAthlete("Meunier", "Chris", "H", 10, 15, 16, "France");
-            // this.creerAthlete("Julian", "Chris", "H", 10, 15, 16, "France");
-            // this.creerAthlete("Baptiste", "Chris", "H", 10, 15, 16, "France");
+            // this.creerAthlete("Meunier", "Axel", "H", 10, 15, 16, "France");
+            // this.creerAthlete("Marques", "Julian", "H", 10, 15, 16, "France");
+            // this.creerAthlete("Richard", "Baptiste", "H", 10, 15, 16, "France");
             // this.creerEpreuve((new Epreuve<Participant>("TestEPREUVE", athle, 'H')));
-            Epreuve<Participant> epreuve = this.requete.getEpreuvebyDescpt("TestEPREUVE");
+            // Epreuve<Participant> epreuve = this.requete.getEpreuvebyDescpt("TestEPREUVE");
             // this.inscrireEpreuve(this.getAthlete("Mathevet", "Chris", 'H', "France"), epreuve);
-            // this.inscrireEpreuve(this.getAthlete("Meunier", "Chris", 'H', "France"), epreuve);
-            // this.inscrireEpreuve(this.getAthlete("Julian", "Chris", 'H', "France"), epreuve);
-            // this.inscrireEpreuve(this.getAthlete("Baptiste", "Chris", 'H', "France"), epreuve);
-            Manche<Participant> manche = new Manche<>(1, "tour", epreuve);
-            System.out.println(epreuve);
-            System.out.println(epreuve.getLesParticipants());
-            for (Participant particp : epreuve.getLesParticipants()) {                
-                this.inscrireEpreuve(particp, epreuve);
-            }
+            // this.inscrireEpreuve(this.getAthlete("Meunier", "Axel", 'H', "France"), epreuve);
+            // this.inscrireEpreuve(this.getAthlete("Marques", "Julian", 'H', "France"), epreuve);
+            // this.inscrireEpreuve(this.getAthlete("Richard", "Baptiste", 'H', "France"), epreuve);
+            // Manche<Participant> manche = new Manche<>(1, "tour", epreuve);
+            // System.out.println(epreuve.getLesManches());
+            // System.out.println(epreuve.getLesParticipants());
+            // for (Participant particp : epreuve.getLesParticipants()) {                
+            //     this.inscrireEpreuve(particp, epreuve);
+            // }
 
         } catch (Exception e){
             System.err.println(e.getMessage());
