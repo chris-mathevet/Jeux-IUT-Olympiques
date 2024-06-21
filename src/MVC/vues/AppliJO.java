@@ -111,6 +111,9 @@ public class AppliJO extends Application {
 
     private BorderPane PourTableauUser;
 
+    private ComboBox<String> comboBoxPaysEpreuve;
+
+
     @Override
     public void init(){
         this.modele = new ModeleJO();
@@ -843,7 +846,6 @@ public class AppliJO extends Application {
         });
     }
 
-
     public void ajoutEpreuve(Epreuve<Participant> epreuve) throws Exception {
         BorderPane ep = modeleCreationEpreuve();
         this.contenus.getChildren().add(ep);     
@@ -896,11 +898,12 @@ public class AppliJO extends Application {
         this.fieldnomDansEpreuve = (TextField) ep.lookup("#fieldnomEpreuve");   
         this.fieldPrenomEpreuve = (TextField) ep.lookup("#fieldPrenomEpreuve");   
         this.boutonAddEpreuve = (Button) ep.lookup("#BoutonAddEpreuve");   
+        this.comboBoxPaysEpreuve = (ComboBox<String>) ep.lookup("#ComboBoxPaysEpreuve");   
 
         if(this.role == Roles.ADMIN){
             boutonAddEpreuve.setVisible(true);
             fieldPrenomEpreuve.setVisible(true);
-            // truc.setVisible(true); // a changer pour le menu bouton 
+            comboBoxPaysEpreuve.setVisible(true); // a changer pour le menu bouton 
             fieldnomDansEpreuve.setVisible(true);
         }
     }
