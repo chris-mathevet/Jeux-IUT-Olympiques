@@ -21,9 +21,6 @@
                   <BorderPane style="-fx-background-radius: 0 0 0 20;" stylesheets="@style_app.css">
                      <top>
                         <BorderPane style="-fx-background-color: #8b856c;">
-                           <left>
-                              <Button id="filtre" mnemonicParsing="false" prefHeight="24.0" prefWidth="22.0" styleClass="lesBoutons" BorderPane.alignment="CENTER" />
-                           </left>
                            <center>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Athlètes" BorderPane.alignment="CENTER">
                                  <font>
@@ -102,9 +99,6 @@
                      </bottom>
                      <top>
                         <BorderPane style="-fx-background-color: #8b856c;">
-                           <left>
-                              <Button mnemonicParsing="false" styleClass="lesBoutons" BorderPane.alignment="CENTER" />
-                           </left>
                            <center>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Equipes" BorderPane.alignment="CENTER">
                                  <font>
