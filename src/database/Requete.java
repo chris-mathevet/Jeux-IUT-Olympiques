@@ -97,7 +97,7 @@ public class Requete {
 
                 // requete savoir si nomEpreuve est dans ATHLETE OU EQUIPE
                 try {
-                    PreparedStatement ps2 = laConnexion.prepareStatement("select nom, prenom, sexe, nompays, resultat from PARTCIPER_ATHLETE where descriptionEpreuve = ? and sexe = ?");
+                    PreparedStatement ps2 = laConnexion.prepareStatement("select nomAthlete, prenomAthlete, sexe, nomPays, resultat from PARTCIPER_ATHLETE where descriptionEpreuve = ? and sexe = ?");
                     ps2.setString(1, descriptionEpreuve);
                     ps2.setString(2, sexeString);
                     res = ps2.executeQuery();
@@ -501,7 +501,7 @@ public class Requete {
             Athlete athleteInsert;
             for(Participant p:m.getEpreuve().getLesParticipants()){
                 athleteInsert = (Athlete)p;
-                ps = laConnexion.prepareStatement("INSERT INTO PARTICIPER_EQUIPE (nomManche, descriptionEpreuve, sexeEpreuve, nom, prenom, sexe,nomPays) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                ps = laConnexion.prepareStatement("INSERT INTO PARTICIPER_EQUIPE (nomManche, descriptionEpreuve, sexeEpreuve, nomAthlete, prenomAthlete, sexe,nomPays) VALUES (?, ?, ?, ?, ?, ?, ?)");
                 ps.setString(1, m.getNomDeTour());
                 ps.setString(2, m.getEpreuve().getDescription());
                 ps.setString(3, String.valueOf(m.getEpreuve().getSexe()));
@@ -534,7 +534,7 @@ public class Requete {
     //         Athlete athleteInsert;
     //         for(Participant p:m.getEpreuve().getLesParticipants()){
     //             athleteInsert = (Athlete)p;
-    //             ps = laConnexion.prepareStatement("INSERT INTO PARTICIPER_EQUIPE (nomManche, descriptionEpreuve, sexeEpreuve, nom, prenom, sexe,nomPays) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    //             ps = laConnexion.prepareStatement("INSERT INTO PARTICIPER_EQUIPE (nomManche, descriptionEpreuve, sexeEpreuve, nomAthlete, prenomAthlete sexe,nomPays) VALUES (?, ?, ?, ?, ?, ?, ?)");
     //             ps.setString(1, m.getNomDeTour());
     //             ps.setString(2, m.getEpreuve().getDescription());
     //             ps.setString(3, String.valueOf(m.getEpreuve().getSexe()));
@@ -779,6 +779,11 @@ public class Requete {
                         }
                         // si athlete pas creee le cree, sinon l'add a une epreuve
                         // incrire()
+                        try {
+                            // this.modele.
+                        } catch (Exception e) {
+                            // TODO: handle exception
+                        }
                         
                     } catch (Exception e) {
                         System.out.println("erreur format ligne : "+ligne);
