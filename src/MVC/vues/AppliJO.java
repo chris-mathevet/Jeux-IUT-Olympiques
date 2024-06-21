@@ -27,6 +27,7 @@ import participants.Pays;
 
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class AppliJO extends Application {
@@ -55,8 +56,8 @@ public class AppliJO extends Application {
 
   
     private BorderPane modeleEpreuve;
-    private ComboBox menuSportEpreuve;
-    private ComboBox menuSexeEpreuve;
+    private ComboBox<String> menuSportEpreuve;
+    private ComboBox<String> menuSexeEpreuve;
     private TextField txtFieldDesc;
 
     private Text txtNomModeleEpreuve;
@@ -97,10 +98,11 @@ public class AppliJO extends Application {
         this.role = Roles.VISITEUR;
         this.contenus = new VBox();
         
-        this.menuSportEpreuve = new ComboBox();
-        this.menuSexeEpreuve = new ComboBox();
+        this.menuSportEpreuve = new ComboBox<>();
+        this.menuSexeEpreuve = new ComboBox<>();
         this.txtFieldDesc = new TextField();
         this.txtNomModeleEpreuve = new Text();
+
         this.imgSexeModeleEpreuve = new ImageView("logoMale2.png");
         this.imgSportModeleEpreuve = new ImageView("Athletisme.png");
 
@@ -161,6 +163,8 @@ public class AppliJO extends Application {
         VBox conditionMDP = (VBox) this.laScene.lookup("#conditionMDP");
         TextField motDePasse = (TextField) this.laScene.lookup("#textFieldMotDePasse");
         motDePasse.textProperty().addListener(new ControleurMDP(this.modeleConnexion,this,motDePasse,conditionMDP));
+
+        // Roles
     }
 
     public void modeInscription() throws Exception {
@@ -323,8 +327,6 @@ public class AppliJO extends Application {
         }
     }
 
-    
-
     public void updateClassement(Tris tri){
         this.classement.getItems().clear();
         List<Pays> lesPays2 = this.modele.getLesPays(tri);
@@ -397,8 +399,7 @@ public class AppliJO extends Application {
         BorderPane.setMargin(centre, new Insets(20));
         VBox grosContenu = (VBox) centre.getContent();
 
-        contenus = (VBox) grosContenu.lookup("#vboxEpreuve");
-        System.out.println(contenus.getChildren());
+        this.contenus = (VBox) grosContenu.lookup("#vboxEpreuve");
 
         this.boutonClassement.setDisable(false);
         this.boutonEpreuve.setDisable(true);
@@ -407,14 +408,12 @@ public class AppliJO extends Application {
         this.boutonAjouterEpreuve = (Button) grosContenu.lookup("#boutonAjouter");
         this.boutonAjouterEpreuve.setOnAction(new ControleurAjouter(this, modele));
 
-        this.menuSportEpreuve = (ComboBox<?>) grosContenu.lookup("#menuSportEpreuve");
-        this.menuSexeEpreuve = (ComboBox<?>) grosContenu.lookup("#menuPaysEpreuve");
+        this.menuSportEpreuve = (ComboBox<String>) grosContenu.lookup("#menuSportEpreuve");
+        this.menuSexeEpreuve = (ComboBox<String>) grosContenu.lookup("#menuPaysEpreuve");
 
         this.menuSexeEpreuve.getItems().addAll("Homme", "Femme");
         this.menuSportEpreuve.getItems().addAll("VolleyBall", "HandBall", "Athletisme", "Escrime", "Natation");
-        
-
-      
+              
         this.txtFieldDesc = (TextField) grosContenu.lookup("#txtFieldDesc");   
         if(this.role == Roles.ADMIN){
             this.txtFieldDesc.setVisible(true);
@@ -422,14 +421,13 @@ public class AppliJO extends Application {
             this.menuSexeEpreuve.setVisible(true);
             this.boutonAjouterEpreuve.setVisible(true);
         }
-
     }
 
-    public ComboBox getComboSexe() {
+    public ComboBox<String> getComboSexe() {
         return this.menuSexeEpreuve;
     }
 
-    public ComboBox getComboSport() {
+    public ComboBox<String> getComboSport() {
         return this.menuSportEpreuve;
     }
 
@@ -500,12 +498,51 @@ public class AppliJO extends Application {
     }
 
 
-
-    public void ajoutEpreuve(Epreuve epreuve) throws Exception {
+    public void ajoutEpreuve(Epreuve<Participant> epreuve) throws Exception {
         BorderPane ep = modeleCreationEpreuve();
-        this.contenus.getChildren().add(ep);
+        this.contenus.getChildren().add(ep);     
+    
+        ImageView imageSport = (ImageView) ep.lookup("#imageSport");
+        Image imageSportTemp;
+        ImageView imageSexe = (ImageView) ep.lookup("#imageSexe");
+        Image imageSexeTemp;
+
+        switch (epreuve.getSport().getSport()) {
+            case "Athletisme":
+                imageSportTemp = new Image("Athletisme.png");
+                break;
+            
+            case "Escrime":
+                imageSportTemp = new Image("Escrime.png");
+                break;
+
+            case "Handball":
+                imageSportTemp = new Image("HandBall.png");
+                break;
+
+            case "Natation":
+                imageSportTemp =new Image("Natation.png");
+                break;
         
-        // Assurez-vous que l'ID du Label dans votre FXML est bien "modeleEpreuveNom"
+            default:
+                imageSportTemp = new Image("VoleyBall.png");
+                break;
+        }
+        imageSport.setImage(imageSportTemp);
+        imageSport.setFitHeight(30);
+        imageSport.setPreserveRatio(true);
+
+        if(epreuve.getSexe() == 'H'){
+            imageSexeTemp = new Image("logoMale2.png");
+        }
+        else{
+            imageSexeTemp = new Image("logoFemale2.png");
+        }
+
+        imageSexe.setImage(imageSexeTemp);
+        imageSexe.setFitHeight(30);
+        imageSexe.setFitWidth(30);
+        
         Text test = (Text) ep.lookup("#modeleEpreuveNom");
         if (test != null) {
             test.setText(epreuve.getDescription());
@@ -520,24 +557,21 @@ public class AppliJO extends Application {
             // truc.setVisible(true); // a changer pour le menu bouton 
             fieldnomDansEpreuve.setVisible(true);
         }
-
-        
-
     }
 
-    public void majEpreuve(List<Epreuve<Participant>> lesEpreuves) throws Exception{
+    public void majEpreuve() throws Exception{
+        List<Epreuve<Participant>> lesEpreuves = this.modele.getLesEpreuves().reversed();
         if (!(lesEpreuves.isEmpty())) {
             this.contenus.getChildren().clear();
-            for (Epreuve ep : lesEpreuves) {
+            for (Epreuve<Participant> ep : lesEpreuves) {
                 try {
                     ajoutEpreuve(ep);
+   
                 } catch (Exception e) {
                     System.err.println(e.getMessage());
                 }
             }
         }
-        System.out.println(lesEpreuves);
-
     }
 
      public BorderPane modeleCreationEpreuve() throws Exception {
