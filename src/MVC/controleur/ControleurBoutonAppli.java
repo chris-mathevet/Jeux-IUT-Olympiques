@@ -42,7 +42,7 @@ public class ControleurBoutonAppli implements EventHandler<ActionEvent>{
             }
 
             try {
-                this.vue.majEpreuve(this.modele.getLesEpreuves());
+                this.vue.majEpreuve();
             } catch (Exception e) {
                 // TODO: handle exception
             }
