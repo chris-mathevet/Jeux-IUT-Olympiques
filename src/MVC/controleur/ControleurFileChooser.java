@@ -28,11 +28,11 @@ import javafx.stage.FileChooser;
 public class ControleurFileChooser implements EventHandler<ActionEvent>{
     
     private AppliJO vue;
-    private Requete req;
+    private ModeleJO modeleJO;
     private File initialDirectory;
-    public ControleurFileChooser(AppliJO vue, Requete req,File initialDirectory) {
+    public ControleurFileChooser(AppliJO vue, ModeleJO modeleJO,File initialDirectory) {
         this.vue = vue;
-        this.req = req;
+        this.modeleJO = modeleJO;
         this.initialDirectory =initialDirectory;
     }
 
@@ -55,7 +55,7 @@ public class ControleurFileChooser implements EventHandler<ActionEvent>{
             System.out.println("Selected file: " + absolutePath);
             // Perform further actions with the selected file path
             try {
-                req.csvToBd(absolutePath);
+                this.modeleJO.getRequete().csvToBd(absolutePath);
                 
             } catch (Exception e) {
                 System.err.println("probleme import lol");

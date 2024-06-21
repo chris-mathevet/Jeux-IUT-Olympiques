@@ -1,13 +1,17 @@
 package MVC.tableClass;
 
+import MVC.vues.Roles;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.control.ComboBox;
 import participants.Pays;
 
 public class UserTableau{
     private SimpleStringProperty pseudo;
     private SimpleStringProperty mail;
     private SimpleStringProperty role;
+    private ComboBox<String> boxRole;
+
 
 
 
@@ -15,6 +19,9 @@ public class UserTableau{
         this.pseudo = new SimpleStringProperty(pseudo);
         this.mail = new SimpleStringProperty(mail);
         this.role = new SimpleStringProperty(role);
+        this.boxRole = new ComboBox<>();
+        this.boxRole.getItems().addAll(Roles.VISITEUR.getRoleStr(),Roles.ORGANISATEUR.getRoleStr(),Roles.ADMIN.getRoleStr());
+        this.boxRole.setValue(role);
     }
 
 
@@ -43,5 +50,18 @@ public class UserTableau{
         this.role = role;
     }
 
- 
+    
+    public ComboBox<String> boxRoleProperty() {
+        return boxRole;
+    }
+
+    public void setBoxRole(ComboBox<String> boxRole) {
+        this.boxRole = boxRole;
+    }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return ""+this.pseudo + this.mail + this.role + this.boxRole.getValue();
+    }
 }

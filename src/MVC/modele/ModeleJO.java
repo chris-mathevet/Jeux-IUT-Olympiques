@@ -34,6 +34,8 @@ public class ModeleJO {
     private Natation nat;
     private Athletisme athle;
     private Requete requete;
+
+
     private ConnexionMySql co;
 
     public ModeleJO(){
@@ -184,7 +186,9 @@ public class ModeleJO {
                 throw new DoesntExistException("Ce sport n'existe pas");
         }
     }
-
+    public Requete getRequete() {
+        return requete;
+    }
     // CSV
 
     public void csvToListe(String chemin){

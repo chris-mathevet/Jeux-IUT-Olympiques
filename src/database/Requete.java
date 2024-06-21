@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 import MVC.modele.ModeleJO;
+import MVC.tableClass.UserTableau;
 import MVC.user.User;
 
 
@@ -652,6 +653,18 @@ public class Requete {
 
     
     //---------------Modifieur-------------------\\
+    public void updateUser(String pseudo, String role) throws  SQLException {
+        PreparedStatement ps = laConnexion.prepareStatement("update USER set type = \"" +role+"\" where idPseudo = \""+pseudo+"\";");
+
+        // Statement s=laConnexion.createStatement();
+        // ResultSet r=s.executeQuery("update USER set type = \"" +role+"\" idPseudo = \""+pseudo+"\";");
+        ps.executeUpdate();
+        ps.close();
+    }
+
+    
+
+
     //---------------Delete----------------------\\
     public void effacerAthlete(Athlete a) throws  SQLException {
         PreparedStatement ps = laConnexion.prepareStatement("delete from PARTICIPER_ATHLETE where nom = ? and prenom = ? and sexe = ? and nomPays = ?");

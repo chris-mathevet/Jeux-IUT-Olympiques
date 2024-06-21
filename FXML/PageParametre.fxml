@@ -5,6 +5,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <BorderPane id="borderClassement" prefHeight="200.0" prefWidth="200.0" stylesheets="@style_app.css" xmlns="http://javafx.com/javafx/20.0.2" xmlns:fx="http://javafx.com/fxml/1">
@@ -14,14 +15,23 @@
    <left>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pseudo" />
+            <Text smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Pseudo :" underline="true">
+               <font>
+                  <Font size="16.0" />
+               </font></Text>
             <Text fx:id="LabelPseudoParam" strokeType="OUTSIDE" strokeWidth="0.0" text="affiche pseudo" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="mail" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="mail" underline="true">
+               <font>
+                  <Font size="16.0" />
+               </font></Text>
             <Text fx:id="LabelPseudoMail" strokeType="OUTSIDE" strokeWidth="0.0" text="affiche mail" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Role" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Role" underline="true">
+               <font>
+                  <Font size="16.0" />
+               </font></Text>
             <Text fx:id="LabelPseudoRole" strokeType="OUTSIDE" strokeWidth="0.0" text="affiche role" />
+            <Button fx:id="BoutonSaveParametre" mnemonicParsing="false" text="save" visible="false" />
             <Button fx:id="BoutonDeconnecterParametre" mnemonicParsing="false" text="Deconnecter" />
-            <Button fx:id="BoutonSaveParametre" mnemonicParsing="false" text="save" />
          </children>
       </VBox>
    </left>
@@ -30,8 +40,8 @@
          <top>
             <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <HBox fx:id="dragAndDropCsv" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: red;" />
-                  <Button fx:id="FileChooser" mnemonicParsing="false" text="Button" />
+                  <HBox fx:id="dragAndDropCsv" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: red;" visible="false" />
+                  <Button fx:id="FileChooser" mnemonicParsing="false" text="Button" visible="false" />
                </children>
             </HBox>
          </top>
