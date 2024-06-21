@@ -109,11 +109,11 @@ public class ModeleJO {
             // this.creerAthlete("Julian", "Chris", "H", 10, 15, 16, "France");
             // this.creerAthlete("Baptiste", "Chris", "H", 10, 15, 16, "France");
             // this.creerEpreuve((new Epreuve<Participant>("TestEPREUVE", athle, 'H')));
-            Epreuve<Participant> epreuve = this.getEpreuve("TestEPREUVE", 'H');
-            this.inscrireEpreuve(this.getAthlete("Mathevet", "Chris", 'H', "France"), epreuve);
-            this.inscrireEpreuve(this.getAthlete("Meunier", "Chris", 'H', "France"), epreuve);
-            this.inscrireEpreuve(this.getAthlete("Julian", "Chris", 'H', "France"), epreuve);
-            this.inscrireEpreuve(this.getAthlete("Baptiste", "Chris", 'H', "France"), epreuve);
+            Epreuve<Participant> epreuve = this.requete.getEpreuvebyDescpt("TestEPREUVE");
+            // this.inscrireEpreuve(this.getAthlete("Mathevet", "Chris", 'H', "France"), epreuve);
+            // this.inscrireEpreuve(this.getAthlete("Meunier", "Chris", 'H', "France"), epreuve);
+            // this.inscrireEpreuve(this.getAthlete("Julian", "Chris", 'H', "France"), epreuve);
+            // this.inscrireEpreuve(this.getAthlete("Baptiste", "Chris", 'H', "France"), epreuve);
             Manche<Participant> manche = new Manche<>(1, "tour", epreuve);
             System.out.println(epreuve);
             System.out.println(epreuve.getLesParticipants());

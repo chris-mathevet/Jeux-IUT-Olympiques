@@ -287,7 +287,7 @@ public class Requete {
     }
 
 
-    public Epreuve<?> getEpreuvebyDescpt(String descriptionEpreuve) throws SQLException{
+    public Epreuve<Participant> getEpreuvebyDescpt(String descriptionEpreuve) throws SQLException{
             
         Statement s=laConnexion.createStatement();
         ResultSet r=s.executeQuery("select * from EPREUVE where descriptionEpreuve="+"\""+descriptionEpreuve+"\""+";");
@@ -427,7 +427,7 @@ public class Requete {
 		ps.close();
     }
 
-    public <T extends Participant> void insertEpreuve(Epreuve<T> e) throws  SQLException {
+    public void insertEpreuve(Epreuve<Participant> e) throws  SQLException {
         PreparedStatement ps = laConnexion.prepareStatement("INSERT INTO EPREUVE (descriptionEpreuve, sexe, nomSport) VALUES (?, ?, ?)");
         ps.setString(1, e.getDescription());
 		ps.setString(2, String.valueOf(e.getSexe()));
@@ -477,7 +477,7 @@ public class Requete {
 		ps.close();
     }
 
-    public <T extends Participant> void insertManche(Manche<T> m) throws  SQLException {
+    public void insertManche(Manche<Participant> m) throws  SQLException {
         PreparedStatement ps = laConnexion.prepareStatement("INSERT INTO MANCHE (nomManche, descriptionEpreuve, sexe, numeroManche) VALUES (?, ?, ?, ?)");
         ps.setString(1, m.getNomDeTour());
         ps.setString(2, m.getEpreuve().getDescription());
