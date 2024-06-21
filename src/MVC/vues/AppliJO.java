@@ -501,7 +501,7 @@ public class AppliJO extends Application {
         this.menuSportEpreuve.getItems().addAll("VolleyBall", "HandBall", "Athletisme", "Escrime", "Natation");
               
         this.txtFieldDesc = (TextField) grosContenu.lookup("#txtFieldDesc");   
-        if(this.role == Roles.ADMIN){
+        if(this.role == Roles.ADMIN || this.role == Roles.ORGANISATEUR){
             this.txtFieldDesc.setVisible(true);
             this.menuSportEpreuve.setVisible(true);
             this.menuSexeEpreuve.setVisible(true);
@@ -900,7 +900,7 @@ public class AppliJO extends Application {
         this.boutonAddEpreuve = (Button) ep.lookup("#BoutonAddEpreuve");   
         this.comboBoxPaysEpreuve = (ComboBox<String>) ep.lookup("#ComboBoxPaysEpreuve");   
 
-        if(this.role == Roles.ADMIN){
+        if(this.role == Roles.ADMIN || this.role == Roles.ORGANISATEUR ){
             boutonAddEpreuve.setVisible(true);
             fieldPrenomEpreuve.setVisible(true);
             comboBoxPaysEpreuve.setVisible(true); // a changer pour le menu bouton 
