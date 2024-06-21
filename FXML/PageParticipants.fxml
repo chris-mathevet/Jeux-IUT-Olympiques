@@ -18,9 +18,9 @@
          <children>
             <TitledPane fx:id="titledPane1" alignment="TOP_LEFT" contentDisplay="CENTER" expanded="false" text="Athlètes">
                <content>
-                  <BorderPane stylesheets="@style_app.css">
+                  <BorderPane style="-fx-background-radius: 0 0 0 20;" stylesheets="@style_app.css">
                      <top>
-                        <BorderPane>
+                        <BorderPane style="-fx-background-color: #8b856c;">
                            <left>
                               <Button id="filtre" mnemonicParsing="false" prefHeight="24.0" prefWidth="22.0" styleClass="lesBoutons" BorderPane.alignment="CENTER" />
                            </left>
@@ -31,6 +31,12 @@
                                  </font>
                               </Text>
                            </center>
+                           <BorderPane.margin>
+                              <Insets />
+                           </BorderPane.margin>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
                         </BorderPane>
                      </top>
                      <padding>
@@ -56,6 +62,9 @@
                                  </HBox.margin>
                               </Button>
                            </children>
+                           <BorderPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </BorderPane.margin>
                         </HBox>
                      </bottom>
                   </BorderPane>
@@ -64,9 +73,9 @@
                   <Insets bottom="5.0" left="20.0" right="20.0" top="20.0" />
                </VBox.margin>
             </TitledPane>
-            <TitledPane fx:id="titledPane2" alignment="TOP_LEFT" expanded="false" layoutX="10.0" layoutY="30.0" text="Equipes">
+            <TitledPane fx:id="titledPane2" alignment="TOP_LEFT" layoutX="10.0" layoutY="30.0" text="Equipes">
                <content>
-                  <BorderPane stylesheets="@style_app.css">
+                  <BorderPane style="-fx-background-radius: 0 0 0 20;" stylesheets="@style_app.css">
                      <padding>
                         <Insets left="5.0" right="5.0" />
                      </padding>
@@ -86,10 +95,13 @@
                                  </HBox.margin>
                               </Button>
                            </children>
+                           <BorderPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </BorderPane.margin>
                         </HBox>
                      </bottom>
                      <top>
-                        <BorderPane>
+                        <BorderPane style="-fx-background-color: #8b856c;">
                            <left>
                               <Button mnemonicParsing="false" styleClass="lesBoutons" BorderPane.alignment="CENTER" />
                            </left>
@@ -100,6 +112,9 @@
                                  </font>
                               </Text>
                            </center>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
                         </BorderPane>
                      </top>
                   </BorderPane>

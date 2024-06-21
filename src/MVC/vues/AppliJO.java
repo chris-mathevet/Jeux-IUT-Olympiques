@@ -295,6 +295,8 @@ public class AppliJO extends Application {
                 break;
         }
         this.updateClassement(tri);
+        this.updateAthlete();
+        this.updateEquipe();
         try {
             this.majEpreuve();
         } catch (Exception e) {
@@ -509,16 +511,12 @@ public class AppliJO extends Application {
 
         this.boutonAjouterEquipe = (Button) enfantParticipants2.lookup("#boutonAjouterParticipants2 ");
         this.boutonAjouterEquipe.setOnAction(new ControleurAjouter(this, modele));
-        System.out.println(this.boutonAjouterEquipe);
         
         this.txtFieldNomEquipe = (TextField) enfantParticipants2.lookup("#txtFldNomEquipe");
         this.txtFieldPaysEquipe = (TextField) enfantParticipants2.lookup("#txtFldPaysEquipe");
         this.comboBoxSexeEquipe = (ComboBox<String>) enfantParticipants2.lookup("#comboBoxSexeEquipe");
 
-
         this.comboBoxSexeEquipe.getItems().addAll("Homme", "Femme");
-
-        System.out.println(this.comboBoxSexeAthlete);
 
         this.equ = new TableView<>();
         this.equ.setId("tableauEquipe");
@@ -543,11 +541,11 @@ public class AppliJO extends Application {
         }
     }
 
-    public ComboBox getComboSexeAthlete() {
+    public ComboBox<String> getComboSexeAthlete() {
         return this.comboBoxSexeAthlete;
     }
 
-    public ComboBox getComboSexeEquipe() {
+    public ComboBox<String> getComboSexeEquipe() {
         return this.comboBoxSexeEquipe;
     }
 
@@ -588,12 +586,10 @@ public class AppliJO extends Application {
 
         this.ath.setOpacity(0.9);
 
-
         double[] sceneWidth = {0.0};
 
         ath.widthProperty().addListener((observable, oldValue, newValue) -> {
                 sceneWidth[0] = newValue.doubleValue(); 
-        
             
             int nbCol = ath.getColumns().size();
             for(TableColumn<AthletesTableau,?> col : this.ath.getColumns()){

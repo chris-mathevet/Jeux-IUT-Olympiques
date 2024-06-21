@@ -184,14 +184,6 @@
     -fx-background-color: transparent;
 }
 
-/* .lesScrollPane{
-    -fx-background-radius: 45;
-    -fx-background-color: #D4C47C;
-    -fx-border-color: #aa9d63;
-    -fx-border-width: 5;
-    -fx-border-radius: 40;
-} */
-
 #borderPaneEpreuve{
     -fx-background-radius: 15;
     -fx-background-color: White;
@@ -215,24 +207,31 @@
     -fx-border-radius: 40 0 0 40;
 }
 
-.scroll-pane{
+.scroll-pane, .titled-pane{
     -fx-background-color: transparent;
 }
 
-.scroll-bar{
+.scroll-bar, .titled-pane > .title{
     -fx-background-color: #aa9d63;
 }
 
-.scroll-bar .increment-button .increment-arrow, .scroll-bar .decrement-button .decrement-arrow{
+.scroll-bar .increment-button .increment-arrow, .scroll-bar .decrement-button .decrement-arrow {
     -fx-background-color: #867d52;
 }
 
-.scroll-bar .increment-button , .scroll-bar .decrement-button {
+.scroll-bar .increment-button , .scroll-bar .decrement-button, .titled-pane > .title > .arrow-button .arrow{
     -fx-background-color: #8b856c;
 }
 
 .scroll-bar .thumb{
     -fx-background-color: #D4C47C;
+
+}
+
+#titledPane2 > .content{
+    -fx-background-color: white;
+    -fx-background-radius: 0 0 0 15;
+    -fx-border-color: transparent;
 }
 
 .imageEpreuve{
