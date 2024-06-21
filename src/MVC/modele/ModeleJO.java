@@ -117,7 +117,9 @@ public class ModeleJO {
             Manche<Participant> manche = new Manche<>(1, "tour", epreuve);
             System.out.println(epreuve);
             System.out.println(epreuve.getLesParticipants());
-            
+            for (Participant particp : epreuve.getLesParticipants()) {                
+                this.inscrireEpreuve(particp, epreuve);
+            }
 
         } catch (Exception e){
             System.err.println(e.getMessage());

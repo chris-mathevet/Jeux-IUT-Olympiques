@@ -302,7 +302,7 @@ public class Requete {
 
 
         try {
-            return new Epreuve<>(descripEpreuve,this.modele.getSport(nomSport),sexe);
+            return this.modele.getEpreuve(descripEpreuve, sexe);
         } catch (DoesntExistException e) {
             e.printStackTrace();
         } 
@@ -547,6 +547,8 @@ public class Requete {
     //         }
     //     }
     // }
+
+    
 
     public void insertAllEpreuve() throws SQLException {
         Sport voley = new VoleyBall();
