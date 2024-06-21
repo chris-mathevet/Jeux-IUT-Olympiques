@@ -286,6 +286,11 @@ public class AppliJO extends Application {
                 break;
         }
         this.updateClassement(tri);
+        try {
+            this.majEpreuve();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     public void modeClassement() throws Exception {
